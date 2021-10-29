@@ -266,7 +266,7 @@ def check_grammar(orig_sents, comp_label):
 if __name__ == '__main__':
     file_name = "business"
     sent_path = "./comp_input/" + file_name + ".cln.sent"
-    comp_label = load_label("./comp_label/slahan_w_syn/2_" + file_name + "_result_greedy.sents")
+    comp_label = load_label("./comp_res/2_" + file_name + "_result_greedy.sents")
     orig_sents = load_orig_sent(sent_path)
     check_grammar(orig_sents, comp_label)
 
