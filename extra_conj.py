@@ -1,41 +1,13 @@
 import spacy
 from nltk import CoreNLPParser
-from nltk.tree import *
-from stanfordcorenlp import StanfordCoreNLP
+# from nltk.tree import *
+# from stanfordcorenlp import StanfordCoreNLP
+import stanza
 
 ## Stanford Corenlp constituency parser
 eng_parser = CoreNLPParser('http://127.0.0.1:9000')
 ## SpaCy dependency parser
 nlp = spacy.load("en_core_web_sm")
-
-
-## load dictionary.txt (Saved some fixed collocations)
-def load_dictionary(d_path):
-    d = open(d_path, "r")
-    line = d.readline()
-    dictionary = {}
-    while line:
-        if "key " in line:
-            key = line[:-1].split(" ")[-1]
-            dictionary[key] = []
-        elif len(line) > 1:
-            l_words = line[:-1].split(" ")
-            index = l_words.index(key) - 1
-            dictionary[key].append(l_words[index])
-        line = d.readline()
-    return dictionary
-
-## load compress result from file, 1 is reserved
-def load_label(label_path):
-    labels = open(label_path, mode="r")
-    label = labels.readline()
-    label_list = []
-    while label:
-        label = label.split(" ")[1:-1]
-        label = [int(x) for x in label]
-        label_list.append(label)
-        label = labels.readline()
-    return label_list
 
 ## load the original sentences from file
 def load_orig_sent(orig_path):
@@ -61,6 +33,16 @@ def load_conj_sent(path):
         sent_list.append(sent.strip())
         sent = conj_sents.readline()
     return sent_list
+
+def output_conj_sent(path,res):
+    fo = open(path,'w')
+    for i in res:
+        str = ""
+        for j in i:
+            str += j+"; "
+        str += '\n'
+        fo.write(str)
+    fo.close()
 
 # 并列连词：
 #     表转折：but，yet，while
@@ -92,9 +74,10 @@ def extract_conj(orig_sents):
             else:
                 pass
             j+=1
-        print(text,ans)
+        # print(text,ans)
         res.append(ans)
-    print(res)
+    # print(res)
+    return res;
 
 
 def single_conj(min,j,doc,ans):
@@ -125,71 +108,84 @@ def two_conj(j,doc,ans):
         ans.append(str.strip())
     return i+1;
 
-def test(orig_sents):
-    for i in range(5):
-        text = orig_sents[i]
-        doc = list(nlp(text))
-        for token in doc:
-            print("{0}/{1} <--{2}-- {3}/{4}".format(
-                token.text, token.pos_, token.dep_, token.head.text, token.head.pos_))
-            print("subtree: ",end='  ')
-            for k in token.subtree:
-                print("{0} ".format(k.text),end=' ')
-            print()
-    text = "Not only he but also his son joined the Party two years ago."
-    doc = list(nlp(text))
-    for token in doc:
-        print("{0}/{1} <--{2}-- {3}/{4}".format(
-            token.text, token.pos_, token.dep_, token.head.text, token.head.pos_))
-        print("subtree: ", end='  ')
-        for k in token.subtree:
-            print("{0} ".format(k.text), end=' ')
-        print()
+# def test(orig_sents):
+#     for i in range(5):
+#         text = orig_sents[i]
+#         doc = list(nlp(text))
+#         for token in doc:
+#             print("{0}/{1} <--{2}-- {3}/{4}".format(
+#                 token.text, token.pos_, token.dep_, token.head.text, token.head.pos_))
+#             print("subtree: ",end='  ')
+#             for k in token.subtree:
+#                 print("{0} ".format(k.text),end=' ')
+#             print()
+#     text = "Not only he but also his son joined the Party two years ago."
+#     doc = list(nlp(text))
+#     for token in doc:
+#         print("{0}/{1} <--{2}-- {3}/{4}".format(
+#             token.text, token.pos_, token.dep_, token.head.text, token.head.pos_))
+#         print("subtree: ", end='  ')
+#         for k in token.subtree:
+#             print("{0} ".format(k.text), end=' ')
+#         print()
 
-def MultiTreePaths(root):
-    def helper(root,path,res):
-        if type(root)==str:
-            res.append(path+str(root))
-            return
-        l = len(root)
-        for i in range(l):
-            if len(root)>=i:
-                if root[i]:
-                    helper(root[i],path+str(root.label())+'->',res)
-    if root is None:
-        return []
-    l = []
-    helper(root,'',l)
-    return l
+
+def stanza_parse(orig_sents):
+    nlp = stanza.Pipeline('en','D:\\PycharmProjects\\stanza_resources')
+    ans = []
+    for sent in orig_sents:
+        flag = True if 'as well as' in sent else False
+        doc = nlp(sent)
+        res = set()
+        for sentence in doc.sentences:
+            tree = sentence.constituency
+            # print(tree.children)
+            queue = []
+            if not tree.label == 'ROOT':
+                return []
+            queue.append(tree)
+            while queue:
+                curr = queue.pop(0)
+                for i in curr.children:
+                    if not i.is_leaf():
+                        if i.label == 'CC':
+                            res.add(bfs(curr))
+                        elif i.label == 'CONJP' and flag:
+                            res.add(bfs(curr))
+                        else:
+                            queue.append(i)
+        # print(res)
+        ans.append(res)
+    print(ans)
+    return ans
+
+def bfs(tree):
+    str = ''
+    for i in tree.leaf_labels():
+        str += ' '+i
+    return str.strip()
+
+
+
 
 
 
 if __name__ == '__main__':
     file_name = "business"
     sent_path = "./comp_input/" + file_name + ".cln.sent"
-    comp_label = load_label("./comp_res/2_" + file_name + "_result_greedy.sents")
     orig_sents = load_orig_sent(sent_path)
 
-    # check_grammar(orig_sents, comp_label)
-
-    # txt = "The pandemic has severely disrupted the education and childcare systems that millions of parents rely on while they 're at work."
-    # txt = "I love bananas,apples and pears."
-    # doc = nlp(txt)
-    # for token in doc:
-    #     print("{0}/{1} <--{2}-- {3}/{4}".format(
-    #         token.text, token.pos_, token.dep_, token.head.text, token.head.pos_))
-
     path = "./comp_input/conj.txt"
+    output_path = './comp_res/res.txt'
     conj_sents = load_conj_sent(path)
-    extract_conj(conj_sents)
-    extract_conj(orig_sents)
 
-    # corenlp = StanfordCoreNLP(r"D:/PycharmProjects/stanfordnlp", lang='en')
-    # tree = Tree.fromstring(corenlp.parse(txt))
-    # r = MultiTreePaths(tree)
-    # print(r)
-    # test(conj_sents)
+    # li = extract_conj(conj_sents)
+    # output_conj_sent(output_path,li)
+    li = extract_conj(orig_sents)
+    output_conj_sent(output_path,li)
 
-
+    # stanza_parse(conj_sents)
+    li = stanza_parse(orig_sents)
+    output_conj_sent('./comp_res/res_stanza.txt',li)
 
 
