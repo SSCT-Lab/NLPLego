@@ -1,0 +1,416 @@
+i = 0
+original: Nintendo has dreamed up a new way for Mario Kart fans .
+modifiy: Nintendo has dreamed up a new way for Mario Kart fans .
+
+i = 1
+original: Keeping employees engaged happy has become a challenge .
+modifiy: Keeping employees engaged happy has become a challenge .
+
+i = 2
+original: Twitter appeared to go down altogether .
+modifiy: Twitter appeared to go down altogether .
+
+i = 3
+original: fears are bubbling up about election interference ransomware .
+modifiy: fears are bubbling up about potential election interference ransomware .
+
+i = 4
+original: Mcdonald is putting a new spin on an old favorite .
+modifiy: Mcdonald is putting a new spin on an old favorite .
+
+i = 5
+original: The pandemic has disrupted the education and childcare systems .
+modifiy: The pandemic has disrupted the education and childcare systems .
+
+i = 6
+original: A case about insurance payouts for businesses heads .
+modifiy: A case about insurance payouts for small businesses .
+
+i = 7
+original: most of the policies involved should pay out offering a potential lifeline businesses .
+modifiy: most of the policies involved should pay out offering a potential lifeline .
+
+i = 8
+original: businesses will have renewed annual policies lockdown .
+modifiy: businesses will have renewed annual policies .
+
+i = 9
+original: Oliver Seadon made the move into teaching .
+modifiy: Oliver Seadon made the move into teaching .
+
+i = 10
+original: in cases of conflicts of interest all had declared their interests .
+modifiy: in cases of potential conflicts of interest all had declared their interests .
+
+i = 11
+original: cars and computer games saw price rises .
+modifiy: cars and computer games saw price rises .
+
+i = 12
+original: NBC set out to schedule a television town hall with Trump .
+modifiy: NBC set out to schedule a television town hall with Trump .
+
+i = 13
+original: Success will depend on reassuring consumers they can afford these new technologies .
+modifiy: Success will depend on reassuring consumers .
+
+i = 14
+original: British Airways is to launch a Covid-19 test .
+modifiy: British Airways is to launch a Covid-19 test .
+
+i = 15
+original: More efforts are needed to boost security capacity promoting digital china
+modifiy: More efforts are needed to boost security capacity
+
+i = 16
+original: they will have to reschedule their flight .
+modifiy: they will have to reschedule their flight .
+
+i = 17
+original: 87 percent of those companies have no plans to shift production out of China .
+modifiy: 87 percent of those companies have no plans to shift production out of China .
+
+i = 18
+original: WeWork was getting bailed out by SoftBank .
+modifiy: WeWork was getting bailed out by SoftBank .
+
+i = 19
+original: he no longer plans to command the mission of the boeing Starliner .
+modifiy: he no longer plans to command the mission of the boeing Starliner .
+
+i = 20
+original: The Federal Communications Commission will draft regulations intended for social media companies .
+modifiy: The Federal Communications Commission will draft regulations intended for social media companies .
+
+i = 21
+original: Facebook and Twitter 's executives have been challenged over their handling of the US election .
+modifiy: Facebook and Twitter 's executives have been challenged over their handling of the US election .
+
+i = 22
+original: nearly 83 percent of the companies counted China as the top the top five priorities .
+modifiy: nearly 83 percent of the surveyed companies counted China as either the top or among the top five priorities .
+
+i = 23
+original: Priscilla Chan knew life 's work would be helping children .
+modifiy: Priscilla Chan knew life 's work would be helping children .
+
+i = 24
+original: The official 's comments came .
+modifiy: The official 's comments came .
+
+i = 25
+original: Amazon has launched its online pharmacy .
+modifiy: Amazon has launched its online pharmacy .
+
+i = 26
+original: Black Americans pay more than any other group to own a home .
+modifiy: Black Americans pay more than any other group to own a home .
+
+i = 27
+original: food price inflation could continue to rise in November .
+modifiy: food price inflation could continue to rise in November .
+
+i = 28
+original: Travel rules have been relaxed to work on poultry farms .
+modifiy: Travel rules have been relaxed for people to work on poultry farms .
+
+i = 29
+original: said they had been forced to stay overnight .
+modifiy: they had been forced to stay overnight .
+
+i = 30
+original: The figures excluded lending .
+modifiy: The figures excluded lending .
+
+i = 31
+original: Mortgage payment holidays are being extended .
+modifiy: Mortgage payment holidays are being extended for homeowners .
+
+i = 32
+original: Thousands have been prevented from paying with cash .
+modifiy: Thousands of people have been prevented from paying with cash .
+
+i = 33
+original: Ensuring responsibility does not lie .
+modifiy: Ensuring responsibility does not lie .
+
+i = 34
+original: Shoppers splurged during the period as coronavirus restrictions .
+modifiy: Shoppers splurged during the period as coronavirus lockdown restrictions were lifted .
+
+i = 35
+original: the app offered privacy features parents .
+modifiy: the app offered privacy features parents .
+
+i = 36
+original: it was losing money on a number accounts .
+modifiy: it was losing money on a large number of such accounts .
+
+i = 37
+original: Online marketplaces bound by a legal obligation .
+modifiy: Online marketplaces bound by a clear legal obligation .
+
+i = 38
+original: the account picked up followers .
+modifiy: the account picked up followers .
+
+i = 39
+original: Tens of thousands of these products could have been sold marketplaces .
+modifiy: Tens of thousands of these products could have been sold via online marketplaces .
+
+i = 40
+original: The moves came as the pandemic rages .
+modifiy: The moves came as the pandemic rages .
+
+i = 41
+original: economists have expressed doubts about the potential for a swift recovery .
+modifiy: economists have expressed doubts about the potential for such a swift recovery .
+
+i = 42
+original: it has struck a balance between protecting jobs .
+modifiy: it has struck a balance between protecting jobs .
+
+i = 43
+original: The technologies will be interconnected .
+modifiy: The technologies will be interconnected .
+
+i = 44
+original: he expects the fair to make Yichang and fruits more known .
+modifiy: he expects the fair to make Yichang and fruits more known .
+
+i = 45
+original: China 's bank pumped cash into the banking system .
+modifiy: China 's bank pumped cash into the banking system .
+
+i = 46
+original: The move was intended to maintain ample liquidity system .
+modifiy: The move was intended to maintain ample liquidity .
+
+i = 47
+original: Consumers have been more cautious than expected .
+modifiy: Consumers have been more cautious than expected .
+
+i = 48
+original: They want eligibility criteria reviewed .
+modifiy: They want eligibility criteria reviewed .
+
+i = 49
+original: people must not travel to second homes .
+modifiy: people must not travel to second homes .
+
+i = 50
+original: sights lay dormant .
+modifiy: sights lay dormant .
+
+i = 51
+original: rural communities face being cut off from access to cash .
+modifiy: rural communities face being cut off from access to cash .
+
+i = 52
+original: engineers are busy testing robots .
+modifiy: engineers are busy testing robots .
+
+i = 53
+original: Firms have been adding to their borrowing .
+modifiy: Firms have been adding to their borrowing .
+
+i = 54
+original: The club 's estimates assume a simple free trade agreement with the EU .
+modifiy: The club 's estimates assume a simple free trade agreement with the EU .
+
+i = 55
+original: parents need to be aware of the risks involved with letting their children use TikTok .
+modifiy: parents need to be aware of the risks involved with letting their children use TikTok .
+
+i = 56
+original: But many of its youngest members get by lying about their date of birth .
+modifiy: But many of its youngest members get by lying about their date of birth .
+
+i = 57
+original: the man 's account was still active .
+modifiy: the man 's account was still active .
+
+i = 58
+original: there had been a lack of applications from women for senior roles .
+modifiy: there had been a lack of applications from women for senior roles .
+
+i = 59
+original: women are more likely to have caring responsibilities .
+modifiy: women are more likely to have caring responsibilities .
+
+i = 60
+original: We want to see more employers embracing practices .
+modifiy: We want to see more employers embracing practices .
+
+i = 61
+original: The adjustment could help improve the transparency and effectiveness of the yuan 's pricing model .
+modifiy: The adjustment could help improve the transparency and effectiveness of the yuan 's existing pricing model .
+
+i = 62
+original: Large home appliances grabbed the second positions .
+modifiy: Large home appliances grabbed the second positions .
+
+i = 63
+original: The entrepreneur showed an amiable demeanor .
+modifiy: The entrepreneur showed an amiable demeanor .
+
+i = 64
+original: The phones were arranged at his shop .
+modifiy: The phones were arranged at his elegant shop .
+
+i = 65
+original: he felt honored to be among the army .
+modifiy: he felt honored to be among the growing army .
+
+i = 66
+original: Economic activity and employment remain well below levels .
+modifiy: Economic activity and employment remain well below levels .
+
+i = 67
+original: TikTok does not allow an account to receive or send direct messages .
+modifiy: TikTok does not allow an account to receive or send direct messages .
+
+i = 68
+original: dialing back government support will undermine the of .
+modifiy: dialing back government support will undermine the strength of the recovery .
+
+i = 69
+original: China pursues a prudent monetary policy .
+modifiy: China pursues a prudent monetary policy .
+
+i = 70
+original: there are factors which could speed up or slow down the recovery .
+modifiy: there are factors which could speed up or slow down the recovery .
+
+i = 71
+original: A vaccine is likely to help the economy .
+modifiy: A vaccine is likely to help the economy .
+
+i = 72
+original: He joined bravo volunteer ambulance as an .
+modifiy: He joined bravo volunteer ambulance as an emergency medical technician .
+
+i = 73
+original: Online services required to alert consumers a product .
+modifiy: Online services required to alert consumers .
+
+i = 74
+original: such moves are a reflection of a development strategy .
+modifiy: such moves are a reflection of a dual-circulation development strategy .
+
+i = 75
+original: customers will be served its rendition as a ramen topping .
+modifiy: customers will be served its rendition as a ramen topping .
+
+i = 76
+original: The high demand for Tecno and Transsion brands kenya is .
+modifiy: The high demand for Tecno and other Transsion brands in kenya is .
+
+i = 77
+original: The center electric drive technologies can be tested validated .
+modifiy: The center .
+
+i = 78
+original: The top science cities are those institutions publish the most output .
+modifiy: The top science cities are those .
+
+i = 79
+original: the pandemic has been a shot of adrenaline .
+modifiy: the pandemic has been a shot of adrenaline .
+
+i = 80
+original: the cash system is being threatened .
+modifiy: the cash system is being threatened .
+
+i = 81
+original: Chinese pig farmers have seen some recovery .
+modifiy: Chinese pig farmers have seen some recovery .
+
+i = 82
+original: the smartphone brand took a position .
+modifiy: the smartphone brand took a position .
+
+i = 83
+original: Jaguar land rove 's sales recovery china has brought results .
+modifiy: Jaguar land rove 's sales recovery in china has brought results .
+
+i = 84
+original: Businesses banks will leap more than fivefold in 2020 .
+modifiy: Businesses will leap more than fivefold in 2020 .
+
+i = 85
+original: a number of countries have stepped up VR marketing efforts .
+modifiy: a number of countries have stepped up VR marketing efforts .
+
+i = 86
+original: The the company signed an agreement with Huawei cloud to deepen cooperation .
+modifiy: The the company signed an agreement with Huawei cloud to deepen cooperation .
+
+i = 87
+original: pharmacy is an important and needed addition to the Amazon online store .
+modifiy: pharmacy is an important and needed addition to the Amazon online store .
+
+i = 88
+original: Cities have become less expensive .
+modifiy: Cities have become less expensive .
+
+i = 89
+original: Chinese cities have risen up the rankings .
+modifiy: Chinese cities have risen up the rankings .
+
+i = 90
+original: investors were keeping a watchful eye on the election .
+modifiy: investors were keeping a watchful eye on the upcoming election .
+
+i = 91
+original: The comparable store sales decreased 9 percent in China .
+modifiy: The comparable store sales decreased 9 percent in China .
+
+i = 92
+original: Borrowers can request a pause repayments .
+modifiy: Borrowers can request from their lender a pause in repayments .
+
+i = 93
+original: Terminus will press into service more than 150 robots .
+modifiy: Terminus will press into service more than 150 robots .
+
+i = 94
+original: The government has plans to make rules to protect cash .
+modifiy: The government has plans to make rules to protect cash .
+
+i = 95
+original: Some people were able to go to another shop .
+modifiy: Some people were able to go to another shop .
+
+i = 96
+original: Some were fitted EU plugs and sold with a UK adapter .
+modifiy: Some were fitted with EU plugs and sold with a UK adapter .
+
+i = 97
+original: The government has moved to cut taxes wages .
+modifiy: The government has moved to cut taxes wages .
+
+i = 98
+original: we keep these measures under constant review .
+modifiy: we keep these measures under constant review .
+
+i = 99
+original: House prices rose at their fastest rate five .
+modifiy: House prices rose at their fastest rate .
+
+i = 100
+original: This refers to the increase in demand for screens laptops and .
+modifiy: This refers to the increase in demand for screens and laptops .
+
+i = 101
+original: Sellers garner a turnover 400 million yuan .
+modifiy: Sellers garner a turnover of about 400 million yuan .
+
+i = 102
+original: the regular payments will encourage private investors to take an ownership stake .
+modifiy: the regular payments will encourage private investors to take an ownership stake .
+
+i = 103
+original: More efforts are needed to enhance the science and technology abilities of Chinese children .
+modifiy: More efforts are needed to enhance the science and technology abilities of Chinese children .
+
