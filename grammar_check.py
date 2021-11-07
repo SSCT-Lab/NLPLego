@@ -67,7 +67,7 @@ def load_label(label_path):
 
 ## load the original sentences from file
 def load_orig_sent(orig_path):
-    orig_sents = open(orig_path, mode="r")
+    orig_sents = open(orig_path, mode="r",encoding='utf-8')
     sent = orig_sents.readline()
     sent_list = []
     while sent:
@@ -430,6 +430,69 @@ def filter_pp_in_sbar(sbar_list, pp_list):
     else:
         return pp_list
 
+def extract_conj(text):
+    res = []
+    # as well as单独处理
+    doc = nlp(text)
+    ans = []
+    min = 0
+    j = 0
+    while j < len(doc):
+        if doc[j].dep_=='preconj':
+#                 two words conj
+            j = two_conj(j,doc,ans)
+            min = j+1
+            if not len(ans) == 0:
+                res.append(ans)
+                ans = []
+            continue
+        elif doc[j].dep_ == 'conj':
+            j = single_conj(min,j,doc,ans)
+            min = j
+            if not len(ans) == 0:
+                res.append(ans)
+                ans = []
+        else:
+            pass
+        j+=1
+    return res;
+
+
+def single_conj(min,j,doc,ans):
+    flag = 0
+    str = ''
+    choose_flag = 0
+    if min != 0 and doc[min] == doc[j].head:
+        for i in doc[min+1:j+1]:
+            if i.text == 'and' or i.text == 'or':
+                choose_flag = 1
+            str += ' '+i.text
+        return j+1;
+    for i in range(min, j+1):
+        if doc[i] == doc[j].head:
+            flag = 1
+        if flag == 1:
+            if doc[i].text == 'and' or doc[i].text == 'or':
+                choose_flag = 1
+            str += ' ' + doc[i].text
+    if choose_flag:
+        print(str)
+        ans.append(str.strip())
+        ans.append(1)
+    return j;
+
+def two_conj(j,doc,ans):
+    str = ''
+    end = 0
+    for i in range(j, len(doc)):
+        str += ' '+doc[i].text
+        if doc[i].dep_ == 'conj' and doc[i].head == doc[j].head:
+            end = i
+            break
+    if not str.isspace():
+        ans.append(str.strip())
+        ans.append(2)
+    return i+1;
 
 def write_list_in_txt(comp_list, orig_comp, file_path):
     f = open(file_path, "w")
@@ -471,6 +534,50 @@ def check_grammar(orig_sents, comp_label):
             res_label = check_pp_integrity(words, res_label, res_pp, pp_flag, noun_chunks)
             print("after prep process: ", res_label)
         #res_label = check_comma(words, res_label)
+
+        conj_str = ''
+        if len(res_pp) == 0:
+            pp_flag = [0]*len(words)
+        for conj_i in range(len(res_label)):
+            conj_str = conj_str +' '+words[conj_i] if (res_label[conj_i]!=-1 and pp_flag[conj_i]==0) else conj_str
+        print("conj_Str: ",conj_str)
+        conj_res = extract_conj(conj_str)
+        print("conj_res: ",conj_res)
+        for conj_li in conj_res:
+            if conj_li[1] == 1:
+                conj_word = conj_li[0].split(" ")
+                conj_index = -1
+                for temp in range(len(words)):
+                    if conj_word[0] == words[temp] and conj_word == words[temp:temp+len(conj_word)]:
+                        conj_index = temp
+                        break
+                if not conj_index == -1:
+                    print("conj_index: ",conj_index,conj_index+len(conj_word),words[conj_index:conj_index+len(conj_word)])
+                    check_index = 0
+                    for check_conj in range(conj_index,conj_index+len(conj_word)):
+                        check_index += 1 if res_label[check_conj] == 1 else 0
+                    if check_index == len(conj_word) - 1:
+                        for check_conj in range(conj_index,conj_index+len(conj_word)):
+                            res_label[check_conj] = 1
+            elif conj_li[1] == 2:
+                conj_word = conj_li[0].split(" ")
+                conj_index = -1
+                for temp in range(len(words)):
+                    if conj_word[0] == words[temp] and conj_word == words[temp:temp+len(conj_word)]:
+                        conj_index = temp
+                        break
+                if not conj_index == -1:
+                    print("conj_index: ",conj_index,conj_index+len(conj_word),words[conj_index:conj_index+len(conj_word)])
+                    check_index = False
+                    for check_conj in range(conj_index,conj_index+len(conj_word)):
+                        if res_label[check_conj] == 1:
+                            check_index = True
+                            break
+                    if check_index:
+                        for check_conj in range(conj_index,conj_index+len(conj_word)):
+                            res_label[check_conj] = 1
+        print("after conj process: ", res_label)
+
         empty_flag = True
         for j in range(0, len(res_label) - 1):
             if res_label[j] == 1:
@@ -481,13 +588,14 @@ def check_grammar(orig_sents, comp_label):
         orig_comp.append(get_res_by_label(words, comp_label[i]))
         comp_res = get_res_by_label(words, res_label)
         comp_list.append(comp_res)
-    write_list_in_txt(comp_list, orig_comp, "./modify_res.txt")
+    write_list_in_txt(comp_list, orig_comp, "./comp_res/modify_res_conj.txt")
+    # write_list_in_txt(comp_list, orig_comp, "./comp_res/modify_res.txt")
 
 
 if __name__ == '__main__':
     file_name = "business"
     sent_path = "./comp_input/" + file_name + ".cln.sent"
-    comp_label = load_label("./comp_label/slahan_w_syn/2_" + file_name + "_result_greedy.sents")
+    comp_label = load_label("./comp_res/slahan_w_syn/2_" + file_name + "_result_greedy.sents")
     orig_sents = load_orig_sent(sent_path)
     check_grammar(orig_sents, comp_label)
 
