@@ -35,7 +35,7 @@ def extract_ner(orig_sents):
         doc = nlp(text)
         li = []
         for ent in doc.ents:
-            if ent.label_ in ['PERSON', 'GPE', 'ORG', 'NORP', 'PRODUCT', 'EVENT', 'LOC']:
+            if ent.label_ in ['PERSON', 'GPE', 'ORG', 'NORP', 'PRODUCT', 'EVENT', 'LOC'] and len(ent.text.split()) >= 2:
                 li.append(ent.text)
             # print(ent.text, ent.label_)
         extract_ner_byAlpha(text,li)
@@ -44,15 +44,18 @@ def extract_ner(orig_sents):
 
 def extract_ner_byAlpha(text,li):
     arr = text.split()
+    arr[0] = arr[0][0].lower()+arr[0][1:-1]
     for i in range(len(arr)):
         if not arr[i][0].isupper():
             arr[i] = '#'
     s = ''
+    # print(arr)
     for word in arr:
         if word == '#':
-            if len(s.split()) > 1 and str_in_list(s.strip(), li):
-                list_in_str(s.strip(),li)
-                li.append(s.strip())
+            s = s.strip()
+            if len(s.split()) > 1 and str_in_list(s, li):
+                list_in_str(s, li)
+                li.append(s)
             s = ''
         else:
             s += word + ' '
