@@ -1,0 +1,520 @@
+i = 0
+subj: Nintendo
+predicate: dreamed
+dobj: a new way for Mario Kart fans
+
+i = 1
+subj: Keeping employees
+predicate: become
+dobj: employees
+
+i = 2
+subj: Twitter
+predicate: appeared
+dobj: None
+
+i = 3
+subj: the nation
+predicate: bubbling
+dobj: None
+
+i = 4
+subj: Mcdonald
+predicate: putting
+dobj: a new spin
+
+i = 5
+subj: The pandemic
+predicate: disrupted
+dobj: the education and childcare systems that millions of parents rely on while they 're at work
+
+i = 6
+subj: who
+predicate: A hotly-contested case
+dobj: None
+
+i = 7
+subj: This
+predicate: went
+dobj: a potential lifeline
+
+i = 8
+subj: Many businesses
+predicate: renewed
+dobj: annual policies
+
+i = 9
+subj: Oliver Seadon
+predicate: made
+dobj: the move
+
+i = 10
+subj: The NAO
+predicate: concluded
+dobj: ministers
+
+i = 11
+subj: Second-hand cars and computer games
+predicate: saw
+dobj: price rises
+
+i = 12
+subj: NBC
+predicate: were
+dobj: a television town hall
+
+i = 13
+subj: Success
+predicate: depend
+dobj: consumers
+
+i = 14
+subj: British Airways
+predicate: is
+dobj: a voluntary Covid-19 test for passengers travelling to the UK from three US airports
+
+i = 15
+subj: More urgent efforts
+predicate: needed
+dobj: security capacity
+
+i = 16
+subj: they
+predicate: have
+dobj: their flight
+
+i = 17
+subj: the survey
+predicate: showed
+dobj: no plans to shift production out of China
+
+i = 18
+subj: WeWork
+predicate: bailed
+dobj: None
+
+i = 19
+subj: Former Nasa astronaut Chris Ferguson
+predicate: says
+dobj: the first-ever crewed mission of the boeing Starliner , the spacecraft he 's spent the last decade helping to build
+
+i = 20
+subj: The Federal Communications Commission ( FCC )
+predicate: said
+dobj: regulations intended for social media companies following a petition earlier this year by the Trump administration
+
+i = 21
+subj: Facebook and Twitter 's chief executives
+predicate: challenged
+dobj: None
+
+i = 22
+subj: nearly 83 percent of the surveyed companies
+predicate: counted
+dobj: China
+
+i = 23
+subj: Priscilla Chan
+predicate: knew
+dobj: children
+
+i = 24
+subj: The official 's comments came after the ministry of commerce issued a regulation on the unreliable entities list гн a blacklist of foreign parties that harm the legitimate interests of Chinese companies , which became effective on Saturday
+predicate: came
+dobj: a regulation on the unreliable entities list
+
+i = 25
+subj: Amazon
+predicate: launched
+dobj: its own online pharmacy that will allow customers to buy prescription medicines
+
+i = 26
+subj: Black Americans
+predicate: pay
+dobj: more than any other group
+
+i = 27
+subj: Analyst firm Capital Economics
+predicate: said
+dobj: None
+
+i = 28
+subj: Travel rules
+predicate: relaxed
+dobj: None
+
+i = 29
+subj: Women working at a Ralph Lauren supplier
+predicate: said
+dobj: orders
+
+i = 30
+subj: The figures
+predicate: excluded
+dobj: lending
+
+i = 31
+subj: Mortgage payment holidays
+predicate: extended
+dobj: None
+
+i = 32
+subj: Thousands of people
+predicate: prevented
+dobj: None
+
+i = 33
+subj: Ensuring responsibility
+predicate: lie
+dobj: the sites
+
+i = 34
+subj: Shoppers
+predicate: said
+dobj: None
+
+i = 35
+subj: A spokesman
+predicate: noted
+dobj: privacy
+
+i = 36
+subj: The bank
+predicate: said
+dobj: money
+
+i = 37
+subj: None
+predicate: Online marketplaces
+dobj: the sale of substandard product
+
+i = 38
+subj: the account
+predicate: picked
+dobj: followers including what appeared to be older men
+
+i = 39
+subj: Tens of thousands of these products
+predicate: said
+dobj: None
+
+i = 40
+subj: The moves
+predicate: came
+dobj: new restrictions
+
+i = 41
+subj: Other economists
+predicate: expressed
+dobj: doubts about the potential
+
+i = 42
+subj: The government
+predicate: maintains
+dobj: a balance between protecting jobs , the economy and saving lives
+
+i = 43
+subj: The next-generation technologies
+predicate: interconnected
+dobj: a smart and innovative ecosystem for future-oriented space
+
+i = 44
+subj: Zhang
+predicate: said
+dobj: Yichang and its citrus fruits more known to international customers
+
+i = 45
+subj: China 's central bank
+predicate: pumped
+dobj: cash
+
+i = 46
+subj: The move
+predicate: said
+dobj: reasonably ample liquidity in the banking system
+
+i = 47
+subj: Consumers
+predicate: been
+dobj: growth
+
+i = 48
+subj: They
+predicate: want
+dobj: eligibility criteria reviewed to help those who have been left out of support so far
+
+i = 49
+subj: The government
+predicate: said
+dobj: None
+
+i = 50
+subj: once-crowded sights
+predicate: lay
+dobj: None
+
+i = 51
+subj: The move
+predicate: raised
+dobj: concerns that rural and deprived communities face being cut off from access to cash
+
+i = 52
+subj: engineers of the high-tech company
+predicate: are
+dobj: None
+
+i = 53
+subj: Firms
+predicate: adding
+dobj: the pandemic
+
+i = 54
+subj: The club 's estimates
+predicate: assume
+dobj: a simple free trade agreement with the EU by the end of the year
+
+i = 55
+subj: Child safety experts
+predicate: say
+dobj: TikTok
+
+i = 56
+subj: many of its youngest members
+predicate: get
+dobj: None
+
+i = 57
+subj: the man 's account
+predicate: was
+dobj: the company
+
+i = 58
+subj: It
+predicate: found
+dobj: None
+
+i = 59
+subj: women
+predicate: are
+dobj: caring responsibilities
+
+i = 60
+subj: We
+predicate: want
+dobj: more employers embracing practices such as working from home and returners programmes , which can have a positive impact for both men and women
+
+i = 61
+subj: The adjustment
+predicate: said
+dobj: the transparency and effectiveness of the yuan 's existing pricing model
+
+i = 62
+subj: Large home appliances and the book , audio and video industries
+predicate: grabbed
+dobj: the second and third positions on the list
+
+i = 63
+subj: The entrepreneur
+predicate: showed
+dobj: an amiable demeanor
+
+i = 64
+subj: The phones
+predicate: arranged
+dobj: None
+
+i = 65
+subj: Mwendwa
+predicate: said
+dobj: None
+
+i = 66
+subj: Economic activity and employment in large parts of the world , including in the United States and Europe
+predicate: remain
+dobj: None
+
+i = 67
+subj: TikTok
+predicate: allow
+dobj: direct messages
+
+i = 68
+subj: Economists
+predicate: say
+dobj: government support
+
+i = 69
+subj: China
+predicate: pursues
+dobj: a prudent monetary policy
+
+i = 70
+subj: which
+predicate: said
+dobj: the recovery
+
+i = 71
+subj: A vaccine
+predicate: is
+dobj: the economy
+
+i = 72
+subj: He
+predicate: joined
+dobj: bravo volunteer ambulance
+
+i = 73
+subj: who
+predicate: Online services
+dobj: consumers who have bought a product found to be substandard ,
+
+i = 74
+subj: Analysts
+predicate: said
+dobj: the nation 's emphasis on high-quality development
+
+i = 75
+subj: Beyond
+predicate: says
+dobj: its rendition
+
+i = 76
+subj: The high demand for Tecno and other Transsion brands in kenya
+predicate: is
+dobj: None
+
+i = 77
+subj: The center ,
+predicate: include
+dobj: operation
+
+i = 78
+subj: The top science cities
+predicate: are
+dobj: the most output
+
+i = 79
+subj: He
+predicate: says
+dobj: that
+
+i = 80
+subj: The consumer group
+predicate: warned
+dobj: payments using banknotes and coins during the coronavirus crisis
+
+i = 81
+subj: Chinese pig farmers
+predicate: wrote
+dobj: some recovery
+
+i = 82
+subj: This
+predicate: is
+dobj: such a position
+
+i = 83
+subj: Jaguar
+predicate: land
+dobj: strong results
+
+i = 84
+subj: Businesses
+predicate: leap
+dobj: None
+
+i = 85
+subj: a number of countries
+predicate: stepped
+dobj: VR marketing efforts to prepare for the gradual recovery of their tourism industries
+
+i = 86
+subj: the company
+predicate: signed
+dobj: an agreement with Huawei cloud to deepen cooperation in cloud , artificial intelligence , and big data
+
+i = 87
+subj: more and more people
+predicate: is
+dobj: everyday errands from home
+
+i = 88
+subj: Cities in the Americas , Africa and Eastern Europe
+predicate: become
+dobj: None
+
+i = 89
+subj: Most Chinese cities
+predicate: risen
+dobj: the rankings
+
+i = 90
+subj: investors
+predicate: keeping
+dobj: a watchful eye
+
+i = 91
+subj: The fourth-quarter comparable store sales
+predicate: said
+dobj: a sustained recovery
+
+i = 92
+subj: Borrowers who have not yet had a mortgage holiday
+predicate: last
+dobj: a mortgage holiday
+
+i = 93
+subj: Terminus
+predicate: press
+dobj: more than 150 robots , including patrol robots , welcome robots , guiding robots , and goods-delivering robots
+
+i = 94
+subj: The government
+predicate: has
+dobj: plans to make rules to protect cash
+
+i = 95
+subj: Some people
+predicate: were
+dobj: what
+
+i = 96
+subj: Some were fitted with EU plugs , and sold with a UK adapter to use permanently , which increases the risk of an electric shock or fire
+predicate: fitted
+dobj: the risk of an electric shock or fire
+
+i = 97
+subj: The government
+predicate: moved
+dobj: taxes
+
+i = 98
+subj: We
+predicate: been
+dobj: these measures
+
+i = 99
+subj: House prices
+predicate: said
+dobj: next year 's stamp duty deadline
+
+i = 100
+subj: This
+predicate: refers
+dobj: online meeting platforms
+
+i = 101
+subj: Sellers at a clothing distribution center in the eastern chinese city of Changshu
+predicate: garner
+dobj: a daily turnover of about 400 million yuan
+
+i = 102
+subj: The government
+predicate: hopes
+dobj: private sector investors
+
+i = 103
+subj: More efforts
+predicate: needed
+dobj: the science and technology abilities of Chinese children
+
