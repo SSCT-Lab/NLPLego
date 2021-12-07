@@ -298,7 +298,11 @@ def get_prep_list_by_dependency(sent):
     for i in doc.noun_chunks:
         noun_chunks.append(i.text)
     ##Traversal preposition
+    i = 0
     for w in doc:
+        if (i > 0) & (i + 1 < len(s_word)):
+            if (s_word[i-1] == "-") & (s_word[i+1] == "-"):
+                continue
         vp_flag = False
         if (w.pos_ == "ADP") | (w.text == "to"):
             network = [t.text for t in list(w.children)]
@@ -423,6 +427,7 @@ def get_prep_list_by_dependency(sent):
                                 pp_list.append(('p', pp_str))
                             for i in range(len(pp_word)):
                                 pp_flag[s_idx + i] = 1
+        i += 1
     return pp_list, noun_chunks
 
 
