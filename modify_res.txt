@@ -1,0 +1,48 @@
+i = 0
+original: The Normans were the people gave their name to Normandy .
+modifiy: The Normans were the people .
+
+i = 1
+original: They were descended Norman comes agreed to swear fealty Charles III .
+modifiy: They were descended Norman comes .
+
+i = 2
+original: their descendants would merge with the cultures of West Francia .
+modifiy: their descendants would gradually merge with the Carolingian-based cultures of West Francia .
+
+i = 3
+original: The cultural and identity of the Normans emerged .
+modifiy: The cultural and ethnic identity of the Normans emerged initially in the first half of the 10th century .
+
+i = 4
+original: The Norman dynasty had a impact on Europe .
+modifiy: The Norman dynasty had a impact on medieval Europe and even the Near East .
+
+i = 5
+original: The Normans were famed for their martial spirit .
+modifiy: The Normans were famed for their martial spirit .
+
+i = 6
+original: They adopted the Gallo-Romance language of the Frankish land they .
+modifiy: They adopted the Gallo-Romance language of the Frankish land they settled .
+
+i = 7
+original: The Duchy of Normandy was a great fief of medieval France .
+modifiy: The Duchy of Normandy was a great fief of medieval France .
+
+i = 8
+original: The Normans are noted for their culture .
+modifiy: The Normans are noted both for their culture .
+
+i = 9
+original: Norman adventurers founded the Kingdom of Sicily .
+modifiy: Norman adventurers founded the Kingdom of Sicily .
+
+i = 10
+original: Norman cultural influence spread from these to the Crusader states .
+modifiy: Norman cultural influence spread from these new European centres to the Crusader states .
+
+i = 11
+original: The name Normans comes from the French words Normans/Normanz .
+modifiy: The name Normans comes from the French words Normans/Normanz .
+

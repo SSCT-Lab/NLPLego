@@ -1,7 +1,6 @@
 import spacy
 from nltk import CoreNLPParser
 import numpy
-
 ## Stanford Corenlp constituency parser
 eng_parser = CoreNLPParser('http://127.0.0.1:9000')
 ## SpaCy dependency parser
@@ -111,7 +110,8 @@ def load_label(label_path):
 
 ## load the original sentences from file
 def load_orig_sent(orig_path):
-    orig_sents = open(orig_path, mode="r")
+    # orig_sents = open(orig_path, mode="r")
+    orig_sents = open(orig_path, mode="r", encoding='utf-8')
     sent = orig_sents.readline()
     sent_list = []
     while sent:
@@ -785,7 +785,8 @@ def two_conj(j, doc, ans):
 
 
 def write_list_in_txt(comp_list, orig_comp, file_path):
-    f = open(file_path, "w")
+    # f = open(file_path, "w")
+    f = open(file_path, "w", encoding="utf-8")
     for i in range(len(comp_list)):
         f.write("i = " + str(i) + "\n")
         f.write("original: " + orig_comp[i] + "\n")
@@ -897,7 +898,8 @@ def check_grammar(orig_sents, comp_label):
 
 def grammar_check_main(file_name):
     sent_path = "./comp_input/" + file_name + ".cln.sent"
-    comp_label = load_label("./comp_label/slahan_w_syn/2_" + file_name + "_result_greedy.sents")
+    # comp_label = load_label("./comp_label/slahan_w_syn/2_" + file_name + "_result_greedy.sents")
+    comp_label = load_label("./comp_res/slahan_w_syn/2_" + file_name + "_result_greedy.sents")
     orig_sents = load_orig_sent(sent_path)
     label_list, all_sbar, all_pp, all_conj, comp_list = check_grammar(orig_sents, comp_label)
     return label_list, all_sbar, all_pp, all_conj, comp_list

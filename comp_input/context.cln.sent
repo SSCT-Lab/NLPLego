@@ -37,7 +37,7 @@
 <s> Some Normans joined Turkish forces to aid in the destruction of the Armenians vassal-states of Sassoun and Taron in far eastern Anatolia . <\s>
 <s> Later , many took up service with the Armenian state further south in Cilicia and the Taurus Mountains . <\s>
 <s> A Norman named Oursel led a force of `` Franks '' into the upper Euphrates valley in northern Syria . <\s>
-<s> From 1073 to 1074 , 8 , 000 of the 20 , 000 troops of the Armenian general Philaretus Brachamius were Normans—formerly of Oursel—led by Raimbaud . <\s>
+<s> From 1073 to 1074 , 8 , 000 of the 20 , 000 troops of the Armenian general Philaretus Brachamius were Normans — formerly of Oursel — led by Raimbaud . <\s>
 <s> They even lent their ethnicity to the name of their castle : Afranji , meaning `` Franks . '' <\s>
 <s> The known trade between Amalfi and Antioch and between Bari and Tarsus may be related to the presence of Italo-Normans in those cities while Amalfi and Bari were under Norman rule in Italy . <\s>
 <s> Several families of Byzantine Greece were of Norman mercenary origin during the period of the Comnenian Restoration , when Byzantine emperors were seeking out western European warriors . <\s>
@@ -60,7 +60,7 @@
 <s> With their help , the Normans secured the Arbanon passes and opened their way to Dibra . <\s>
 <s> The lack of supplies , disease and Byzantine resistance forced Bohemond to retreat from his campaign and sign a peace treaty with the Byzantines in the city of Deabolis . <\s>
 <s> The further decline of Byzantine state-of-affairs paved the road to a third attack in 1185 , when a large Norman army invaded Dyrrachium , owing to the betrayal of high Byzantine officials . <\s>
-<s> Some time later , Dyrrachium—one of the most important naval bases of the Adriatic—fell again to Byzantine hands . <\s>
+<s> Some time later , Dyrrachium — one of the most important naval bases of the Adriatic — fell again to Byzantine hands . <\s>
 <s> The Normans were in contact with England from an early date . <\s>
 <s> Not only were their original Viking brethren still ravaging the English coasts , they occupied most of the important ports opposite England across the English Channel . <\s>
 <s> This relationship eventually produced closer ties of blood through the marriage of Emma , sister of Duke Richard II of Normandy , and King Ethelred II of England . <\s>
@@ -75,7 +75,7 @@
 <s> The invading Normans and their descendants replaced the Anglo-Saxons as the ruling class of England . <\s>
 <s> The nobility of England were part of a single Normans culture and many had lands on both sides of the channel . <\s>
 <s> Early Norman kings of England , as Dukes of Normandy , owed homage to the King of France for their land on the continent . <\s>
-<s> They considered England to be their most important holding ( it brought with it the title of King—an important status symbol ) . <\s>
+<s> They considered England to be their most important holding ( it brought with it the title of King — an important status symbol ) . <\s>
 <s> Eventually , the Normans merged with the natives , combining languages and traditions . <\s>
 <s> In the course of the Hundred Years' War , the Norman aristocracy often identified themselves as English . <\s>
 <s> The Anglo-Norman language became distinct from the Latin language , something that was the subject of some humour by Geoffrey Chaucer . <\s>
@@ -203,7 +203,7 @@
 <s> An example of a decision problem is the following . <\s>
 <s> The input is an arbitrary graph . <\s>
 <s> The problem consists in deciding whether the given graph is connected , or not . <\s>
-<s> The formal language associated with this decision problem is then the set of all connected graphs—of course , to obtain a precise definition of this language , one has to decide how graphs are encoded as binary strings . <\s>
+<s> The formal language associated with this decision problem is then the set of all connected graphs — of course , to obtain a precise definition of this language , one has to decide how graphs are encoded as binary strings . <\s>
 <s> A function problem is a computational problem where a single output ( of a total function ) is expected for every input , but the output is more complex than that of a decision problem , that is , it is n't just yes or no . <\s>
 <s> Notable examples include the traveling salesman problem and the integer factorization problem . <\s>
 <s> It is tempting to think that the notion of function problems is much richer than the notion of decision problems . <\s>

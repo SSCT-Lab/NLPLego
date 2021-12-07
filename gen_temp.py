@@ -218,7 +218,8 @@ def gen_step_sentence(temp_list, adjunct_list, comp_list, file_name):
 
 
 def gen_sent_temp_main(file_name):
-    file_name = "business"
+    # file_name = "business"
+    file_name = "context1"
     sent_path = "./comp_input/" + file_name + ".cln.sent"
     orig_sents = load_orig_sent(sent_path)
     label_list, all_sbar, all_pp, all_conj, comp_list = grammar_check_main(file_name)

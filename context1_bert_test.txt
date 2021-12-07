@@ -1,0 +1,472 @@
+sent_id = 0
+The Normans were the people .
+insert t0
+The Normans ( Norman : Nourmands ; French : Normands ; Latin : Normanni ) were the people . 0.5
+
+insert t1
+The Normans ( Norman : Nourmands ; French : Normands ; Latin : Normanni ) were the people who in the 10th and 11th centuries . 0.49007803201675415
+
+insert t2
+The Normans ( Norman : Nourmands ; French : Normands ; Latin : Normanni ) were the people who in the 10th and 11th centuries changed their name to Normandy . 0.38836432809604915
+The Normans ( Norman : Nourmands ; French : Normands ; Latin : Normanni ) were the people who in the 10th and 11th centuries gave their name to Normandy . 0.07968942443882909
+
+insert t3
+The Normans ( Norman : Nourmands ; French : Normands ; Latin : Normanni ) were the people who in the 10th and 11th centuries changed their name to Normandy , a region . 0.19418216404802457
+The Normans ( Norman : Nourmands ; French : Normands ; Latin : Normanni ) were the people who in the 10th and 11th centuries gave their name to Normandy , a region . 0.014384069414422542
+The Normans ( Norman : Nourmands ; French : Normands ; Latin : Normanni ) were the people who in the 10th and 11th centuries gave their name to Normandy , a duchy . 0.01380236001762853
+
+insert t4
+The Normans ( Norman : Nourmands ; French : Normands ; Latin : Normanni ) were the people who in the 10th and 11th centuries changed their name to Normandy , a region in France . 0.09709108202401229
+The Normans ( Norman : Nourmands ; French : Normands ; Latin : Normanni ) were the people who in the 10th and 11th centuries gave their name to Normandy , a region in France . 0.007192034707211271
+The Normans ( Norman : Nourmands ; French : Normands ; Latin : Normanni ) were the people who in the 10th and 11th centuries gave their name to Normandy , a duchy in France . 0.006901180008814265
+
+FIN
+
+sent_id = 1
+They were descended Norman comes .
+insert t0
+They were descended from Norse Norman comes . 0.5
+
+insert t1
+They were descended from Norse ( ` ` Norman comes . 0.25
+
+insert t2
+They were descended from Norse ( ` ` Norman '' comes . 0.125
+
+insert t3
+They were descended from Norse ( ` ` Norman '' comes from ` ` Norseman '' ) sailors and pirates from Denmark . 0.0625
+They were descended from Norse ( ` ` Norman '' comes from ` ` Norseman '' ) raiders and pirates from Denmark . 0.030900537967681885
+They were descended from Norse ( ` ` Norman '' comes from ` ` Norseman '' ) vikings and pirates from Denmark . 0.024035274982452393
+They were descended from Norse ( ` ` Norman '' comes from ` ` Norseman '' ) raiders and traders from Denmark . 0.015759680420160294
+They were descended from Norse ( ` ` Norman '' comes from ` ` Norseman '' ) settlers and pirates from Denmark . 0.0142685417085886
+
+insert t4
+They were descended from Norse ( ` ` Norman '' comes from ` ` Norseman '' ) sailors and pirates from Denmark , Iceland and Norway who . 0.03125
+They were descended from Norse ( ` ` Norman '' comes from ` ` Norseman '' ) raiders and traders from Denmark , Iceland and Norway who . 0.015450268983840942
+They were descended from Norse ( ` ` Norman '' comes from ` ` Norseman '' ) settlers and pirates from Denmark , Iceland and Norway who . 0.012017637491226196
+They were descended from Norse ( ` ` Norman '' comes from ` ` Norseman '' ) vikings and pirates from Denmark , Iceland and Norway who . 0.007879840210080147
+They were descended from Norse ( ` ` Norman '' comes from ` ` Norseman '' ) raiders and pirates from Denmark , Iceland and Norway who . 0.0071342708542943
+
+insert t5
+They were descended from Norse ( ` ` Norman '' comes from ` ` Norseman '' ) sailors and pirates from Denmark , Iceland and Norway who , under their captain Rollo . 0.011288590729236603
+They were descended from Norse ( ` ` Norman '' comes from ` ` Norseman '' ) raiders and traders from Denmark , Iceland and Norway who , under their leader Rollo . 0.008796198144089828
+They were descended from Norse ( ` ` Norman '' comes from ` ` Norseman '' ) sailors and pirates from Denmark , Iceland and Norway who , under their leader Rollo . 0.007979337126016617
+They were descended from Norse ( ` ` Norman '' comes from ` ` Norseman '' ) settlers and pirates from Denmark , Iceland and Norway who , under their leader Rollo . 0.00612437339306382
+They were descended from Norse ( ` ` Norman '' comes from ` ` Norseman '' ) vikings and pirates from Denmark , Iceland and Norway who , under their captain Rollo . 0.004498594381590393
+
+insert t6
+They were descended from Norse ( ` ` Norman '' comes from ` ` Norseman '' ) sailors and pirates from Denmark , Iceland and Norway who , under their leader Rollo , agreed to swear allegiance to King Charles III . 0.010792144050228103
+They were descended from Norse ( ` ` Norman '' comes from ` ` Norseman '' ) raiders and traders from Denmark , Iceland and Norway who , under their leader Rollo , refused to swear fealty to King Charles III . 0.008426857475697736
+They were descended from Norse ( ` ` Norman '' comes from ` ` Norseman '' ) sailors and pirates from Denmark , Iceland and Norway who , under their leader Rollo , agreed to swear fealty to King Charles III . 0.007918180674333808
+They were descended from Norse ( ` ` Norman '' comes from ` ` Norseman '' ) sailors and pirates from Denmark , Iceland and Norway who , under their captain Rollo , agreed to swear allegiance to King Charles III . 0.007649978852404482
+They were descended from Norse ( ` ` Norman '' comes from ` ` Norseman '' ) settlers and pirates from Denmark , Iceland and Norway who , under their captain Rollo , agreed to swear fealty to King Charles III . 0.0058439243618557245
+
+insert t7
+They were descended from Norse ( ` ` Norman '' comes from ` ` Norseman '' ) sailors and pirates from Denmark , Iceland and Norway who , under their leader Rollo , agreed to swear fealty to King Charles III of West Francia . 0.0053960720251140515
+They were descended from Norse ( ` ` Norman '' comes from ` ` Norseman '' ) raiders and traders from Denmark , Iceland and Norway who , under their leader Rollo , agreed to swear fealty to King Charles III of West Francia . 0.004213428737848868
+They were descended from Norse ( ` ` Norman '' comes from ` ` Norseman '' ) sailors and pirates from Denmark , Iceland and Norway who , under their leader Rollo , refused to swear fealty to King Charles III of West Francia . 0.003959090337166904
+They were descended from Norse ( ` ` Norman '' comes from ` ` Norseman '' ) sailors and pirates from Denmark , Iceland and Norway who , under their captain Rollo , refused to swear fealty to King Charles III of West Francia . 0.003824989426202241
+They were descended from Norse ( ` ` Norman '' comes from ` ` Norseman '' ) settlers and pirates from Denmark , Iceland and Norway who , under their captain Rollo , agreed to swear allegiance to King Charles III of West Francia . 0.0029219621809278623
+
+FIN
+
+sent_id = 2
+their descendants would gradually merge with the Carolingian-based cultures of West Francia .
+insert t0
+Through generations , their descendants would gradually merge with the Carolingian-based cultures of West Francia . 0.44461962580680847
+Through time , their descendants would gradually merge with the Carolingian-based cultures of West Francia . 0.5
+
+insert t1
+Through generations of migration , their descendants would gradually merge with the Carolingian-based cultures of West Francia . 0.25
+Through time of assimilation , their descendants would gradually merge with the Carolingian-based cultures of West Francia . 0.22230981290340424
+Through generations of assimilation , their descendants would gradually merge with the Carolingian-based cultures of West Francia . 0.09629528969526291
+
+insert t2
+Through generations of assimilation and mixing with the native Frankish and Roman-Gaulish peoples , their descendants would gradually merge with the Carolingian-based cultures of West Francia . 0.125
+Through generations of assimilation and mixing with the local Frankish and Roman-Gaulish populations , their descendants would gradually merge with the Carolingian-based cultures of West Francia . 0.11522886902093887
+Through time of assimilation and mixing with the native Frankish and Roman-Gaulish populations , their descendants would gradually merge with the Carolingian-based cultures of West Francia . 0.11115490645170212
+Through time of assimilation and mixing with the local Frankish and Roman-Gaulish populations , their descendants would gradually merge with the Carolingian-based cultures of West Francia . 0.10245766543703727
+Through generations of assimilation and assimilation with the native Frankish and Roman-Gaulish populations , their descendants would gradually merge with the Carolingian-based cultures of West Francia . 0.06770357489585876
+
+FIN
+
+sent_id = 3
+The cultural and ethnic identity of the Normans emerged initially in the first half of the 10th century .
+insert t0
+The distinct cultural and ethnic identity of the Normans emerged initially in the first half of the 10th century . 0.24859751760959625
+The distinctive cultural and ethnic identity of the Normans emerged initially in the first half of the 10th century . 0.20429542660713196
+
+insert t1
+The distinct cultural and ethnic identity of the Normans emerged initially in the first half of the 10th century , and it continued to develop over the succeeding centuries . 0.24065226424158492
+The distinct cultural and ethnic identity of the Normans emerged initially in the first half of the 10th century , and it continued to evolve over the succeeding centuries . 0.19761687912930448
+The distinctive cultural and ethnic identity of the Normans emerged initially in the first half of the 10th century , and it continued to grow over the succeeding centuries . 0.19751585746137934
+The distinctive cultural and ethnic identity of the Normans emerged initially in the first half of the 10th century , and it continued to develop over the succeeding centuries . 0.1644839150973958
+The distinct cultural and ethnic identity of the Normans emerged initially in the first half of the 10th century , and it continued to grow over the succeeding centuries . 0.10409691803569121
+
+FIN
+
+sent_id = 4
+The Norman dynasty had a impact on medieval Europe and even the Near East .
+insert t0
+The Norman dynasty had a great political , impact on medieval Europe and even the Near East . 0.25912490487098694
+The Norman dynasty had a major influence , impact on medieval Europe and even the Near East . 0.10720079392194748
+The Norman dynasty had a major political , impact on medieval Europe and even the Near East . 0.5
+The Norman dynasty had a significant political , impact on medieval Europe and even the Near East . 0.34799566864967346
+
+insert t1
+The Norman dynasty had a major influence , cultural and political impact on medieval Europe and even the Near East . 0.2925119996070862
+The Norman dynasty had a significant political , economic and military impact on medieval Europe and even the Near East . 0.15082219573894218
+The Norman dynasty had a significant political , cultural and economic impact on medieval Europe and even the Near East . 0.1302190929543654
+The Norman dynasty had a significant political , cultural and religious impact on medieval Europe and even the Near East . 0.12869929427992322
+The Norman dynasty had a major influence , cultural and economic impact on medieval Europe and even the Near East . 0.1201961562037468
+
+FIN
+
+sent_id = 5
+The Normans were famed for their martial spirit .
+insert t0
+The Normans were famed for their martial spirit and eventually for their Christian conversion . 0.5319657325744629
+The Normans were famed for their martial spirit and especially for their Christian piety . 0.12095849961042404
+The Normans were famed for their martial spirit and eventually for their religious piety . 0.5
+The Normans were famed for their martial spirit and also for their Christian piety . 0.19249406456947327
+The Normans were famed for their martial spirit and eventually for their Christian faith . 0.7146173119544983
+The Normans were famed for their martial spirit and eventually for their Christian piety . 0.13038384914398193
+
+insert t1
+The Normans were famed for their martial spirit and also for their Christian piety , especially exponents . 0.35730865597724915
+The Normans were famed for their martial spirit and especially for their Christian piety , and exponents . 0.26598286628723145
+The Normans were famed for their martial spirit and eventually for their Christian piety , becoming christians . 0.25
+The Normans were famed for their martial spirit and also for their Christian piety , becoming christians . 0.11788391915865315
+The Normans were famed for their martial spirit and also for their Christian piety , becoming exponents . 0.10607879718371827
+
+insert t2
+The Normans were famed for their martial spirit and also for their Christian piety , especially exponents of the Catholic church into . 0.17865432798862457
+The Normans were famed for their martial spirit and especially for their Christian piety , becoming exponents of the Catholic orthodoxy into . 0.13299143314361572
+The Normans were famed for their martial spirit and eventually for their Christian piety , becoming exponents of the Catholic orthodoxy into . 0.125
+The Normans were famed for their martial spirit and also for their Christian piety , especially exponents of the Catholic faith into . 0.059803593294312396
+The Normans were famed for their martial spirit and also for their Christian piety , becoming christians of the Catholic orthodoxy into . 0.058941959579326575
+
+insert t3
+The Normans were famed for their martial spirit and also for their Christian piety , especially exponents of the Catholic orthodoxy into which they fell . 0.08932716399431229
+The Normans were famed for their martial spirit and especially for their Christian piety , becoming exponents of the Catholic orthodoxy into which they fell . 0.06649571657180786
+The Normans were famed for their martial spirit and eventually for their Christian piety , becoming exponents of the Catholic church into which they assimilated . 0.0625
+The Normans were famed for their martial spirit and also for their Christian piety , especially exponents of the Catholic orthodoxy into which they assimilated . 0.05064158318797052
+The Normans were famed for their martial spirit and eventually for their Christian piety , becoming exponents of the Catholic church into which they entered . 0.04608999565243721
+
+FIN
+
+sent_id = 6
+They adopted the Gallo-Romance language of the Frankish land they settled .
+insert t0
+They adopted the Gallo-Romance language of the Frankish land they settled , their language becoming known as Norman . 0.8572916984558105
+They adopted the Gallo-Romance language of the Frankish land they settled , their dialect becoming known as Norman . 0.5
+
+insert t1
+They adopted the Gallo-Romance language of the Frankish land they settled , their language becoming known as Norman , Normaund or Norman French . 0.4286458492279053
+They adopted the Gallo-Romance language of the Frankish land they settled , their dialect becoming known as Norman , Normaund or Norman French . 0.25
+
+insert t2
+They adopted the Gallo-Romance language of the Frankish land they settled , their language becoming known as Norman , Normaund or Norman French , an important romance language . 0.10572898423730592
+They adopted the Gallo-Romance language of the Frankish land they settled , their language becoming known as Norman , Normaund or Norman French , an early literary language . 0.10130493416620467
+They adopted the Gallo-Romance language of the Frankish land they settled , their language becoming known as Norman , Normaund or Norman French , an important norman language . 0.09443717815607044
+They adopted the Gallo-Romance language of the Frankish land they settled , their language becoming known as Norman , Normaund or Norman French , an important literary language . 0.08521780859955896
+They adopted the Gallo-Romance language of the Frankish land they settled , their language becoming known as Norman , Normaund or Norman French , an ancient literary language . 0.08336683326488625
+
+FIN
+
+sent_id = 7
+The Duchy of Normandy was a great fief of medieval France .
+insert t0
+The Duchy of Normandy , which they formed , was a great fief of medieval France . 0.36484721302986145
+The Duchy of Normandy , which they founded , was a great fief of medieval France . 0.3084396421909332
+The Duchy of Normandy , which they ruled , was a great fief of medieval France . 0.5
+
+insert t1
+The Duchy of Normandy , which they formed by conquest , was a great fief of medieval France . 0.25
+The Duchy of Normandy , which they founded by charlemagne , was a great fief of medieval France . 0.18242360651493073
+The Duchy of Normandy , which they ruled by treaty , was a great fief of medieval France . 0.1542198210954666
+The Duchy of Normandy , which they ruled by marriage , was a great fief of medieval France . 0.14458346306137226
+The Duchy of Normandy , which they founded by treaty , was a great fief of medieval France . 0.10051539614245986
+
+insert t2
+The Duchy of Normandy , which they formed by treaty with the French crown , was a great fief of medieval France . 0.21963657438755035
+The Duchy of Normandy , which they founded by treaty with the english crown , was a great fief of medieval France . 0.16027939248701895
+The Duchy of Normandy , which they ruled by treaty with the French crown , was a great fief of medieval France . 0.13755537840208554
+The Duchy of Normandy , which they formed by treaty with the French king , was a great fief of medieval France . 0.125
+The Duchy of Normandy , which they ruled by marriage with the French kings , was a great fief of medieval France . 0.11280436325617145
+
+insert t3
+The Duchy of Normandy , which they formed by treaty with the French crown , was a great fief of medieval France , and under Richard I . 0.10981828719377518
+The Duchy of Normandy , which they founded by treaty with the French king , was a great fief of medieval France , and under Richard I . 0.08013969624350947
+The Duchy of Normandy , which they ruled by treaty with the english crown , was a great fief of medieval France , and under Richard I . 0.06877768920104277
+The Duchy of Normandy , which they formed by treaty with the english crown , was a great fief of medieval France , and under Richard I . 0.0625
+The Duchy of Normandy , which they ruled by marriage with the French crown , was a great fief of medieval France , and under Richard I . 0.056402181628085725
+
+insert t4
+The Duchy of Normandy , which they formed by treaty with the French crown , was a great fief of medieval France , and under Richard I of Normandy was forged into a cohesive and powerful principality . 0.05490914359688759
+The Duchy of Normandy , which they formed by treaty with the French crown , was a great fief of medieval France , and under Richard I of Normandy was developed into a cohesive and formidable principality . 0.04245687106744134
+The Duchy of Normandy , which they founded by treaty with the French king , was a great fief of medieval France , and under Richard I of Normandy was forged into a large and formidable principality . 0.040069848121754736
+The Duchy of Normandy , which they formed by treaty with the French crown , was a great fief of medieval France , and under Richard I of Normandy was forged into a cohesive and formidable nation . 0.04002300723797503
+The Duchy of Normandy , which they ruled by treaty with the english crown , was a great fief of medieval France , and under Richard I of Normandy was forged into a cohesive and formidable principality . 0.034388844600521384
+
+insert t5
+The Duchy of Normandy , which they formed by treaty with the French crown , was a great fief of medieval France , and under Richard I of Normandy was forged into a powerful and formidable principality in feudal times . 0.05251683501688875
+The Duchy of Normandy , which they formed by treaty with the French crown , was a great fief of medieval France , and under Richard I of Normandy was forged into a powerful and formidable principality in feudal tenure . 0.043591653061779256
+The Duchy of Normandy , which they formed by treaty with the French crown , was a great fief of medieval France , and under Richard I of Normandy was transformed into a cohesive and formidable principality in his tenure . 0.04054057929131416
+The Duchy of Normandy , which they formed by treaty with the French crown , was a great fief of medieval France , and under Richard I of Normandy was forged into a large and formidable principality in its tenure . 0.03821972643505152
+The Duchy of Normandy , which they ruled by treaty with the english crown , was a great fief of medieval France , and under Richard I of Normandy was developed into a cohesive and formidable principality in feudal times . 0.03271026137538015
+
+FIN
+
+sent_id = 8
+The Normans are noted both for their culture .
+insert t0
+The Normans are noted both for their culture , such as their unique Romanesque architecture and artistic traditions . 0.13729462027549744
+The Normans are noted both for their culture , such as their rich Romanesque architecture and musical traditions . 0.12070858478546143
+The Normans are noted both for their culture , such as their unique Romanesque architecture and musical traditions . 0.5
+The Normans are noted both for their culture , such as their unique Romanesque architecture and musical instruments . 0.2287246733903885
+The Normans are noted both for their culture , such as their distinctive Romanesque architecture and musical traditions . 0.20703290402889252
+The Normans are noted both for their culture , such as their unique romanesque architecture and musical traditions . 0.4729279577732086
+
+insert t1
+The Normans are noted both for their culture , such as their unique Romanesque architecture and musical traditions , and for their significant technological accomplishments and innovations . 0.25
+The Normans are noted both for their culture , such as their unique romanesque architecture and musical traditions , and for their significant cultural accomplishments and innovations . 0.2364639788866043
+The Normans are noted both for their culture , such as their unique Romanesque architecture and musical traditions , and for their significant military accomplishments and achievements . 0.1822723150253296
+The Normans are noted both for their culture , such as their unique romanesque architecture and musical traditions , and for their numerous military accomplishments and innovations . 0.1724033474070481
+The Normans are noted both for their culture , such as their unique Romanesque architecture and musical traditions , and for their significant artistic accomplishments and innovations . 0.12537607550621033
+
+FIN
+
+sent_id = 9
+Norman adventurers founded the Kingdom of Sicily .
+insert t0
+Norman adventurers founded the Kingdom of Sicily under Roger II . 0.5
+
+insert t1
+Norman adventurers founded the Kingdom of Sicily under Roger II after conquering northern Italy on the Saracens and Byzantines . 0.25
+Norman adventurers founded the Kingdom of Sicily under Roger II after conquering central Italy on the Saracens and Byzantines . 0.12567271292209625
+Norman adventurers founded the Kingdom of Sicily under Roger II after conquering southern Italy on the Saracens and Byzantines . 0.05914958193898201
+
+insert t2
+Norman adventurers founded the Kingdom of Sicily under Roger II after conquering central Italy on the Saracens and Byzantines , and an expedition . 0.125
+Norman adventurers founded the Kingdom of Sicily under Roger II after conquering northern Italy on the Saracens and Byzantines , and an expedition . 0.06283635646104813
+Norman adventurers founded the Kingdom of Sicily under Roger II after conquering southern Italy on the Saracens and Byzantines , and an expedition . 0.029574790969491005
+
+insert t3
+Norman adventurers founded the Kingdom of Sicily under Roger II after conquering central Italy on the Saracens and Byzantines , and an expedition on behalf of their king . 0.12369758635759354
+Norman adventurers founded the Kingdom of Sicily under Roger II after conquering northern Italy on the Saracens and Byzantines , and an expedition on behalf of their king . 0.062185701239714675
+Norman adventurers founded the Kingdom of Sicily under Roger II after conquering central Italy on the Saracens and Byzantines , and an expedition on behalf of their duke . 0.03742019087076187
+Norman adventurers founded the Kingdom of Sicily under Roger II after conquering southern Italy on the Saracens and Byzantines , and an expedition on behalf of their king . 0.029268995410856036
+Norman adventurers founded the Kingdom of Sicily under Roger II after conquering northern Italy on the Saracens and Byzantines , and an expedition on behalf of their duke . 0.020059032230378415
+
+insert t4
+Norman adventurers founded the Kingdom of Sicily under Roger II after conquering central Italy on the Saracens and Byzantines , and an expedition on behalf of their duke , William the Conqueror . 0.06184879317879677
+Norman adventurers founded the Kingdom of Sicily under Roger II after conquering northern Italy on the Saracens and Byzantines , and an expedition on behalf of their duke , William the Conqueror . 0.031092850619857337
+Norman adventurers founded the Kingdom of Sicily under Roger II after conquering central Italy on the Saracens and Byzantines , and an expedition on behalf of their king , William the Conqueror . 0.018710095435380936
+Norman adventurers founded the Kingdom of Sicily under Roger II after conquering southern Italy on the Saracens and Byzantines , and an expedition on behalf of their duke , William the Conqueror . 0.014634497705428018
+Norman adventurers founded the Kingdom of Sicily under Roger II after conquering northern Italy on the Saracens and Byzantines , and an expedition on behalf of their king , William the Conqueror . 0.010029516115189208
+
+insert t5
+Norman adventurers founded the Kingdom of Sicily under Roger II after conquering central Italy on the Saracens and Byzantines , and an expedition on behalf of their duke , William the Conqueror , led to the Norman victory . 0.05132278537401014
+Norman adventurers founded the Kingdom of Sicily under Roger II after conquering northern Italy on the Saracens and Byzantines , and an expedition on behalf of their duke , William the Conqueror , led to the Norman victory . 0.025601764883524336
+Norman adventurers founded the Kingdom of Sicily under Roger II after conquering central Italy on the Saracens and Byzantines , and an expedition on behalf of their duke , William the Conqueror , led to the Norman conquest . 0.02557979071195693
+Norman adventurers founded the Kingdom of Sicily under Roger II after conquering central Italy on the Saracens and Byzantines , and an expedition on behalf of their king , William the Conqueror , led to the Norman victory . 0.01566181995630167
+Norman adventurers founded the Kingdom of Sicily under Roger II after conquering northern Italy on the Saracens and Byzantines , and an expedition on behalf of their duke , William the Conqueror , contributed to the Norman conquest . 0.013423483878993387
+
+insert t6
+Norman adventurers founded the Kingdom of Sicily under Roger II after conquering central Italy on the Saracens and Byzantines , and an expedition on behalf of their duke , William the Conqueror , led to the Norman conquest of England . 0.02566139268700507
+Norman adventurers founded the Kingdom of Sicily under Roger II after conquering northern Italy on the Saracens and Byzantines , and an expedition on behalf of their duke , William the Conqueror , led to the Norman victory of England . 0.012800882441762168
+Norman adventurers founded the Kingdom of Sicily under Roger II after conquering central Italy on the Saracens and Byzantines , and an expedition on behalf of their duke , William the Conqueror , led to the Norman victory of England . 0.012789895355978464
+Norman adventurers founded the Kingdom of Sicily under Roger II after conquering central Italy on the Saracens and Byzantines , and an expedition on behalf of their king , William the Conqueror , led to the Norman conquest of England . 0.007830909978150835
+Norman adventurers founded the Kingdom of Sicily under Roger II after conquering northern Italy on the Saracens and Byzantines , and an expedition on behalf of their duke , William the Conqueror , led to the Norman conquest of England . 0.006711741939496693
+
+insert t7
+Norman adventurers founded the Kingdom of Sicily under Roger II after conquering central Italy on the Saracens and Byzantines , and an expedition on behalf of their duke , William the Conqueror , led to the Norman conquest of England at the Battle of Hastings . 0.012830696343502535
+Norman adventurers founded the Kingdom of Sicily under Roger II after conquering northern Italy on the Saracens and Byzantines , and an expedition on behalf of their duke , William the Conqueror , led to the Norman victory of England at the Battle of Hastings . 0.006400441220881084
+Norman adventurers founded the Kingdom of Sicily under Roger II after conquering central Italy on the Saracens and Byzantines , and an expedition on behalf of their duke , William the Conqueror , led to the Norman victory of England at the Battle of Hastings . 0.006394947677989232
+Norman adventurers founded the Kingdom of Sicily under Roger II after conquering central Italy on the Saracens and Byzantines , and an expedition on behalf of their king , William the Conqueror , led to the Norman conquest of England at the Battle of Hastings . 0.0039154549890754176
+Norman adventurers founded the Kingdom of Sicily under Roger II after conquering northern Italy on the Saracens and Byzantines , and an expedition on behalf of their duke , William the Conqueror , led to the Norman conquest of England at the Battle of Hastings . 0.0033558709697483467
+
+insert t8
+Norman adventurers founded the Kingdom of Sicily under Roger II after conquering central Italy on the Saracens and Byzantines , and an expedition on behalf of their duke , William the Conqueror , led to the Norman conquest of England at the Battle of Hastings in 1066 . 0.006415348171751267
+Norman adventurers founded the Kingdom of Sicily under Roger II after conquering northern Italy on the Saracens and Byzantines , and an expedition on behalf of their duke , William the Conqueror , led to the Norman victory of England at the Battle of Hastings in 1066 . 0.003200220610440542
+Norman adventurers founded the Kingdom of Sicily under Roger II after conquering central Italy on the Saracens and Byzantines , and an expedition on behalf of their duke , William the Conqueror , led to the Norman victory of England at the Battle of Hastings in 1066 . 0.003197473838994616
+Norman adventurers founded the Kingdom of Sicily under Roger II after conquering central Italy on the Saracens and Byzantines , and an expedition on behalf of their king , William the Conqueror , led to the Norman conquest of England at the Battle of Hastings in 1066 . 0.0019577274945377088
+Norman adventurers founded the Kingdom of Sicily under Roger II after conquering northern Italy on the Saracens and Byzantines , and an expedition on behalf of their duke , William the Conqueror , led to the Norman conquest of England at the Battle of Hastings in 1066 . 0.0016779354848741733
+
+FIN
+
+sent_id = 10
+Norman cultural influence spread from these new European centres to the Crusader states .
+insert t0
+Norman cultural and military influence spread from these new European centres to the Crusader states . 0.31061887741088867
+Norman cultural and political influence spread from these new European centres to the Crusader states . 0.1681273728609085
+Norman cultural and religious influence spread from these new European centres to the Crusader states . 0.5
+
+insert t1
+Norman cultural and religious influence spread from these new European centres to the Crusader states of the Near East . 0.25
+Norman cultural and military influence spread from these new European centres to the Crusader states of the Near East . 0.15530943870544434
+Norman cultural and political influence spread from these new European centres to the Crusader states of the Near East . 0.08406368643045425
+
+insert t2
+Norman cultural and religious influence spread from these new European centres to the Crusader states of the Near East , where their prince Bohemond I founded the Principality . 0.125
+Norman cultural and religious influence spread from these new European centres to the Crusader states of the Near East , where their ruler Bohemond I founded the Principality . 0.0989515483379364
+Norman cultural and military influence spread from these new European centres to the Crusader states of the Near East , where their ruler Bohemond I founded the Principality . 0.07765471935272217
+Norman cultural and religious influence spread from these new European centres to the Crusader states of the Near East , where their prince Bohemond I founded the caliphate . 0.07226835936307907
+Norman cultural and religious influence spread from these new European centres to the Crusader states of the Near East , where their prince Bohemond I ruled the Principality . 0.06951781362295151
+
+insert t3
+Norman cultural and religious influence spread from these new European centres to the Crusader states of the Near East , where their prince Bohemond I founded the kingdom of Antioch . 0.0625
+Norman cultural and religious influence spread from these new European centres to the Crusader states of the Near East , where their ruler Bohemond I founded the Principality of Antioch . 0.0494757741689682
+Norman cultural and military influence spread from these new European centres to the Crusader states of the Near East , where their prince Bohemond I established the Principality of Antioch . 0.038827359676361084
+Norman cultural and religious influence spread from these new European centres to the Crusader states of the Near East , where their prince Bohemond I ruled the Principality of Antioch . 0.036134179681539536
+Norman cultural and religious influence spread from these new European centres to the Crusader states of the Near East , where their king Bohemond I founded the Principality of Antioch . 0.034758906811475754
+
+insert t4
+Norman cultural and religious influence spread from these new European centres to the Crusader states of the Near East , where their prince Bohemond I founded the kingdom of Antioch in the Levant . 0.03125
+Norman cultural and religious influence spread from these new European centres to the Crusader states of the Near East , where their ruler Bohemond I founded the Principality of Antioch in the Levant . 0.0247378870844841
+Norman cultural and military influence spread from these new European centres to the Crusader states of the Near East , where their prince Bohemond I established the Principality of Antioch in the Levant . 0.019413679838180542
+Norman cultural and religious influence spread from these new European centres to the Crusader states of the Near East , where their prince Bohemond I ruled the Principality of Antioch in the Levant . 0.018067089840769768
+Norman cultural and religious influence spread from these new European centres to the Crusader states of the Near East , where their king Bohemond I founded the Principality of Antioch in the Levant . 0.017379453405737877
+
+insert t5
+Norman cultural and religious influence spread from these new European centres to the Crusader states of the Near East , where their prince Bohemond I founded the kingdom of Antioch in the Levant , to Scotland and Wales . 0.015625
+Norman cultural and religious influence spread from these new European centres to the Crusader states of the Near East , where their ruler Bohemond I founded the Principality of Antioch in the Levant , to Scotland and Wales . 0.01236894354224205
+Norman cultural and military influence spread from these new European centres to the Crusader states of the Near East , where their prince Bohemond I established the Principality of Antioch in the Levant , to Scotland and Wales . 0.009706839919090271
+Norman cultural and religious influence spread from these new European centres to the Crusader states of the Near East , where their prince Bohemond I ruled the Principality of Antioch in the Levant , to Scotland and Wales . 0.009033544920384884
+Norman cultural and religious influence spread from these new European centres to the Crusader states of the Near East , where their king Bohemond I founded the Principality of Antioch in the Levant , to Scotland and Wales . 0.008689726702868938
+
+insert t6
+Norman cultural and religious influence spread from these new European centres to the Crusader states of the Near East , where their prince Bohemond I founded the kingdom of Antioch in the Levant , to Scotland and Wales in Great Britain . 0.0078125
+Norman cultural and religious influence spread from these new European centres to the Crusader states of the Near East , where their ruler Bohemond I founded the Principality of Antioch in the Levant , to Scotland and Wales in Great Britain . 0.006184471771121025
+Norman cultural and military influence spread from these new European centres to the Crusader states of the Near East , where their prince Bohemond I established the Principality of Antioch in the Levant , to Scotland and Wales in Great Britain . 0.0048534199595451355
+Norman cultural and religious influence spread from these new European centres to the Crusader states of the Near East , where their prince Bohemond I ruled the Principality of Antioch in the Levant , to Scotland and Wales in Great Britain . 0.004516772460192442
+Norman cultural and religious influence spread from these new European centres to the Crusader states of the Near East , where their king Bohemond I founded the Principality of Antioch in the Levant , to Scotland and Wales in Great Britain . 0.004344863351434469
+
+insert t7
+Norman cultural and religious influence spread from these new European centres to the Crusader states of the Near East , where their prince Bohemond I founded the kingdom of Antioch in the Levant , to Scotland and Wales in Great Britain , to Ireland . 0.00390625
+Norman cultural and religious influence spread from these new European centres to the Crusader states of the Near East , where their ruler Bohemond I founded the Principality of Antioch in the Levant , to Scotland and Wales in Great Britain , to Ireland . 0.0030922358855605125
+Norman cultural and military influence spread from these new European centres to the Crusader states of the Near East , where their prince Bohemond I established the Principality of Antioch in the Levant , to Scotland and Wales in Great Britain , to Ireland . 0.0024267099797725677
+Norman cultural and religious influence spread from these new European centres to the Crusader states of the Near East , where their prince Bohemond I ruled the Principality of Antioch in the Levant , to Scotland and Wales in Great Britain , to Ireland . 0.002258386230096221
+Norman cultural and religious influence spread from these new European centres to the Crusader states of the Near East , where their king Bohemond I founded the Principality of Antioch in the Levant , to Scotland and Wales in Great Britain , to Ireland . 0.0021724316757172346
+
+insert t8
+Norman cultural and religious influence spread from these new European centres to the Crusader states of the Near East , where their prince Bohemond I founded the kingdom of Antioch in the Levant , to Scotland and Wales in Great Britain , to Ireland , and to the netherlands . 0.001953125
+Norman cultural and religious influence spread from these new European centres to the Crusader states of the Near East , where their ruler Bohemond I founded the Principality of Antioch in the Levant , to Scotland and Wales in Great Britain , to Ireland , and to the coasts . 0.0015461179427802563
+Norman cultural and military influence spread from these new European centres to the Crusader states of the Near East , where their prince Bohemond I established the Principality of Antioch in the Levant , to Scotland and Wales in Great Britain , to Ireland , and to the netherlands . 0.0012133549898862839
+Norman cultural and religious influence spread from these new European centres to the Crusader states of the Near East , where their prince Bohemond I ruled the Principality of Antioch in the Levant , to Scotland and Wales in Great Britain , to Ireland , and to the americas . 0.0011291931150481105
+Norman cultural and religious influence spread from these new European centres to the Crusader states of the Near East , where their king Bohemond I founded the Principality of Antioch in the Levant , to Scotland and Wales in Great Britain , to Ireland , and to the netherlands . 0.0010862158378586173
+
+insert t9
+Norman cultural and religious influence spread from these new European centres to the Crusader states of the Near East , where their prince Bohemond I founded the kingdom of Antioch in the Levant , to Scotland and Wales in Great Britain , to Ireland , and to the coasts of north Africa and the Canary Islands . 0.0009765625
+Norman cultural and religious influence spread from these new European centres to the Crusader states of the Near East , where their ruler Bohemond I founded the Principality of Antioch in the Levant , to Scotland and Wales in Great Britain , to Ireland , and to the coasts of north Africa and the Canary Islands . 0.0007730589713901281
+Norman cultural and military influence spread from these new European centres to the Crusader states of the Near East , where their prince Bohemond I established the Principality of Antioch in the Levant , to Scotland and Wales in Great Britain , to Ireland , and to the americas of north Africa and the Canary Islands . 0.0006066774949431419
+Norman cultural and religious influence spread from these new European centres to the Crusader states of the Near East , where their prince Bohemond I ruled the Principality of Antioch in the Levant , to Scotland and Wales in Great Britain , to Ireland , and to the netherlands of north Africa and the Canary Islands . 0.0005645965575240552
+Norman cultural and religious influence spread from these new European centres to the Crusader states of the Near East , where their king Bohemond I founded the Principality of Antioch in the Levant , to Scotland and Wales in Great Britain , to Ireland , and to the netherlands of north Africa and the Canary Islands . 0.0005431079189293087
+
+FIN
+
+sent_id = 11
+The name Normans comes from the French words Normans/Normanz .
+insert t0
+The french name Normans comes from the French words Normans/Normanz , 2 , 4 4 . 0.2128722220659256
+The English name Normans comes from the French words Normans/Normanz , 2 , 4 4 . 0.12815433740615845
+The family name Normans comes from the French words Normans/Normanz , 2 , 4 4 . 0.10093909502029419
+The english name Normans comes from the French words Normans/Normanz , 2 , 4 4 . 0.5
+
+insert t1
+The french name Normans comes from the French words Normans/Normanz , 2 , 4 4 . 0.25
+The family name Normans comes from the French words Normans/Normanz , 2 , 4 4 . 0.1064361110329628
+The English name Normans comes from the French words Normans/Normanz , 2 , 4 4 . 0.06407716870307922
+The english name Normans comes from the French words Normans/Normanz , 2 , 4 4 . 0.050469547510147095
+
+insert t2
+The french name Normans '' comes from the French words Normans/Normanz , 2 , 4 4 . 0.125
+The family name Normans '' comes from the French words Normans/Normanz , 2 , 4 4 . 0.0532180555164814
+The English name Normans '' comes from the French words Normans/Normanz , 2 , 4 4 . 0.03203858435153961
+The english name Normans '' comes from the French words Normans/Normanz , 2 , 4 4 . 0.025234773755073547
+
+insert t3
+The french name Normans '' comes from the French words Normans/Normanz , plural , 2 , 4 4 . 0.0625
+The family name Normans '' comes from the French words Normans/Normanz , plural , 2 , 4 4 . 0.0266090277582407
+The English name Normans '' comes from the French words Normans/Normanz , plural , 2 , 4 4 . 0.016019292175769806
+The english name Normans '' comes from the French words Normans/Normanz , plural , 2 , 4 4 . 0.012617386877536774
+
+insert t4
+The french name Normans '' comes from the French words Normans/Normanz , plural of Normant , 2 , 4 4 . 0.03125
+The family name Normans '' comes from the French words Normans/Normanz , plural of Normant , 2 , 4 4 . 0.01330451387912035
+The English name Normans '' comes from the French words Normans/Normanz , plural of Normant , 2 , 4 4 . 0.008009646087884903
+The english name Normans '' comes from the French words Normans/Normanz , plural of Normant , 2 , 4 4 . 0.006308693438768387
+
+insert t5
+The french name Normans '' comes from the French words Normans/Normanz , plural of Normant , modern french normand , 2 , 4 4 . 0.026456588879227638
+The french name Normans '' comes from the French words Normans/Normanz , plural of Normant , from French normand , 2 , 4 4 . 0.02561360038816929
+The french name Normans '' comes from the French words Normans/Normanz , plural of Normant , modern French normand , 2 , 4 4 . 0.015625
+The french name Normans '' comes from the French words Normans/Normanz , plural of Normant , modern French 1 , 2 , 4 4 . 0.013478633016347885
+The family name Normans '' comes from the French words Normans/Normanz , plural of Normant , modern French normand , 2 , 4 4 . 0.010931247389796617
+
+insert t6
+The french name Normans '' comes from the French words Normans/Normanz , plural of Normant , from French normand , which is itself derived from Old Low Franconian Nortmann ` ` Northman '' , 2 , 4 4 . 0.024528129124889997
+The french name Normans '' comes from the French words Normans/Normanz , plural of Normant , old French normand , which is itself borrowed from Old Low Franconian Nortmann ` ` Northman '' , 2 , 4 4 . 0.02408575818500147
+The french name Normans '' comes from the French words Normans/Normanz , plural of Normant , modern French normand , which is itself derived from Old Low Franconian Nortmann ` ` Northman '' , 2 , 4 4 . 0.01474253460764885
+The french name Normans '' comes from the French words Normans/Normanz , plural of Normant , from French normand , which is itself borrowed from Old Low Franconian Nortmann ` ` Northman '' , 2 , 4 4 . 0.013228294439613819
+The french name Normans '' comes from the French words Normans/Normanz , plural of Normant , old French normand , which is itself derived from Old Low Franconian Nortmann ` ` Northman '' , 2 , 4 4 . 0.012806800194084644
+
+insert t7
+The french name Normans '' comes from the French words Normans/Normanz , plural of Normant , from French normand , which is itself borrowed from Old Low Franconian Nortmann ` ` Northman '' or possibly from Old Norse Norðmaðr , 2 , 4 4 . 0.012264064562444998
+The french name Normans '' comes from the French words Normans/Normanz , plural of Normant , old French normand , which is itself derived from Old Low Franconian Nortmann ` ` Northman '' or directly from Old Norse Norðmaðr , 2 , 4 4 . 0.012042879092500736
+The french name Normans '' comes from the French words Normans/Normanz , plural of Normant , modern French normand , which is itself derived from Old Low Franconian Nortmann ` ` Northman '' or alternatively from Old Norse Norðmaðr , 2 , 4 4 . 0.007371267303824425
+The french name Normans '' comes from the French words Normans/Normanz , plural of Normant , from French normand , which is itself derived from Old Low Franconian Nortmann ` ` Northman '' or derived from Old Norse Norðmaðr , 2 , 4 4 . 0.0066141472198069096
+The french name Normans '' comes from the French words Normans/Normanz , plural of Normant , old French normand , which is itself borrowed from Old Low Franconian Nortmann ` ` Northman '' or alternatively from Old Norse Norðmaðr , 2 , 4 4 . 0.006403400097042322
+
+insert t8
+The french name Normans '' comes from the French words Normans/Normanz , plural of Normant , from French normand , which is itself borrowed from Old Low Franconian Nortmann ` ` Northman '' or derived from Old Norse Norðmaðr , Latinized variously as Nortmannus , 2 , 4 4 . 0.006132032281222499
+The french name Normans '' comes from the French words Normans/Normanz , plural of Normant , old French normand , which is itself derived from Old Low Franconian Nortmann ` ` Northman '' or alternatively from Old Norse Norðmaðr , or variously as Nortmannus , 2 , 4 4 . 0.006021439546250368
+The french name Normans '' comes from the French words Normans/Normanz , plural of Normant , modern French normand , which is itself derived from Old Low Franconian Nortmann ` ` Northman '' or also from Old Norse Norðmaðr , Latinized also as Nortmannus , 2 , 4 4 . 0.0036856336519122124
+The french name Normans '' comes from the French words Normans/Normanz , plural of Normant , old French normand , which is itself derived from Old Low Franconian Nortmann ` ` Northman '' or alternatively from Old Norse Norðmaðr , Latinized variously as Nortmannus , 2 , 4 4 . 0.0034406985702793535
+The french name Normans '' comes from the French words Normans/Normanz , plural of Normant , from French normand , which is itself derived from Old Low Franconian Nortmann ` ` Northman '' or directly from Old Norse Norðmaðr , Latinized variously as Nortmannus , 2 , 4 4 . 0.0033070736099034548
+
+insert t9
+The french name Normans '' comes from the French words Normans/Normanz , plural of Normant , from French normand , which is itself borrowed from Old Low Franconian Nortmann ` ` Northman '' or derived from Old Norse Norðmaðr , known variously as Nortmannus , Normannus , 2 , 4 4 . 0.0030660161406112496
+The french name Normans '' comes from the French words Normans/Normanz , plural of Normant , old French normand , which is itself derived from Old Low Franconian Nortmann ` ` Northman '' or alternatively from Old Norse Norðmaðr , Latinized variously as Nortmannus , Normannus , 2 , 4 4 . 0.003010719773125184
+The french name Normans '' comes from the French words Normans/Normanz , plural of Normant , modern French normand , which is itself derived from Old Low Franconian Nortmann ` ` Northman '' or also from Old Norse Norðmaðr , known variously as Nortmannus , Normannus , 2 , 4 4 . 0.0018428168259561062
+The french name Normans '' comes from the French words Normans/Normanz , plural of Normant , old French normand , which is itself derived from Old Low Franconian Nortmann ` ` Northman '' or alternatively from Old Norse Norðmaðr , and variously as Nortmannus , Normannus , 2 , 4 4 . 0.0017203492851396768
+The french name Normans '' comes from the French words Normans/Normanz , plural of Normant , from French normand , which is itself derived from Old Low Franconian Nortmann ` ` Northman '' or directly from Old Norse Norðmaðr , and variously as Nortmannus , Normannus , 2 , 4 4 . 0.0016535368049517274
+
+insert t10
+The french name Normans '' comes from the French words Normans/Normanz , plural of Normant , old French normand , which is itself derived from Old Low Franconian Nortmann ` ` Northman '' or alternatively from Old Norse Norðmaðr , Latinized variously as Nortmannus , Normannus , or Nordmannus ( ) in Medieval Latin , 1 1 1 2 3 3 3 , 4 4 . 0.0015781863526418585
+The french name Normans '' comes from the French words Normans/Normanz , plural of Normant , from French normand , which is itself borrowed from Old Low Franconian Nortmann ` ` Northman '' or derived from Old Norse Norðmaðr , known variously as Nortmannus , Normannus , or Nordmannus ( recorded in Medieval Latin , 1 1 1 2 3 3 3 , 4 4 . 0.0015330080703056248
+The french name Normans '' comes from the French words Normans/Normanz , plural of Normant , old French normand , which is itself derived from Old Low Franconian Nortmann ` ` Northman '' or alternatively from Old Norse Norðmaðr , Latinized variously as Nortmannus , Normannus , or Nordmannus ( recorded in Medieval Latin , 1 1 1 2 3 3 3 , 4 4 . 0.001505359886562592
+The french name Normans '' comes from the French words Normans/Normanz , plural of Normant , from French normand , which is itself borrowed from Old Low Franconian Nortmann ` ` Northman '' or derived from Old Norse Norðmaðr , known variously as Nortmannus , Normannus , or Nordmannus ( ) in Medieval Latin , 1 1 1 2 3 3 3 , 4 4 . 0.0011968611100509903
+The french name Normans '' comes from the French words Normans/Normanz , plural of Normant , modern French normand , which is itself derived from Old Low Franconian Nortmann ` ` Northman '' or also from Old Norse Norðmaðr , known variously as Nortmannus , Normannus , or Nordmannus ( ) in Medieval Latin , 1 1 1 2 3 3 3 , 4 4 . 0.0009214084129780531
+
+insert t11
+The french name Normans '' comes from the French words Normans/Normanz , plural of Normant , old French normand , which is itself derived from Old Low Franconian Nortmann ` ` Northman '' or alternatively from Old Norse Norðmaðr , Latinized variously as Nortmannus , Normannus , or Nordmannus ( recorded in Medieval Latin , 12th century ) 2 , 4 4 . 0.0007890931763209293
+The french name Normans '' comes from the French words Normans/Normanz , plural of Normant , from French normand , which is itself borrowed from Old Low Franconian Nortmann ` ` Northman '' or derived from Old Norse Norðmaðr , known variously as Nortmannus , Normannus , or Nordmannus ( recorded in Medieval Latin , 9th century ) 2 , 4 4 . 0.0007665040351528124
+The french name Normans '' comes from the French words Normans/Normanz , plural of Normant , old French normand , which is itself derived from Old Low Franconian Nortmann ` ` Northman '' or alternatively from Old Norse Norðmaðr , Latinized variously as Nortmannus , Normannus , or Nordmannus ( ) in Medieval Latin , 9th century ) 2 , 4 4 . 0.000752679943281296
+The french name Normans '' comes from the French words Normans/Normanz , plural of Normant , from French normand , which is itself borrowed from Old Low Franconian Nortmann ` ` Northman '' or derived from Old Norse Norðmaðr , known variously as Nortmannus , Normannus , or Nordmannus ( ) in Medieval Latin , 9th century ) 2 , 4 4 . 0.0005984305550254951
+The french name Normans '' comes from the French words Normans/Normanz , plural of Normant , modern French normand , which is itself derived from Old Low Franconian Nortmann ` ` Northman '' or also from Old Norse Norðmaðr , known variously as Nortmannus , Normannus , or Nordmannus ( recorded in Medieval Latin , 9th century ) 2 , 4 4 . 0.00046070420648902655
+
+insert t12
+The french name Normans '' comes from the French words Normans/Normanz , plural of Normant , old French normand , which is itself derived from Old Low Franconian Nortmann ` ` Northman '' or alternatively from Old Norse Norðmaðr , Latinized variously as Nortmannus , Normannus , or Nordmannus ( recorded in Medieval Latin , 9th century ) to , 4 4 . 0.0003945465881604646
+The french name Normans '' comes from the French words Normans/Normanz , plural of Normant , from French normand , which is itself borrowed from Old Low Franconian Nortmann ` ` Northman '' or derived from Old Norse Norðmaðr , known variously as Nortmannus , Normannus , or Nordmannus ( recorded in Medieval Latin , 9th century ) to , 4 4 . 0.0003832520175764062
+The french name Normans '' comes from the French words Normans/Normanz , plural of Normant , old French normand , which is itself derived from Old Low Franconian Nortmann ` ` Northman '' or alternatively from Old Norse Norðmaðr , Latinized variously as Nortmannus , Normannus , or Nordmannus ( ) in Medieval Latin , 9th century ) to , 4 4 . 0.000376339971640648
+The french name Normans '' comes from the French words Normans/Normanz , plural of Normant , from French normand , which is itself borrowed from Old Low Franconian Nortmann ` ` Northman '' or derived from Old Norse Norðmaðr , known variously as Nortmannus , Normannus , or Nordmannus ( ) in Medieval Latin , 9th century ) to , 4 4 . 0.00029921527751274756
+The french name Normans '' comes from the French words Normans/Normanz , plural of Normant , modern French normand , which is itself derived from Old Low Franconian Nortmann ` ` Northman '' or also from Old Norse Norðmaðr , known variously as Nortmannus , Normannus , or Nordmannus ( recorded in Medieval Latin , 9th century ) to , 4 4 . 0.00023035210324451327
+
+insert t13
+The french name Normans '' comes from the French words Normans/Normanz , plural of Normant , old French normand , which is itself derived from Old Low Franconian Nortmann ` ` Northman '' or alternatively from Old Norse Norðmaðr , Latinized variously as Nortmannus , Normannus , or Nordmannus ( recorded in Medieval Latin , 9th century ) to mean ` ` Norseman , 4 4 . 0.0001972732940802323
+The french name Normans '' comes from the French words Normans/Normanz , plural of Normant , old French normand , which is itself derived from Old Low Franconian Nortmann ` ` Northman '' or alternatively from Old Norse Norðmaðr , Latinized variously as Nortmannus , Normannus , or Nordmannus ( ) in Medieval Latin , 9th century ) to mean ` ` Norseman , 4 4 . 0.000188169985820324
+The french name Normans '' comes from the French words Normans/Normanz , plural of Normant , from French normand , which is itself borrowed from Old Low Franconian Nortmann ` ` Northman '' or derived from Old Norse Norðmaðr , known variously as Nortmannus , Normannus , or Nordmannus ( ) in Medieval Latin , 9th century ) to mean ` ` Norseman , 4 4 . 0.00014960763875637378
+The french name Normans '' comes from the French words Normans/Normanz , plural of Normant , old French normand , which is itself derived from Old Low Franconian Nortmann ` ` Northman '' or alternatively from Old Norse Norðmaðr , Latinized variously as Nortmannus , Normannus , or Nordmannus ( ) in Medieval Latin , 9th century ) to ` ` ` Norseman , 4 4 . 0.00011602210960078669
+The french name Normans '' comes from the French words Normans/Normanz , plural of Normant , old French normand , which is itself derived from Old Low Franconian Nortmann ` ` Northman '' or alternatively from Old Norse Norðmaðr , Latinized variously as Nortmannus , Normannus , or Nordmannus ( recorded in Medieval Latin , 9th century ) to ` ` ` Norseman , 4 4 . 0.00010922741856213012
+
+insert t14
+The french name Normans '' comes from the French words Normans/Normanz , plural of Normant , old French normand , which is itself derived from Old Low Franconian Nortmann ` ` Northman '' or alternatively from Old Norse Norðmaðr , Latinized variously as Nortmannus , Normannus , or Nordmannus ( recorded in Medieval Latin , 9th century ) to mean ` ` Norseman , Viking '' . 9.863664704011616e-05
+The french name Normans '' comes from the French words Normans/Normanz , plural of Normant , old French normand , which is itself derived from Old Low Franconian Nortmann ` ` Northman '' or alternatively from Old Norse Norðmaðr , Latinized variously as Nortmannus , Normannus , or Nordmannus ( ) in Medieval Latin , 9th century ) to ` ` ` Norseman , Viking '' . 9.4084992910162e-05
+The french name Normans '' comes from the French words Normans/Normanz , plural of Normant , from French normand , which is itself borrowed from Old Low Franconian Nortmann ` ` Northman '' or derived from Old Norse Norðmaðr , known variously as Nortmannus , Normannus , or Nordmannus ( ) in Medieval Latin , 9th century ) to ` ` ` Norseman , Viking '' . 7.480381937818689e-05
+The french name Normans '' comes from the French words Normans/Normanz , plural of Normant , old French normand , which is itself derived from Old Low Franconian Nortmann ` ` Northman '' or alternatively from Old Norse Norðmaðr , Latinized variously as Nortmannus , Normannus , or Nordmannus ( ) in Medieval Latin , 9th century ) to mean ` ` Norseman , Viking '' . 5.8011054800393346e-05
+The french name Normans '' comes from the French words Normans/Normanz , plural of Normant , old French normand , which is itself derived from Old Low Franconian Nortmann ` ` Northman '' or alternatively from Old Norse Norðmaðr , Latinized variously as Nortmannus , Normannus , or Nordmannus ( recorded in Medieval Latin , 9th century ) to ` ` ` Norseman , Viking '' . 5.461370928106506e-05
+
+FIN
+
