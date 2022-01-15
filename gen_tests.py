@@ -2,11 +2,14 @@ import nltk
 from nltk.corpus import wordnet
 from gen_temp import *
 import re
+import copy
+import time,hashlib
 import itertools
 from nltk import CoreNLPParser
 from nltk.corpus import stopwords
 import spacy
 import transformers
+import json
 
 nlp = spacy.load("en_core_web_sm")
 sbar_pattern = re.compile(r't\d+')
@@ -289,7 +292,8 @@ def gen_sent_by_bert(file_path, comp_list, temp_list, all_masked_word, all_maske
                 next_test_list = []
                 old_score_list = []
                 next_temp_list = []
-                for dic_item in score_tests_dict[0:min(len(score_tests_dict), 5)]:
+                # 缩小指数，原为5
+                for dic_item in score_tests_dict[0:min(len(score_tests_dict), 2)]:
                     next_test_list.append(dic_item[0])
                     old_score_list.append(dic_item[1])
                     next_temp_list.append(tests_temp_dict[dic_item[0]])
@@ -338,8 +342,105 @@ def calculate_context_num(file_path):
         sent_list.append(index)
     return sent_list
 
+def load_unchange_sent():
+    file_name = "ans_context_simple.txt"
+    path = "./Squad2/"+file_name
+    orig_sents = open(path, mode="r", encoding='utf-8')
+    sent = orig_sents.readline()
+    result = []
+    sent_list = []
+    index = 0
+    while sent:
+        sent = sent[:-1]
+        if "context_id =" in sent:
+            sent_list.append(sent.split(" ")[-1])
+            sent = orig_sents.readline()
+            sent = orig_sents.readline()
+            sent = orig_sents.readline()
+            sent_list.append(sent.split(" ")[-1].strip('\n').strip())
+            sent = orig_sents.readline()
+            sent_list.append(sent[9:-1].strip("\n"))
+            result.append(sent_list)
+            sent_list = []
+        sent = orig_sents.readline()
+    return result
+
+def read_context_first():
+    file_name = "context1.txt"
+    path = "./Squad2/"+file_name
+    orig_sents = open(path, mode="r", encoding='utf-8')
+    sent = orig_sents.readline()
+    result = []
+    for i in range(4):
+        sent = orig_sents.readline()
+        if sent!="":
+            result.append(sent.strip('\n').strip())
+    print(len(result))
+    return result
+
+def create_id():
+    m = hashlib.md5()
+    m.update(bytes(str(time.perf_counter()),encoding='utf-8'))
+    return m.hexdigest()
+
+def get_sentence_len(file_name):
+    path = "./Squad2/" + file_name + ".txt"
+    orig_sents = open(path, mode="r", encoding='utf-8')
+    sent = orig_sents.readline()
+    result = []
+    sent_result_all = []
+
+    while sent:
+        sent = sent[:-1]
+        if "context_id=" in sent:
+            num = 0
+            sent = orig_sents.readline()
+            sent = sent[:-1]
+            sent_result = []
+            while sent != "":
+                num += 1
+                sent_result.append(sent)
+                sent = orig_sents.readline()
+                sent = sent[:-1]
+            result.append(num)
+            sent_result_all.append(sent_result)
+            num = 0
+        sent = orig_sents.readline()
+    return result, sent_result_all
+
+def mapping_context_sentence(list, result):
+    dic = {}
+    num = 0
+    plus = 0
+    for i in list:
+        dic["context"+str(num)] = result[plus:plus+i]
+        plus += i
+        num += 1
+    return dic
+
+def read_question_index():
+    file_name = "ans_context.txt"
+    path = "./Squad2/" + file_name
+    orig_sents = open(path, mode="r", encoding='utf-8')
+    sent = orig_sents.readline()
+    result = []
+    temp = []
+    while sent:
+        sent = sent[:-1]
+        if "context_id = " in sent:
+            index = sent.split("context_id = ")[1]
+            sent = orig_sents.readline()[:-1]
+            while sent != "==========FIN==========":
+                if "context_idx: " in sent:
+                    temp.append(sent.split("context_idx: ")[1])
+                sent = orig_sents.readline()[:-1]
+            result.append(temp)
+            temp = []
+        sent = orig_sents.readline()
+    return result
 
 if __name__ == '__main__':
+    # 获取所有句子的<=beam_size个变体
     file_name = "context1"
     temp_list, adjunct_list, comp_list, ner_list = gen_sent_temp_main(file_name)
     pos_list = ['NOUN', 'VERB', 'ADJ', 'ADV']
@@ -347,43 +448,87 @@ if __name__ == '__main__':
     file_path = "./" + file_name + "_bert_test.txt"
     all_tests, final_result = gen_sent_by_bert(file_path, comp_list, temp_list, all_masked_word, all_masked_adjunct)
     print(final_result)
-    # pro_context = itertools.product(*final_result)
-    # for i in pro_context:
-    #     print("句子：",i)
-    context_list = calculate_context_num("./Squad2/"+file_name+".txt")
-    print("context_list",context_list)
+
+    # 获取context里句子个数的列表
+    context_sentence_len_list, origin_sent_list = get_sentence_len(file_name)
+    final_result_dic = mapping_context_sentence(context_sentence_len_list, final_result)
+    print(final_result_dic)
+
     index = 0
-    w = open("./" + file_name + "_bert_context.txt", mode="w", encoding="utf-8")
-    # for i in range(len(context_list)):
-    #     w.write("context_id = " + str(i) + "\n")
-    #     for j in range(index, index+context_list[i]):
-    #         w.write("sent_id = " + str(j-index) + "\n")
-    #         for k in final_result[j]:
-    #             w.write(k + "\n")
-    #         w.write("\n")
-    #     w.write("FIN\n")
-    #     w.write("\n")
-    #     index += context_list[i]
-    for i in range(len(context_list)):
-        w.write("context_id = " + str(i) + "\n")
-        context_input = final_result[index:index+context_list[i]]
-        mul = 1
-        for temp in context_input:
-            mul *= len(temp)
-        w.write("此context有"+str(context_list[i])+"个句子,共生成" + str(mul) + "个新的context\n")
-        if context_list[i] == 1:
-            pro_context_list = final_result[index]
+
+    # 获取每个context对应的问题
+    question_sent_li_all = read_question_index()
+
+    # 读处理后的源文件
+    file_name = "dev_start.json"
+    path = "./Squad2/" + file_name
+    predict_file = open(path, mode="r", encoding='utf-8')
+    prediction_json = json.load(predict_file)
+    prediction_data = prediction_json["data"]
+    item_list = []
+
+    # 循环处理context
+    for i in range(len(context_sentence_len_list)):
+        # w.write("context_id = " + str(i) + "\n")
+        context_input = final_result_dic["context"+str(i)]
+        # mul = 1
+        # for temp in context_input:
+        #     mul *= len(temp)
+        # # w.write("此context有"+str(context_list[i])+"个句子,共生成" + str(mul) + "个新的context\n")
+        if context_sentence_len_list[i] == 1:
+            pro_context_list = origin_sent_list[i]
         else:
             pro_context_list = itertools.product(*context_input)
-        pro_context_id = 0
+
+        print("========")
+        final_context_list = []
         for pro_context in pro_context_list:
-            pro_context_item = "".join(pro_context)
-            w.write("pro_context_id = " + str(pro_context_id) + "\n")
-            w.write(pro_context_item + "\n")
-            pro_context_id += 1
-            w.write("\n")
-        w.write("FIN\n")
-        w.write("\n")
-        index += context_list[i]
-    w.close()
+            final_context_list.append(list(pro_context))
+            # pro_context_item = "".join(pro_context)
+            # test_set.add(pro_context_item)
+
+        # if i == 0:
+        # 读对应的那一条context的问题
+        item_temp = copy.deepcopy(prediction_data[0]["paragraphs"][i])
+        question_list = []
+        for jj in item_temp["qas"]:
+            question_list.append(jj["question"])
+        print(question_list)
+        # exit(0)
+        test_set = []
+        index = 0
+        question_sent_li = question_sent_li_all[i]
+
+        for pro_context_index in range(len(final_context_list)):
+
+            context_for_input_li = final_context_list[pro_context_index]
+            for question_sent_index in range(len(question_sent_li)):
+                index_i = int(question_sent_li[question_sent_index])
+                if index_i != -1:
+                    context_for_input_li[index_i] = origin_sent_list[i][index_i]
+                question_temp = item_temp["qas"][question_sent_index]
+                question_temp["id"] = create_id()
+                item_to_add = []
+                item_to_add.append(question_temp)
+                item_temp_modify = copy.deepcopy(item_temp)
+                item_temp_modify["qas"] = item_to_add
+                context_all_line = "".join(context_for_input_li)
+                item_temp_modify["context"] = context_all_line
+                valid_temp = context_all_line+str(question_list[question_sent_index])
+                if valid_temp in test_set:
+                    continue
+                else:
+                    test_set.append(valid_temp)
+                    item_list.append(copy.deepcopy(item_temp_modify))
+                    index += 1
+            print(index)
+
+    prediction_data[0]["paragraphs"] = item_list
+    file_name = "dev_modify1.json"
+    path = "./" + file_name
+    with open(path, 'w', encoding='utf-8') as f1:
+        f1.write(json.dumps(prediction_json, indent=4, ensure_ascii=False))
+    # print(len(test_set))
+    print(index)
+    # w.close()
 
