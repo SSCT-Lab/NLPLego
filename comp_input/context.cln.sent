@@ -93,7 +93,7 @@
 <s> These included Fitzgerald , FitzGibbons ( Gibbons ) dynasty , Fitzmaurice . <\s>
 <s> Other families bearing such surnames as Barry ( de Barra ) and De Búrca ( Burke ) are also of Norman extraction . <\s>
 <s> One of the claimants of the English throne opposing William the Conqueror , Edgar Atheling , eventually fled to Scotland . <\s>
-<s> King Malcolm III of Scotland married Edgar 's sister Margaret , and came into opposition to William who had already disputed Scotland's southern borders . <\s>
+<s> King Malcolm III of Scotland married Edgar 's sister Margaret , and came into opposition to William who had already disputed Scotland 's southern borders . <\s>
 <s> William invaded Scotland in 1072 , riding as far as Abernethy where he met up with his fleet of ships . <\s>
 <s> Malcolm submitted , paid homage to William and surrendered his son Duncan as a hostage , beginning a series of arguments as to whether the Scottish Crown owed allegiance to the King of England . <\s>
 <s> Normans came into Scotland , building castles and founding noble families who would provide some future kings , such as Robert the Bruce , as well as founding a considerable number of the Scottish clans . <\s>
@@ -170,29 +170,29 @@
 <s> Also at Fécamp , the staff , around which neumes were oriented , was first developed and taught in the 11th century . <\s>
 <s> Under the German abbot Isembard , La Trinité-du-Mont became a centre of musical composition . <\s>
 <s> At Saint Evroul , a tradition of singing had developed and the choir achieved fame in Normandy . <\s>
-<s> Under the Norman abbot Robert de Grantmesnil , several monks of Saint-Evroul fled to southern Italy , where they were patronised by Robert Guiscard and established a Latin monastery at Sant'Eufemia . <\s>
+<s> Under the Norman abbot Robert de Grantmesnil , several monks of Saint-Evroul fled to southern Italy , where they were patronised by Robert Guiscard and established a Latin monastery at Sant ' Eufemia . <\s>
 <s> There they continued the tradition of singing . <\s>
 <s> Computational complexity theory is a branch of the theory of computation in theoretical computer science that focuses on classifying computational problems according to their inherent difficulty , and relating those classes to each other . <\s>
 <s> A computational problem is understood to be a task that is in principle amenable to being solved by a computer , which is equivalent to stating that the problem may be solved by mechanical application of mathematical steps , such as an algorithm . <\s>
 <s> A problem is regarded as inherently difficult if its solution requires significant resources , whatever the algorithm used . <\s>
 <s> The theory formalizes this intuition , by introducing mathematical models of computation to study these problems and quantifying the amount of resources needed to solve them , such as time and storage . <\s>
 <s> Other complexity measures are also used , such as the amount of communication ( used in communication complexity ) , the number of gates in a circuit ( used in circuit complexity ) and the number of processors ( used in parallel computing ) . <\s>
-<s> One of the roles of computational complexity theory is to determine the practical limits on what computers can and cannot do . <\s>
+<s> One of the roles of computational complexity theory is to determine the practical limits on what computers can and can not do . <\s>
 <s> Closely related fields in theoretical computer science are analysis of algorithms and computability theory . <\s>
 <s> A key distinction between analysis of algorithms and computational complexity theory is that the former is devoted to analyzing the amount of resources needed by a particular algorithm to solve a problem , whereas the latter asks a more general question about all possible algorithms that could be used to solve the same problem . <\s>
-<s> More precisely , it tries to classify problems that can or cannot be solved with appropriately restricted resources . <\s>
+<s> More precisely , it tries to classify problems that can or can not be solved with appropriately restricted resources . <\s>
 <s> In turn , imposing restrictions on the available resources is what distinguishes computational complexity from computability theory : the latter theory asks what kind of problems can , in principle , be solved algorithmically . <\s>
 <s> A computational problem can be viewed as an infinite collection of instances together with a solution for every instance . <\s>
 <s> The input string for a computational problem is referred to as a problem instance , and should not be confused with the problem itself . <\s>
 <s> In computational complexity theory , a problem refers to the abstract question to be solved . <\s>
 <s> In contrast , an instance of this problem is a rather concrete utterance , which can serve as the input for a decision problem . <\s>
 <s> For example , consider the problem of primality testing . <\s>
-<s> The instance is a number ( e .g . 15 ) and the solution is `` yes '' if the number is prime and `` no '' otherwise ( in this case `` no '' ) . <\s>
+<s> The instance is a number ( e . g . 15 ) and the solution is `` yes '' if the number is prime and `` no '' otherwise ( in this case `` no '' ) . <\s>
 <s> Stated another way , the instance is a particular input to the problem , and the solution is the output corresponding to the given input . <\s>
 <s> To further highlight the difference between a problem and an instance , consider the following instance of the decision version of the traveling salesman problem : Is there a route of at most 2000 kilometres passing through all of Germany 's 15 largest cities ? The quantitative answer to this particular problem instance is of little use for solving other instances of the problem , such as asking for a round trip through all sites in Milan whose total length is at most 10 km . <\s>
 <s> For this reason , complexity theory addresses computational problems and not particular problem instances . <\s>
 <s> When considering computational problems , a problem instance is a string over an alphabet . <\s>
-<s> Usually , the alphabet is taken to be the binary alphabet ( i .e . , the set {0 , 1} ) , and thus the strings are bitstrings . <\s>
+<s> Usually , the alphabet is taken to be the binary alphabet ( i . e . , the set {0 , 1} ) , and thus the strings are bitstrings . <\s>
 <s> As in a real-world computer , mathematical objects other than bitstrings must be suitably encoded . <\s>
 <s> For example , integers can be represented in binary notation , and graphs can be encoded directly via their adjacency matrices , or by encoding their adjacency lists in binary . <\s>
 <s> Decision problems are one of the central objects of study in computational complexity theory . <\s>
