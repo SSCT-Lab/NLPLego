@@ -653,7 +653,11 @@ def extra_sbar(sent, dictionary):
         label = s.label()
         pos_list = s.pos()
         if (label == "SBAR") | ((label == "PP") & (pos_list[0][0] in ["while", "when"])):
-            key_words = " ".join(s.leaves()).split(" ")
+            key_sent =  " ".join(s.leaves())
+            if "-LRB-" in key_sent:
+                key_sent = key_sent.replace("-LRB-", "(")
+                key_sent = key_sent.replace("-RRB-", ")")
+            key_words = key_sent.split(" ")
             if "-" in key_words:
                 sent_words = sent.replace("-", " - ").split(" ")
             else:
