@@ -2112,6 +2112,7 @@ The American Automobile Association reported that in the last week of February 1
 context_id=319
 To help reduce consumption, in 1974 a national maximum speed limit of 55 mph (about 88 km/h) was imposed through the Emergency Highway Energy Conservation Act.
 Development of the Strategic Petroleum Reserve began in 1975, and in 1977 the cabinet-level Department of Energy was created, followed by the National Energy Act of 1978.
+
 context_id=320
 The energy crisis led to greater interest in renewable energy, nuclear power and domestic fossil fuels.
 There is criticism that American energy policies since the crisis have been dominated by crisis-mentality thinking, promoting expensive quick fixes and single-shot solutions that ignore market and technology realities.

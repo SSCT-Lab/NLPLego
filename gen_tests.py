@@ -10,6 +10,7 @@ from nltk.corpus import stopwords
 import spacy
 import transformers
 import json
+import random
 
 nlp = spacy.load("en_core_web_sm")
 sbar_pattern = re.compile(r't\d+')
@@ -293,7 +294,7 @@ def gen_sent_by_bert(file_path, comp_list, temp_list, all_masked_word, all_maske
                 old_score_list = []
                 next_temp_list = []
                 # 缩小指数，原为5
-                for dic_item in score_tests_dict[0:min(len(score_tests_dict), 2)]:
+                for dic_item in score_tests_dict[0:min(len(score_tests_dict), 4)]:
                     next_test_list.append(dic_item[0])
                     old_score_list.append(dic_item[1])
                     next_temp_list.append(tests_temp_dict[dic_item[0]])
@@ -441,7 +442,7 @@ def read_question_index():
 
 if __name__ == '__main__':
     # 获取所有句子的<=beam_size个变体
-    file_name = "context1"
+    file_name = "context"
     temp_list, adjunct_list, comp_list, ner_list = gen_sent_temp_main(file_name)
     pos_list = ['NOUN', 'VERB', 'ADJ', 'ADV']
     all_masked_word, all_masked_adjunct = gen_mask_phrase(adjunct_list, pos_list, ner_list)
@@ -468,18 +469,22 @@ if __name__ == '__main__':
     item_list = []
 
     # 循环处理context
-    for i in range(len(context_sentence_len_list)):
+    for i in range(len(context_sentence_len_list[0:50])):
         # w.write("context_id = " + str(i) + "\n")
         context_input = final_result_dic["context"+str(i)]
-        # mul = 1
-        # for temp in context_input:
-        #     mul *= len(temp)
-        # # w.write("此context有"+str(context_list[i])+"个句子,共生成" + str(mul) + "个新的context\n")
         if context_sentence_len_list[i] == 1:
             pro_context_list = origin_sent_list[i]
         else:
+            if context_sentence_len_list[i] > 4:
+                ll_len = context_sentence_len_list[i]
+                ll_temp_list = [x for x in range(0, ll_len)]
+                random.shuffle(ll_temp_list)
+                for s in ll_temp_list[4:ll_len]:
+                    context_input[s] = [origin_sent_list[i][s]]
+            # 对context_input中，最多4个句子改变，其他len-4个不变，随机取
             pro_context_list = itertools.product(*context_input)
-
+        # print(i, context_input)
+        # continue
         print("========")
         final_context_list = []
         for pro_context in pro_context_list:
@@ -522,9 +527,9 @@ if __name__ == '__main__':
                     item_list.append(copy.deepcopy(item_temp_modify))
                     index += 1
             print(index)
-
+    # exit(0)
     prediction_data[0]["paragraphs"] = item_list
-    file_name = "dev_modify1.json"
+    file_name = "dev_modify.json"
     path = "./" + file_name
     with open(path, 'w', encoding='utf-8') as f1:
         f1.write(json.dumps(prediction_json, indent=4, ensure_ascii=False))
