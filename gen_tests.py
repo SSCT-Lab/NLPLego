@@ -11,6 +11,7 @@ import spacy
 import transformers
 import json
 import random
+import requests
 
 nlp = spacy.load("en_core_web_sm")
 sbar_pattern = re.compile(r't\d+')
@@ -154,78 +155,78 @@ def search_syn(word):
     return set(synonyms)
 
 
-def pred_sent_by_syn(pred_list, masked_temp, words):
-    tests_set = set()
-    new_temps = set()
-    for i in range(len(pred_list)):
-        mask_sent = pred_list[i]
-        word = words[i]
-        if "[MASK]" in mask_sent:
-            print(mask_sent)
-            syns = search_syn(word)
-            for s in syns:
-                new_sent = mask_sent.replace("[MASK]", s)
-                new_temp = masked_temp[i].replace("[MASK]", s)
-                new_sent = format_abbr(new_sent)
-                new_temp = format_abbr(new_temp)
-                tests_set.add(new_sent)
-                new_temps.add(new_temp)
-            new_sent = mask_sent.replace("[MASK]", word)
-            new_temp = masked_temp[i].replace("[MASK]", word)
-            new_sent = format_abbr(new_sent)
-            new_temp = format_abbr(new_temp)
-            new_temps.add(new_temp)
-            tests_set.add(new_sent)
-        else:
-            new_sent = format_abbr(mask_sent)
-            tests_set.add(new_sent)
-            new_temps.add(format_abbr(masked_temp[i]))
-    return tests_set, new_temps
+# def pred_sent_by_syn(pred_list, masked_temp, words):
+#     tests_set = set()
+#     new_temps = set()
+#     for i in range(len(pred_list)):
+#         mask_sent = pred_list[i]
+#         word = words[i]
+#         if "[MASK]" in mask_sent:
+#             print(mask_sent)
+#             syns = search_syn(word)
+#             for s in syns:
+#                 new_sent = mask_sent.replace("[MASK]", s)
+#                 new_temp = masked_temp[i].replace("[MASK]", s)
+#                 new_sent = format_abbr(new_sent)
+#                 new_temp = format_abbr(new_temp)
+#                 tests_set.add(new_sent)
+#                 new_temps.add(new_temp)
+#             new_sent = mask_sent.replace("[MASK]", word)
+#             new_temp = masked_temp[i].replace("[MASK]", word)
+#             new_sent = format_abbr(new_sent)
+#             new_temp = format_abbr(new_temp)
+#             new_temps.add(new_temp)
+#             tests_set.add(new_sent)
+#         else:
+#             new_sent = format_abbr(mask_sent)
+#             tests_set.add(new_sent)
+#             new_temps.add(format_abbr(masked_temp[i]))
+#     return tests_set, new_temps
 
 
-def gen_sent_by_syn(file_path, comp_list, temp_list, all_masked_word, all_masked_adjunct):
-    w = open(file_path, mode="a")
-    all_tests = []
-    for i in range(0, 10):
-        w.write("sent_id = " + str(i) + "\n")
-        comp = comp_list[i]
-        w.write(format_abbr(comp) + "\n")
-        temp = temp_list[i]
-        tests_list = []
-        tests_list.append([format_abbr(comp)])
-        masked_adjunct_list = all_masked_adjunct[i]
-        masked_word_list = all_masked_word[i]
-        next_temp_list = []
-        for j in range(len(masked_adjunct_list)):
-            w.write("insert t" + str(j) + "\n")
-            if j == 0:
-                pred_list, masked_temp = gen_masked_sent(j, temp, masked_adjunct_list[j])
-                words = masked_word_list[j]
-                new_tests, new_temps = pred_sent_by_syn(pred_list, masked_temp, words)
-                # new_tests, new_temps = pred_sent_by_bert(pred_list, masked_temp, words)
-                next_temp_list.extend(new_temps)
-                for test in new_tests:
-                    w.write(test + "\n")
-                w.write("\n")
-                tests_list.append(new_tests)
-            else:
-                new_temp_list = []
-                tests_list.append([])
-                for t in range(len(next_temp_list)):
-                    pred_list, masked_temp = gen_masked_sent(j, next_temp_list[t], masked_adjunct_list[j])
-                    words = masked_word_list[j]
-                    new_tests, new_temps = pred_sent_by_syn(pred_list, masked_temp, words)
-                    # new_tests, new_temps = pred_sent_by_bert(pred_list, masked_temp, words)
-                    new_temp_list.extend(new_temps)
-                    tests_list[-1].extend(new_tests)
-                    for test in new_tests:
-                        w.write(test + "\n")
-                    w.write("\n")
-                next_temp_list = new_temp_list
-        w.write("FIN\n")
-        all_tests.append(tests_list)
-    w.close()
-    return all_tests
+# def gen_sent_by_syn(file_path, comp_list, temp_list, all_masked_word, all_masked_adjunct):
+#     w = open(file_path, mode="a")
+#     all_tests = []
+#     for i in range(0, 10):
+#         w.write("sent_id = " + str(i) + "\n")
+#         comp = comp_list[i]
+#         w.write(format_abbr(comp) + "\n")
+#         temp = temp_list[i]
+#         tests_list = []
+#         tests_list.append([format_abbr(comp)])
+#         masked_adjunct_list = all_masked_adjunct[i]
+#         masked_word_list = all_masked_word[i]
+#         next_temp_list = []
+#         for j in range(len(masked_adjunct_list)):
+#             w.write("insert t" + str(j) + "\n")
+#             if j == 0:
+#                 pred_list, masked_temp = gen_masked_sent(j, temp, masked_adjunct_list[j])
+#                 words = masked_word_list[j]
+#                 new_tests, new_temps = pred_sent_by_syn(pred_list, masked_temp, words)
+#                 # new_tests, new_temps = pred_sent_by_bert(pred_list, masked_temp, words)
+#                 next_temp_list.extend(new_temps)
+#                 for test in new_tests:
+#                     w.write(test + "\n")
+#                 w.write("\n")
+#                 tests_list.append(new_tests)
+#             else:
+#                 new_temp_list = []
+#                 tests_list.append([])
+#                 for t in range(len(next_temp_list)):
+#                     pred_list, masked_temp = gen_masked_sent(j, next_temp_list[t], masked_adjunct_list[j])
+#                     words = masked_word_list[j]
+#                     new_tests, new_temps = pred_sent_by_syn(pred_list, masked_temp, words)
+#                     # new_tests, new_temps = pred_sent_by_bert(pred_list, masked_temp, words)
+#                     new_temp_list.extend(new_temps)
+#                     tests_list[-1].extend(new_tests)
+#                     for test in new_tests:
+#                         w.write(test + "\n")
+#                     w.write("\n")
+#                 next_temp_list = new_temp_list
+#         w.write("FIN\n")
+#         all_tests.append(tests_list)
+#     w.close()
+#     return all_tests
 
 
 def gen_sent_by_bert(file_path, comp_list, temp_list, all_masked_word, all_masked_adjunct):
@@ -439,6 +440,141 @@ def read_question_index():
             temp = []
         sent = orig_sents.readline()
     return result
+
+# 调用百度翻译api
+def back_translation(sent):
+    # host = 'https://aip.baidubce.com/oauth/2.0/token?grant_type=client_credentials&client_id=Tl22jvCjsihL3CPLQeTzKqUL&client_secret=U4QW2LeDioD8arLDM75RTLpesdWn1qrj'
+    # response = requests.get(host)
+    # if response:
+    #     print(response.json())
+
+    token = "24.12fdf025f1336049538b7d198c440f5b.2592000.1647431058.282335-25606143"
+    url = 'https://aip.baidubce.com/rpc/2.0/mt/texttrans/v1?access_token=' + token
+    # For list of language codes, please refer to `https://ai.baidu.com/ai-doc/MT/4kqryjku9#语种列表`
+    from_lang = 'en'  # example: en
+    to_lang = 'zh'  # example: zh
+    term_ids = ''  # 术语库id，多个逗号隔开
+    # Build request
+    headers = {'Content-Type': 'application/json'}
+    payload = {'q': sent, 'from': from_lang, 'to': to_lang, 'termIds': term_ids}
+
+    # Send request
+    r = requests.post(url, params=payload, headers=headers)
+
+    result = r.json()
+    zh_trans_result = result['result']['trans_result'][0]['dst']
+
+    from_lang = 'zh'  # example: en
+    to_lang = 'en'  # example: zh
+    term_ids = ''  # 术语库id，多个逗号隔开
+    # Build request
+    headers = {'Content-Type': 'application/json'}
+    payload = {'q': zh_trans_result, 'from': from_lang, 'to': to_lang, 'termIds': term_ids}
+
+    # Send request
+    r = requests.post(url, params=payload, headers=headers)
+    result = r.json()
+    en_trans_result = result['result']['trans_result'][0]['dst']
+
+    return en_trans_result
+
+# 通过回译（英文-》中文-》英文）生成新context，输入是ans_context.txt 读取之后的list，输出为ques为key，新context为value的键值对（1对1）构成的list
+def gen_ans_context_by_trans(ans_context):
+    new_context_list = []
+    sid = 3500
+    eid = 4000
+    for i in range(sid, eid):
+        print('i: ', i)
+        ques_ans = ans_context[i]
+        ques = ques_ans["question"]
+        new_context = {}
+        if ques_ans["answer"] == "None":
+            continue
+        context = ques_ans["context"]
+        new_context["ques"] = ques
+        new_context["con"] = [back_translation(context)]
+        new_context["idx"] = str(i)
+        new_context_list.append(new_context)
+    return new_context_list
+
+
+# 通过同义词生成新context，输入是ans_context.txt 读取之后的list，输出为ques为key，新context为value的键值对（1对多）构成的list
+def gen_ans_context_by_syn(ans_context):
+    stop_words = set(stopwords.words("english"))
+    new_context_list = []
+    for i in range(len(ans_context)):
+        print('i: ', i)
+        ques_ans = ans_context[i]
+        ques = ques_ans["question"]
+        new_context = {}
+        new_context["ques"] = ques
+        new_context["con"] = []
+        new_context["idx"] = str(i)
+        filter_words = word_extraction(ques)
+        if ques_ans["answer"] == "None":
+            continue
+        ans_list = ques_ans["answer"].split("|")
+        for ans in ans_list:
+            ans_word = word_extraction(ans)
+            filter_words.extend(ans_word)
+        filter_words = set(filter_words)
+        context = ques_ans["context"]
+        con_words = context.strip().rstrip().split()
+        # print(con_words)
+        con_word_pos = nltk.pos_tag(con_words)
+        #print(con_word_pos)
+        for j in range(len(con_word_pos)):
+            if con_word_pos[j][1] in ['JJ', 'JJR', 'JJS', 'NN', 'NNS', 'RB', 'RBR', 'RBS', 'VB', 'VBD', 'VBG', 'VBN', 'VBP', 'VBZ']:
+                if (con_words[j] not in filter_words) & (con_words[j] not in stop_words):
+                    print(con_words[j], " can replace")
+                    syns = get_synonyms(con_words[j])
+                    syns = list(filter(lambda s: s and s.strip(), syns))
+                    if len(syns) != 0:
+                        print(syns)
+                        for syn in syns:
+                            if (syn != con_words[j].lower()) & (len(syn.split(" ")) == 1):
+                                syn_pos = nltk.pos_tag([syn])
+                                if syn_pos[0][1] == con_word_pos[j][1]:
+                                    new_words = list(con_words)
+                                    new_words[j] = syn
+                                    print("new sentence: ", " ".join(new_words))
+                                    new_context["con"].append(" ".join(new_words))
+        new_context_list.append(new_context)
+    return new_context_list
+
+# 读取ans_context.txt
+def load_context_ans(file_path):
+    ans_context = []
+    f = open(file_path, "r")
+    line = f.readline()
+    ques_ans = {}
+    while line:
+        if ("question:" in line) & (len(ques_ans) == 0):
+            ques_ans["question"] = line[:-1].replace("question: ","")
+        if ("answer:" in line) & (len(ques_ans) == 1):
+            ques_ans["answer"] = line[:-1].replace("answer: ", "")
+        if ("context:" in line) & (len(ques_ans) == 2):
+            context_sent = line[:-1].replace("context: ", "")
+            context_sent = format_context_sent(context_sent)
+            ques_ans["context"] = context_sent
+            ans_context.append(ques_ans)
+            ques_ans = {}
+        line = f.readline()
+
+    return ans_context
+
+# 保存新context
+def save_new_context(file_path, new_context_list):
+    f = open(file_path, 'a')
+    for i in range(len(new_context_list)):
+        new_context = new_context_list[i]
+        f.write("ans_context_idx: " + new_context["idx"] + "\n")
+        f.write("ques: " + new_context["ques"] + "\n")
+        f.write("new_context:" + "\n")
+        for con in new_context["con"]:
+            f.write(con + "\n")
+        f.write("\n")
+    f.close()
 
 if __name__ == '__main__':
     # 获取所有句子的<=beam_size个变体
