@@ -602,7 +602,7 @@ context_id=95
 "Southern California" is not a formal geographic designation, and definitions of what constitutes southern California vary.
 Geographically, California's north-south midway point lies at exactly 37° 9' 58.23" latitude, around 11 miles (18 km) south of San Jose; however, this does not coincide with popular use of the term.
 When the state is divided into two areas (northern and southern California), the term "southern California" usually refers to the ten southern-most counties of the state.
-This definition coincides neatly with the county lines at 35° 47′ 28″ north latitude, which form the northern borders of San Luis Obispo, Kern, and San Bernardino counties.
+This definition coincides neatly with the county lines at 35° 47' 28" north latitude, which form the northern borders of San Luis Obispo, Kern, and San Bernardino counties.
 Another definition for southern California uses Point Conception and the Tehachapi Mountains as the northern boundary.
 
 context_id=96
@@ -820,7 +820,7 @@ Sky News, amongst other channels, provides a pseudo-video on demand interactive 
 
 context_id=136
 When Sky Digital was launched in 1998 the new service used the Astra 2A satellite which was located at the 28.5°E orbital position, unlike the analogue service which was broadcast from 19.2°E.
-This was subsequently followed by more Astra satellites as well as Eutelsat's Eurobird 1 (now Eutelsat 33C) at 28.5°E), enabled the company to launch a new all-digital service, Sky, with the potential to carry hundreds of television and radio channels.
+This was subsequently followed by more Astra satellites as well as Eutelsat's Eurobird 1 (now Eutelsat 33C) at 28.5°E, enabled the company to launch a new all-digital service, Sky, with the potential to carry hundreds of television and radio channels.
 The old position was shared with broadcasters from several European countries, while the new position at 28.5°E came to be used almost exclusively for channels that broadcast to the United Kingdom.
 
 context_id=137
@@ -875,7 +875,7 @@ Virgin Media has nevertheless made a number of statements over the years, sugges
 context_id=144
 BSkyB's direct-to-home satellite service became available in 10 million homes in 2010, Europe's first pay-TV platform in to achieve that milestone.
 Confirming it had reached its target, the broadcaster said its reach into 36% of households in the UK represented an audience of more than 25m people.
-The target was first announced in August 2004, since then an additional 2.4m customers had subscribed to BSkyB's direct-to-home service.
+The target was first announced in August 2004, since then an additional 2.4 million customers had subscribed to BSkyB's direct-to-home service.
 Media commentators had debated whether the figure could be reached as the growth in subscriber numbers elsewhere in Europe flattened.
 
 context_id=145
@@ -1551,7 +1551,7 @@ In recent decades, reciprocating Diesel engines, and gas turbines, have almost e
 
 context_id=239
 The Rankine cycle is the fundamental thermodynamic underpinning of the steam engine.
-The cycle is an arrangement of components as is typically used for simple power production, and utilizes the phase change of water (boiling water producing steam, condensing exhaust steam, producing liquid water)) to provide a practical heat/power conversion system.
+The cycle is an arrangement of components as is typically used for simple power production, and utilizes the phase change of water (boiling water producing steam, condensing exhaust steam, producing liquid water) to provide a practical heat/power conversion system.
 The heat is supplied externally to a closed loop with some of the heat added being converted to work and the waste heat being removed in a condenser.
 The Rankine cycle is used in virtually all steam power production applications.
 In the 1990s, Rankine steam cycles generated about 90% of all electric power used throughout the world, including virtually all solar, biomass, coal and nuclear power plants.
@@ -2045,7 +2045,7 @@ context_id=310
 In response to American aid to Israel, on October 16, 1973, OPEC raised the posted price of oil by 70%, to $5.11 a barrel.
 The following day, oil ministers agreed to the embargo, a cut in production by five percent from September's output and to continue to cut production in five percent monthly increments until their economic and political objectives were met.
 On October 19, Nixon requested Congress to appropriate $2.2 billion in emergency aid to Israel, including $1.5 billion in outright grants.
-George Lenczowski notes, Military supplies did not exhaust Nixon's eagerness to prevent Israel's collapse...
+George Lenczowski notes, Military supplies did not exhaust Nixon's eagerness to prevent Israel's collapse.
 This [$2.2 billion] decision triggered a collective OPEC response.
 Libya immediately announced it would embargo oil shipments to the United States.
 Saudi Arabia and the other Arab oil-producing states joined the embargo on October 20, 1973.
@@ -3056,7 +3056,8 @@ Also in the Tower District is Good Company Players' 2nd Space Theatre.
 context_id=432
 The neighborhood features restaurants, live theater and nightclubs, as well as several independent shops and bookstores, currently operating on or near Olive Avenue, and all within a few hundred feet of each other.
 Since renewal, the Tower District has become an attractive area for restaurant and other local businesses.
-Today, the Tower District is also known as the center of Fresno's LGBT and hipster Communities.; Additionally, Tower District is also known as the center of Fresno's local punk/goth/deathrock and heavy metal community.
+Today, the Tower District is also known as the center of Fresno's LGBT and hipster Communities.
+Additionally, Tower District is also known as the center of Fresno's local punk/goth/deathrock and heavy metal community.
 
 context_id=433
 The area is also known for its early twentieth century homes, many of which have been restored in recent decades.
@@ -3248,14 +3249,14 @@ However, its address field (the Data Link Connection ID, or DLCI) can be used at
 Thus, it rids itself of many X.25 layer 3 encumbrances, but still has the DLCI as an ID beyond a node-to-node layer two link protocol.
 The simplicity of Frame Relay makes it faster and more efficient than X.25.
 Because Frame relay is a data link layer protocol, like X.25 it does not define internal network routing operations.
-For X.25 its packet IDs---the virtual circuit and virtual channel numbers have to be correlated to network addresses.
+For X.25 its packet IDs, the virtual circuit and virtual channel numbers have to be correlated to network addresses.
 The same is true for Frame Relays DLCI.
 How this is done is up to the network provider.
 Frame Relay, by virtue of having no network layer procedures is connection-oriented at layer two, by using the HDLC/LAPD/LAPB Set Asynchronous Balanced Mode (SABM).
 X.25 connections are typically established for each communication session, but it does have a feature allowing a limited amount of traffic to be passed across the UNI without the connection-oriented handshake.
 For a while, Frame Relay was used to interconnect LANs across wide area networks.
 However, X.25 and well as Frame Relay have been supplanted by the Internet Protocol (IP) at the network layer, and the Asynchronous Transfer Mode (ATM) and or versions of Multi-Protocol Label Switching (MPLS) at layer two.
-A typical configuration is to run IP over ATM or a version of MPLS. <Uyless Black, X.25 and Related Protocols, IEEE Computer Society, 1991> <Uyless Black, Frame Relay Networks, McGraw-Hill, 1998> <Uyless Black, MPLS and Label Switching Networks, Prentice Hall, 2001> < Uyless Black, ATM, Volume I, Prentice Hall, 1995>
+A typical configuration is to run IP over ATM or a version of MPLS.
 
 context_id=457
 ARPANET and SITA HLN became operational in 1969.
@@ -3291,7 +3292,8 @@ context_id=461
 In 1965, at the instigation of Warner Sinback, a data network based on this voice-phone network was designed to connect GE's four computer sales and service centers (Schenectady, Phoenix, Chicago, and Phoenix) to facilitate a computer time-sharing service, apparently the world's first commercial online service.
 In addition to selling GE computers, the centers were computer service bureaus, offering batch processing services.
 They lost money from the beginning, and Sinback, a high-level marketing manager, was given the job of turning the business around.
-He decided that a time-sharing system, based on Kemney's work at Dartmouth—which used a computer on loan from GE—could be profitable. Warner was right.
+He decided that a time-sharing system, based on Kemney's work at Dartmouth, which used a computer on loan from GE, could be profitable.
+Warner was right.
 
 context_id=462
 Merit Network, Inc., an independent non-profit 501(c)(3) corporation governed by Michigan's public universities, was formed in 1966 as the Michigan Educational Research Information Triad to explore computer networking between three of Michigan's public universities as a means to help the state's educational and economic development.
@@ -3921,7 +3923,8 @@ More than this, since only individuals act, only individuals can act unjustly.
 When the government knocks on the door, it is an individual in the form of a postman or tax collector whose hand hits the wood.
 Before Thoreau's imprisonment, when a confused taxman had wondered aloud about how to handle his refusal to pay, Thoreau had advised, "Resign."
 If a man chose to be an agent of injustice, then Thoreau insisted on confronting him with the fact that he was making a choice.
-But if government is "the voice of the people," as it is often called, shouldn't that voice be heeded? Thoreau admits that government may express the will of the majority but it may also express nothing more than the will of elite politicians.
+But if government is "the voice of the people," as it is often called, shouldn't that voice be heeded?
+Thoreau admits that government may express the will of the majority but it may also express nothing more than the will of elite politicians.
 Even a good form of government is "liable to be abused and perverted before the people can act through it."
 Moreover, even if a government did express the voice of the people, this fact would not compel the obedience of individuals who disagree with what is being said.
 The majority may be powerful but it is not necessarily right.
@@ -3991,7 +3994,7 @@ For example, the suspect may need to decide whether or not to grant a consent se
 It is generally agreed within the legal community, and is often believed within the activist community, that a suspect's talking to criminal investigators can serve no useful purpose, and may be harmful.
 However, some civil disobedients have nonetheless found it hard to resist responding to investigators' questions, sometimes due to a lack of understanding of the legal ramifications, or due to a fear of seeming rude.
 Also, some civil disobedients seek to use the arrest as an opportunity to make an impression on the officers.
-Thoreau wrote, My civil neighbor, the tax-gatherer, is the very man I have to deal with--for it is, after all, with men and not with parchment that I quarrel--and he has voluntarily chosen to be an agent of the government.
+Thoreau wrote, My civil neighbor, the tax-gatherer, is the very man I have to deal with, for it is, after all, with men and not with parchment that I quarrel, and he has voluntarily chosen to be an agent of the government.
 How shall he ever know well that he is and does as an officer of the government, or as a man, until he is obliged to consider whether he will treat me, his neighbor, for whom he has respect, as a neighbor and well-disposed man, or as a maniac and disturber of the peace, and see if he can get over this obstruction to his neighborliness without a ruder and more impetuous thought or speech corresponding with his action.
 
 context_id=560
@@ -4005,7 +4008,7 @@ There is much debate on this point, as some believe that it is a civil disobedie
 It has also been argued that either choice is compatible with the spirit of civil disobedience.
 ACT-UP's Civil Disobedience Training handbook states that a civil disobedient who pleads guilty is essentially stating, Yes, I committed the act of which you accuse me.
 I don't deny it; in fact, I am proud of it.
-I feel I did the right thing by violating this particular law; I am guilty as charged," but that pleading not guilty sends a message of, Guilt implies wrong-doing.
+I feel I did the right thing by violating this particular law; I am guilty as charged, but that pleading not guilty sends a message of, Guilt implies wrong-doing.
 I feel I have done no wrong.
 I may have violated some specific laws, but I am guilty of doing no wrong.
 I therefore plead not guilty.
@@ -4023,12 +4026,12 @@ context_id=563
 Howard Zinn writes, There may be many times when protesters choose to go to jail, as a way of continuing their protest, as a way of reminding their countrymen of injustice.
 But that is different than the notion that they must go to jail as part of a rule connected with civil disobedience.
 The key point is that the spirit of protest should be maintained all the way, whether it is done by remaining in jail, or by evading it.
-To accept jail penitently as an accession to 'the rules' is to switch suddenly to a spirit of subservience, to demean the seriousness of the protest...
+To accept jail penitently as an accession to 'the rules' is to switch suddenly to a spirit of subservience, to demean the seriousness of the protest.
 In particular, the neo-conservative insistence on a guilty plea should be eliminated.
 
 context_id=564
-Some civil disobedience defendants choose to make a defiant speech, or a speech explaining their actions, in allocution. In U.S. v.
-Burgos-Andujar, a defendant who was involved in a movement to stop military exercises by trespassing on U.S. Navy property argued to the court in allocution that "the ones who are violating the greater law are the members of the Navy".
+Some civil disobedience defendants choose to make a defiant speech, or a speech explaining their actions, in allocution.
+In U.S. v. Burgos-Andujar, a defendant who was involved in a movement to stop military exercises by trespassing on U.S. Navy property argued to the court in allocution that "the ones who are violating the greater law are the members of the Navy".
 As a result, the judge increased her sentence from 40 to 60 days.
 This action was upheld because, according to the U.S. Court of Appeals for the First Circuit, her statement suggested a lack of remorse, an attempt to avoid responsibility for her actions, and even a likelihood of repeating her illegal actions.
 Some of the other allocution speeches given by the protesters complained about mistreatment from government officials.
@@ -4532,7 +4535,7 @@ The largest collection of East-Asian language material outside of East Asia is h
 
 context_id=638
 Harvard operates several arts, cultural, and scientific museums.
-The Harvard Art Museums comprises three museums. 
+The Harvard Art Museums comprises three museums.
 The Arthur M. Sackler Museum includes collections of ancient, Asian, Islamic and later Indian art, the Busch-Reisinger Museum, formerly the Germanic Museum, covers central and northern European art, and the Fogg Museum of Art, covers Western art from the Middle Ages to the present emphasizing Italian early Renaissance, British pre-Raphaelite, and 19th-century French art.
 The Harvard Museum of Natural History includes the Harvard Mineralogical Museum, Harvard University Herbaria featuring the Blaschka Glass Flowers exhibit, and the Museum of Comparative Zoology.
 Other museums include the Carpenter Center for the Visual Arts, designed by Le Corbusier, housing the film archive, the Peabody Museum of Archaeology and Ethnology, specializing in the cultural history and civilizations of the Western Hemisphere, and the Semitic Museum featuring artifacts from excavations in the Middle East.
@@ -6427,7 +6430,8 @@ Not every prime (in Z) is a Gaussian prime: in the bigger ring Z[i], 2 factors i
 context_id=889
 In ring theory, the notion of number is generally replaced with that of ideal.
 Prime ideals, which generalize prime elements in the sense that the principal ideal generated by a prime element is a prime ideal, are an important tool and object of study in commutative algebra, algebraic number theory and algebraic geometry.
-The prime ideals of the ring of integers are the ideals (0), (2), (3), (5), (7), (11), … The fundamental theorem of arithmetic generalizes to the Lasker–Noether theorem, which expresses every ideal in a Noetherian commutative ring as an intersection of primary ideals, which are the appropriate generalizations of prime powers.
+The prime ideals of the ring of integers are the ideals (0), (2), (3), (5), (7), (11), …
+The fundamental theorem of arithmetic generalizes to the Lasker–Noether theorem, which expresses every ideal in a Noetherian commutative ring as an intersection of primary ideals, which are the appropriate generalizations of prime powers.
 
 context_id=890
 Prime ideals are the points of algebro-geometric objects, via the notion of the spectrum of a ring.
@@ -6456,7 +6460,7 @@ It is the second-longest river in Central and Western Europe (after the Danube),
 
 context_id=894
 The variant forms of the name of the Rhine in modern languages are all derived from the Gaulish name Rēnos, which was adapted in Roman-era geography (1st century BC) as Greek Ῥῆνος (Rhēnos), Latin Rhenus.
-The spelling with Rh- in English Rhine as well as in German Rhein and French Rhin is due to the influence of Greek orthography, while the vocalisation -i- is due to the Proto-Germanic adoption of the Gaulish name as *Rīnaz, via Old Frankish giving Old English Rín, Old High German Rīn, Dutch Rijn (formerly also spelled Rhijn)).
+The spelling with Rh- in English Rhine as well as in German Rhein and French Rhin is due to the influence of Greek orthography, while the vocalisation -i- is due to the Proto-Germanic adoption of the Gaulish name as *Rīnaz, via Old Frankish giving Old English Rín, Old High German Rīn, Dutch Rijn (formerly also spelled Rhijn).
 The diphthong in modern German Rhein (also adopted in Romansh Rein, Rain) is a Central German development of the early modern period, the Alemannic name Rī(n) retaining the older vocalism,[note 4] as does Ripuarian Rhing, while Palatine has diphthongized Rhei, Rhoi.
 Spanish is with French in adopting the Germanic vocalism Rin-, while Italian, Occitan and Portuguese retain the Latin Ren-.
 
@@ -6494,7 +6498,7 @@ Lake Constance consists of three bodies of water: the Obersee ("upper lake"), th
 The lake is situated in Germany, Switzerland and Austria near the Alps.
 Specifically, its shorelines lie in the German states of Bavaria and Baden-Württemberg, the Austrian state of Vorarlberg, and the Swiss cantons of Thurgau and St. Gallen.
 The Rhine flows into it from the south following the Swiss-Austrian border.
-It is located at approximately 47°39′N 9°19′E﻿ / ﻿47.650°N 9.317°E﻿ / 47.650; 9.317.
+It is located at approximately 47°39'N 9°19'E﻿/ 47.650°N 9.317°E﻿/ 47.650; 9.317.
 
 context_id=900
 The flow of cold, gray mountain water continues for some distance into the lake.
@@ -7049,7 +7053,8 @@ Scholars and observers who do not believe that Islam is merely a political ideol
 Hayri Abaza argues the failure to distinguish between Islam and Islamism leads many in the West to support illiberal Islamic regimes, to the detriment of progressive moderates who seek to separate religion from politics.
 
 context_id=980
-Islamists have asked the question, "If Islam is a way of life, how can we say that those who want to live by its principles in legal, social, political, economic, and political spheres of life are not Muslims, but Islamists and believe in Islamism, not [just] Islam?" Similarly, a writer for the International Crisis Group maintains that "the conception of 'political Islam'" is a creation of Americans to explain the Iranian Islamic Revolution and apolitical Islam was a historical fluke of the "short-lived era of the heyday of secular Arab nationalism between 1945 and 1970", and it is quietist/non-political Islam, not Islamism, that requires explanation.
+Islamists have asked the question, "If Islam is a way of life, how can we say that those who want to live by its principles in legal, social, political, economic, and political spheres of life are not Muslims, but Islamists and believe in Islamism, not [just] Islam?"
+Similarly, a writer for the International Crisis Group maintains that "the conception of 'political Islam'" is a creation of Americans to explain the Iranian Islamic Revolution and apolitical Islam was a historical fluke of the "short-lived era of the heyday of secular Arab nationalism between 1945 and 1970", and it is quietist/non-political Islam, not Islamism, that requires explanation.
 
 context_id=981
 During the 1970s and sometimes later, Western and pro-Western governments often supported sometimes fledgling Islamists and Islamist groups that later came to be seen as dangerous enemies.
@@ -7150,8 +7155,7 @@ One result of this was a campaign of attacks on government officials and tourist
 
 context_id=998
 While Qutb's ideas became increasingly radical during his imprisonment prior to his execution in 1966, the leadership of the Brotherhood, led by Hasan al-Hudaybi, remained moderate and interested in political negotiation and activism.
-Fringe or splinter movements inspired by the final writings of Qutb in the mid-1960s (particularly the manifesto Milestones, a.k.a.
-Ma'alim fi-l-Tariq) did, however, develop and they pursued a more radical direction.
+Fringe or splinter movements inspired by the final writings of Qutb in the mid-1960s (particularly the manifesto Milestones, a.k.a. Ma'alim fi-l-Tariq) did, however, develop and they pursued a more radical direction.
 By the 1970s, the Brotherhood had renounced violence as a means of achieving its goals.
 
 context_id=999
@@ -7311,7 +7315,8 @@ Colonialism can completely change the existing social structure, physical struct
 
 context_id=1021
 The Royal Geographical Society of London and other geographical societies in Europe had great influence and were able to fund travelers who would come back with tales of their discoveries.
-These societies also served as a space for travellers to share these stories.Political geographers such as Friedrich Ratzel of Germany and Halford Mackinder of Britain also supported imperialism.
+These societies also served as a space for travellers to share these stories.
+Political geographers such as Friedrich Ratzel of Germany and Halford Mackinder of Britain also supported imperialism.
 Ratzel believed expansion was necessary for a state's survival while Mackinder supported Britain's imperial expansion; these two arguments dominated the discipline for decades.
 
 context_id=1022
@@ -7543,7 +7548,7 @@ Following a long period of military setbacks against European powers, the Ottoma
 The empire allied with Germany in the early 20th century, with the imperial ambition of recovering its lost territories, but it dissolved in the aftermath of World War I, leading to the emergence of the new state of Turkey in the Ottoman Anatolian heartland, as well as the creation of modern Balkan and Middle Eastern states, thus ending Turkish colonial ambitions.
 
 context_id=1052
-Warsaw (Polish: Warszawa [varˈʂava] ( listen); see also other names) is the capital and largest city of Poland.
+Warsaw (Polish: Warszawa [varˈʂava] (listen); see also other names) is the capital and largest city of Poland.
 It stands on the Vistula River in east-central Poland, roughly 260 kilometres (160 mi) from the Baltic Sea and 300 kilometres (190 mi) from the Carpathian Mountains.
 Its population is estimated at 1.740 million residents within a greater metropolitan area of 2.666 million residents, which makes Warsaw the 9th most-populous capital city in the European Union.
 The city limits cover 516.9 square kilometres (199.6 sq mi), while the metropolitan area covers 6,100.43 square kilometres (2,355.39 sq mi).
@@ -7808,8 +7813,7 @@ MasterCard Emerging Market Index has noted Warsaw's economic strength and commer
 Moreover, Warsaw was ranked as the 7th greatest emerging market.
 Foreign investors' financial participation in the city's development was estimated in 2002 at over 650 million euro.
 Warsaw produces 12% of Poland's national income, which in 2008 was 305.1% of the Polish average, per capita (or 160% of the European Union average).
-The GDP per capita in Warsaw amounted to PLN 94 000 in 2008 (c.
-EUR 23 800, USD 33 000).
+The GDP per capita in Warsaw amounted to PLN 94 000 in 2008 (c. EUR 23 800, USD 33 000).
 Total nominal GDP of the city in 2010 amounted to 191.766 billion PLN, 111696 PLN per capita, which was 301,1 % of Polish average.
 Warsaw leads the region of East-Central Europe in foreign investment and in 2006, GDP growth met expectations with a level of 6.1%.
 It also has one of the fastest growing economies, with GDP growth at 6.5 percent in 2007 and 6.1 percent in the first quarter of 2008.
@@ -8529,7 +8533,8 @@ Such temperatures have been probed in modern particle accelerators and show the 
 
 context_id=1181
 The normal force is due to repulsive forces of interaction between atoms at close contact.
-When their electron clouds overlap, Pauli repulsion (due to fermionic nature of electrons) follows resulting in the force that acts in a direction normal to the surface interface between two objects.:93 The normal force, for example, is responsible for the structural integrity of tables and floors as well as being the force that responds whenever an external force pushes on a solid object.
+When their electron clouds overlap, Pauli repulsion (due to fermionic nature of electrons) follows resulting in the force that acts in a direction normal to the surface interface between two objects.
+The normal force, for example, is responsible for the structural integrity of tables and floors as well as being the force that responds whenever an external force pushes on a solid object.
 An example of the normal force in action is the impact force on an object crashing into an immobile surface.
 
 context_id=1182
