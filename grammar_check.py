@@ -1,9 +1,9 @@
+import re
 import spacy
 from nltk import CoreNLPParser
-
-## Stanford Corenlp constituency parser
 from preprocess import load_formulation, format_formulation, search_cut_content
 
+## Stanford Corenlp constituency parser
 eng_parser = CoreNLPParser('http://127.0.0.1:9000')
 ## SpaCy dependency parser
 nlp = spacy.load("en_core_web_sm")
@@ -47,6 +47,8 @@ def load_dictionary(d_path):
 
 ## obtain constituency parser tree
 def get_nlp_tree(sent):
+    sent = re.sub(r'%(?![0-9a-fA-F]{2})', "%25", sent)
+    sent = sent.replace("+", "%2B")
     words = sent.split(" ")
     par_res = eng_parser.parse(words)
     for line in par_res:
@@ -1249,11 +1251,13 @@ def check_grammar(cut_sents, comp_label, orig_sents):
     return label_list, all_sbar, all_pp, all_conj, comp_list
 
 
-def grammar_check_main(file_name):
-    sent_path = "./comp_input/" + file_name + ".cln.sent"
-    comp_label = load_label("./comp_label/slahan_w_syn/2_" + file_name + "_result_greedy.sents")
-    orig_sents = load_orig_sent(sent_path)
-    label_list, all_sbar, all_pp, all_conj, comp_list = check_grammar(orig_sents, comp_label)
+def grammar_check_main():
+    cut_sent_path = "./comp_input/ncontext.cln.sent"
+    orig_sent_path = "./comp_input/context.cln.sent"
+    comp_label = load_label("./ncontext_result_greedy.sents")
+    cut_sents = load_orig_sent(cut_sent_path)
+    orig_sents = load_orig_sent(orig_sent_path)
+    label_list, all_sbar, all_pp, all_conj, comp_list = check_grammar(cut_sents, comp_label, orig_sents)
     return label_list, all_sbar, all_pp, all_conj, comp_list
 
 
