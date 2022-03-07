@@ -11,10 +11,10 @@ a box of
 a few of
 a little of
 a lack of
+The lack of
 a lot of
 lots of
 a pile of
-piles of
 a copy of
 a bowl of
 a basket of
@@ -26,8 +26,10 @@ a great deal of
 a number of
 a group of
 a couple of
+couple of
 a cupful of
 a portion of
+portion of
 a majority of
 an atom of
 a spell of
@@ -42,6 +44,7 @@ a shred of
 a sheet of
 a cluster of
 a string of
+a stream of
 a scram of
 a body of
 a block of
@@ -51,7 +54,6 @@ a basket of
 a line of
 a round of
 a bar of
-an article of
 an item of
 a bunch of
 a cake of
@@ -108,10 +110,12 @@ fond of
 full of
 made of
 proud of
+kind of
 in front of
 in the middle of
 instead of
-short/lack of
+lack of
+short of
 tired of
 age of
 shape of
@@ -162,6 +166,7 @@ in praise of
 in respect of
 in search of
 in sight of
+a part of
 part of
 hundreds of
 thousands of
@@ -172,8 +177,13 @@ the end of
 in one of
 parts of
 a shot of
-the lack of
-kind of
+a bed of
+a year of
+a series of
+a portion of
+the most important of
+form of
+much of
 
 key = that
 accept that
@@ -409,6 +419,7 @@ find out that
 found out that
 show that
 showed that
+certain that
 
 key = on
 on Monday
