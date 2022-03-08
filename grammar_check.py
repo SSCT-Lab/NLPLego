@@ -1,9 +1,10 @@
 import re
 import spacy
 from nltk import CoreNLPParser
-from preprocess import load_formulation, format_formulation, search_cut_content
 
 ## Stanford Corenlp constituency parser
+from preprocess import load_formulation, format_formulation, search_cut_content
+
 eng_parser = CoreNLPParser('http://127.0.0.1:9000')
 ## SpaCy dependency parser
 nlp = spacy.load("en_core_web_sm")
@@ -40,7 +41,12 @@ def load_dictionary(d_path):
                 dictionary[key][l_words[w_idx]] = line[:-1]
             else:
                 dictionary[key].append(line[:-1])
-
+            # l_words = line[:-1].split(" ")
+            # if key == "comp":
+            #     dictionary[key].append(line[:-1])
+            # else:
+            #     index = l_words.index(key) - 1
+            #     dictionary[key].append(l_words[index])
         line = d.readline()
     return dictionary
 
@@ -125,7 +131,7 @@ def load_orig_sent(orig_path):
         sent = orig_sents.readline()
     return sent_list
 
-## 判断是否介词短语中是否存在其他短语
+
 def exist_pp(pos_list, pp_word, dictionary, key_pp, to_flag, spill_words_list):
     count = 0
     key = -1
@@ -220,7 +226,7 @@ def devide_pp(pp_word, key):
 # pp = subtree[:e_idx + 1]
 # return pp
 
-## 补齐动词短语中的动词
+## Complement prep phrase
 def get_the_complete_phrase(p_word, h_word, s_word, pp, pos_list, all_pos_list, pp_list, hyp_words, orig_sent):
     new_pp = list(pp)
     new_pos_list = list(pos_list)
@@ -272,7 +278,7 @@ def get_the_complete_phrase(p_word, h_word, s_word, pp, pos_list, all_pos_list, 
             h_idx = -1
     return new_pp, new_pos_list, h_idx
 
-## 获取of短语的前缀
+
 def get_prep_of(doc, dictionary, all_pos_list, s_word):
     i = 0
     prep_of = []
@@ -342,7 +348,7 @@ def get_prep_of(doc, dictionary, all_pos_list, s_word):
         i += 1
     return prep_of
 
-## 获取句子中的连接词
+
 def get_hyphen_word(sent):
     hyphen_words = []
     s_word = sent.split(" ")
@@ -359,7 +365,7 @@ def get_hyphen_word(sent):
 
     return hyphen_words, word_list
 
-## 获取句子中缩写词
+
 def get_abbr_word(sent):
     abbr_words = []
     s_word = sent.split(" ")
@@ -368,7 +374,7 @@ def get_abbr_word(sent):
             abbr_words.append(w)
     return abbr_words
 
-## 补全公式，缩写词
+
 def complement_pp_word(pp_word, s_word, pos_list, all_pos_list, abbr_words, spill_words_list):
     comp_f = ""
     comp_abbr = ""
@@ -411,7 +417,7 @@ def complement_pp_word(pp_word, s_word, pos_list, all_pos_list, abbr_words, spil
             break
     return pp_word, pos_list, comp_f, comp_abbr
 
-## 若最后一个词语属于连接词等，补全完整的内容
+
 def get_complete_last_word(pp_word, s_word):
     if len(pp_word) >= 3:
         s_idx = check_continuity(pp_word[:-1], s_word, -2)
@@ -717,8 +723,8 @@ def check_pp_integrity(words, comp_label, orig_pp, pp_flag, noun_chunks):
     return res_label
 
 
-## Check the integrity of prepositional phrases in the compression results
-def check_sbar_integrity(words, comp_label, sbar_list, sbar_flag):
+## Check the integrity of sbar in the compression results
+def check_sbar_integrity(comp_label, sbar_list, sbar_flag):
     s_idx = -1
     res_label = list(comp_label)
     print(comp_label)
@@ -747,6 +753,24 @@ def check_sbar_integrity(words, comp_label, sbar_list, sbar_flag):
                     res_label[j] = -1
     return res_label
 
+def check_formulation_intergrity(comp_label, for_list, for_flag):
+    s_idx = -1
+    res_label = list(comp_label)
+    for i in range(len(for_list)):
+        s_idx = for_flag.index(2, s_idx + 1)
+        for_len = len(for_list[i].split(" "))
+        count = 0
+        for j in range(s_idx, s_idx + for_len):
+            if comp_label[j] == 1:
+                count += 1
+
+        for j in range(s_idx, s_idx + for_len):
+            if (count > for_len / 2) & (res_label[j] != -1):
+                res_label[j] = 1
+            else:
+                res_label[j] = 0
+
+    return res_label
 
 def exist_sbar(nlp_tree):
     count = 0
@@ -791,6 +815,27 @@ def devide_sbar(pos_list, long_sbar, nlp_tree, hyp_words, orig_sent):
         sbar = long_sbar
 
     return sbar
+
+
+def get_phrase_idx(words, phrase):
+    count = words.count(phrase[0])
+    if count == 1:
+        idx = words.index(phrase[0])
+        return idx
+    else:
+        i = 0
+        s_idx = -1
+        while i < count:
+            idx = words.index(phrase[0], s_idx + 1)
+            if len(phrase) > 2:
+                if (words[idx + 1] == phrase[1]) & (words[idx + 2] == phrase[2]):
+                    return idx
+            else:
+                if words[idx + 1] == phrase[1]:
+                    return idx
+                else:
+                    count += 1
+                    s_idx = idx
 
 
 def judge_that_in_start(s_words, sbar_idx, pp_list):
@@ -861,7 +906,7 @@ def check_comma(words, comp_label):
 def inter(a, b):
     return list(set(a) & set(b))
 
-## 处理一些特殊情况
+
 def process_wrong_formulation(sbar):
     sbar = sbar.replace("7n2 15n 40", "7n2 + 15n + 40")
     sbar = sbar.replace("( n + 1 ) 2", "(n + 1)2")
@@ -891,7 +936,7 @@ def process_wrong_formulation(sbar):
         sbar = sbar[:-3] + "°E"
     return sbar
 
-## 处理连接词的错误情况
+
 def process_hyp_words(sent, hyp_words, orig_sent):
     wrong_hyp_words = []
     word_list = []
@@ -1131,6 +1176,59 @@ def write_list_in_txt(comp_list, orig_comp, file_path):
         f.write("\n")
 
 
+def juede_word_is_formulation(word):
+    if (len(word) == 1) & (word not in [".", ":"]):
+        return True
+    elif word.replace(".", "").isdigit():
+        return True
+    elif word.replace("/", "").isdigit():
+        return True
+    elif word in ["<", ">", "+", "−", "·", "T(n)", "f(n)", "...", "(n", "(p", "bi", "xO"]:
+        return True
+    elif len(re.sub("\D", "", word)) != 0:
+        return True
+    elif word.isupper():
+        return True
+    elif ("(" in word) | ("log" in word) | (")" in word):
+        return True
+    else:
+        return False
+
+def extra_formulation(cut_sent):
+    for_list = []
+    cut_words = cut_sent.split(" ")
+    for i in range(len(cut_words)):
+        if (cut_words[i] in ["=", "<", ">", "+", "−"]) | \
+                (("/" in cut_words[i]) & (juede_word_is_formulation(cut_words[i])) & (len(cut_words[i]) != 1)) \
+                | (("(n" in cut_words[i]) & (juede_word_is_formulation(cut_words[i])))\
+                | ("m·s−2" in cut_words[i]):
+            j = i - 1
+            while j >= 0:
+                if juede_word_is_formulation(cut_words[j]):
+                    j = j - 1
+                else:
+                    break
+            s_idx = j + 1
+            j = i + 1
+            while j < len(cut_words):
+                if juede_word_is_formulation(cut_words[j]):
+                    j = j + 1
+                else:
+                    break
+            e_idx = j - 1
+            formulation = " ".join(cut_words[s_idx:e_idx + 1])
+            if formulation[-1] == ",":
+                formulation = formulation[:-1]
+            if formulation[0] == ",":
+                formulation = formulation[1:]
+            if formulation.strip().rstrip() not in for_list:
+                for_list.append(formulation.strip().rstrip())
+
+    if len(for_list) > 0:
+        print(for_list)
+    return for_list
+
+
 ## check completeness of prep phrases, clause
 def check_grammar(cut_sents, comp_label, orig_sents):
     comp_list = []
@@ -1140,7 +1238,8 @@ def check_grammar(cut_sents, comp_label, orig_sents):
     all_pp = []
     all_conj = []
     dictionary = load_dictionary('./Dictionary.txt')
-    for i in range(6020, len(cut_sents)):
+    for i in range(4623, len(cut_sents)):
+        for_list = extra_formulation(cut_sents[i])
         cut_sents[i] = cut_sents[i].replace("``", "\"").replace("''", "\"")
         res_label = list(comp_label[i])
         hyp_words, spill_words_list = get_hyphen_word(cut_sents[i])
@@ -1161,7 +1260,7 @@ def check_grammar(cut_sents, comp_label, orig_sents):
                     s_idx = check_continuity(sbar_words, cut_words, s_idx)
                 sbar_flag = fill_sent_flag(sbar_flag, s_idx, s_idx + len(sbar_words))
             # print("sbar_flag: ", sbar_flag)
-            res_label = check_sbar_integrity(cut_words, res_label, sbar_list, sbar_flag)
+            res_label = check_sbar_integrity(res_label, sbar_list, sbar_flag)
             # print("after sbar process: ", res_label)
         res_pp = filter_pp_in_sbar(sbar_list, new_pp_list)
         if len(res_pp) > 0:
@@ -1174,6 +1273,13 @@ def check_grammar(cut_sents, comp_label, orig_sents):
             res_label = check_pp_integrity(cut_words, res_label, res_pp, pp_flag, noun_chunks)
             # print("after prep process: ", res_label)
         # res_label = check_comma(words, res_label)
+        if len(for_list) > 0:
+            for_flag = [0] * len(cut_words)
+            for f in for_list:
+                f_words = f.split(" ")
+                s_idx = check_continuity(f_words, cut_words, -2)
+                for_flag = fill_sent_flag(for_flag, s_idx, s_idx + len(f_words))
+            res_label = check_formulation_intergrity(res_label, for_list, for_flag)
 
         conj_str = ''
         if len(res_pp) == 0:
@@ -1221,12 +1327,7 @@ def check_grammar(cut_sents, comp_label, orig_sents):
                             res_label[check_conj] = 1
         # print("after conj process: ", res_label)
 
-        empty_flag = True
-        for j in range(0, len(res_label) - 1):
-            if res_label[j] == 1:
-                empty_flag = False
-                break
-        if empty_flag:
+        if res_label.count(1) < 3:
             res_label = comp_label[i]
 
         orig_words = orig_sents[i].split(" ")
@@ -1239,8 +1340,8 @@ def check_grammar(cut_sents, comp_label, orig_sents):
         if len(res_label) != len(orig_words):
             print("orig context: ", orig_words)
 
+
         orig_comp.append(get_res_by_label(cut_words, comp_label[i]))
-        #comp_res = get_res_by_label(cut_words, res_label)
         orig_res = get_res_by_label(orig_words, res_label)
         comp_list.append(orig_res)
         label_list.append(res_label)
@@ -1269,5 +1370,3 @@ if __name__ == '__main__':
     cut_sents = load_orig_sent(cut_sent_path)
     orig_sents = load_orig_sent(orig_sent_path)
     check_grammar(cut_sents, comp_label, orig_sents)
-    # sent = "The bank said it was losing money on a large number of such accounts ."
-    # get_prep_list_by_dependency(sent)
