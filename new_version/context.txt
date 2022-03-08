@@ -6425,7 +6425,8 @@ context_id=888
 The fundamental theorem of arithmetic continues to hold in unique factorization domains.
 An example of such a domain is the Gaussian integers Z[i], that is, the set of complex numbers of the form a + bi where i denotes the imaginary unit and a and b are arbitrary integers.
 Its prime elements are known as Gaussian primes.
-Not every prime (in Z) is a Gaussian prime: in the bigger ring Z[i], 2 factors into the product of the two Gaussian primes (1 + i) and (1 − i). Rational primes (i.e. prime elements in Z) of the form 4k + 3 are Gaussian primes, whereas rational primes of the form 4k + 1 are not.
+Not every prime (in Z) is a Gaussian prime: in the bigger ring Z[i], 2 factors into the product of the two Gaussian primes (1 + i) and (1 − i).
+Rational primes (i.e. prime elements in Z) of the form 4k + 3 are Gaussian primes, whereas rational primes of the form 4k + 1 are not.
 
 context_id=889
 In ring theory, the notion of number is generally replaced with that of ideal.
