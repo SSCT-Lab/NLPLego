@@ -53,8 +53,8 @@ def load_dictionary(d_path):
 
 ## obtain constituency parser tree
 def get_nlp_tree(sent):
-    sent = re.sub(r'%(?![0-9a-fA-F]{2})', "%25", sent)
-    sent = sent.replace("+", "%2B")
+    # sent = re.sub(r'%(?![0-9a-fA-F]{2})', "%25", sent)
+    # sent = sent.replace("+", "%2B")
     words = sent.split(" ")
     par_res = eng_parser.parse(words)
     for line in par_res:
@@ -120,7 +120,7 @@ def load_label(label_path):
 
 ## load the original sentences from file
 def load_orig_sent(orig_path):
-    orig_sents = open(orig_path, mode="r")
+    orig_sents = open(orig_path, mode="r", encoding="utf-8")
     sent = orig_sents.readline()
     sent_list = []
     while sent:
@@ -1128,29 +1128,42 @@ def extract_conj(text):
         j += 1
     return res
 
+def valid(start, end, doc, j):
+    if j != end:
+        for i in doc[j+1:end]:
+            if i.text == "and" or i.text == "or":
+                return 1
+    else:
+        for i in doc[start+1:j]:
+            if i.text == "and" or i.text == "or":
+                return 1
+    return 0
 
 def single_conj(min, j, doc, ans):
     flag = 0
     str = ''
     choose_flag = 0
-    if min != 0 and doc[min] == doc[j].head:
-        for i in doc[min + 1:j + 1]:
-            if i.text == 'and' or i.text == 'or':
-                choose_flag = 1
-            str += ' ' + i.text
-        return j + 1
+    # 找后面还有没有
+    end = j
+    start = 0
+    if j < len(doc)-1:
+        for i in range(j+1, len(doc)):
+            if doc[i].head == doc[j] and doc[i].dep_ == 'conj':
+                end = i
+                break
+
+    # 找前面
     for i in range(min, j + 1):
         if doc[i] == doc[j].head:
-            flag = 1
-        if flag == 1:
-            if doc[i].text == 'and' or doc[i].text == 'or':
-                choose_flag = 1
-            str += ' ' + doc[i].text
+            flag == 1
+            start = i
+            choose_flag = valid(start, end, doc, j)
     if choose_flag:
+        str = ' '.join([x.text for x in doc[start:end+1]])
         print(str)
         ans.append(str.strip())
         ans.append(1)
-    return j
+    return end
 
 
 def two_conj(j, doc, ans):
@@ -1168,7 +1181,7 @@ def two_conj(j, doc, ans):
 
 
 def write_list_in_txt(comp_list, orig_comp, file_path):
-    f = open(file_path, "w")
+    f = open(file_path, "w", encoding="utf-8")
     for i in range(len(comp_list)):
         f.write("i = " + str(i) + "\n")
         f.write("original: " + orig_comp[i] + "\n")
@@ -1238,7 +1251,11 @@ def check_grammar(cut_sents, comp_label, orig_sents):
     all_pp = []
     all_conj = []
     dictionary = load_dictionary('./Dictionary.txt')
-    for i in range(4623, len(cut_sents)):
+    conj_for_write = ""
+    conj_str_write = ""
+    # for i in range(4623, len(cut_sents)):
+    hwt = 4777
+    for i in range(hwt, hwt+1):
         for_list = extra_formulation(cut_sents[i])
         cut_sents[i] = cut_sents[i].replace("``", "\"").replace("''", "\"")
         res_label = list(comp_label[i])
@@ -1285,11 +1302,20 @@ def check_grammar(cut_sents, comp_label, orig_sents):
         if len(res_pp) == 0:
             pp_flag = [0] * len(cut_words)
         for conj_i in range(len(res_label)):
-            conj_str = conj_str + ' ' + cut_words[conj_i] if (
-                    res_label[conj_i] != -1 and pp_flag[conj_i] == 0) else conj_str
+            conj_str = conj_str + ' ' + cut_words[conj_i] if (res_label[conj_i] != -1 and pp_flag[conj_i] == 0) else conj_str
+
         # print("conj_Str: ", conj_str)
+        conj_str_write += "i = " + str(i) + "\n"
         conj_res = extract_conj(conj_str.strip().rstrip())
-        # print("conj_res: ", conj_res)
+        conj_str_write += conj_str.strip().rstrip()+"\n"
+        conj_str_write += "\n"
+        conj_for_write += "i = " + str(i) + "\n"
+        for tt in conj_res:
+            conj_for_write += tt[0]+"  "+"->"+"  "
+        conj_for_write += "\n"
+        conj_for_write += "\n"
+
+        print(conj_res)
         for conj_li in conj_res:
             if conj_li[1] == 1:
                 conj_word = conj_li[0].split(" ")
@@ -1329,8 +1355,8 @@ def check_grammar(cut_sents, comp_label, orig_sents):
 
         if res_label.count(1) < 3:
             res_label = comp_label[i]
-
         orig_words = orig_sents[i].split(" ")
+        print(get_res_by_label(orig_words, res_label))
         cut_idx = search_cut_content(orig_words)
         if len(cut_idx) != 0:
             for tup in cut_idx:
@@ -1348,7 +1374,13 @@ def check_grammar(cut_sents, comp_label, orig_sents):
         all_sbar.append(sbar_list)
         all_pp.append(pp_list)
         all_conj.append(conj_res)
-    write_list_in_txt(comp_list, orig_comp, "./modify_res.txt")
+    write_list_in_txt(comp_list, orig_comp, "./modify_res1.txt")
+    # f = open("./conj_result.txt", "w", encoding="utf-8")
+    # f.write(conj_for_write)
+    # f.close()
+    # f = open("./conj_str_result.txt", "w", encoding="utf-8")
+    # f.write(conj_str_write)
+    # f.close()
     return label_list, all_sbar, all_pp, all_conj, comp_list
 
 
