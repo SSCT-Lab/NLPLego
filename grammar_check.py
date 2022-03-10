@@ -53,8 +53,8 @@ def load_dictionary(d_path):
 
 ## obtain constituency parser tree
 def get_nlp_tree(sent):
-    sent = re.sub(r'%(?![0-9a-fA-F]{2})', "%25", sent)
-    sent = sent.replace("+", "%2B")
+    # sent = re.sub(r'%(?![0-9a-fA-F]{2})', "%25", sent)
+    # sent = sent.replace("+", "%2B")
     words = sent.split(" ")
     par_res = eng_parser.parse(words)
     for line in par_res:
@@ -1106,6 +1106,7 @@ def filter_pp_in_sbar(sbar_list, pp_list):
 
 
 def extract_conj(text):
+    print("conj_str:",text)
     res = []
     # as well as单独处理
     doc = nlp(text)
@@ -1124,6 +1125,10 @@ def extract_conj(text):
             j = single_conj(min, j, doc, ans)
             min = j
             if not len(ans) == 0:
+                s_temp = ans[0].split(" ")
+                for i in range(1, len(s_temp) - 1):
+                    if s_temp[i] == '-' and "".join(s_temp[i-1:i+2]) in text:
+                        ans[0] = " ".join(s_temp[0:i - 1]) + " " + "".join(s_temp[i-1:i+2]) + " " + " ".join(s_temp[i+2:len(s_temp)])
                 res.append(ans)
                 ans = []
         else:
@@ -1284,12 +1289,12 @@ def grammar_check_one_sent(i, orig_sent, cut_sent, comp_label, dictionary):
             s_idx = check_continuity(f_words, cut_words, -2)
             for_flag = fill_sent_flag(for_flag, s_idx, s_idx + len(f_words))
         res_label = check_formulation_intergrity(res_label, for_list, for_flag)
+
     conj_str = ''
     if len(res_pp) == 0:
         pp_flag = [0] * len(cut_words)
     for conj_i in range(len(res_label)):
-        conj_str = conj_str + ' ' + cut_words[conj_i] if (
-                    res_label[conj_i] != -1 and pp_flag[conj_i] == 0) else conj_str
+        conj_str = conj_str + ' ' + cut_words[conj_i] if (res_label[conj_i] != -1 and pp_flag[conj_i] == 0) else conj_str
     conj_str_write += "i = " + str(i) + "\n"
     conj_res = extract_conj(conj_str.strip().rstrip())
     conj_str_write += conj_str.strip().rstrip() + "\n"
@@ -1304,20 +1309,84 @@ def grammar_check_one_sent(i, orig_sent, cut_sent, comp_label, dictionary):
     for conj_li in conj_res:
         if conj_li[1] == 1:
             conj_word = conj_li[0].split(" ")
-            conj_index = -1
+            # conj_index = -1
+            index_conj = 0
+            index_start_conj = -1
+            conj_is_exist = 0
+            conj_mapping_cut = []
+            conj_word_index = -1
             for temp in range(len(cut_words)):
-                if conj_word[0] == cut_words[temp] and conj_word == cut_words[temp:temp + len(conj_word)]:
-                    conj_index = temp
-                    break
-            if not conj_index == -1:
-                # print("conj_index: ", conj_index, conj_index + len(conj_word),
-                # cut_words[conj_index:conj_index + len(conj_word)])
-                check_index = 0
-                for check_conj in range(conj_index, conj_index + len(conj_word)):
-                    check_index += 1 if res_label[check_conj] == 1 else 0
-                if check_index == len(conj_word) - 1:
-                    for check_conj in range(conj_index, conj_index + len(conj_word)):
-                        res_label[check_conj] = 1
+                if res_label[temp] != -1 and pp_flag[temp] == 0:
+                    if cut_words[temp] == conj_word[index_conj]:
+                        conj_mapping_cut.append([index_conj, temp])
+                        if conj_word[index_conj] == 'and' or conj_word[index_conj] == 'or':
+                            conj_word_index = len(conj_mapping_cut) - 1
+                        if index_conj == 0:
+                            index_start_conj = temp
+                        index_conj += 1
+                        if index_conj == len(conj_word):
+                            conj_is_exist = 1
+                            # conj_index = index_start_conj
+                            break
+                        temp += 1
+
+            if conj_is_exist:
+                # 三种情况，a and/or b
+                # a and存在，填补b
+                # b and存在，填补a
+                # a b 存在,填补连接词
+                left_check = 1
+                special_comma_list = []
+                for check_conj in conj_mapping_cut[0:conj_word_index]:
+                    if res_label[check_conj[1]] == 0:
+                        if cut_words[check_conj[1]] == ',':
+                            special_comma_list.append(check_conj[1])
+                        else:
+                            left_check = 0
+                            break
+                right_check = 1
+                for check_conj in conj_mapping_cut[conj_word_index + 1:len(conj_mapping_cut)]:
+                    if res_label[check_conj[1]] == 0:
+                        if cut_words[check_conj[1]] == ',':
+                            special_comma_list.append(check_conj[1])
+                        else:
+                            right_check = 0
+                            break
+                conj_check = 1 if res_label[conj_mapping_cut[conj_word_index][1]] == 1 else 0
+                if left_check and right_check and conj_check:
+                    pass
+                elif left_check == 0 and right_check and conj_check:
+                    # a不全,补全a
+                    for check_conj in conj_mapping_cut[0:conj_word_index]:
+                        if check_conj[1] not in special_comma_list:
+                            res_label[check_conj[1]] = 1
+                elif left_check and right_check == 0 and conj_check:
+                    # b不全,补全b
+                    for check_conj in conj_mapping_cut[conj_word_index + 1:len(conj_mapping_cut)]:
+                        if check_conj[1] not in special_comma_list:
+                            res_label[check_conj[1]] = 1
+                elif left_check and right_check and conj_check == 0:
+                    res_label[conj_mapping_cut[conj_word_index][1]] = 1
+                else:
+                    # 把连接词及后面去掉
+                    for check_conj in conj_mapping_cut[conj_word_index:len(conj_mapping_cut)]:
+                        res_label[check_conj[1]] = 0
+
+            else:
+                # 没找到，把连接词及后面去掉
+                index_conj = 0
+                is_end = 0
+                for temp in range(len(res_label)):
+                    if res_label[temp] != -1 and pp_flag[temp] == 0:
+                        if cut_words[temp] == conj_word[index_conj]:
+                            if conj_word[index_conj] == 'and' or conj_word[index_conj] == 'or':
+                                is_end = 1
+                            if is_end:
+                                res_label[temp] = 0
+                            index_conj += 1
+                            if index_conj == len(conj_word):
+                                break
+                            temp += 1
         elif conj_li[1] == 2:
             conj_word = conj_li[0].split(" ")
             conj_index = -1
@@ -1371,7 +1440,7 @@ def grammar_check_all_sents(cut_sents, comp_label, orig_sents, start_idx, end_id
         all_pp.append(pp_list)
         all_conj.append(conj_res)
         all_formulations.append(for_list)
-    write_list_in_txt(comp_list, orig_comp, "./modify_res.txt")
+    write_list_in_txt(comp_list, orig_comp, "./modify_res1.txt")
     return label_list, all_sbar, all_pp, all_conj, comp_list, all_formulations
 
 
@@ -1392,8 +1461,11 @@ if __name__ == '__main__':
     comp_label = load_label("./ncontext_result_greedy.sents")
     cut_sents = load_orig_sent(cut_sent_path)
     orig_sents = load_orig_sent(orig_sent_path)
-    start_idx = 4761
+    # start_idx = 4623
+    # end_idx = len(cut_sents)
+    # grammar_check_all_sents(cut_sents, comp_label, orig_sents, start_idx, end_idx)
+    start_idx = 5144
     end_idx = len(cut_sents)
-    grammar_check_all_sents(cut_sents, comp_label, orig_sents, start_idx, end_idx)
+    grammar_check_all_sents(cut_sents, comp_label, orig_sents, start_idx, start_idx+1)
     # sent = "The bank said it was losing money on a large number of such accounts ."
     # get_prep_list_by_dependency(sent)
