@@ -53,8 +53,8 @@ def load_dictionary(d_path):
 
 ## obtain constituency parser tree
 def get_nlp_tree(sent):
-    # sent = re.sub(r'%(?![0-9a-fA-F]{2})', "%25", sent)
-    # sent = sent.replace("+", "%2B")
+    sent = re.sub(r'%(?![0-9a-fA-F]{2})', "%25", sent)
+    sent = sent.replace("+", "%2B")
     words = sent.split(" ")
     par_res = eng_parser.parse(words)
     for line in par_res:
@@ -176,7 +176,7 @@ def exist_pp(pos_list, pp_word, dictionary, key_pp, to_flag, spill_words_list):
                             break
             elif w.text in ["while", "when", "where", "which", "who", "that", "during", "according"]:
                 count += 1
-            elif (w.text == "to") & (not to_flag) :
+            elif (w.text == "to") & (not to_flag):
                 count += 1
             if count == 1:
                 key = i
@@ -526,7 +526,10 @@ def get_prep_list_by_dependency(sent, hyp_words, spill_words_list, abbr_words):
                 ## cut long prep
                 flag, key = exist_pp(pos_list, pp_word, dictionary, w.text, False, spill_words_list)
                 if flag & (key > 1):
-                    pp_word = pp_word[:key]
+                    if pp_word[key - 1] in ["and", "or"]:
+                        pp_word = pp_word[:key - 1]
+                    else:
+                        pp_word = pp_word[:key]
                 if pp_str == "of which":
                     i += 1
                     if len(prep_of) != 0:
@@ -1159,7 +1162,7 @@ def single_conj(min, j, doc, ans):
             start = i
             choose_flag = valid(start, end, doc, j)
     if choose_flag:
-        str = ' '.join([x.text for x in doc[start:end+1]])
+        str = ' '.join([x.text for x in doc[start:end + 1]])
         print(str)
         ans.append(str.strip())
         ans.append(1)
@@ -1242,156 +1245,144 @@ def extra_formulation(cut_sent):
     return for_list
 
 
+def grammar_check_one_sent(i, orig_sent, cut_sent, comp_label, dictionary):
+    conj_for_write = ""
+    conj_str_write = ""
+    cut_sent = cut_sent.replace("``", "\"").replace("''", "\"")
+    res_label = list(comp_label)
+    for_list = extra_formulation(cut_sent)
+    hyp_words, spill_words_list = get_hyphen_word(cut_sent)
+    abbr_words = get_abbr_word(cut_sent)
+    sbar_list, pos_list = extra_sbar(cut_sent, dictionary, hyp_words)
+    pp_list, noun_chunks = get_prep_list_by_dependency(cut_sent, hyp_words, spill_words_list, abbr_words)
+    print("prep phrase: ", pp_list)
+    sbar_list, new_pp_list = using_pp_update_sbar(cut_sent, sbar_list, pos_list, dictionary, pp_list,
+                                                  hyp_words)
+    print("sbar: ", sbar_list)
+    cut_words = cut_sent.split(" ")
+    if len(sbar_list) > 0:
+        sbar_flag = [0] * len(cut_words)
+        for sbar in sbar_list:
+            sbar_words = sbar.split(" ")
+            s_idx = check_continuity(sbar_words, cut_words, -2)
+            if sbar_flag[s_idx] == 2:
+                s_idx = check_continuity(sbar_words, cut_words, s_idx)
+            sbar_flag = fill_sent_flag(sbar_flag, s_idx, s_idx + len(sbar_words))
+        res_label = check_sbar_integrity(res_label, sbar_list, sbar_flag)
+    res_pp = filter_pp_in_sbar(sbar_list, new_pp_list)
+    if len(res_pp) > 0:
+        pp_flag = [0] * len(cut_words)
+        for pp in res_pp:
+            pp_words = pp[1].split(" ")
+            s_idx = check_continuity(pp_words, cut_words, -2)
+            pp_flag = fill_sent_flag(pp_flag, s_idx, s_idx + len(pp_words))
+        res_label = check_pp_integrity(cut_words, res_label, res_pp, pp_flag, noun_chunks)
+    if len(for_list) > 0:
+        for_flag = [0] * len(cut_words)
+        for f in for_list:
+            f_words = f.split(" ")
+            s_idx = check_continuity(f_words, cut_words, -2)
+            for_flag = fill_sent_flag(for_flag, s_idx, s_idx + len(f_words))
+        res_label = check_formulation_intergrity(res_label, for_list, for_flag)
+    conj_str = ''
+    if len(res_pp) == 0:
+        pp_flag = [0] * len(cut_words)
+    for conj_i in range(len(res_label)):
+        conj_str = conj_str + ' ' + cut_words[conj_i] if (
+                    res_label[conj_i] != -1 and pp_flag[conj_i] == 0) else conj_str
+    conj_str_write += "i = " + str(i) + "\n"
+    conj_res = extract_conj(conj_str.strip().rstrip())
+    conj_str_write += conj_str.strip().rstrip() + "\n"
+    conj_str_write += "\n"
+    conj_for_write += "i = " + str(i) + "\n"
+    for tt in conj_res:
+        conj_for_write += tt[0] + "  " + "->" + "  "
+    conj_for_write += "\n"
+    conj_for_write += "\n"
+
+    print(conj_res)
+    for conj_li in conj_res:
+        if conj_li[1] == 1:
+            conj_word = conj_li[0].split(" ")
+            conj_index = -1
+            for temp in range(len(cut_words)):
+                if conj_word[0] == cut_words[temp] and conj_word == cut_words[temp:temp + len(conj_word)]:
+                    conj_index = temp
+                    break
+            if not conj_index == -1:
+                # print("conj_index: ", conj_index, conj_index + len(conj_word),
+                # cut_words[conj_index:conj_index + len(conj_word)])
+                check_index = 0
+                for check_conj in range(conj_index, conj_index + len(conj_word)):
+                    check_index += 1 if res_label[check_conj] == 1 else 0
+                if check_index == len(conj_word) - 1:
+                    for check_conj in range(conj_index, conj_index + len(conj_word)):
+                        res_label[check_conj] = 1
+        elif conj_li[1] == 2:
+            conj_word = conj_li[0].split(" ")
+            conj_index = -1
+            for temp in range(len(cut_words)):
+                if conj_word[0] == cut_words[temp] and conj_word == cut_words[temp:temp + len(conj_word)]:
+                    conj_index = temp
+                    break
+            if not conj_index == -1:
+                # print("conj_index: ", conj_index, conj_index + len(conj_word),
+                # cut_words[conj_index:conj_index + len(conj_word)])
+                check_index = False
+                for check_conj in range(conj_index, conj_index + len(conj_word)):
+                    if res_label[check_conj] == 1:
+                        check_index = True
+                        break
+                if check_index:
+                    for check_conj in range(conj_index, conj_index + len(conj_word)):
+                        res_label[check_conj] = 1
+        # print("after conj process: ", res_label)
+    if res_label.count(1) < 3:
+        res_label = comp_label
+    orig_words = orig_sent.split(" ")
+    cut_idx = search_cut_content(orig_words)
+    if len(cut_idx) != 0:
+        for tup in cut_idx:
+            count = tup[1] - tup[0] + 1
+            for j in range(count):
+                res_label.insert(tup[0], -2)
+    if len(res_label) != len(orig_words):
+        print("orig context: ", orig_words)
+
+    return res_label, sbar_list, pp_list, conj_res, for_list
+
 ## check completeness of prep phrases, clause
-def check_grammar(cut_sents, comp_label, orig_sents):
+def grammar_check_all_sents(cut_sents, comp_label, orig_sents, start_idx, end_idx):
     comp_list = []
     orig_comp = []
     label_list = []
     all_sbar = []
     all_pp = []
     all_conj = []
+    all_formulations = []
     dictionary = load_dictionary('./Dictionary.txt')
-    conj_for_write = ""
-    conj_str_write = ""
-    # for i in range(4623, len(cut_sents)):
-    hwt = 4777
-    for i in range(hwt, hwt+1):
-        for_list = extra_formulation(cut_sents[i])
-        cut_sents[i] = cut_sents[i].replace("``", "\"").replace("''", "\"")
-        res_label = list(comp_label[i])
-        hyp_words, spill_words_list = get_hyphen_word(cut_sents[i])
-        abbr_words = get_abbr_word(cut_sents[i])
-        sbar_list, pos_list = extra_sbar(cut_sents[i], dictionary, hyp_words)
-        pp_list, noun_chunks = get_prep_list_by_dependency(cut_sents[i], hyp_words, spill_words_list, abbr_words)
-        print("prep phrase: ", pp_list)
-        sbar_list, new_pp_list = using_pp_update_sbar(cut_sents[i], sbar_list, pos_list, dictionary, pp_list,
-                                                      hyp_words)
-        print("sbar: ", sbar_list)
-        cut_words = cut_sents[i].split(" ")
-        if len(sbar_list) > 0:
-            sbar_flag = [0] * len(cut_words)
-            for sbar in sbar_list:
-                sbar_words = sbar.split(" ")
-                s_idx = check_continuity(sbar_words, cut_words, -2)
-                if sbar_flag[s_idx] == 2:
-                    s_idx = check_continuity(sbar_words, cut_words, s_idx)
-                sbar_flag = fill_sent_flag(sbar_flag, s_idx, s_idx + len(sbar_words))
-            # print("sbar_flag: ", sbar_flag)
-            res_label = check_sbar_integrity(res_label, sbar_list, sbar_flag)
-            # print("after sbar process: ", res_label)
-        res_pp = filter_pp_in_sbar(sbar_list, new_pp_list)
-        if len(res_pp) > 0:
-            pp_flag = [0] * len(cut_words)
-            for pp in res_pp:
-                pp_words = pp[1].split(" ")
-                s_idx = check_continuity(pp_words, cut_words, -2)
-                pp_flag = fill_sent_flag(pp_flag, s_idx, s_idx + len(pp_words))
-            # print("pp_flag: ", pp_flag)
-            res_label = check_pp_integrity(cut_words, res_label, res_pp, pp_flag, noun_chunks)
-            # print("after prep process: ", res_label)
-        # res_label = check_comma(words, res_label)
-        if len(for_list) > 0:
-            for_flag = [0] * len(cut_words)
-            for f in for_list:
-                f_words = f.split(" ")
-                s_idx = check_continuity(f_words, cut_words, -2)
-                for_flag = fill_sent_flag(for_flag, s_idx, s_idx + len(f_words))
-            res_label = check_formulation_intergrity(res_label, for_list, for_flag)
-
-        conj_str = ''
-        if len(res_pp) == 0:
-            pp_flag = [0] * len(cut_words)
-        for conj_i in range(len(res_label)):
-            conj_str = conj_str + ' ' + cut_words[conj_i] if (res_label[conj_i] != -1 and pp_flag[conj_i] == 0) else conj_str
-
-        # print("conj_Str: ", conj_str)
-        conj_str_write += "i = " + str(i) + "\n"
-        conj_res = extract_conj(conj_str.strip().rstrip())
-        conj_str_write += conj_str.strip().rstrip()+"\n"
-        conj_str_write += "\n"
-        conj_for_write += "i = " + str(i) + "\n"
-        for tt in conj_res:
-            conj_for_write += tt[0]+"  "+"->"+"  "
-        conj_for_write += "\n"
-        conj_for_write += "\n"
-
-        print(conj_res)
-        for conj_li in conj_res:
-            if conj_li[1] == 1:
-                conj_word = conj_li[0].split(" ")
-                conj_index = -1
-                for temp in range(len(cut_words)):
-                    if conj_word[0] == cut_words[temp] and conj_word == cut_words[temp:temp + len(conj_word)]:
-                        conj_index = temp
-                        break
-                if not conj_index == -1:
-                    #print("conj_index: ", conj_index, conj_index + len(conj_word),
-                          # cut_words[conj_index:conj_index + len(conj_word)])
-                    check_index = 0
-                    for check_conj in range(conj_index, conj_index + len(conj_word)):
-                        check_index += 1 if res_label[check_conj] == 1 else 0
-                    if check_index == len(conj_word) - 1:
-                        for check_conj in range(conj_index, conj_index + len(conj_word)):
-                            res_label[check_conj] = 1
-            elif conj_li[1] == 2:
-                conj_word = conj_li[0].split(" ")
-                conj_index = -1
-                for temp in range(len(cut_words)):
-                    if conj_word[0] == cut_words[temp] and conj_word == cut_words[temp:temp + len(conj_word)]:
-                        conj_index = temp
-                        break
-                if not conj_index == -1:
-                    #print("conj_index: ", conj_index, conj_index + len(conj_word),
-                          # cut_words[conj_index:conj_index + len(conj_word)])
-                    check_index = False
-                    for check_conj in range(conj_index, conj_index + len(conj_word)):
-                        if res_label[check_conj] == 1:
-                            check_index = True
-                            break
-                    if check_index:
-                        for check_conj in range(conj_index, conj_index + len(conj_word)):
-                            res_label[check_conj] = 1
-        # print("after conj process: ", res_label)
-
-        if res_label.count(1) < 3:
-            res_label = comp_label[i]
-        orig_words = orig_sents[i].split(" ")
-        print(get_res_by_label(orig_words, res_label))
-        cut_idx = search_cut_content(orig_words)
-        if len(cut_idx) != 0:
-            for tup in cut_idx:
-                count = tup[1] - tup[0] + 1
-                for j in range(count):
-                    res_label.insert(tup[0], 0)
-        if len(res_label) != len(orig_words):
-            print("orig context: ", orig_words)
-
-
-        orig_comp.append(get_res_by_label(cut_words, comp_label[i]))
-        orig_res = get_res_by_label(orig_words, res_label)
+    for i in range(start_idx, end_idx):
+        res_label, sbar_list, pp_list, conj_res, for_list = grammar_check_one_sent(i, orig_sents[i], cut_sents[i], comp_label[i], dictionary)
+        orig_comp.append(get_res_by_label(cut_sents[i].split(" "), comp_label[i]))
+        orig_res = get_res_by_label(orig_sents[i].split(" "), res_label)
         comp_list.append(orig_res)
         label_list.append(res_label)
         all_sbar.append(sbar_list)
         all_pp.append(pp_list)
         all_conj.append(conj_res)
-    write_list_in_txt(comp_list, orig_comp, "./modify_res1.txt")
-    # f = open("./conj_result.txt", "w", encoding="utf-8")
-    # f.write(conj_for_write)
-    # f.close()
-    # f = open("./conj_str_result.txt", "w", encoding="utf-8")
-    # f.write(conj_str_write)
-    # f.close()
-    return label_list, all_sbar, all_pp, all_conj, comp_list
+        all_formulations.append(for_list)
+    write_list_in_txt(comp_list, orig_comp, "./modify_res.txt")
+    return label_list, all_sbar, all_pp, all_conj, comp_list, all_formulations
 
 
-def grammar_check_main():
+def grammar_check_main(start_idx, end_idx):
     cut_sent_path = "./comp_input/ncontext.cln.sent"
     orig_sent_path = "./comp_input/context.cln.sent"
     comp_label = load_label("./ncontext_result_greedy.sents")
     cut_sents = load_orig_sent(cut_sent_path)
     orig_sents = load_orig_sent(orig_sent_path)
-    label_list, all_sbar, all_pp, all_conj, comp_list = check_grammar(cut_sents, comp_label, orig_sents)
-    return label_list, all_sbar, all_pp, all_conj, comp_list
+    label_list, all_sbar, all_pp, all_conj, comp_list, all_for = grammar_check_all_sents(cut_sents, comp_label, orig_sents, start_idx, end_idx)
+    return label_list, all_sbar, all_pp, all_conj, comp_list, all_for
 
 
 if __name__ == '__main__':
@@ -1401,4 +1392,8 @@ if __name__ == '__main__':
     comp_label = load_label("./ncontext_result_greedy.sents")
     cut_sents = load_orig_sent(cut_sent_path)
     orig_sents = load_orig_sent(orig_sent_path)
-    check_grammar(cut_sents, comp_label, orig_sents)
+    start_idx = 4761
+    end_idx = len(cut_sents)
+    grammar_check_all_sents(cut_sents, comp_label, orig_sents, start_idx, end_idx)
+    # sent = "The bank said it was losing money on a large number of such accounts ."
+    # get_prep_list_by_dependency(sent)
