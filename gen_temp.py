@@ -79,42 +79,90 @@ def judge_divide(sbar_words, pp_words):
         else:
             return True
 
+## 由于有括号，需要获取到在原句中正确的索引
+def get_correct_sidx(orig_words, key_words):
+    w_count = orig_words.count(key_words[0])
+    if w_count == 1:
+        s_idx = orig_words.index(key_words[0])
+        e_idx = s_idx + 1
+        while orig_words[e_idx] != key_words[-1]:
+            e_idx += 1
+        return s_idx, e_idx
+    else:
+        if key_words.count(key_words[0]) == 1:
+            s_idx = -1
+            for i in range(w_count):
+                s_idx = orig_words.index(key_words[0], s_idx + 1)
+                e_idx = orig_words.index(key_words[-1], s_idx + 1)
+                part_words = orig_words[s_idx:e_idx + 1]
+                if part_words.count(key_words[0]) == 1:
+                    return s_idx, e_idx
+        else:
+            print(key_words)
+            search_key = 1
+            while (orig_words.count(key_words[search_key]) != 1) & (search_key < len(key_words)):
+                search_key += 1
 
-def gen_temp(orig_sents, comp_labels, all_sbar, all_pp):
+            search_key_idx = orig_words.index(key_words[search_key])
+            s_idx = search_key_idx - 1
+            key_words_idx = search_key - 1
+            while (s_idx >= 0) & (key_words_idx >= 0):
+                if orig_words[s_idx] == key_words[key_words_idx]:
+                    key_words_idx -= 1
+                s_idx -= 1
+            e_idx = search_key_idx + 1
+            key_words_idx = search_key + 1
+            while (e_idx < len(orig_words)) & (key_words_idx < len(key_words)):
+                if orig_words[e_idx] == key_words[key_words_idx]:
+                    key_words_idx += 1
+                e_idx += 1
+            return s_idx + 1, e_idx - 1
+
+def gen_temp(orig_sents, cut_sents, comp_labels, start_idx, end_idx):
     sbar_pattern = re.compile(r's\d+')
     pp_pattern = re.compile(r'p\d+')
     temp_list = []
     adjunct_list = []
     all_ner = []
-    for i in range(len(orig_sents)):
-        sbar_list = all_sbar[i]
-        pp_list = all_pp[i]
-        ner_list = extract_ner(orig_sents[i])
-        #print(pos_list)
-        print("original sentences: ", orig_sents[i])
-        s_words = orig_sents[i].split(" ")
-        temp_words = convert_label(orig_sents[i], comp_labels[i])
-
+    comp_list = []
+    dictionary = load_dictionary('./Dictionary.txt')
+    for i in range(start_idx, end_idx):
+        orig_sent = orig_sents[i].replace("``", "\"").replace("''", "\"")
+        cut_sent = cut_sents[i].replace("``", "\"").replace("''", "\"")
+        s_words = orig_sent.split(" ")
+        cut_s_words = cut_sent.split(" ")
+        print("original sentences: ", orig_sent)
+        res_label, sbar_list, pp_list, conj_res, for_list = grammar_check_one_sent(orig_sent, cut_sent, comp_labels[i], dictionary)
+        comp_res = get_res_by_label(s_words, res_label)
+        ner_list = extract_ner(orig_sent)
+        temp_words = convert_label(orig_sent, res_label)
+        cut_idx_list = search_cut_content(s_words)
         if len(sbar_list) != 0:
             for j in range(len(sbar_list)):
                 if len(sbar_list[j].split(" ")) > 2:
-                    s_idx = check_continuity(sbar_list[j].split(" "), s_words)
-                    e_idx = s_idx + len(sbar_list[j].split(" "))
+                    if len(cut_idx_list) != 0:
+                        s_idx, e_idx = get_correct_sidx(s_words, sbar_list[j].split(" "))
+                    else:
+                        s_idx = check_continuity(sbar_list[j].split(" "), s_words, -2)
+                        e_idx = s_idx + len(sbar_list[j].split(" ")) - 1
                     exist_flag = True
-                    for s in range(s_idx, e_idx):
+                    for s in range(s_idx, e_idx + 1):
                         if temp_words[s] != "0":
                             exist_flag = False
                             break
                     if exist_flag:
-                        for s in range(s_idx, e_idx):
+                        for s in range(s_idx, e_idx + 1):
                             temp_words[s] = "s" + str(j)
         ## devide modifying prep
         if len(pp_list) != 0:
-             for j in range(len(pp_list)):
-                s_idx = check_continuity(pp_list[j][1].split(" "), s_words)
-                e_idx = s_idx + len(pp_list[j][1].split(" "))
+            for j in range(len(pp_list)):
+                if len(cut_idx_list) != 0:
+                    s_idx, e_idx = get_correct_sidx(s_words, pp_list[j][1].split(" "))
+                else:
+                    s_idx = check_continuity(pp_list[j][1].split(" "), s_words, -2)
+                    e_idx = s_idx + len(pp_list[j][1].split(" ")) - 1
                 exist_flag = True
-                for p in range(s_idx, e_idx):
+                for p in range(s_idx, e_idx + 1):
                     result = sbar_pattern.findall(temp_words[p])
                     if (temp_words[p] != "0") & (len(result) == 0):
                         exist_flag = False
@@ -127,31 +175,31 @@ def gen_temp(orig_sents, comp_labels, all_sbar, all_pp):
                 if exist_flag & (pp_list[j][0] == "p"):
                     if s_words[s_idx - 1] in ["and", "or", "but"]:
                         s_idx = s_idx - 1
-                    for p in range(s_idx, e_idx):
+                    for p in range(s_idx, e_idx + 1):
                         temp_words[p] = "p" + str(j)
         ## ner need to maintan the same value
-        if len(ner_list) != 0:
-            for j in range(len(ner_list)):
-                s_idx = check_continuity(ner_list[j].split(" "), s_words)
-                e_idx = s_idx + len(ner_list[j].split(" "))
-                s_flag = temp_words[s_idx]
-                sbar_match = sbar_pattern.findall(s_flag)
-                pp_match = pp_pattern.findall(s_flag)
-                if (temp_words[j] == "0") | (len(sbar_match) != 0) | (len(pp_match) != 0):
-                    for n in range(s_idx + 1, e_idx):
-                        if temp_words[n] != s_flag:
-                            temp_words[n] = s_flag
+        # if len(ner_list) != 0:
+        #     for j in range(len(ner_list)):
+        #         s_idx = check_continuity(ner_list[j].split(" "), s_words, -2)
+        #         e_idx = s_idx + len(ner_list[j].split(" "))
+        #         s_flag = temp_words[s_idx]
+        #         sbar_match = sbar_pattern.findall(s_flag)
+        #         pp_match = pp_pattern.findall(s_flag)
+        #         if (temp_words[j] == "0") | (len(sbar_match) != 0) | (len(pp_match) != 0):
+        #             for n in range(s_idx + 1, e_idx):
+        #                 if temp_words[n] != s_flag:
+        #                     temp_words[n] = s_flag
         slot = 0
         adjuncts = []
         adjunct = []
-        words = orig_sents[i].split(" ")
+
         for j in range(0, len(temp_words)):
             sbar_match = sbar_pattern.findall(temp_words[j])
             pp_match = pp_pattern.findall(temp_words[j])
-            if (temp_words[j] == "0")|(len(sbar_match) != 0)|(len(pp_match) != 0):
+            if (temp_words[j] == "0") | (len(sbar_match) != 0) | (len(pp_match) != 0):
                 flag = temp_words[j]
                 temp_words[j] = "t" + str(slot)
-                adjunct.append(words[j])
+                adjunct.append(s_words[j])
                 if j + 1 < len(temp_words):
                     if temp_words[j + 1] != flag:
                         slot = slot + 1
@@ -162,7 +210,8 @@ def gen_temp(orig_sents, comp_labels, all_sbar, all_pp):
         temp_list.append(" ".join(temp_words))
         adjunct_list.append(adjuncts)
         all_ner.append(ner_list)
-    return temp_list, adjunct_list, all_ner
+        comp_list.append(comp_res)
+    return temp_list, adjunct_list, all_ner, comp_list
 
 
 def save_temp_adjuncts(temp_list, adjunct_list, file_name):
@@ -217,22 +266,26 @@ def gen_step_sentence(temp_list, adjunct_list, comp_list, file_name):
     return all_sents
 
 
-def gen_sent_temp_main(file_name):
-    # file_name = "business"
-    # file_name = "context1"
-    sent_path = "./comp_input/" + file_name + ".cln.sent"
-    orig_sents = load_orig_sent(sent_path)
-    label_list, all_sbar, all_pp, all_conj, comp_list = grammar_check_main(file_name)
-    temp_list, adjunct_list, ner_list = gen_temp(orig_sents, label_list, all_sbar, all_pp)
+def gen_sent_temp_main(file_name, start_idx, end_idx):
+    orig_sent_path = "./comp_input/" + file_name + ".cln.sent"
+    orig_sents = load_orig_sent(orig_sent_path)
+    cut_sent_path = "./comp_input/n" + file_name + ".cln.sent"
+    cut_sents = load_orig_sent(cut_sent_path)
+    comp_labels = load_label("./ncontext_result_greedy.sents")
+    temp_list, adjunct_list, ner_list, comp_list = gen_temp(orig_sents, cut_sents, comp_labels, start_idx, end_idx)
     return temp_list, adjunct_list, comp_list, ner_list
 
 
 if __name__ == '__main__':
-    file_name = "business"
-    sent_path = "./comp_input/" + file_name + ".cln.sent"
-    comp_label = load_label("./comp_label/slahan_w_syn/2_" + file_name + "_result_greedy.sents")
-    orig_sents = load_orig_sent(sent_path)
-    label_list, all_sbar, all_pp, all_conj, comp_list = check_grammar(orig_sents, comp_label)
-    temp_list, adjunct_list = gen_temp(orig_sents, label_list, all_sbar, all_pp)
-    gen_step_sentence(temp_list, adjunct_list, comp_list, file_name)
-    save_temp_adjuncts(temp_list, adjunct_list, file_name)
+    file_name = "context"
+    start_idx = 6000
+    end_idx = 6213
+    gen_sent_temp_main(file_name, start_idx, end_idx)
+#     file_name = "business"
+#     sent_path = "./comp_input/" + file_name + ".cln.sent"
+#     comp_label = load_label("./comp_label/slahan_w_syn/2_" + file_name + "_result_greedy.sents")
+#     orig_sents = load_orig_sent(sent_path)
+#     label_list, all_sbar, all_pp, all_conj, comp_list = check_grammar(orig_sents, comp_label)
+#     temp_list, adjunct_list = gen_temp(orig_sents, label_list, all_sbar, all_pp)
+#     gen_step_sentence(temp_list, adjunct_list, comp_list, file_name)
+#     save_temp_adjuncts(temp_list, adjunct_list, file_name)
