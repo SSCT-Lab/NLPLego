@@ -9,21 +9,50 @@ nlp.add_pipe("merge_entities")
 
 eng_parser = CoreNLPParser('http://127.0.0.1:9000', tagtype='pos')
 
+
 # 命名实体：
 def extract_ner(sent):
     doc = nlp(sent)
-    li = []
+    ner_list = []
+    hyp_words, spill_words_list = get_hyphen_word(sent)
     for ent in doc.ents:
         if ent.label_ in ['PERSON', 'GPE', 'ORG', 'NORP', 'PRODUCT', 'EVENT', 'LOC'] and len(ent.text.split()) >= 2:
-            li.append(ent.text)
+            ner_list.append(ent.text)
             # print(ent.text, ent.label_)
-    extract_ner_byAlpha(sent, li)
-    return li
+    extract_ner_byAlpha(sent, ner_list)
+    ## 检查是否包含了完整的连接词或者特殊词语
+    for i in range(len(ner_list)):
+        ner = ner_list[i]
+        n_w = ner.split(" ")
+        sent_words = sent.split(" ")
+        s_idx = check_continuity(n_w, sent_words, -2)
+        if s_idx == -1:
+            for w in hyp_words:
+                tmp_n_w = list(n_w)
+                tmp_n_w[0] = w
+                if check_continuity(tmp_n_w, sent_words, -2) != -1:
+                    ner_list[i] = " ".join(tmp_n_w)
+                    break
+                tmp_n_w = list(n_w)
+                tmp_n_w[-1] = w
+                if check_continuity(tmp_n_w, sent_words, -2) != -1:
+                    ner_list[i] = " ".join(tmp_n_w)
+                    break
+        ner = ner_list[i]
+        n_w = ner.split(" ")
+        s_idx = check_continuity(n_w, sent_words, -2)
+        if s_idx == -1:
+            s_idx = check_continuity(n_w[:-1], sent_words, -2)
+            e_idx = s_idx + len(n_w) - 1
+            if (sent_words[e_idx] != n_w[-1]) & (n_w[-1] in sent_words[e_idx]):
+                ner_list[i] = " ".join(n_w[:-1]) + " " + sent_words[e_idx]
+
+    return ner_list
 
 
-def extract_ner_byAlpha(text, li):
+def extract_ner_byAlpha(text, ner_list):
     arr = text.split()
-    arr[0] = arr[0][0].lower()+arr[0][1:-1]
+    arr[0] = arr[0][0].lower() + arr[0][1:-1]
     for i in range(len(arr)):
         if not arr[i][0].isupper():
             arr[i] = '#'
@@ -32,13 +61,13 @@ def extract_ner_byAlpha(text, li):
     for word in arr:
         if word == '#':
             s = s.strip()
-            if len(s.split()) > 1 and str_in_list(s, li):
-                list_in_str(s, li)
-                li.append(s)
+            if len(s.split()) > 1 and str_in_list(s, ner_list):
+                list_in_str(s, ner_list)
+                ner_list.append(s)
             s = ''
         else:
             s += word + ' '
-    return li
+    return ner_list
 
 
 def str_in_list(s, li):
@@ -72,14 +101,14 @@ def convert_label(orig_sent, comp_label):
 def judge_divide(sbar_words, pp_words):
     if " ".join(pp_words) in " ".join(sbar_words):
         s_idx = sbar_words.index(pp_words[0])
-        e_idx = sbar_words.index(pp_words[len(pp_words)-1])
+        e_idx = sbar_words.index(pp_words[len(pp_words) - 1])
         count = s_idx + len(sbar_words) - e_idx - 1
         if count < 4:
             return False
         else:
             return True
 
-## 由于有括号，需要获取到在原句中正确的索引
+
 def get_correct_sidx(orig_words, key_words):
     w_count = orig_words.count(key_words[0])
     if w_count == 1:
@@ -118,6 +147,17 @@ def get_correct_sidx(orig_words, key_words):
                 e_idx += 1
             return s_idx + 1, e_idx - 1
 
+
+
+    # if (cut_s_idx + add_idx < cut_idx[0]) & (cut_idx[0] < cut_e_idx + add_idx):
+    #     s_idx = cut_s_idx + add_idx
+    #     e_idx = cut_e_idx + add_idx + cut_idx[1] - cut_idx[0] + 1
+    #     add_idx += cut_idx[1] - cut_idx[0] + 1
+    #     return True, s_idx, e_idx, add_idx
+    # else:
+    #     return False, -1, -1, add_idx
+
+
 def gen_temp(orig_sents, cut_sents, comp_labels, start_idx, end_idx):
     sbar_pattern = re.compile(r's\d+')
     pp_pattern = re.compile(r'p\d+')
@@ -127,14 +167,17 @@ def gen_temp(orig_sents, cut_sents, comp_labels, start_idx, end_idx):
     comp_list = []
     dictionary = load_dictionary('./Dictionary.txt')
     for i in range(start_idx, end_idx):
+        # sbar_list = all_sbar[i]
+        # pp_list = all_pp[i]
+        # for_list = all_formulations[i]
         orig_sent = orig_sents[i].replace("``", "\"").replace("''", "\"")
         cut_sent = cut_sents[i].replace("``", "\"").replace("''", "\"")
         s_words = orig_sent.split(" ")
         cut_s_words = cut_sent.split(" ")
         print("original sentences: ", orig_sent)
-        res_label, sbar_list, pp_list, conj_res, for_list = grammar_check_one_sent(orig_sent, cut_sent, comp_labels[i], dictionary)
-        comp_res = get_res_by_label(s_words, res_label)
         ner_list = extract_ner(orig_sent)
+        res_label, sbar_list, pp_list, conj_res, for_list = grammar_check_one_sent(i, orig_sent, cut_sent, comp_labels[i], dictionary)
+        comp_res = get_res_by_label(s_words, res_label)
         temp_words = convert_label(orig_sent, res_label)
         cut_idx_list = search_cut_content(s_words)
         if len(sbar_list) != 0:
@@ -177,18 +220,31 @@ def gen_temp(orig_sents, cut_sents, comp_labels, start_idx, end_idx):
                         s_idx = s_idx - 1
                     for p in range(s_idx, e_idx + 1):
                         temp_words[p] = "p" + str(j)
-        ## ner need to maintan the same value
-        # if len(ner_list) != 0:
-        #     for j in range(len(ner_list)):
-        #         s_idx = check_continuity(ner_list[j].split(" "), s_words, -2)
-        #         e_idx = s_idx + len(ner_list[j].split(" "))
-        #         s_flag = temp_words[s_idx]
-        #         sbar_match = sbar_pattern.findall(s_flag)
-        #         pp_match = pp_pattern.findall(s_flag)
-        #         if (temp_words[j] == "0") | (len(sbar_match) != 0) | (len(pp_match) != 0):
-        #             for n in range(s_idx + 1, e_idx):
-        #                 if temp_words[n] != s_flag:
-        #                     temp_words[n] = s_flag
+        # ner need to maintan the same value
+        if len(ner_list) != 0:
+            print("ner_list:", ner_list)
+            for j in range(len(ner_list)):
+                s_idx = check_continuity(ner_list[j].split(" "), s_words, -2)
+                e_idx = s_idx + len(ner_list[j].split(" ")) - 1
+                s_flag = temp_words[s_idx]
+                sbar_match = sbar_pattern.findall(s_flag)
+                pp_match = pp_pattern.findall(s_flag)
+                if (temp_words[j] == "0") | (len(sbar_match) != 0) | (len(pp_match) != 0):
+                    for n in range(s_idx + 1, e_idx):
+                        if temp_words[n] != s_flag:
+                            temp_words[n] = s_flag
+        if len(for_list) != 0:
+            print("for_list:", ner_list)
+            for j in range(len(for_list)):
+                s_idx = check_continuity(for_list[j].split(" "), s_words, -2)
+                e_idx = s_idx + len(for_list[j].split(" ")) - 1
+                s_flag = temp_words[s_idx]
+                sbar_match = sbar_pattern.findall(s_flag)
+                pp_match = pp_pattern.findall(s_flag)
+                if (temp_words[j] == "0") | (len(sbar_match) != 0) | (len(pp_match) != 0):
+                    for n in range(s_idx + 1, e_idx):
+                        if temp_words[n] != s_flag:
+                            temp_words[n] = s_flag
         slot = 0
         adjuncts = []
         adjunct = []
@@ -247,7 +303,7 @@ def gen_step_sentence(temp_list, adjunct_list, comp_list, file_name):
         f.write(comp_list[i] + "\n")
         sent_list.append(comp_list[i])
         for j in range(len(adjunct_list[i])):
-            slot = ["t"+str(j)] * temp.count("t"+str(j))
+            slot = ["t" + str(j)] * temp.count("t" + str(j))
             slot = " ".join(slot)
             sent = temp.replace(slot, adjunct_list[i][j])
             temp = sent
@@ -272,6 +328,7 @@ def gen_sent_temp_main(file_name, start_idx, end_idx):
     cut_sent_path = "./comp_input/n" + file_name + ".cln.sent"
     cut_sents = load_orig_sent(cut_sent_path)
     comp_labels = load_label("./ncontext_result_greedy.sents")
+    #gen_temp(orig_sents, cut_sents, comp_labels, start_idx, end_idx)
     temp_list, adjunct_list, ner_list, comp_list = gen_temp(orig_sents, cut_sents, comp_labels, start_idx, end_idx)
     return temp_list, adjunct_list, comp_list, ner_list
 
@@ -281,11 +338,10 @@ if __name__ == '__main__':
     start_idx = 6000
     end_idx = 6213
     gen_sent_temp_main(file_name, start_idx, end_idx)
-#     file_name = "business"
-#     sent_path = "./comp_input/" + file_name + ".cln.sent"
-#     comp_label = load_label("./comp_label/slahan_w_syn/2_" + file_name + "_result_greedy.sents")
-#     orig_sents = load_orig_sent(sent_path)
-#     label_list, all_sbar, all_pp, all_conj, comp_list = check_grammar(orig_sents, comp_label)
-#     temp_list, adjunct_list = gen_temp(orig_sents, label_list, all_sbar, all_pp)
-#     gen_step_sentence(temp_list, adjunct_list, comp_list, file_name)
-#     save_temp_adjuncts(temp_list, adjunct_list, file_name)
+    # sent_path = "./comp_input/" + file_name + ".cln.sent"
+    # comp_label = load_label("./comp_label/slahan_w_syn/2_" + file_name + "_result_greedy.sents")
+    # orig_sents = load_orig_sent(sent_path)
+    # label_list, all_sbar, all_pp, all_conj, comp_list = check_grammar(orig_sents, comp_label)
+    # temp_list, adjunct_list = gen_temp(orig_sents, label_list, all_sbar, all_pp)
+    # gen_step_sentence(temp_list, adjunct_list, comp_list, file_name)
+    # save_temp_adjuncts(temp_list, adjunct_list, file_name)
