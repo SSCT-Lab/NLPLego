@@ -53,8 +53,9 @@ def load_dictionary(d_path):
 
 ## obtain constituency parser tree
 def get_nlp_tree(sent):
-    # sent = re.sub(r'%(?![0-9a-fA-F]{2})', "%25", sent)
-    # sent = sent.replace("+", "%2B")
+    ## 运行时记得注释掉下面两句
+    sent = re.sub(r'%(?![0-9a-fA-F]{2})', "%25", sent)
+    sent = sent.replace("+", "%2B")
     words = sent.split(" ")
     par_res = eng_parser.parse(words)
     for line in par_res:
@@ -87,7 +88,10 @@ def check_continuity(key_words, words, last_s_idx):
     flag = False
     s_idx = -1
     while not flag & (s_idx != last_s_idx):
-        s_idx = words.index(key_words[0], s_idx + 1)
+        if key_words[0] in words[s_idx + 1:]:
+            s_idx = words.index(key_words[0], s_idx + 1)
+        else:
+            return -1
         for i in range(s_idx, s_idx + len(key_words)):
             if words[i] == key_words[i - s_idx]:
                 flag = True
@@ -445,7 +449,7 @@ def fill_pp_flag(pp_str, s_word, pp_flag, s_idx):
 
 ## obtain all prepositional phrases in one sentence by dependency relation
 def get_prep_list_by_dependency(sent, hyp_words, spill_words_list, abbr_words):
-    print(sent)
+    #print(sent)
     pp_list = []
     doc = nlp(sent)
     dictionary = load_dictionary("./Dictionary.txt")
@@ -474,6 +478,10 @@ def get_prep_list_by_dependency(sent, hyp_words, spill_words_list, abbr_words):
             if len(network) != 0:
                 pp_word = [tok.orth_ for tok in w.subtree]
                 pos_list = [tok.pos_ for tok in w.subtree]
+                ## 如果最后一个单词是and，将其删除
+                if pp_word[-1] == "and":
+                    pp_word.pop(len(pp_word) - 1)
+                    pos_list.pop(len(pos_list) - 1)
                 pp_str = process_hyp_words(" ".join(pp_word), hyp_words, sent)
                 if pp_str in sent:
                     pp_word, pos_list, comp_f, comp_abbr = complement_pp_word(pp_word, s_word, pos_list, all_pos_list,
@@ -689,7 +697,7 @@ def get_res_by_label(words, comp_label):
 def check_pp_integrity(words, comp_label, orig_pp, pp_flag, noun_chunks):
     s_idx = -1
     res_label = list(comp_label)
-    print(comp_label)
+    #print(comp_label)
     for i in range(len(orig_pp)):
         s_idx = pp_flag.index(2, s_idx + 1)
         if comp_label[s_idx] == 1:
@@ -730,7 +738,7 @@ def check_pp_integrity(words, comp_label, orig_pp, pp_flag, noun_chunks):
 def check_sbar_integrity(comp_label, sbar_list, sbar_flag):
     s_idx = -1
     res_label = list(comp_label)
-    print(comp_label)
+    #print(comp_label)
     for i in range(len(sbar_list)):
         s_idx = sbar_flag.index(2, s_idx + 1)
         sbar_len = len(sbar_list[i].split(" "))
@@ -1168,7 +1176,7 @@ def single_conj(min, j, doc, ans):
             choose_flag = valid(start, end, doc, j)
     if choose_flag:
         str = ' '.join([x.text for x in doc[start:end + 1]])
-        print(str)
+        #print(str)
         ans.append(str.strip())
         ans.append(1)
     return end
@@ -1245,8 +1253,8 @@ def extra_formulation(cut_sent):
             if formulation.strip().rstrip() not in for_list:
                 for_list.append(formulation.strip().rstrip())
 
-    if len(for_list) > 0:
-        print(for_list)
+    # if len(for_list) > 0:
+    #     print(for_list)
     return for_list
 
 
@@ -1260,10 +1268,10 @@ def grammar_check_one_sent(i, orig_sent, cut_sent, comp_label, dictionary):
     abbr_words = get_abbr_word(cut_sent)
     sbar_list, pos_list = extra_sbar(cut_sent, dictionary, hyp_words)
     pp_list, noun_chunks = get_prep_list_by_dependency(cut_sent, hyp_words, spill_words_list, abbr_words)
-    print("prep phrase: ", pp_list)
+    #print("prep phrase: ", pp_list)
     sbar_list, new_pp_list = using_pp_update_sbar(cut_sent, sbar_list, pos_list, dictionary, pp_list,
                                                   hyp_words)
-    print("sbar: ", sbar_list)
+    #print("sbar: ", sbar_list)
     cut_words = cut_sent.split(" ")
     if len(sbar_list) > 0:
         sbar_flag = [0] * len(cut_words)
@@ -1294,7 +1302,8 @@ def grammar_check_one_sent(i, orig_sent, cut_sent, comp_label, dictionary):
     if len(res_pp) == 0:
         pp_flag = [0] * len(cut_words)
     for conj_i in range(len(res_label)):
-        conj_str = conj_str + ' ' + cut_words[conj_i] if (res_label[conj_i] != -1 and pp_flag[conj_i] == 0) else conj_str
+        conj_str = conj_str + ' ' + cut_words[conj_i] if (
+                    res_label[conj_i] != -1 and pp_flag[conj_i] == 0) else conj_str
     conj_str_write += "i = " + str(i) + "\n"
     conj_res = extract_conj(conj_str.strip().rstrip())
     conj_str_write += conj_str.strip().rstrip() + "\n"
@@ -1305,10 +1314,11 @@ def grammar_check_one_sent(i, orig_sent, cut_sent, comp_label, dictionary):
     conj_for_write += "\n"
     conj_for_write += "\n"
 
-    print(conj_res)
+    #print(conj_res)
     for conj_li in conj_res:
         if conj_li[1] == 1:
             conj_word = conj_li[0].split(" ")
+            conj_index = -1
             # conj_index = -1
             index_conj = 0
             index_start_conj = -1
@@ -1387,6 +1397,7 @@ def grammar_check_one_sent(i, orig_sent, cut_sent, comp_label, dictionary):
                             if index_conj == len(conj_word):
                                 break
                             temp += 1
+
         elif conj_li[1] == 2:
             conj_word = conj_li[0].split(" ")
             conj_index = -1
@@ -1415,8 +1426,8 @@ def grammar_check_one_sent(i, orig_sent, cut_sent, comp_label, dictionary):
             count = tup[1] - tup[0] + 1
             for j in range(count):
                 res_label.insert(tup[0], -2)
-    if len(res_label) != len(orig_words):
-        print("orig context: ", orig_words)
+    # if len(res_label) != len(orig_words):
+    #     print("orig context: ", orig_words)
 
     return res_label, sbar_list, pp_list, conj_res, for_list
 
@@ -1461,11 +1472,8 @@ if __name__ == '__main__':
     comp_label = load_label("./ncontext_result_greedy.sents")
     cut_sents = load_orig_sent(cut_sent_path)
     orig_sents = load_orig_sent(orig_sent_path)
-    # start_idx = 4623
-    # end_idx = len(cut_sents)
-    # grammar_check_all_sents(cut_sents, comp_label, orig_sents, start_idx, end_idx)
-    start_idx = 5144
+    start_idx = 4806
     end_idx = len(cut_sents)
-    grammar_check_all_sents(cut_sents, comp_label, orig_sents, start_idx, start_idx+1)
+    grammar_check_all_sents(cut_sents, comp_label, orig_sents, start_idx, end_idx)
     # sent = "The bank said it was losing money on a large number of such accounts ."
     # get_prep_list_by_dependency(sent)
