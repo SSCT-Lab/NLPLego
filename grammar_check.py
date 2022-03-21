@@ -1849,21 +1849,35 @@ def grammar_check_one_sent(i, orig_sent, cut_sent, comp_label, dictionary):
                 # a b 存在,填补连接词
                 left_check = 1
                 special_comma_list = []
+                left_check_num = 0
                 for check_conj in conj_mapping_cut[0:conj_word_index]:
                     if res_label[check_conj[1]] == 0:
                         if rep_cut_words[check_conj[1]] == ',':
                             special_comma_list.append(check_conj[1])
-                        else:
-                            left_check = 0
-                            break
+                        # else:
+                        #     left_check = 0
+                        #     break
+                    else:
+                        left_check_num += 1
+                special_comma_list_left = len(special_comma_list)
+                if left_check_num < (conj_word_index - special_comma_list_left) / 2:
+                    left_check = 0
+
                 right_check = 1
+                right_check_num = 0
                 for check_conj in conj_mapping_cut[conj_word_index + 1:len(conj_mapping_cut)]:
                     if res_label[check_conj[1]] == 0:
                         if rep_cut_words[check_conj[1]] == ',':
                             special_comma_list.append(check_conj[1])
-                        else:
-                            right_check = 0
-                            break
+                        # else:
+                        #     right_check = 0
+                        #     break
+                    else:
+                        right_check_num += 1
+                special_comma_list_right = len(special_comma_list) - special_comma_list_left
+                if right_check_num < (len(conj_mapping_cut) - conj_word_index - 1 - special_comma_list_right) / 2:
+                    right_check = 0
+
                 conj_check = 1 if res_label[conj_mapping_cut[conj_word_index][1]] == 1 else 0
                 if left_check and right_check and conj_check:
                     pass
@@ -1987,7 +2001,7 @@ if __name__ == '__main__':
     # start_idx = 0
     # end_idx = len(cut_sents)
     # grammar_check_all_sents(cut_sents, comp_label, orig_sents, start_idx, end_idx)
-    start_idx = 3205
+    start_idx = 2191
     end_idx = start_idx+1
     grammar_check_all_sents(cut_sents, comp_label, orig_sents, start_idx, end_idx)
     # sent = "The bank said it was losing money on a large number of such accounts ."
