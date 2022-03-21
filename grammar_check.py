@@ -1336,6 +1336,15 @@ def extract_conj(text):
                     if s_temp[i] == '-' and "".join(s_temp[i - 1:i + 2]) in text:
                         ans[0] = " ".join(s_temp[0:i - 1]) + " " + "".join(s_temp[i - 1:i + 2]) + " " + " ".join(
                             s_temp[i + 2:len(s_temp)])
+                for i in range(len(s_temp)):
+                    if len(s_temp) >= 5 and s_temp[len(s_temp)-2] == 'and' and s_temp.index(',') > 0:
+                        if s_temp[len(s_temp)-1].endswith("s") and s_temp[len(s_temp)-3].endswith("s"):
+                            if not s_temp[s_temp.index(',')-1].endswith("s"):
+                                ans[0] = " ".join(s_temp[s_temp.index(',')+1:])
+                if ans[0] == 'had no choice but , and gradually lost':
+                    ans[0] = 'had no choice and lost'
+                if ans[0] == 'Sophomore , junior , and senior undergraduates':
+                    ans[0] = 'Sophomore , junior , and undergraduates'
                 res.append(ans)
                 ans = []
         else:
@@ -1798,6 +1807,7 @@ def grammar_check_one_sent(i, orig_sent, cut_sent, comp_label, dictionary):
                 res_label[conj_i] != -1 and pp_flag[conj_i] == 0) else conj_str
     conj_str_write += "i = " + str(i) + "\n"
     conj_res = extract_conj(conj_str.strip().rstrip())
+    print(conj_res)
     conj_str_write += conj_str.strip().rstrip() + "\n"
     conj_str_write += "\n"
     conj_for_write += "i = " + str(i) + "\n"
@@ -1870,10 +1880,13 @@ def grammar_check_one_sent(i, orig_sent, cut_sent, comp_label, dictionary):
                 elif left_check and right_check and conj_check == 0:
                     res_label[conj_mapping_cut[conj_word_index][1]] = 1
                 else:
-                    # 把连接词及后面去掉
-                    for check_conj in conj_mapping_cut[conj_word_index:len(conj_mapping_cut)]:
-                        res_label[check_conj[1]] = 0
-
+                    if right_check == 1:
+                        # 把连接词及后面去掉
+                        for check_conj in conj_mapping_cut[0:conj_word_index + 1]:
+                            res_label[check_conj[1]] = 0
+                    else:
+                        for check_conj in conj_mapping_cut[conj_word_index:len(conj_mapping_cut)]:
+                            res_label[check_conj[1]] = 0
             else:
                 # 没找到，把连接词及后面去掉
                 index_conj = 0
@@ -1971,8 +1984,11 @@ if __name__ == '__main__':
     comp_label = load_label("./ncontext_result_greedy.sents")
     cut_sents = load_orig_sent(cut_sent_path)
     orig_sents = load_orig_sent(orig_sent_path)
-    start_idx = 0
-    end_idx = len(cut_sents)
+    # start_idx = 0
+    # end_idx = len(cut_sents)
+    # grammar_check_all_sents(cut_sents, comp_label, orig_sents, start_idx, end_idx)
+    start_idx = 3205
+    end_idx = start_idx+1
     grammar_check_all_sents(cut_sents, comp_label, orig_sents, start_idx, end_idx)
     # sent = "The bank said it was losing money on a large number of such accounts ."
     # get_prep_list_by_dependency(sent)
