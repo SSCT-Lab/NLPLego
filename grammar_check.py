@@ -1337,7 +1337,7 @@ def extract_conj(text):
                         ans[0] = " ".join(s_temp[0:i - 1]) + " " + "".join(s_temp[i - 1:i + 2]) + " " + " ".join(
                             s_temp[i + 2:len(s_temp)])
                 for i in range(len(s_temp)):
-                    if len(s_temp) >= 5 and s_temp[len(s_temp)-2] == 'and' and s_temp.index(',') > 0:
+                    if len(s_temp) >= 5 and s_temp[len(s_temp)-2] == 'and' and "," in s_temp:
                         if s_temp[len(s_temp)-1].endswith("s") and s_temp[len(s_temp)-3].endswith("s"):
                             if not s_temp[s_temp.index(',')-1].endswith("s"):
                                 ans[0] = " ".join(s_temp[s_temp.index(',')+1:])
@@ -1880,15 +1880,20 @@ def grammar_check_one_sent(i, orig_sent, cut_sent, comp_label, dictionary):
 
                 conj_check = 1 if res_label[conj_mapping_cut[conj_word_index][1]] == 1 else 0
                 if left_check and right_check and conj_check:
-                    pass
+                    # pass
+                    for check_conj in conj_mapping_cut:
+                        if check_conj[1] not in special_comma_list:
+                            res_label[check_conj[1]] = 1
                 elif left_check == 0 and right_check and conj_check:
                     # a不全,补全a
-                    for check_conj in conj_mapping_cut[0:conj_word_index]:
+                    # for check_conj in conj_mapping_cut[0:conj_word_index]:
+                    for check_conj in conj_mapping_cut:
                         if check_conj[1] not in special_comma_list:
                             res_label[check_conj[1]] = 1
                 elif left_check and right_check == 0 and conj_check:
                     # b不全,补全b
-                    for check_conj in conj_mapping_cut[conj_word_index + 1:len(conj_mapping_cut)]:
+                    # for check_conj in conj_mapping_cut[conj_word_index + 1:len(conj_mapping_cut)]:
+                    for check_conj in conj_mapping_cut:
                         if check_conj[1] not in special_comma_list:
                             res_label[check_conj[1]] = 1
                 elif left_check and right_check and conj_check == 0:
@@ -2001,8 +2006,8 @@ if __name__ == '__main__':
     # start_idx = 0
     # end_idx = len(cut_sents)
     # grammar_check_all_sents(cut_sents, comp_label, orig_sents, start_idx, end_idx)
-    start_idx = 2191
-    end_idx = start_idx+1
+    start_idx = 0
+    end_idx = 300
     grammar_check_all_sents(cut_sents, comp_label, orig_sents, start_idx, end_idx)
     # sent = "The bank said it was losing money on a large number of such accounts ."
     # get_prep_list_by_dependency(sent)
