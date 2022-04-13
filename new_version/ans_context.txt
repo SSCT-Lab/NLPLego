@@ -29625,7 +29625,7 @@ context: Civil disobedients have chosen a variety of different illegal acts.
 question: Bedau notes that illegal protests towards public policy may serve as what purpose?
 answer: just a harassment|propaganda
 context_idx: 2
-context: Such acts are often just a harassment and, at least to the bystander, somewhat inane...
+context: Such acts are often just a harassment and, at least to the bystander, somewhat inane.
 
 question: What group of civil disobedients brought medicine to Iraq without the permission of the government?
 answer: Voice in the Wilderness
@@ -29655,7 +29655,7 @@ context: Bedau writes, There is a whole class of acts, undertaken in the name of
 question: Such protests are usually considered to be what type?
 answer: inane|harassment|symbolic|entirely symbolic|symbolic illegal protests
 context_idx: 2
-context: Such acts are often just a harassment and, at least to the bystander, somewhat inane...
+context: Such acts are often just a harassment and, at least to the bystander, somewhat inane.
 
 question: What type of goals are usually done skirting the law?
 answer: propaganda|social|protests toward public policy|social goal
@@ -35932,12 +35932,12 @@ context_id = 675
 question: What country has low income inequality and high presence of unions?
 answer: Scandinavia
 context_idx: 1
-context: He points out that nations with high rates of unionization, particularly in Scandinavia, have very low levels of inequality, and concludes "the historical pattern is clear; the cross-national pattern is clear: high inequality goes hand-in-hand with weak labor movements and vice-versa.
+context: He points out that nations with high rates of unionization, particularly in Scandinavia, have very low levels of inequality, and concludes the historical pattern is clear; the cross-national pattern is clear: high inequality goes hand-in-hand with weak labor movements and vice-versa.
 
 question: What do weak labor movement correlate with?
 answer: high inequality
 context_idx: 1
-context: He points out that nations with high rates of unionization, particularly in Scandinavia, have very low levels of inequality, and concludes "the historical pattern is clear; the cross-national pattern is clear: high inequality goes hand-in-hand with weak labor movements and vice-versa.
+context: He points out that nations with high rates of unionization, particularly in Scandinavia, have very low levels of inequality, and concludes the historical pattern is clear; the cross-national pattern is clear: high inequality goes hand-in-hand with weak labor movements and vice-versa.
 
 question: What has had a negative impact on the labor markets in the US?
 answer: decline of organized labor

@@ -3970,7 +3970,7 @@ The tax collector who arrested him rose to higher political office, and Thoreau'
 context_id=556
 Civil disobedients have chosen a variety of different illegal acts.
 Bedau writes, There is a whole class of acts, undertaken in the name of civil disobedience, which, even if they were widely practiced, would in themselves constitute hardly more than a nuisance (e.g. trespassing at a nuclear-missile installation)...
-Such acts are often just a harassment and, at least to the bystander, somewhat inane...
+Such acts are often just a harassment and, at least to the bystander, somewhat inane.
 The remoteness of the connection between the disobedient act and the objectionable law lays such acts open to the charge of ineffectiveness and absurdity.
 Bedau also notes, though, that the very harmlessness of such entirely symbolic illegal protests toward public policy goals may serve a propaganda purpose.
 Some civil disobedients, such as the proprietors of illegal medical cannabis dispensaries and Voice in the Wilderness, which brought medicine to Iraq without the permission of the U.S. Government, directly achieve a desired social goal (such as the provision of medication to the sick) while openly breaking the law.
@@ -4830,7 +4830,7 @@ Despite popular prejudices to the contrary, the U.S. economy consistently afford
 
 context_id=675
 Sociologist Jake Rosenfield of the University of Washington asserts that the decline of organized labor in the United States has played a more significant role in expanding the income gap than technological changes and globalization, which were also experienced by other industrialized nations that didn't experience steep surges in inequality.
-He points out that nations with high rates of unionization, particularly in Scandinavia, have very low levels of inequality, and concludes "the historical pattern is clear; the cross-national pattern is clear: high inequality goes hand-in-hand with weak labor movements and vice-versa.
+He points out that nations with high rates of unionization, particularly in Scandinavia, have very low levels of inequality, and concludes the historical pattern is clear; the cross-national pattern is clear: high inequality goes hand-in-hand with weak labor movements and vice-versa.
 
 context_id=676
 Trade liberalization may shift economic inequality from a global to a domestic scale.
