@@ -12,6 +12,7 @@ a series of
 a portion of
 a trio of
 a kind of
+a branch of
 a type of
 a sort of
 a piece of
@@ -31,6 +32,7 @@ a basket of
 a plate of
 a bottle of
 a basin of
+a usage of
 a set of
 a great deal of
 a number of
@@ -64,6 +66,7 @@ a line of
 a round of
 a bar of
 an item of
+an instance of
 a bunch of
 a cake of
 a comb of
@@ -91,6 +94,7 @@ a flash of
 a display of
 a amount of
 a lot of
+a troop of
 a quantity of
 in front of
 in the middle of
@@ -416,6 +420,10 @@ found out that
 show that
 showed that
 certain that
+held that
+acknowledged that
+acknowledge that
+acknowledges that
 
 key = on
 on Monday
@@ -470,3 +478,28 @@ key = comp
 in oder to
 so as to
 as well as
+in addition to
+
+key = end
+is
+are
+a
+an
+was
+were
+the
+have
+has
+had
+some
+any
+
+key = start
+is
+are
+was
+were
+to
+have
+has
+been
