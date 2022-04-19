@@ -28,12 +28,12 @@ def load_dictionary(d_path):
     while line:
         if "key " in line:
             key = line[:-1].split(" ")[-1]
-            if key != "comp":
+            if key not in ["comp", "start", "end"]:
                 dictionary[key] = {}
             else:
                 dictionary[key] = []
         elif len(line) > 1:
-            if key != "comp":
+            if key not in ["comp", "start", "end"]:
                 l_words = line[:-1].split(" ")
                 index = l_words.index(key)
                 if index != 0:
@@ -174,10 +174,12 @@ def exist_pp(pos_list, pp_word, dictionary, key_pp, to_flag, spill_words_list):
                             if pos_list[key - 1] == "ADV":
                                 key = key - 1
                             break
-                        if w.text in ["during", "after", "before"]:
+                        elif w.text in ["during", "after", "before"]:
                             count += 1
                         ## on Monday in March
-                        if (network[0] in dictionary["on"].keys()) | (network[0] in dictionary["in"].keys()):
+                        elif (network[0] in dictionary["on"].keys()) | (network[0] in dictionary["in"].keys()):
+                            count += 1
+                        else:
                             count += 1
                     else:
                         if (key_pp == "from") & ((first_to + p_idx) == i):
@@ -530,13 +532,11 @@ def get_verb_phrases(sent, hyp_words, spill_words_list):
     root_idx = -1
     for token in doc:
         if (token.dep_ == "ROOT") & (token.pos_ in ["VERB", "AUX"]) & (token.text not in ["Said"]):
-            #print("root:", token.text)
             basic_elements.append((i, token.dep_, token.text, token.pos_))
             root_verb = token.text
             root_idx = i
             break
         i += 1
-
     i = 0
     for token in doc:
         if ("subj" in token.dep_) & (token.head.pos_ in ["VERB", "AUX"]) & (
@@ -544,34 +544,41 @@ def get_verb_phrases(sent, hyp_words, spill_words_list):
             subj_word = [tok.orth_ for tok in token.subtree]
             subj_str = process_hyp_words(" ".join(subj_word), hyp_words, sent).replace(
                 "et al .", "et al.")
-            subj_str = re.split(' ; | – | — | , | who ', subj_str)[0]
-            #print("subj:", token.text, ";", subj_str)
+            subj_str = re.split(' ; | – | — | , | who | which | that | where | when ', subj_str)[0]
             basic_elements.append((i, token.dep_, token.text, subj_str))
         if ("expl" in token.dep_) & (token.head.pos_ in ["VERB", "AUX"]) & (
                 "ROOT" in [token.head.dep_, token.head.head.dep_]):
-            #print("subj:", token.text)
             basic_elements.append((i, token.dep_, token.text, token.pos_))
+        if ("advmod" in token.dep_) & (token.head.dep_ == "ROOT") & (token.text in ["here", "there"]):
+            if root_idx < i:
+                vp_words = s_word[root_idx:i + 1]
+            else:
+                vp_words = s_word[i: root_idx + 1]
+            adv_str = process_hyp_words(" ".join(vp_words), hyp_words, sent).replace("et al .", "et al.")
+            adv_str = re.split(' ; | – | — | who | which | that | where | when | why ', adv_str)[0]
+            basic_elements.append((i, token.dep_, adv_str, token.pos_))
         if ("obj" in token.dep_) & (token.head.pos_ in ["VERB", "AUX"]) & (token.head.dep_ == "ROOT"):
             if root_idx < i:
-                vp_word = s_word[root_idx:i + 1]
+                vp_words = s_word[root_idx:i + 1]
             else:
-                vp_word = s_word[i: root_idx + 1]
-            obj_str = process_hyp_words(" ".join(vp_word), hyp_words, sent).replace("et al .", "et al.")
+                vp_words = s_word[i: root_idx + 1]
+            obj_str = process_hyp_words(" ".join(vp_words), hyp_words, sent).replace("et al .", "et al.")
+            obj_str = re.split(' ; | – | — | who | which | that | where | when | why ', obj_str)[0]
             basic_elements.append((i, token.dep_, obj_str, token.pos_))
-            # print("obj_str:", obj_str)
+
         if ("comp" in token.dep_) & (token.head.pos_ in ["VERB", "AUX"]) & (token.head.dep_ == "ROOT"):
             if root_idx < i:
-                vp_word = s_word[root_idx:i + 1]
-                comp_str = process_hyp_words(" ".join(vp_word), hyp_words, sent).replace("et al .", "et al.")
+                vp_words = s_word[root_idx:i + 1]
+                comp_str = process_hyp_words(" ".join(vp_words), hyp_words, sent).replace("et al .", "et al.")
                 if (basic_elements[-1][2] not in comp_str) | (basic_elements[-1][1] == "ROOT"):
                     basic_elements.append((i, token.dep_, comp_str, token.pos_))
                     # print("comp_str:", comp_str)
         if ("attr" in token.dep_) & (token.head.pos_ in ["VERB", "AUX"]) & (token.head.dep_ == "ROOT"):
             if root_idx < i:
-                vp_word = s_word[root_idx:i + 1]
+                vp_words = s_word[root_idx:i + 1]
             else:
-                vp_word = s_word[i: root_idx + 1]
-            attr_str = process_hyp_words(" ".join(vp_word), hyp_words, sent).replace("et al .", "et al.")
+                vp_words = s_word[i: root_idx + 1]
+            attr_str = process_hyp_words(" ".join(vp_words), hyp_words, sent).replace("et al .", "et al.")
             basic_elements.append((i, token.dep_, attr_str, token.pos_))
             # print("attr_str:", attr_str)
         key = token.text + "-" + str(i)
@@ -617,13 +624,6 @@ def get_verb_phrases(sent, hyp_words, spill_words_list):
                 dep_list = dep_map[key]
                 for dep_re in dep_list:
                     if dep_re[1] in ["VERB", "AUX"]:
-                        # if (dep_re[2] == "advmod") & (dep_re[0] in s_word[:i]):
-                        #     s_idx = i - 1
-                        #     while s_word[s_idx] != dep_re[0]:
-                        #         s_idx -= 1
-                        #     vp_word = s_word[s_idx:i + 1]
-                        #     advmod =
-                        #
                         if (dep_re[2] == "acomp") & (dep_re[0] in s_word[:i]):
                             s_idx = i - 1
                             while s_word[s_idx] != dep_re[0]:
@@ -850,8 +850,6 @@ def get_prep_list_by_dependency(sent, hyp_words, spill_words_list, abbr_words, b
                         if h_idx != -1:
                             vp_flag = True
 
-
-
                     ## process on Monday...in March
                     if (alternative[0] in ["on", "in"]) & (len(alternative) == 2):
                         if (alternative[1] in dictionary["on"].keys()) | (alternative[1] in dictionary["in"].keys()):
@@ -1015,7 +1013,7 @@ def check_vp_integrity(res_label, cut_words, vp_list, vp_flag):
     for vp in vp_list:
         s_idx = vp_flag.index(2, s_idx + 1)
         vp_words = vp[1].split()
-        if vp[0] == "acomp":
+        if vp[0] in ["acomp", "auxpass"]:
             if res_label[s_idx:s_idx + len(vp_words)].count(1) > 0:
                 maintain = True
             else:
@@ -1140,7 +1138,7 @@ def check_pp_integrity(words, res_label, orig_pp, pp_flag, ner_list, sbar_list):
     return res_label
 
 
-def check_symbols_integrity(res_label, sym_list, sem_flag, pp_list, sbar_list, s_words):
+def check_symbols_integrity(res_label, sym_list, sem_flag, pp_list, sbar_list, s_words, root_idx):
     s_idx = -1
     new_res_label = list(res_label)
     max_value = 0
@@ -1151,8 +1149,9 @@ def check_symbols_integrity(res_label, sym_list, sem_flag, pp_list, sbar_list, s
         one_count = res_label[s_idx:e_idx].count(1)
         if one_count > max_value:
             if i == 0:
-                max_value = one_count
-                maintain_idx = i
+                if (root_idx > s_idx) & (root_idx < e_idx):
+                    max_value = one_count
+                    maintain_idx = i
             else:
                 if max_value == 0:
                     max_value = one_count
@@ -1177,28 +1176,18 @@ def check_symbols_integrity(res_label, sym_list, sem_flag, pp_list, sbar_list, s
         if i != maintain_idx:
             if s_idx - 1 > 0:
                 s_idx -= 1
-            for j in range(s_idx, s_idx + len(sym_words)):
-                new_res_label[j] = 0
-
-        # if i != maintain_idx:
-        #     maintain = False
-        #     sym_words = sym_list[i].split(" ")
-        #     count = res_label[s_idx: s_idx + len(sym_words)].count(1)
-        #     symbols = sym_words.count(",") + sym_words.count("\"")
-        #     if count > (len(sym_words) - symbols) / 2:
-        #         maintain = True
-        #     ## include ";"
-        #     for j in range(s_idx - 1, s_idx + len(sym_words)):
-        #         if maintain:
-        #             new_res_label[j] = 1
-        #         else:
-        #             new_res_label[j] = 0
-        #     new_res_label[-1] = 1
+            if '—' in s_words:
+                if i != 0:
+                    for j in range(s_idx, s_idx + len(sym_words)):
+                        new_res_label[j] = 0
+            else:
+                for j in range(s_idx, s_idx + len(sym_words)):
+                    new_res_label[j] = 0
 
     if new_res_label.count(1) == 1:
         return res_label
 
-    return new_res_label
+    return new_res_label, maintain_idx
 
 
 ## Check the integrity of sbar in the compression results
@@ -1240,17 +1229,17 @@ def check_sbar_integrity(res_label, sbar_list, sbar_flag, cut_words, pp_list, ba
                         res_label[j] = 1
             else:
                 e_idx = s_idx + sbar_len
-                for ele in basic_elements:
-                    if ("obj" in ele[1]) | ("attr" in ele[1]):
-                        if ele[2] in " ".join(cut_words[:s_idx]):
-                            obj_idx = check_continuity(ele[2].split(" "), cut_words, -1)
-                            if obj_idx + len(ele[2].split(" ")) == s_idx:
-                                s_idx = obj_idx
                 if count >= (sbar_len - symbols) / 2:
+                    for ele in basic_elements:
+                        if ("obj" in ele[1]) | ("attr" in ele[1]):
+                            if ele[2] in " ".join(cut_words[:s_idx]):
+                                obj_idx = check_continuity(ele[2].split(" "), cut_words, -1)
+                                if obj_idx + len(ele[2].split(" ")) == s_idx:
+                                    s_idx = obj_idx
                     for j in range(s_idx, e_idx):
                         res_label[j] = 1
                 else:
-                    if count <= (sbar_len - symbols - pp_len) / 2:
+                    if count < (sbar_len - symbols - pp_len) / 2:
                         for j in range(s_idx, e_idx):
                             res_label[j] = -1
     print("sbar modify:", get_res_by_label(cut_words, res_label))
@@ -2072,7 +2061,7 @@ def extract_ner_byAlpha(words, split_hyp_words):
     return ner_list
 
 
-def create_seed_sent(comp_label, res_label, cut_words, sbar_list, rep_cut_words, res_pp):
+def create_seed_sent(comp_label, res_label, cut_words, sbar_list, rep_cut_words, res_pp, vp_list):
     res_label = [0] * len(res_label)
     if res_label.count(1) != len(res_label):
         if "," in cut_words:
@@ -2105,6 +2094,14 @@ def create_seed_sent(comp_label, res_label, cut_words, sbar_list, rep_cut_words,
                 for j in range(s_idx, s_idx + len(pp_words)):
                     res_label[j] = 0
 
+    if len(vp_list) > 0:
+        for vp in vp_list:
+            if vp[0] == "acl":
+                vp_words = vp[1].split(" ")
+                s_idx = check_continuity(vp_words, rep_cut_words, -1)
+                for j in range(s_idx, s_idx + len(vp_words)):
+                    res_label[j] = 0
+
     if res_label.count(1) < 4:
         res_label = comp_label
 
@@ -2115,15 +2112,17 @@ def create_seed_sent(comp_label, res_label, cut_words, sbar_list, rep_cut_words,
     return res_label
 
 
-def process_final_result(comp_label, res_label, cut_words, rep_cut_words, sbar_list, res_pp, root_verb, basic_elements):
+def process_final_result(comp_label, res_label, cut_words, rep_cut_words, sbar_list, res_pp, root_verb, basic_elements, vp_list, sym_sent, dictionary):
     if (cut_words[-1] in [".", "?", "!"]) & (res_label[-1] != 1):
         res_label[-1] = 1
 
     if (cut_words[-2] in [".", "?", "!"]) & (res_label[-2] != 1):
         res_label[-2] = 1
 
-    if (res_label.count(1) < 4) | (res_label.count(1) == len(res_label)):
-        res_label = create_seed_sent(comp_label, res_label, cut_words, sbar_list, rep_cut_words, res_pp)
+    comp_res = get_res_by_label(cut_words[:-1], res_label[:-1])
+
+    if (res_label.count(1) < 4) | (res_label.count(1) == len(res_label)) | (len([sbar for sbar in sbar_list if comp_res in sbar])):
+        res_label = create_seed_sent(comp_label, res_label, cut_words, sbar_list, rep_cut_words, res_pp, vp_list)
 
     first_idx = res_label.index(1)
     for i in range(first_idx + 1, len(res_label) - 4):
@@ -2147,7 +2146,7 @@ def process_final_result(comp_label, res_label, cut_words, rep_cut_words, sbar_l
     if comp_res.split(" ")[0] == ",":
         res_label[res_label.index(1)] = 0
 
-    if comp_res.split(" ")[-2] in ["is", "are", "a", "an", "was", "were", "the", "have", "has"]:
+    if comp_res.split(" ")[-2] in dictionary["end"]:
         orig_one_idx = len(res_label) - 2
         while res_label[orig_one_idx] != 1:
             orig_one_idx -= 1
@@ -2174,9 +2173,7 @@ def process_final_result(comp_label, res_label, cut_words, rep_cut_words, sbar_l
                             for j in range(s_idx, s_idx + len(pp_words)):
                                 res_label[j] = 0
 
-
     comp_res_words = get_res_by_label(cut_words, res_label).split(" ")
-
     for elem in basic_elements:
         if "," in elem[2]:
             elem_words = elem[2].split(" , ")[0].split(" ")
@@ -2190,13 +2187,13 @@ def process_final_result(comp_label, res_label, cut_words, rep_cut_words, sbar_l
             else:
                 elem_str = " ".join(elem_words)
                 pp_obj = [pp for pp in res_pp if elem_str in pp[1]]
-                if (elem[1] == "dobj") & (elem_str not in comp_res) & (len(pp_obj) == 0):
+                if (elem[1] in ["dobj", "attr", "advmod"]) & (elem_str not in comp_res) & (len(pp_obj) == 0) & (elem_str in sym_sent):
                     e_idx = check_continuity(elem_words, rep_cut_words, -1)
                     for j in range(e_idx, e_idx + len(elem_words)):
                         res_label[j] = 1
 
     comp_res_words = get_res_by_label(cut_words, res_label).split(" ")
-    if comp_res_words[0] in ["is", "are", "was", "were", "to", "have", "has", "been"]:
+    if comp_res_words[0] in dictionary["start"]:
         idx = 0
         while res_label[idx] != 1:
             res_label[idx] = 1
@@ -2229,6 +2226,7 @@ def process_final_result(comp_label, res_label, cut_words, rep_cut_words, sbar_l
     if cut_words[first_idx] == "that":
         res_label[first_idx] = 0
         first_idx = res_label.index(1)
+
     last_idx = first_idx
     for j in range(first_idx + 1, len(res_label) - 1):
         if (rep_cut_words[j] in [":", ";", ","]) & (res_label[j] == 0):
@@ -2243,12 +2241,10 @@ def process_final_result(comp_label, res_label, cut_words, rep_cut_words, sbar_l
         if res_label[j] == 1:
             last_idx = j
 
-    if (res_label.count(1) < 4) | (res_label.count(1) == len(res_label)):
-        res_label = create_seed_sent(comp_label, res_label, cut_words, sbar_list, rep_cut_words, res_pp)
-
     one_indexs = list(filter(lambda x: res_label[x] == 1, list(range(len(res_label)))))
-    if cut_words[one_indexs[-2]] in ["that", "about", ":", ";", ",", "``"]:
+    if cut_words[one_indexs[-2]] in ["that", "about", ":", ";", ",", "``", "but"]:
         res_label[one_indexs[-2]] = 0
+
     if cut_words[one_indexs[-3]] in [":", ";", ",", "``"]:
         if (cut_words[one_indexs[-3]] != ":") | (cut_words[one_indexs[-4]] not in ["include", "included"]):
             res_label[one_indexs[-2]] = 0
@@ -2266,6 +2262,17 @@ def process_final_result(comp_label, res_label, cut_words, rep_cut_words, sbar_l
                     n_idx += 1
                 res_label[n_idx] = 1
 
+    if "\'" in cut_words:
+        quot_index = list(filter(lambda x: cut_words[x] == "\'", list(range(len(cut_words)))))
+        for j in range(len(quot_index)):
+            if res_label[quot_index[j]] == 0:
+                if (res_label[quot_index[j] - 1] == 1) & (res_label[quot_index[j] + 1] == 1):
+                    res_label[quot_index[j]] = 1
+            if res_label[quot_index[j]] == 1:
+                res_label[quot_index[j + 1]] = 1
+                if j + 1 == len(quot_index) - 1:
+                    break
+
     if "%" in cut_words:
         per_index = list(filter(lambda x: rep_cut_words[x] == "%", list(range(len(rep_cut_words)))))
         for idx in per_index:
@@ -2278,6 +2285,19 @@ def process_final_result(comp_label, res_label, cut_words, rep_cut_words, sbar_l
             if res_label[idx - 1] == 1:
                 res_label[idx] = 1
 
+    if "but" in cut_words:
+        but_idx = cut_words.index("but")
+        if res_label[but_idx + 1] == 1:
+            res_label[but_idx] = 1
+
+    if (res_label.count(1) < 4) | (res_label.count(1) == len(res_label)):
+        res_label = create_seed_sent(comp_label, res_label, cut_words, sbar_list, rep_cut_words, res_pp, vp_list)
+
+    if ", ," in comp_res:
+        one_indexs = list(filter(lambda x: res_label[x] == 1, list(range(len(res_label)))))
+        for j in range(len(one_indexs) - 1):
+            if (rep_cut_words[one_indexs[j]] == ",") & (rep_cut_words[one_indexs[j + 1]] == ","):
+                res_label[one_indexs[j + 1]] = 0
 
     return res_label
 
@@ -2437,9 +2457,10 @@ def process_conj(rep_cut_words, res_label, pp_flag):
 
 ## process root verb and subject
 def modify_basic_elements(basic_elements, rep_cut_words, res_label, sbar_list, sym_list):
-    subj_count = len([elem for elem in basic_elements if (("subj" in elem[1]) | ("expl" in elem[1]))])
+    subj_list = [elem for elem in basic_elements if (("subj" in elem[1]) | ("expl" in elem[1]))]
+    root_verb = [elem for elem in basic_elements if elem[1] == "ROOT"]
     subj_flag = False
-    for elem in basic_elements:
+    for elem in root_verb:
         if elem[1] == "ROOT":
             not_root = False
             for sent in sym_list[1:]:
@@ -2449,24 +2470,36 @@ def modify_basic_elements(basic_elements, rep_cut_words, res_label, sbar_list, s
             if not not_root:
                 e_idx = check_continuity(elem[2].split(" "), rep_cut_words, -1)
                 res_label[e_idx] = 1
-        if "subj" in elem[1]:
-            subj_str = elem[3]
-            not_subj = False
-            for sbar in sbar_list:
-                if (subj_str in sbar[1]) & (sbar[0] == "s"):
-                    not_subj = True
-                    break
-            for sent in sym_list[1:]:
-                if subj_str in sent:
-                    not_subj = True
-                    break
-            if ((not not_subj) | (subj_count == 1)) & (not subj_flag):
-                e_idx = check_continuity(elem[2].split(" "), rep_cut_words, -1)
-                if ("of" in subj_str) | (len(subj_str.split(" ")) <= 3) | (res_label[e_idx] == 0):
-                    e_idx = check_continuity(subj_str.split(" "), rep_cut_words, -1)
-                    for j in range(e_idx, e_idx + len(subj_str.split(" "))):
-                        res_label[j] = 1
-                subj_flag = True
+
+    idx_diff = -1
+    subj_elem = subj_list[0]
+    if len(root_verb) != 0:
+        for subj in subj_list:
+            if subj[0] < root_verb[0][0]:
+                if idx_diff == -1:
+                    idx_diff = root_verb[0][0] - subj[0]
+                    subj_elem = subj
+                else:
+                    if root_verb[0][0] - subj[0] < idx_diff:
+                        idx_diff = root_verb[0][0] - subj[0]
+                        subj_elem = subj
+
+    subj_str = subj_elem[3]
+    not_subj = False
+    for sbar in sbar_list:
+        if (subj_str in sbar[1]) & (sbar[0] == "s"):
+            not_subj = True
+            break
+    for sent in sym_list[1:]:
+        if subj_str in sent:
+            not_subj = True
+            break
+    if ((not not_subj) | (len(subj_list) == 1)) & (not subj_flag):
+        e_idx = check_continuity(subj_elem[2].split(" "), rep_cut_words, -1)
+        if ("of" in subj_str) | (len(subj_str.split(" ")) <= 3) | (res_label[e_idx] == 0):
+            e_idx = check_continuity(subj_str.split(" "), rep_cut_words, -1)
+            for j in range(e_idx, e_idx + len(subj_str.split(" "))):
+                res_label[j] = 1
     return res_label
 
 
@@ -2478,36 +2511,20 @@ def grammar_check_one_sent(orig_sent, cut_sent, comp_label, dictionary):
     vp_list, basic_elements, root_verb, root_idx = get_verb_phrases(rep_cut_sent, hyp_words, spill_words_list)
     for_list = extra_formulation(rep_cut_sent)
     ner_list, ner_sidx_list = extract_ner(rep_cut_sent)
-    if (";" in rep_cut_sent) | (" – " in rep_cut_sent) | (" — " in rep_cut_sent):
-        sym_list = re.split(' ; | – | — ', rep_cut_sent)
-    else:
-        sym_list = []
     sbar_list, pos_list = extra_sbar(rep_cut_sent, dictionary, hyp_words)
     pp_list = get_prep_list_by_dependency(rep_cut_sent, hyp_words, spill_words_list, abbr_words, basic_elements)
-    sbar_list, new_pp_list = using_pp_update_sbar(rep_cut_sent, sbar_list, pos_list, dictionary, pp_list,
-                                                  hyp_words)
+    if (";" in rep_cut_sent) | (" – " in rep_cut_sent) | (" — " in rep_cut_sent):
+        sym_list = re.split(' ; | – | — ', rep_cut_sent)
+    elif ":" in rep_cut_sent:
+        idx = pos_list.index((':', ':'))
+        if ("NN" in pos_list[idx - 1][1]) | ("VBG" in pos_list[idx - 1][1]):
+            sym_list = re.split(' : ', rep_cut_sent)
+    else:
+        sym_list = []
+    sbar_list, new_pp_list = using_pp_update_sbar(rep_cut_sent, sbar_list, pos_list, dictionary, pp_list, hyp_words)
     rep_cut_words = rep_cut_sent.split(" ")
     res_label = modify_basic_elements(basic_elements, rep_cut_words, res_label, sbar_list, sym_list)
-
-    if len(sbar_list) > 0:
-        sbar_flag = [0] * len(rep_cut_words)
-        s_idx = -1
-        for sbar in sbar_list:
-            sbar_words = sbar[1].split(" ")
-            s_idx = check_continuity(sbar_words, rep_cut_words, s_idx)
-            sbar_flag = fill_sent_flag(sbar_flag, s_idx, s_idx + len(sbar_words))
-        res_label = check_sbar_integrity(res_label, sbar_list, sbar_flag, rep_cut_words, pp_list, basic_elements)
-    res_pp = filter_pp_in_sbar(sbar_list, new_pp_list)
-    if len(res_pp) > 0:
-        pp_flag = [0] * len(rep_cut_words)
-        s_idx = -1
-        for pp in res_pp:
-            pp_words = pp[1].split(" ")
-            s_idx = check_continuity(pp_words, rep_cut_words, s_idx)
-            pp_flag = fill_sent_flag(pp_flag, s_idx, s_idx + len(pp_words))
-        res_label = check_pp_integrity(rep_cut_words, res_label, res_pp, pp_flag, ner_list, sbar_list)
-    else:
-        pp_flag = [0] * len(rep_cut_words)
+    sym_sent = cut_sent
 
     if len(vp_list) > 0:
         vp_flag = [0] * len(rep_cut_words)
@@ -2518,6 +2535,28 @@ def grammar_check_one_sent(orig_sent, cut_sent, comp_label, dictionary):
             vp_flag = fill_sent_flag(vp_flag, s_idx, s_idx + len(vp_words))
         res_label = check_vp_integrity(res_label, rep_cut_words, vp_list, vp_flag)
         print("acl modify:", get_res_by_label(rep_cut_words, res_label))
+
+    if len(sbar_list) > 0:
+        sbar_flag = [0] * len(rep_cut_words)
+        s_idx = -1
+        for sbar in sbar_list:
+            sbar_words = sbar[1].split(" ")
+            s_idx = check_continuity(sbar_words, rep_cut_words, s_idx)
+            sbar_flag = fill_sent_flag(sbar_flag, s_idx, s_idx + len(sbar_words))
+        res_label = check_sbar_integrity(res_label, sbar_list, sbar_flag, rep_cut_words, pp_list, basic_elements)
+
+    res_pp = filter_pp_in_sbar(sbar_list, new_pp_list)
+
+    if len(res_pp) > 0:
+        pp_flag = [0] * len(rep_cut_words)
+        s_idx = -1
+        for pp in res_pp:
+            pp_words = pp[1].split(" ")
+            s_idx = check_continuity(pp_words, rep_cut_words, s_idx)
+            pp_flag = fill_sent_flag(pp_flag, s_idx, s_idx + len(pp_words))
+        res_label = check_pp_integrity(rep_cut_words, res_label, res_pp, pp_flag, ner_list, sbar_list)
+    else:
+        pp_flag = [0] * len(rep_cut_words)
 
     if len(for_list) > 0:
         for_flag = [0] * len(rep_cut_words)
@@ -2534,18 +2573,20 @@ def grammar_check_one_sent(orig_sent, cut_sent, comp_label, dictionary):
             ner_flag = fill_sent_flag(ner_flag, ner_sidx_list[j], ner_sidx_list[j] + len(ner_words))
         res_label = check_ner_intergrity(res_label, ner_list, ner_flag)
         print("ner modify:", get_res_by_label(rep_cut_words, res_label))
+
     if len(sym_list) > 0:
         sem_flag = [0] * len(rep_cut_words)
         for j in range(0, len(sym_list)):
             sem_words = sym_list[j].strip().rstrip().split(" ")
             s_idx = check_continuity(sem_words, rep_cut_words, -1)
             sem_flag = fill_sent_flag(sem_flag, s_idx, s_idx + len(sem_words))
-        res_label = check_symbols_integrity(res_label, sym_list, sem_flag, res_pp, sbar_list, rep_cut_words)
+        res_label, sym_idx = check_symbols_integrity(res_label, sym_list, sem_flag, res_pp, sbar_list, rep_cut_words, root_idx)
+        sym_sent = sym_list[sym_idx]
         print("sym modify:", get_res_by_label(rep_cut_words, res_label))
     res_label, conj_res = process_conj(rep_cut_words, res_label, pp_flag)
     print("conj modify:", get_res_by_label(rep_cut_words, res_label))
     res_label = process_final_result(comp_label, res_label, cut_sent.split(" "), rep_cut_words, sbar_list, pp_list, root_verb,
-                                     basic_elements)
+                                     basic_elements, vp_list, sym_sent, dictionary)
     orig_words = orig_sent.split(" ")
     cut_idx = search_cut_content(orig_words)
     if len(cut_idx) != 0:
@@ -2608,6 +2649,8 @@ if __name__ == '__main__':
     comp_label = load_label("./ncontext_result_greedy.sents")
     cut_sents = load_orig_sent(cut_sent_path)
     orig_sents = load_orig_sent(orig_sent_path)
-    start_idx = 1095
+    start_idx = 5263
     end_idx = len(cut_sents)
     grammar_check_all_sents(cut_sents, comp_label, orig_sents, start_idx, end_idx)
+
+
