@@ -67,7 +67,6 @@ def get_correct_sidx(orig_words, key_words):
             return s_idx + 1, e_idx - 1
 
 
-
 def gen_temp(orig_sents, cut_sents, comp_labels, start_idx, end_idx):
     sbar_pattern = re.compile(r's\d+')
     pp_pattern = re.compile(r'p\d+|v\d+')
@@ -102,7 +101,7 @@ def gen_temp(orig_sents, cut_sents, comp_labels, start_idx, end_idx):
                     if exist_flag:
                         for s in range(s_idx, e_idx + 1):
                             temp_words[s] = "s" + str(j)
-
+        print(temp_words)
         ## devide modifying prep
         if len(pp_list) != 0:
             for j in range(len(pp_list)):
@@ -138,7 +137,7 @@ def gen_temp(orig_sents, cut_sents, comp_labels, start_idx, end_idx):
                         else:
                             if (temp_words[s_idx - 1] != '0') | (s_words[s_idx - 1] in [","]):
                                 temp_words[p] = "v" + str(j)
-
+        print(temp_words)
         # ner need to maintan the same value
         if len(ner_list) != 0:
             for j in range(len(ner_list)):
@@ -170,7 +169,7 @@ def gen_temp(orig_sents, cut_sents, comp_labels, start_idx, end_idx):
                 if temp_words[cut_idx_list[j][1]] != temp_words[cut_idx_list[j][1] + 1]:
                     for b in range(cut_idx_list[j][0], cut_idx_list[j][1] + 1):
                         temp_words[b] = "b" + str(j)
-
+        print(temp_words)
         slot = 0
         adjuncts = []
         adjunct = []
@@ -271,8 +270,8 @@ def gen_sent_temp_main(file_name, start_idx, end_idx):
 
 if __name__ == '__main__':
     file_name = "context"
-    start_idx = 43
-    end_idx = 50
+    start_idx = 9
+    end_idx = 10
     gen_sent_temp_main(file_name, start_idx, end_idx)
     # sent_path = "./comp_input/" + file_name + ".cln.sent"
     # comp_label = load_label("./comp_label/slahan_w_syn/2_" + file_name + "_result_greedy.sents")
