@@ -58,25 +58,7 @@ def get_nlp_tree(sent):
     return nlp_tree
 
 
-#
-# def get_subject_phrase(doc):
-#     for token in doc:
-#         if "subj" in token.dep_:
-#             subtree = list(token.subtree)
-#             start = subtree[0].i
-#             end = subtree[-1].i + 1
-#             return doc[start:end]
-#     return []
-#
-#
-# def get_object_phrase(doc):
-#     for token in doc:
-#         if "dobj" in token.dep_:
-#             subtree = list(token.subtree)
-#             start = subtree[0].i
-#             end = subtree[-1].i + 1
-#             return doc[start:end]
-#     return []
+
 
 ## check the continuity of phrase/clause
 def check_continuity(key_words, words, search_start):
@@ -586,6 +568,17 @@ def get_verb_phrases(sent, hyp_words, spill_words_list):
             dep_map[key] = []
         dep_map[key].append((token.head.text, token.head.pos_, token.dep_, token.text))
         i += 1
+
+    if len([elem for elem in basic_elements if (("subj" in elem[1]) | ("expl" in elem[1]))]) == 0:
+        noun_idx = root_idx - 1
+        while (pos_list[noun_idx] not in ["NOUN"]) & (noun_idx > 0):
+            noun_idx -= 1
+        if (noun_idx > 0) & (pos_list[noun_idx] == "NOUN"):
+            noun_words = [tok.orth_ for tok in doc[noun_idx].subtree]
+            subj_str = process_hyp_words(" ".join(noun_words), hyp_words, sent).replace(
+                "et al .", "et al.")
+            subj_str = re.split(' ; | – | — | , | who | which | that | where | when ', subj_str)[0]
+            basic_elements.append((noun_idx, "nsubj", doc[noun_idx].text, subj_str))
 
     i = 0
     for w in doc:
@@ -1740,6 +1733,8 @@ def two_conj(j, doc, ans):
 def write_list_in_txt(orig_sents, comp_list, orig_comp, file_path):
     f = open(file_path, "w", encoding="utf-8")
     for i in range(len(comp_list)):
+        # f.write("i = " + str(i+600) + "\n")
+        # f.write(orig_sents[i+600] + "\n")
         f.write("i = " + str(i) + "\n")
         f.write(orig_sents[i] + "\n")
         f.write("orig: " + orig_comp[i] + "\n")
@@ -2269,6 +2264,8 @@ def process_final_result(comp_label, res_label, cut_words, rep_cut_words, sbar_l
                 if (res_label[quot_index[j] - 1] == 1) & (res_label[quot_index[j] + 1] == 1):
                     res_label[quot_index[j]] = 1
             if res_label[quot_index[j]] == 1:
+                if j + 1 == len(quot_index):
+                    break
                 res_label[quot_index[j + 1]] = 1
                 if j + 1 == len(quot_index) - 1:
                     break
@@ -2472,6 +2469,8 @@ def modify_basic_elements(basic_elements, rep_cut_words, res_label, sbar_list, s
                 res_label[e_idx] = 1
 
     idx_diff = -1
+    if len(subj_list) == 0:
+        return res_label
     subj_elem = subj_list[0]
     if len(root_verb) != 0:
         for subj in subj_list:
@@ -2487,7 +2486,7 @@ def modify_basic_elements(basic_elements, rep_cut_words, res_label, sbar_list, s
     subj_str = subj_elem[3]
     not_subj = False
     for sbar in sbar_list:
-        if (subj_str in sbar[1]) & (sbar[0] == "s"):
+        if (" " + subj_str + " " in sbar[1]) & (sbar[0] == "s"):
             not_subj = True
             break
     for sent in sym_list[1:]:
@@ -2513,6 +2512,7 @@ def grammar_check_one_sent(orig_sent, cut_sent, comp_label, dictionary):
     ner_list, ner_sidx_list = extract_ner(rep_cut_sent)
     sbar_list, pos_list = extra_sbar(rep_cut_sent, dictionary, hyp_words)
     pp_list = get_prep_list_by_dependency(rep_cut_sent, hyp_words, spill_words_list, abbr_words, basic_elements)
+    sym_list = []
     if (";" in rep_cut_sent) | (" – " in rep_cut_sent) | (" — " in rep_cut_sent):
         sym_list = re.split(' ; | – | — ', rep_cut_sent)
     elif ":" in rep_cut_sent:
@@ -2628,6 +2628,7 @@ def grammar_check_all_sents(cut_sents, comp_label, orig_sents, start_idx, end_id
         all_ners.append(ner_list)
         all_vps.append(vp_list)
     write_list_in_txt(orig_sents, comp_list, orig_comp, "./modify_res.txt")
+    # write_list_in_txt(orig_sents, comp_list, orig_comp, "./modify_res_600_800.txt")
     return label_list, all_sbar, all_pp, all_conj, comp_list, all_formulations, all_ners, all_vps
 
 
@@ -2649,8 +2650,8 @@ if __name__ == '__main__':
     comp_label = load_label("./ncontext_result_greedy.sents")
     cut_sents = load_orig_sent(cut_sent_path)
     orig_sents = load_orig_sent(orig_sent_path)
-    start_idx = 5263
-    end_idx = len(cut_sents)
+    start_idx = 600
+    end_idx = 800
+    # start_idx = 766
+    # end_idx = start_idx+1
     grammar_check_all_sents(cut_sents, comp_label, orig_sents, start_idx, end_idx)
-
-
