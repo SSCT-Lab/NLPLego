@@ -1733,8 +1733,8 @@ def two_conj(j, doc, ans):
 def write_list_in_txt(orig_sents, comp_list, orig_comp, file_path):
     f = open(file_path, "w", encoding="utf-8")
     for i in range(len(comp_list)):
-        # f.write("i = " + str(i+600) + "\n")
-        # f.write(orig_sents[i+600] + "\n")
+        # f.write("i = " + str(i+800) + "\n")
+        # f.write(orig_sents[i+800] + "\n")
         f.write("i = " + str(i) + "\n")
         f.write(orig_sents[i] + "\n")
         f.write("orig: " + orig_comp[i] + "\n")
@@ -2106,6 +2106,33 @@ def create_seed_sent(comp_label, res_label, cut_words, sbar_list, rep_cut_words,
 
     return res_label
 
+def create_seed_sent_conj(comp_label, res_label, cut_words, sbar_list, rep_cut_words, res_pp, vp_list):
+    res_label = [1] * len(res_label)
+    if len(sbar_list) > 0:
+        for sbar in sbar_list:
+            sbar_words = sbar[1].split(" ")
+            s_idx = check_continuity(sbar_words, rep_cut_words, -1)
+            if sbar[0] == "s":
+                e_idx = s_idx + len(sbar_words)
+                for j in range(s_idx, e_idx):
+                    res_label[j] = 0
+    if len(res_pp) > 0:
+        for pp in res_pp:
+            if (pp[0] == "p") & (" of " not in pp[1]):
+                pp_words = pp[1].split(" ")
+                s_idx = check_continuity(pp_words, rep_cut_words, -1)
+                for j in range(s_idx, s_idx + len(pp_words)):
+                    res_label[j] = 0
+
+    if len(vp_list) > 0:
+        for vp in vp_list:
+            if vp[0] == "acl":
+                vp_words = vp[1].split(" ")
+                s_idx = check_continuity(vp_words, rep_cut_words, -1)
+                for j in range(s_idx, s_idx + len(vp_words)):
+                    res_label[j] = 0
+    return res_label
+
 
 def process_final_result(comp_label, res_label, cut_words, rep_cut_words, sbar_list, res_pp, root_verb, basic_elements, vp_list, sym_sent, dictionary):
     if (cut_words[-1] in [".", "?", "!"]) & (res_label[-1] != 1):
@@ -2322,8 +2349,13 @@ def handle_included(conj_res, res_label):
 def process_conj(rep_cut_words, res_label, pp_flag):
     conj_str = ''
     for conj_i in range(len(res_label)):
-        conj_str = conj_str + ' ' + rep_cut_words[conj_i] if (
-                res_label[conj_i] != -1 and pp_flag[conj_i] == 0) else conj_str
+        if res_label[conj_i] != 0:
+            conj_str += rep_cut_words[conj_i] + " "
+    # print(conj_str)
+    # conj_str = ''
+    # for conj_i in range(len(res_label)):
+    #     conj_str = conj_str + ' ' + rep_cut_words[conj_i] if (
+    #             res_label[conj_i] != -1 and pp_flag[conj_i] == 0) else conj_str
     conj_res = extract_conj(conj_str.strip().rstrip())
     # print(conj_res)
     # # print(conj_res)
@@ -2338,7 +2370,7 @@ def process_conj(rep_cut_words, res_label, pp_flag):
             conj_is_exist = 0
             conj_mapping_cut = []
             conj_word_index = -1
-            for temp in range(len(rep_cut_words)):
+            for temp in range(len(rep_cut_words)-1, -1, -1):
                 if res_label[temp] != -1 and pp_flag[temp] == 0:
                     if rep_cut_words[temp] == conj_word[index_conj]:
                         conj_mapping_cut.append([index_conj, temp])
@@ -2352,6 +2384,7 @@ def process_conj(rep_cut_words, res_label, pp_flag):
                             # conj_index = index_start_conj
                             break
                         temp += 1
+            conj_mapping_cut = conj_mapping_cut[::-1]
             if conj_is_exist:
                 # 三种情况，a and/or b
                 # a and存在，填补b
@@ -2583,7 +2616,8 @@ def grammar_check_one_sent(orig_sent, cut_sent, comp_label, dictionary):
         res_label, sym_idx = check_symbols_integrity(res_label, sym_list, sem_flag, res_pp, sbar_list, rep_cut_words, root_idx)
         sym_sent = sym_list[sym_idx]
         print("sym modify:", get_res_by_label(rep_cut_words, res_label))
-    res_label, conj_res = process_conj(rep_cut_words, res_label, pp_flag)
+    temp_res_label = create_seed_sent_conj(comp_label, res_label, orig_sent.split(" "), sbar_list, rep_cut_words, res_pp, vp_list)
+    res_label, conj_res = process_conj(rep_cut_words, temp_res_label, pp_flag)
     print("conj modify:", get_res_by_label(rep_cut_words, res_label))
     res_label = process_final_result(comp_label, res_label, cut_sent.split(" "), rep_cut_words, sbar_list, pp_list, root_verb,
                                      basic_elements, vp_list, sym_sent, dictionary)
@@ -2628,7 +2662,7 @@ def grammar_check_all_sents(cut_sents, comp_label, orig_sents, start_idx, end_id
         all_ners.append(ner_list)
         all_vps.append(vp_list)
     write_list_in_txt(orig_sents, comp_list, orig_comp, "./modify_res.txt")
-    # write_list_in_txt(orig_sents, comp_list, orig_comp, "./modify_res_600_800.txt")
+    # write_list_in_txt(orig_sents, comp_list, orig_comp, "./modify_res_800_1000.txt")
     return label_list, all_sbar, all_pp, all_conj, comp_list, all_formulations, all_ners, all_vps
 
 
@@ -2650,8 +2684,8 @@ if __name__ == '__main__':
     comp_label = load_label("./ncontext_result_greedy.sents")
     cut_sents = load_orig_sent(cut_sent_path)
     orig_sents = load_orig_sent(orig_sent_path)
-    start_idx = 600
-    end_idx = 800
-    # start_idx = 766
-    # end_idx = start_idx+1
+    # start_idx = 800
+    # end_idx = 1000
+    start_idx = 5739
+    end_idx = start_idx+1
     grammar_check_all_sents(cut_sents, comp_label, orig_sents, start_idx, end_idx)
