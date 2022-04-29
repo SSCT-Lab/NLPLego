@@ -2182,14 +2182,15 @@ def del_sbar_phrase(res_label, sbar_list, rep_cut_words, res_pp, vp_list):
 
 def create_seed_sent(comp_label, res_label, cut_words, sbar_list, rep_cut_words, res_pp, vp_list):
     res_label = [0] * len(res_label)
+    common_flag = False
     if res_label.count(1) != len(res_label):
         if "," in cut_words:
             common_sent = " ".join(cut_words[:cut_words.index(",")])
-            common_flag = False
             for sbar in sbar_list:
                 if (common_sent in sbar[1]) & (sbar[0] == "s"):
                     common_flag = True
                     break
+
         for i in range(len(res_label)):
             if cut_words[i] not in [";", ":", "–", "—"]:
                 res_label[i] = 1
@@ -2346,7 +2347,7 @@ def process_final_result(comp_label, res_label, cut_words, rep_cut_words, sbar_l
         res_label[one_indexs[-2]] = 0
 
     if cut_words[one_indexs[-3]] in [":", ";", ",", "``"]:
-        if (cut_words[one_indexs[-3]] != ":") | (cut_words[one_indexs[-4]] not in ["include", "included"]):
+        if (cut_words[one_indexs[-3]] != ":") | (cut_words[one_indexs[-4]] not in ["include", "included", "are"]):
             res_label[one_indexs[-2]] = 0
             res_label[one_indexs[-3]] = 0
 
@@ -2423,8 +2424,8 @@ def handle_included(conj_res, res_label):
         res_label[remove_index[0]:remove_index[1]+1] = [0]*(remove_index[1]-remove_index[0]+1)
 
 
-def process_conj(rep_cut_words, res_label, pp_flag):
-    conj_str = get_res_by_label(rep_cut_words, res_label)
+def process_conj(rep_cut_words, temp_res_label, res_label, pp_flag):
+    conj_str = get_res_by_label(rep_cut_words, temp_res_label)
     conj_res = extract_conj(conj_str.strip().rstrip())
     # print(conj_res)
     # # print(conj_res)
@@ -2695,7 +2696,7 @@ def grammar_check_one_sent(orig_sent, cut_sent, comp_label, dictionary):
     else:
         temp_res_label = [1] * len(res_label)
     temp_res_label = del_sbar_phrase(temp_res_label, sbar_list, rep_cut_words, res_pp, vp_list)
-    res_label, conj_res = process_conj(rep_cut_words, temp_res_label, pp_flag)
+    res_label, conj_res = process_conj(rep_cut_words, temp_res_label, res_label, pp_flag)
     print("conj modify:", get_res_by_label(rep_cut_words, res_label))
     res_label = process_final_result(comp_label, res_label, cut_sent.split(" "), rep_cut_words, sbar_list, pp_list, root_verb,
                                      basic_elements, vp_list, sym_sent, dictionary)
@@ -2764,8 +2765,9 @@ if __name__ == '__main__':
     comp_label = load_label("./ncontext_result_greedy.sents")
     cut_sents = load_orig_sent(cut_sent_path)
     orig_sents = load_orig_sent(orig_sent_path)
-    start_idx = 5740
+    start_idx = 0
     end_idx = len(cut_sents)
+    # end_idx = 6000
     grammar_check_all_sents(cut_sents, comp_label, orig_sents, start_idx, end_idx)
 
 
