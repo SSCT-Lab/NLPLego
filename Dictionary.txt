@@ -465,17 +465,13 @@ in December
 in Dec
 
 key = to
-in order to
-In order to
 so as to
-in addition to
-In addition to
 
 key = as
 so as
 
 key = comp
-in oder to
+in order to
 so as to
 as well as
 in addition to
