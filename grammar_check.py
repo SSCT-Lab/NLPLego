@@ -120,25 +120,22 @@ def exist_pp(pos_list, pp_word, dictionary, key_pp, to_flag, spill_words_list):
     doc = spacy_nlp(sent)
     i = 0
     p_idx = pp_word.index(key_pp)
-
+    comp_flag = False
     for pp in dictionary["comp"]:
-        if (pp in " ".join(pp_word)) & (pp_word[0] == pp.split(" ")[0]):
-            p_idx = check_continuity(pp.split(" "), pp_word, -1) + len(pp.split(" "))
-            break
-    # if 【"as well as" in sent:
-    #     skip_idx = check_continuity("as well as".split(" "), pp_word, -1)
-    # else:
-    #     skip_idx = -1
+        if pp in " ".join(pp_word):
+            if key_pp.lower() == pp.split(" ")[0]:
+                p_idx = check_continuity(pp.split(" "), pp_word, -1) + len(pp.split(" "))
+                break
+            else:
+                if key_pp in pp.split(" ")[1:]:
+                    comp_flag = True
+
     first_to = -1
     if key_pp == "from":
         if "to" in pp_word[p_idx:]:
             first_to = pp_word[p_idx:].index("to")
     for w in doc:
         if i > p_idx:
-            # if skip_idx != -1:
-            #     if i in range(skip_idx, skip_idx + 3):
-            #         i += 1
-            #     continue
             if (pos_list[i] == "ADP") & (w.text not in ["of", "v", "than"]):
                 if (i - 1 >= 0) & (i + 1 < len(pp_word)) & (w.text in spill_words_list):
                     if (pp_word[i - 1] in ["-", "–", "−"]) | (pp_word[i + 1] in ["-", "–", "−"]):
@@ -162,6 +159,14 @@ def exist_pp(pos_list, pp_word, dictionary, key_pp, to_flag, spill_words_list):
                             count += 1
                         else:
                             count += 1
+                    elif w.text == "as":
+                        if "as" in pp_word[:i]:
+                            as_idx = i - 1
+                            while pp_word[as_idx] != "as":
+                                as_idx -= 1
+                            if pos_list[as_idx] == "ADV":
+                                i += 1
+                                continue
                     else:
                         if (key_pp == "from") & ((first_to + p_idx) == i):
                             i += 1
@@ -190,9 +195,9 @@ def exist_pp(pos_list, pp_word, dictionary, key_pp, to_flag, spill_words_list):
                 break
         i += 1
     if count >= 1:
-        return True, key
+        return True, key, comp_flag
     else:
-        return False, key
+        return False, key, comp_label
 
 
 def devide_pp(pp_word, key):
@@ -840,13 +845,24 @@ def get_prep_list_by_dependency(sent, hyp_words, spill_words_list, abbr_words, b
                         pos_list = old_pos_list
                         if h_idx != -1:
                             vp_flag = False
+                if (w.text == "as") & (pp_word[0] == "as"):
+                    if "as" in s_word[:i]:
+                        as_idx = i - 1
+                        while s_word[as_idx] != "as":
+                            as_idx -= 1
+                        if all_pos_list[as_idx] == "ADV":
+                            pp_word = s_word[as_idx:i] + pp_word
+                            pos_list = all_pos_list[as_idx:i] + pos_list
                 ## cut long prep
-                flag, key = exist_pp(pos_list, pp_word, dictionary, w.text, False, spill_words_list)
+                flag, key, comp_flag = exist_pp(pos_list, pp_word, dictionary, w.text, False, spill_words_list)
                 if flag & (key > 1):
                     if pp_word[key - 1] in ["and", "or"]:
                         pp_word = pp_word[:key - 1]
                     else:
                         pp_word = pp_word[:key]
+                if comp_flag:
+                    i += 1
+                    continue
                 if pp_str == "of which":
                     i += 1
                     continue
@@ -879,10 +895,12 @@ def get_prep_list_by_dependency(sent, hyp_words, spill_words_list, abbr_words, b
                 pp_str = get_complete_last_word(pp_str.split(" "), sent.split(" "))
 
                 if len(pp_list) > 0:
-                    if pp_str in pp_list[-1]:
+                    if pp_str in pp_list[-1][1]:
                         i += 1
                         continue
                     if pp_list[-1][1] in pp_str:
+                        for j in range(last_s_idx, last_s_idx + len(pp_list[-1][1].split(" "))):
+                            pp_flag[j] = 0
                         pp_list.pop()
                         last_s_idx = -1
 
@@ -936,7 +954,10 @@ def get_prep_list_by_dependency(sent, hyp_words, spill_words_list, abbr_words, b
                             pp_word = alternative
                         vp_flag = True
                     ## cut long prep
-                    flag, key = exist_pp(pos_list, pp_word, dictionary, w.text, True, spill_words_list)
+                    flag, key, comp_flag = exist_pp(pos_list, pp_word, dictionary, w.text, True, spill_words_list)
+                    if comp_flag:
+                        i += 1
+                        continue
                     if flag & (key > 1):
                         pp_word = pp_word[:key]
                         pp_str = devide_pp(pp_word, key)
@@ -953,24 +974,23 @@ def get_prep_list_by_dependency(sent, hyp_words, spill_words_list, abbr_words, b
                         continue
                     pp_str = get_complete_last_word(pp_str.split(" "), sent.split(" "))
                     if len(pp_list) > 0:
+                        if pp_str in pp_list[-1][1]:
+                            i += 1
+                            continue
                         if pp_list[-1][1] in pp_str:
+                            for j in range(last_s_idx, last_s_idx + len(pp_list[-1][1].split(" "))):
+                                pp_flag[j] = 0
                             pp_list.pop()
                             last_s_idx = -1
                     if pp_str in sent:
                         s_idx = check_continuity(pp_word, s_word, last_s_idx)
                         if s_word[s_idx - 1] in dictionary["to"].keys():
                             pp_str = " ".join(s_word[s_idx - 2:s_idx]) + " " + pp_str
-                            for i in range(s_idx - 2, s_idx):
-                                pp_flag[i] = 0
+                            for j in range(s_idx - 2, s_idx):
+                                pp_flag[j] = 0
                             s_idx = s_idx - 2
-                            if len(pp_list) > 0:
-                                if pp_list[-1][1] in pp_str:
-                                    pp_list.pop()
 
                         if pp_flag[s_idx] != 1:
-                            if len(pp_list) > 0:
-                                if pp_list[-1][1] in pp_str:
-                                    pp_list.pop()
                             if vp_flag:
                                 pp_list.append(('v', pp_str, w.text))
                             else:
@@ -1292,7 +1312,7 @@ def exist_sbar(nlp_tree):
         return False
 
 
-def devide_sbar(pos_list, long_sbar, nlp_tree, hyp_words, orig_sent):
+def devide_sbar(long_sbar, nlp_tree, hyp_words, orig_sent):
     count = 0
     for s in nlp_tree.subtrees():
         if s.label() == "SBAR":
@@ -1586,7 +1606,7 @@ def extra_sbar(sent, hyp_words):
             else:
                 long_sbar = process_hyp_words(" ".join(key_words), hyp_words, sent, orig_s_idx)
                 if " as to " not in long_sbar:
-                    sbar = devide_sbar(pos_list, long_sbar, s, hyp_words, sent)
+                    sbar = devide_sbar(long_sbar, s, hyp_words, sent)
                 else:
                     sbar = long_sbar
                 if len(sbar) > 1:
@@ -2614,7 +2634,6 @@ def grammar_check_one_sent(orig_sent, cut_sent, comp_label, dictionary):
     ner_list, ner_sidx_list = extract_ner(rep_cut_sent)
     sbar_list, pos_list, cc_sent_list, np_sbar_list, np_pp_list = extra_sbar(rep_cut_sent, hyp_words)
     pp_list = get_prep_list_by_dependency(rep_cut_sent, hyp_words, spill_words_list, abbr_words, basic_elements)
-    sym_list = []
     if (";" in rep_cut_sent) | (" – " in rep_cut_sent) | (" — " in rep_cut_sent):
         sym_list = re.split(' ; | – | — ', rep_cut_sent)
     elif ":" in rep_cut_sent:
@@ -2624,6 +2643,8 @@ def grammar_check_one_sent(orig_sent, cut_sent, comp_label, dictionary):
             idx = pos_list.index((':', ':'))
         if ("NN" in pos_list[idx - 1][1]) | ("VBG" in pos_list[idx - 1][1]):
             sym_list = re.split(' : ', rep_cut_sent)
+        else:
+            sym_list = []
     else:
         sym_list = []
     sbar_list, new_pp_list = using_pp_update_sbar(rep_cut_sent, sbar_list, pos_list, dictionary, pp_list, hyp_words)
@@ -2708,7 +2729,7 @@ def grammar_check_one_sent(orig_sent, cut_sent, comp_label, dictionary):
             for j in range(count):
                 res_label.insert(tup[0], -2)
 
-    return res_label, sbar_list, pp_list, conj_res, for_list, ner_list, vp_list, cc_sent_list, np_sbar_list, np_pp_list
+    return res_label, sbar_list, pp_list, conj_res, for_list, ner_list, vp_list, sym_list, cc_sent_list, np_sbar_list, np_pp_list
 
 
 ## check completeness of prep phrases, clause
@@ -2722,12 +2743,13 @@ def grammar_check_all_sents(cut_sents, comp_label, orig_sents, start_idx, end_id
     all_formulations = []
     all_ners = []
     all_vps = []
+    all_syms = []
     all_cc_sent = []
     all_np_sbar = []
     all_np_pp = []
     dictionary = load_dictionary('./Dictionary.txt')
     for i in range(start_idx, end_idx):
-        res_label, sbar_list, pp_list, conj_res, for_list, ner_list, vp_list, cc_sent_list, np_sbar_list, np_pp_list = grammar_check_one_sent(orig_sents[i], cut_sents[i], comp_label[i], dictionary)
+        res_label, sbar_list, pp_list, conj_res, for_list, ner_list, vp_list, sym_list, cc_sent_list, np_sbar_list, np_pp_list = grammar_check_one_sent(orig_sents[i], cut_sents[i], comp_label[i], dictionary)
         cut_res = get_res_by_label(cut_sents[i].split(" "), comp_label[i])
         orig_comp.append(cut_res)
         print("original result: ", cut_res)
@@ -2744,18 +2766,9 @@ def grammar_check_all_sents(cut_sents, comp_label, orig_sents, start_idx, end_id
         all_cc_sent.append(cc_sent_list)
         all_np_sbar.append(np_sbar_list)
         all_np_pp.append(np_pp_list)
+        all_syms.append(sym_list)
     write_list_in_txt(orig_sents, comp_list, orig_comp, "./modify_res.txt")
-    return label_list, all_sbar, all_pp, all_conj, comp_list, all_formulations, all_ners, all_vps, all_cc_sent, all_np_sbar, all_np_pp
-
-
-def grammar_check_main(start_idx, end_idx):
-    cut_sent_path = "./comp_input/ncontext.cln.sent"
-    orig_sent_path = "./comp_input/context.cln.sent"
-    comp_label = load_label("./ncontext_result_greedy.sents")
-    cut_sents = load_orig_sent(cut_sent_path)
-    orig_sents = load_orig_sent(orig_sent_path)
-    label_list, all_sbar, all_pp, all_conj, comp_list, all_for, all_ners, all_vps = grammar_check_all_sents(cut_sents, comp_label, orig_sents, start_idx, end_idx)
-    return label_list, all_sbar, all_pp, all_conj, comp_list, all_for, all_ners, all_vps
+    return label_list, all_sbar, all_pp, all_conj, comp_list, all_formulations, all_ners, all_vps, all_syms, all_cc_sent, all_np_sbar, all_np_pp
 
 
 if __name__ == '__main__':
