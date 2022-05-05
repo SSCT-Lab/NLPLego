@@ -2438,13 +2438,19 @@ def handle_included(conj_res, res_label):
         add_index = [15, 29]
     if conj_res[0][0] == 'include 5 University campuses ; 12 California State University campuses ; and private institutions':
         add_index = [0, 1]
+    if conj_res[0][0] == 'River and Kiewa River':
+        add_index = [2, 56]
+    if conj_res[0][0] == "heath , Leadbeater 's possum and the helmeted honeyeater":
+        add_index = [3, 14]
+    if conj_res[0][0] == 'Theron , Viljoen and Visagie':
+        add_index = [1, 85]
     if add_index != [-1, -1]:
         res_label[add_index[0]:add_index[1]+1] = [1]*(add_index[1]-add_index[0]+1)
     if remove_index != [-1, -1]:
         res_label[remove_index[0]:remove_index[1]+1] = [0]*(remove_index[1]-remove_index[0]+1)
 
 
-def process_conj(rep_cut_words, temp_res_label, res_label, pp_flag):
+def process_conj(rep_cut_words, temp_res_label, res_label, pp_flag, pos_list):
     conj_str = get_res_by_label(rep_cut_words, temp_res_label)
     conj_res = extract_conj(conj_str.strip().rstrip())
     # print(conj_res)
@@ -2459,8 +2465,10 @@ def process_conj(rep_cut_words, temp_res_label, res_label, pp_flag):
             conj_is_exist = 0
             conj_mapping_cut = []
             conj_word_index = -1
-            for temp in range(len(rep_cut_words) - 1, -1, -1):
-                if res_label[temp] != -1 and pp_flag[temp] == 0:
+            # for temp in range(len(rep_cut_words) - 1, -1, -1):
+            for temp in range(len(rep_cut_words)):
+                # if res_label[temp] != -1 and pp_flag[temp] == 0:
+                if temp_res_label[temp] == 1:
                     if rep_cut_words[temp] == conj_word[index_conj]:
                         conj_mapping_cut.append([index_conj, temp])
                         if conj_word[index_conj] == 'and' or conj_word[index_conj] == 'or':
@@ -2473,7 +2481,7 @@ def process_conj(rep_cut_words, temp_res_label, res_label, pp_flag):
                             # conj_index = index_start_conj
                             break
                         temp += 1
-            conj_mapping_cut = conj_mapping_cut[::-1]
+            # conj_mapping_cut = conj_mapping_cut[::-1]
             if conj_is_exist:
                 # 三种情况，a and/or b
                 # a and存在，填补b
@@ -2538,6 +2546,9 @@ def process_conj(rep_cut_words, temp_res_label, res_label, pp_flag):
                     else:
                         for check_conj in conj_mapping_cut[conj_word_index:len(conj_mapping_cut)]:
                             res_label[check_conj[1]] = 0
+                if pos_list[conj_mapping_cut[conj_word_index+1][1]][1] == 'VBD':
+                    for check_conj in conj_mapping_cut[conj_word_index:len(conj_mapping_cut)]:
+                        res_label[check_conj[1]] = 1
             else:
                 # 没找到，把连接词及后面去掉
                 index_conj = 0
@@ -2717,7 +2728,7 @@ def grammar_check_one_sent(orig_sent, cut_sent, comp_label, dictionary):
     else:
         temp_res_label = [1] * len(res_label)
     temp_res_label = del_sbar_phrase(temp_res_label, sbar_list, rep_cut_words, res_pp, vp_list)
-    res_label, conj_res = process_conj(rep_cut_words, temp_res_label, res_label, pp_flag)
+    res_label, conj_res = process_conj(rep_cut_words, temp_res_label, res_label, pp_flag, pos_list)
     print("conj modify:", get_res_by_label(rep_cut_words, res_label))
     res_label = process_final_result(comp_label, res_label, cut_sent.split(" "), rep_cut_words, sbar_list, pp_list, root_verb,
                                      basic_elements, vp_list, sym_sent, dictionary)
@@ -2768,6 +2779,7 @@ def grammar_check_all_sents(cut_sents, comp_label, orig_sents, start_idx, end_id
         all_np_pp.append(np_pp_list)
         all_syms.append(sym_list)
     write_list_in_txt(orig_sents, comp_list, orig_comp, "./modify_res.txt")
+    # write_list_in_txt(orig_sents, comp_list, orig_comp, "./modify_res_700_800.txt")
     return label_list, all_sbar, all_pp, all_conj, comp_list, all_formulations, all_ners, all_vps, all_syms, all_cc_sent, all_np_sbar, all_np_pp
 
 
@@ -2778,9 +2790,11 @@ if __name__ == '__main__':
     comp_label = load_label("./ncontext_result_greedy.sents")
     cut_sents = load_orig_sent(cut_sent_path)
     orig_sents = load_orig_sent(orig_sent_path)
-    start_idx = 0
-    end_idx = len(cut_sents)
+    # start_idx = 700
+    # end_idx = 800
     # end_idx = 6000
+    start_idx = 995
+    end_idx = start_idx + 1
     grammar_check_all_sents(cut_sents, comp_label, orig_sents, start_idx, end_idx)
 
 
