@@ -1,4 +1,5 @@
 key = of
+a work of
 a hundred of
 a thousand of
 a million of
@@ -184,6 +185,7 @@ proud of
 kind of
 lots of
 plenty of
+some of
 
 key = that
 accept that
@@ -392,6 +394,8 @@ reply that
 replies that
 report that
 reports that
+reporting that
+reported that
 reason that
 reasons that
 saying that
@@ -477,6 +481,12 @@ as well as
 in addition to
 in order for
 in exchange for
+as to
+as from
+
+key = verb
+according to
+owing to
 
 key = end
 is
@@ -502,3 +512,7 @@ to
 have
 has
 been
+be
+
+key = integrated
+to name but a few
