@@ -902,22 +902,24 @@ def process_conj(rep_cut_words, temp_res_label, res_label, pp_flag, pos_list):
                             temp += 1
         elif conj_li[1] == 2:
             conj_word = conj_li[0].split(" ")
-            conj_index = -1
+            conj_is_exist = False
+            index_conj = 0
+            conj_mapping_cut = []
             for temp in range(len(rep_cut_words)):
-                if conj_word[0] == rep_cut_words[temp] and conj_word == rep_cut_words[temp:temp + len(conj_word)]:
-                    conj_index = temp
+                if temp_res_label[temp] == 1:
+                    if rep_cut_words[temp] == conj_word[index_conj]:
+                        conj_mapping_cut.append([index_conj, temp])
+                        index_conj += 1
+                        if index_conj == len(conj_word):
+                            break
+                        temp += 1
+            for check_conj in conj_mapping_cut:
+                if res_label[check_conj[1]] == 1:
+                    conj_is_exist = True
                     break
-            if not conj_index == -1:
-                # print("conj_index: ", conj_index, conj_index + len(conj_word),
-                # cut_words[conj_index:conj_index + len(conj_word)])
-                check_index = False
-                for check_conj in range(conj_index, conj_index + len(conj_word)):
-                    if res_label[check_conj] == 1:
-                        check_index = True
-                        break
-                if check_index:
-                    for check_conj in range(conj_index, conj_index + len(conj_word)):
-                        res_label[check_conj] = 1
+            if conj_is_exist:
+                for check_conj in conj_mapping_cut:
+                    res_label[check_conj[1]] = 1
     return res_label, conj_res
 
 
