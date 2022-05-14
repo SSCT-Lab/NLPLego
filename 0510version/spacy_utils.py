@@ -833,6 +833,10 @@ def extract_conj(text):
             j = two_conj(j, doc, ans)
             min = j + 1
             if not len(ans) == 0:
+                if "well - developed" in ans[0]:
+                ans[0] = ans[0].replace("well - developed", "well-developed")
+                # if " - " in ans[0]:
+                #     ans[0] = ans[0].replace(" - ", "-")
                 res.append(ans)
                 ans = []
             continue
