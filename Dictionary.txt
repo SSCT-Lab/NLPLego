@@ -9,6 +9,7 @@ a part of
 a shot of
 a bed of
 a year of
+a rule of
 a series of
 a portion of
 a trio of
@@ -139,6 +140,7 @@ out of
 ahead of
 half of
 form of
+multiple of
 much of
 result of
 popularity of
@@ -423,11 +425,14 @@ find out that
 found out that
 show that
 showed that
+showing that
 certain that
 held that
 acknowledged that
 acknowledge that
 acknowledges that
+in the sense that
+pointed out that
 
 key = on
 on Monday
@@ -470,9 +475,20 @@ in Dec
 
 key = to
 so as to
+down to
+grant to
+granted to
+want to
+wants to
+wanted to
+closest to
+discharge to
 
 key = as
 so as
+
+key = from
+apart from
 
 key = comp
 in order to
@@ -481,6 +497,7 @@ as well as
 in addition to
 in order for
 in exchange for
+in contrast to
 as to
 as from
 
@@ -489,6 +506,7 @@ according to
 owing to
 
 key = end
+be
 is
 are
 a
@@ -513,6 +531,9 @@ have
 has
 been
 be
+include
+included
+can
 
 key = integrated
 to name but a few
