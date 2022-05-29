@@ -28,8 +28,7 @@ def exist_sbar(nlp_tree):
     else:
         return False
 
-
-def devide_sbar(long_sbar, nlp_tree, hyp_words, orig_sent):
+def devide_sbar(long_sbar, nlp_tree, hyp_words, orig_sent, all_pos_list, dictionary):
     count = 0
     for s in nlp_tree.subtrees():
         if s.label() == "SBAR":
@@ -37,30 +36,35 @@ def devide_sbar(long_sbar, nlp_tree, hyp_words, orig_sent):
         elif (s.label() == "PP") & (s.leaves()[0] in ["while", "when"]):
             count += 1
         if count == 2:
+            #long_sbar = process_hyp_words(long_sbar, hyp_words, orig_sent, -1)
             sub_string = process_hyp_words(" ".join(s.leaves()), hyp_words, orig_sent, -1)
-            sbar_word = long_sbar.split(sub_string)[0].strip().rstrip().split(" ")
+            if len(s.leaves()) == 1:
+                sbar = long_sbar.strip().rstrip().split(" , ")[0]
+                return sbar
+            if not check_clause_type(orig_sent.split(" "), sub_string.split(" "), all_pos_list, dictionary, hyp_words):
+                sbar_word = long_sbar.split(sub_string)[0].strip().rstrip().split(" ")
+            else:
+                sbar_word = long_sbar.split(" ")
+            if sbar_word[-1] == ",":
+                sbar_word = sbar_word[:-1]
             if len(sbar_word) == 1:
-                long_sbar = process_hyp_words(long_sbar, hyp_words, orig_sent, -1)
                 sbar = long_sbar.strip().rstrip().split(" , ")[0]
                 return sbar
             else:
                 break
     # sbar = ""
     # if pos_list[0][1] in ['IN', 'WDT', 'WP', 'WRB', "WP$"]:
-    sbar = process_hyp_words(long_sbar.split(sub_string)[0], hyp_words, orig_sent, -1).strip().rstrip()
+    sbar = " ".join(sbar_word).strip().rstrip()
     if sbar == "that":
         sbar = sbar + " " + sub_string
     # sbar = sbar.split(" , ")[0]
-    if len(sbar.split(" ")) <= 3:
+    if len(sbar.split(" ")) < 3:
         sbar = long_sbar
 
     return sbar
 
-def extra_sbar(sent, hyp_words):
+def extra_sbar(sent, nlp_tree, hyp_words, dictionary):
     sbar_list = []
-    nlp_tree = get_nlp_tree(sent)
-    # extract_pp_by_constituent(nlp_tree, sent, hyp_words)
-    cc_sent_list, np_sbar_list, np_pp_list = extract_sent_np(nlp_tree, sent, hyp_words)
     tree_words = nlp_tree.leaves()
     all_pos_list = nlp_tree.pos()
     sent_words = sent.split(" ")
@@ -91,6 +95,8 @@ def extra_sbar(sent, hyp_words):
                 sbar_flag = True
             elif (pos_list[0][0] == "as") & (pos_list[0][1] == "RB"):
                 sbar_flag = True
+            elif (pos_list[0][0] == "that") & (pos_list[0][1] == "DT"):
+                sbar_flag = True
             elif "of" in key_words:
                 start_index = key_words.index("of") + 1
                 if pos_list[start_index][1] in ["IN", "WDT", "WP", "WP$", "WRB", 'JJ', "PRP", "TO"]:
@@ -119,7 +125,7 @@ def extra_sbar(sent, hyp_words):
                 if sbar_flag:
                     long_sbar = process_hyp_words(" ".join(key_words), hyp_words, sent, orig_s_idx)
                     if " as to " not in long_sbar:
-                        sbar = devide_sbar(long_sbar, s, hyp_words, sent)
+                        sbar = devide_sbar(long_sbar, s, hyp_words, sent, all_pos_list, dictionary)
                     else:
                         sbar = long_sbar
                     if len(sbar.split(" ")) > 1:
@@ -127,13 +133,14 @@ def extra_sbar(sent, hyp_words):
                                 pos_list[0][0] == "what"):
                             sbar = all_pos_list[tree_s_idx - 1][0] + " " + sbar
                         sbar = process_wrong_formulation(sbar)
+
                         if len(sbar_list) > 0:
                             if sbar not in sbar_list[-1]:
                                 sbar_list.append(sbar)
                         else:
                             sbar_list.append(sbar)
 
-    return sbar_list, all_pos_list, cc_sent_list, np_sbar_list, np_pp_list
+    return sbar_list, all_pos_list
 
 
 def group_by_level(tree):
@@ -157,6 +164,61 @@ def group_by_level(tree):
     return tree_positions, position_labels
 
 
+def extract_cc_by_constituent(tree, sent, orig_sent, hyp_words):
+    print("sent: ", sent)
+    cc_list = []
+    sent_words = sent.split(" ")
+    tree_positions, position_labels = group_by_level(tree)
+    position_labels = sorted(position_labels.items(), key=lambda x: x[0], reverse=False)
+    for item in position_labels:
+        key = item[0]
+        if " CC " in " ".join(item[1]):
+            tree_list = tree_positions[key - 1]
+            for i in range(len(position_labels[key - 1][1])):
+                if position_labels[key - 1][1][i] != "S":
+                    cc_tree = tree[tree_list[i]]
+                    if not isinstance(cc_tree, str):
+                        cc_tree_positions, cc_position_labels = group_by_level(cc_tree)
+                        if "CC" in cc_position_labels[1]:
+                            key_sent, key_words, orig_s_idx = format_tree_sent(cc_tree.leaves(), hyp_words, orig_sent,
+                                                                                   sent_words, -1)
+
+                            #print("CC: ", key_sent)
+                            if key_sent != sent:
+                                if " , " in key_sent:
+                                    phrase_list = key_sent.split(" , ")
+                                    if ("and" not in phrase_list[-1].split()) & ("or" not in phrase_list[-1].split()):
+                                        key_sent = " , ".join(phrase_list[:-1])
+                                if " : " in key_sent:
+                                    phrase_list = key_sent.split(" : ")
+                                    if ("and" not in phrase_list[-1].split()) & ("or" not in phrase_list[-1].split()):
+                                        key_sent = " : ".join(phrase_list[:-1])
+                                cc_list.append(key_sent)
+
+    return cc_list
+
+
+def del_adjuncts_in_cc(cc_list, sbar_list, res_pp, vp_list):
+    for i in range(len(cc_list)):
+        key_sent = cc_list[i]
+        if len(sbar_list) > 0:
+            for sbar in sbar_list:
+                if (sbar[0] == "s") & (sbar[1] in key_sent):
+                    key_sent = key_sent.replace(sbar[1], "").strip().rstrip()
+
+        if len(res_pp) > 0:
+            for pp in res_pp:
+                if (pp[0] == "p") & (pp[2] not in ["of", "than"]) & (pp[1] in key_sent):
+                    key_sent = key_sent.replace(pp[1], "").strip().rstrip()
+
+        if len(vp_list) > 0:
+            for vp in vp_list:
+                if (vp[0] == "acl") & (vp[1] in key_sent):
+                    key_sent = key_sent.replace(vp[1], "").strip().rstrip()
+        cc_list[i] = key_sent
+    return cc_list
+
+
 def extract_pp_by_constituent(tree, sent, hyp_words):
     print("sent:", sent)
     pp_list = []
@@ -178,7 +240,7 @@ def extract_pp_by_constituent(tree, sent, hyp_words):
                             parent_tree_positions,  parent_positions_labels = group_by_level(parent_tree)
                             if ("PP" in " ".join(parent_positions_labels[1])) & (
                                     " ".join(pp_words) in " ".join(parent_tree.leaves())):
-                                print("position: ",key - 1, j, " type: ", position_labels[key - 1][1][j], ":", pp_words)
+                                print("position: ", key - 1, j, " type: ", position_labels[key - 1][1][j], ":", pp_words)
 
 
 def extract_sent_np(tree, sent, hyp_words):
