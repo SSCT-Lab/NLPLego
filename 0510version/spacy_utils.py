@@ -3,8 +3,8 @@ from process_utils import *
 
 spacy_nlp = spacy.load("en_core_web_lg")
 spacy_nlp.add_pipe("merge_entities")
-
-def get_verb_phrases(sent, hyp_words, spill_words_list):
+punctions = ["–", "—", ";", ",", ".", ":", "\""]
+def get_verb_phrases(sent, hyp_words, spill_words_list, sbar_list):
     basic_elements = []
     vp_list = []
     spacy_nlp.disable_pipe("merge_entities")
@@ -17,7 +17,7 @@ def get_verb_phrases(sent, hyp_words, spill_words_list):
     root_idx = -1
     for token in doc:
         if (token.dep_ == "ROOT") & (token.pos_ in ["VERB", "AUX"]) & (token.text not in ["Said"]):
-            basic_elements.append((i, token.dep_, token.text, token.pos_))
+            basic_elements.append((i, token.dep_, token.text, token.pos_, token.text))
             root_verb = token.text
             root_idx = i
             break
@@ -28,7 +28,7 @@ def get_verb_phrases(sent, hyp_words, spill_words_list):
         while pos_list[root_idx] not in ["VERB", "AUX"]:
             root_idx += 1
         root_verb = doc[root_idx].text
-        basic_elements.append((root_idx, "ROOT", root_verb, doc[root_idx].pos_))
+        basic_elements.append((root_idx, "ROOT", root_verb, doc[root_idx].pos_, token.head.text))
 
     i = 0
     for token in doc:
@@ -36,31 +36,31 @@ def get_verb_phrases(sent, hyp_words, spill_words_list):
                 "ROOT" in [token.head.dep_, token.head.head.dep_]):
             subj_words = [tok.orth_ for tok in token.subtree]
             subj_str = del_sbar_in_phrase(subj_words, hyp_words, sent)
-            basic_elements.append((i, token.dep_, token.text, subj_str))
+            basic_elements.append((i, token.dep_, token.text, subj_str, token.head.text))
         if ("expl" in token.dep_) & (token.head.pos_ in ["VERB", "AUX"]) & (
                 "ROOT" in [token.head.dep_, token.head.head.dep_]):
-            basic_elements.append((i, token.dep_, token.text, token.pos_))
+            basic_elements.append((i, token.dep_, token.text, token.pos_, token.head.text))
         if ("advmod" in token.dep_) & (token.head.dep_ == "ROOT") & (token.text in ["here", "there"]):
             if root_idx < i:
                 adv_words = s_word[root_idx:i + 1]
             else:
                 adv_words = s_word[i: root_idx + 1]
             adv_str = del_sbar_in_phrase(adv_words, hyp_words, sent)
-            basic_elements.append((i, token.dep_, adv_str, token.pos_))
+            basic_elements.append((i, token.dep_, adv_str, token.pos_, token.head.text))
         if ("obj" in token.dep_) & (token.head.pos_ in ["VERB", "AUX"]) & (token.head.dep_ == "ROOT"):
             if root_idx < i:
                 obj_words = s_word[root_idx:i + 1]
             else:
                 obj_words = s_word[i: root_idx + 1]
             obj_str = del_sbar_in_phrase(obj_words, hyp_words, sent)
-            basic_elements.append((i, token.dep_, obj_str, token.pos_))
+            basic_elements.append((i, token.dep_, obj_str, token.pos_, token.head.text))
 
         if ("comp" in token.dep_) & (token.head.pos_ in ["VERB", "AUX"]) & (token.head.dep_ == "ROOT"):
             if root_idx < i:
                 vp_words = s_word[root_idx:i + 1]
                 comp_str = process_hyp_words(" ".join(vp_words), hyp_words, sent, -1).replace("et al .", "et al.")
                 if (basic_elements[-1][2] not in comp_str) | (basic_elements[-1][1] == "ROOT"):
-                    basic_elements.append((i, token.dep_, comp_str, token.pos_))
+                    basic_elements.append((i, token.dep_, comp_str, token.pos_, token.head.text))
                     # print("comp_str:", comp_str)
         if ("attr" in token.dep_) & (token.head.pos_ in ["VERB", "AUX"]) & (token.head.dep_ == "ROOT"):
             if root_idx < i:
@@ -68,7 +68,8 @@ def get_verb_phrases(sent, hyp_words, spill_words_list):
             else:
                 vp_words = s_word[i: root_idx + 1]
             attr_str = process_hyp_words(" ".join(vp_words), hyp_words, sent, -1).replace("et al .", "et al.")
-            basic_elements.append((i, token.dep_, attr_str, token.pos_))
+            if basic_elements[-1][2] not in attr_str:
+                basic_elements.append((i, token.dep_, attr_str, token.pos_, token.head.text))
             # print("attr_str:", attr_str)
         key = token.text + "-" + str(i)
         if key not in dep_map.keys():
@@ -76,14 +77,10 @@ def get_verb_phrases(sent, hyp_words, spill_words_list):
         dep_map[key].append((token.head.text, token.head.pos_, token.dep_, token.text))
         i += 1
 
-    if len([elem for elem in basic_elements if (("subj" in elem[1]) | ("expl" in elem[1]))]) == 0:
-        noun_idx = root_idx - 1
-        while (pos_list[noun_idx] not in ["NOUN"]) & (noun_idx > 0):
-            noun_idx -= 1
-        if (noun_idx > 0) & (pos_list[noun_idx] == "NOUN"):
-            noun_words = [tok.orth_ for tok in doc[noun_idx].subtree]
-            subj_str = del_sbar_in_phrase(noun_words, hyp_words, sent)
-            basic_elements.append((noun_idx, "nsubj", doc[noun_idx].text, subj_str))
+    noun_subj_elem = get_subj_by_noun(root_idx, pos_list, sbar_list, doc, hyp_words, sent)
+
+    if len([elem for elem in basic_elements if ((("subj" in elem[1]) | ("expl" in elem[1])) & (elem[0] < root_idx))]) == 0:
+        basic_elements.append(noun_subj_elem)
 
     i = 0
     for w in doc:
@@ -109,10 +106,16 @@ def get_verb_phrases(sent, hyp_words, spill_words_list):
                 acl_str = del_sbar_in_phrase(acl_word, hyp_words, sent)
                 save_flag = True
                 if acl_word[0] == w.text:
-                    for vp in vp_list:
+                    for j in range(len(vp_list)):
+                        vp = vp_list[j]
                         if vp[1] in acl_str:
                             save_flag = False
                             break
+                        elif acl_str in vp[1]:
+                            new_acl = vp[1].split(acl_str)[0].strip()
+                            vp_list[j] = (vp[0], new_acl)
+                            break
+
                     if save_flag:
                         vp_list.append(("acl", acl_str))
 
@@ -236,7 +239,7 @@ def get_verb_phrases(sent, hyp_words, spill_words_list):
                                 vp_list.append(("oprd", oprd_str))
         i += 1
 
-    return vp_list, basic_elements, root_verb, root_idx
+    return vp_list, basic_elements, root_verb, root_idx, noun_subj_elem
 
 ## Determine whether the prepositional phrase contains a prepositional phrase
 def exist_pp(pos_list, pp_word, dictionary, key_pp, to_flag, spill_words_list):
@@ -249,9 +252,13 @@ def exist_pp(pos_list, pp_word, dictionary, key_pp, to_flag, spill_words_list):
     p_idx = pp_word.index(key_pp)
     comp_flag = False
     for pp in dictionary["comp"]:
-        if pp in " ".join(pp_word):
+        if pp in " ".join(pp_word).lower():
             if key_pp.lower() == pp.split(" ")[0]:
-                p_idx = check_continuity(pp.split(" "), pp_word, -1) + len(pp.split(" ")) - 1
+                p_idx = check_continuity(pp.split(" "), pp_word, -1)
+                if p_idx == -1:
+                    pp = pp[0].upper() + pp[1:]
+                    p_idx = check_continuity(pp.split(" "), pp_word, -1)
+                p_idx = p_idx + len(pp.split(" ")) - 1
                 break
             else:
                 if key_pp in pp.split(" ")[1:]:
@@ -270,11 +277,15 @@ def exist_pp(pos_list, pp_word, dictionary, key_pp, to_flag, spill_words_list):
                         continue
                 network = [t.text for t in list(w.children)]
                 if len(network) != 0:
-                    if w.head.pos_ == "VERB":
+                    if w.head.pos_ in ["VERB", "AUX"]:
                         ## ing modify noun
                         if w.head.dep_ == "acl":
                             count += 1
                             key = pp_word.index(w.head.text)
+                            if (pos_list[key - 1] == "PRON") | (key - 1 == p_idx):
+                                count -= 1
+                                i += 1
+                                continue
                             ## already
                             if pos_list[key - 1] == "ADV":
                                 key = key - 1
@@ -285,7 +296,8 @@ def exist_pp(pos_list, pp_word, dictionary, key_pp, to_flag, spill_words_list):
                         elif (network[0] in dictionary["on"].keys()) | (network[0] in dictionary["in"].keys()):
                             count += 1
                         else:
-                            count += 1
+                            i += 1
+                            continue
                     elif w.text == "as":
                         if "as" in pp_word[:i]:
                             as_idx = i - 1
@@ -294,6 +306,9 @@ def exist_pp(pos_list, pp_word, dictionary, key_pp, to_flag, spill_words_list):
                             if pos_list[as_idx] == "ADV":
                                 i += 1
                                 continue
+                        elif pp_word[i - 1] == "such":
+                            count += 1
+                            i -= 1
                         else:
                             count += 1
                     else:
@@ -312,20 +327,22 @@ def exist_pp(pos_list, pp_word, dictionary, key_pp, to_flag, spill_words_list):
                 if i - 1 != p_idx:
                     count += 1
             elif (w.text == "to") & (not to_flag):
-                if (key_pp == "from") & ((first_to + p_idx) == i):
+                if ((key_pp == "from") & ((first_to + p_idx) == i)) | (pos_list[i - 1] == "VERB"):
                     i += 1
                     continue
                 count += 1
             elif i < len(pp_word) - 1:
                 if (w.text == ",") & ((pp_word[i + 1] in ["called"]) | (key_pp in ["by"])):
                     count += 1
+
             if count == 1:
                 key = i
                 break
         i += 1
     if count == 1:
-        if pp_word[key - 1] != key_pp:
+        if key - 1 != p_idx:
             return True, key, comp_flag
+
     return False, key, comp_flag
 
 ## obtain the prefix of "of" phrase
@@ -490,6 +507,12 @@ def complement_pp_word(pp_word, s_word, pos_list, all_pos_list, abbr_words, spil
                     comp_abbr = abbr
                     break
             break
+    if e_idx + 1 < len(s_word):
+        if (s_word[e_idx + 1] == "\"") & (pp_word.count("\"") % 2 != 0):
+            pp_word.append(s_word[e_idx + 1])
+            pos_list.append(all_pos_list[e_idx + 1])
+
+
     return pp_word, pos_list, comp_f, comp_abbr
 
 
@@ -519,7 +542,7 @@ def get_prep_list_by_dependency(sent, hyp_words, spill_words_list, abbr_words, b
                 i += 1
                 continue
         vp_flag = False
-        if (w.pos_ == "ADP") | (w.text in ["to"]):
+        if (w.pos_ == "ADP") | (w.text in ["to"]) & (" ".join(s_word[i - 2:i + 1]) not in dictionary["comp"]):
             network = [t.text for t in list(w.children)]
             if len(network) != 0:
                 pp_word = [tok.orth_ for tok in w.subtree]
@@ -527,6 +550,11 @@ def get_prep_list_by_dependency(sent, hyp_words, spill_words_list, abbr_words, b
                 if pp_word[-1] == "and":
                     pp_word.pop(len(pp_word) - 1)
                     pos_list.pop(len(pos_list) - 1)
+
+                if (w.text == "between") & ("," in pp_word):
+                    c_idx = pp_word.index(",")
+                    pp_word = pp_word[:c_idx]
+                    pos_list = pos_list[:c_idx]
 
                 pp_str = process_hyp_words(" ".join(pp_word), hyp_words, sent, last_s_idx)
                 if pp_str in sent:
@@ -620,7 +648,8 @@ def get_prep_list_by_dependency(sent, hyp_words, spill_words_list, abbr_words, b
                                     pos_list.insert(0, all_pos_list[v_idx])
                                     pp_flag[v_idx] = 0
                                     vp_flag = False
-                    elif (w.head.pos_ in ["ADV", "ADJ"]) & (w.head.dep_ == "advmod") & (w.head.head.pos_ == "VERB"):
+                    elif (w.head.pos_ in ["ADV", "ADJ", "NOUN"]) & (w.head.dep_ in ["advmod", "attr", "acomp", "conj"]) \
+                            & (w.head.head.pos_ in ["VERB", "AUX"]) & (" ".join(pp_word) != "as well as"):
                         pp_word, pos_list, h_idx = get_the_complete_phrase(w.head.text, w.head.head.text, s_word,
                                                                            pp_word,
                                                                            pos_list, all_pos_list, pp_list, hyp_words,
@@ -658,7 +687,7 @@ def get_prep_list_by_dependency(sent, hyp_words, spill_words_list, abbr_words, b
                         if h_idx != -1:
                             vp_flag = False
 
-                if (w.text == "as") & (pp_word[0] == "as"):
+                if (w.text == "as") & (pp_word[0] == "as") & (pp_word.count("as") == 1):
                     if "as" in s_word[:i]:
                         as_idx = i - 1
                         while s_word[as_idx] != "as":
@@ -666,6 +695,18 @@ def get_prep_list_by_dependency(sent, hyp_words, spill_words_list, abbr_words, b
                         if (all_pos_list[as_idx] == "ADV") & (as_idx > last_s_idx):
                             pp_word = s_word[as_idx:i] + pp_word
                             pos_list = all_pos_list[as_idx:i] + pos_list
+                        if "ADJ" in all_pos_list[as_idx + 1 : i]:
+                            vp_flag = True
+
+                if (pp_word[0] == "to") & (s_word[i - 1] in dictionary["to"].keys()):
+                    pp_word.insert(0, s_word[i - 1])
+                    pos_list.insert(0, all_pos_list[i - 1])
+                    vp_flag = True
+
+                if (pp_word[0] == "from") & (s_word[i - 1] in dictionary["from"].keys()):
+                    pp_word.insert(0, s_word[i - 1])
+                    pos_list.insert(0, all_pos_list[i - 1])
+
                 ## cut long prep
                 flag, key, comp_flag = exist_pp(pos_list, pp_word, dictionary, w.text, False, spill_words_list)
                 if flag & (key > 1):
@@ -677,6 +718,7 @@ def get_prep_list_by_dependency(sent, hyp_words, spill_words_list, abbr_words, b
                     i += 1
                     continue
 
+
                 ## del ","
                 if pp_word[-1] in [",", "."]:
                     pp_word.pop(len(pp_word) - 1)
@@ -687,7 +729,11 @@ def get_prep_list_by_dependency(sent, hyp_words, spill_words_list, abbr_words, b
                     pp_word.pop(0)
                     pos_list.pop(0)
 
-                if (pp_word[-1] in ["which", "what", "that"]) | (pp_word[0] == "v"):
+                if len(pp_word) == 1:
+                    i += 1
+                    continue
+
+                if (pp_word[-1] in ["which", "what", "that"]) | (pp_word[0] == "v") | ((pp_word[-2] == w.text) & (pp_word[-1] in punctions)):
                     i += 1
                     continue
 
@@ -726,18 +772,36 @@ def get_prep_list_by_dependency(sent, hyp_words, spill_words_list, abbr_words, b
                         else:
                             pp_list.append(('p', pp_str, w.text))
                         pp_flag = fill_pp_flag(pp_str, s_word, pp_flag, s_idx)
+                    elif pp_flag[s_idx + 1] != 1:
+                        if pp_list[-1][1].split(" ")[-1] == pp_word[0]:
+                            new_pp_str = pp_list[-1][1] + " " + " ".join(pp_str.split(" ")[1:])
+                            pp_list[-1] = (pp_list[-1][0], new_pp_str, pp_list[-1][2])
+                            pp_flag = fill_pp_flag(" ".join(pp_str.split(" ")[1:]), s_word, pp_flag, s_idx + 1)
                 last_s_idx = s_idx
 
-            elif w.text == "to":
-                if (w.head.pos_ == "VERB") & (w.dep_ == "aux"):
+            elif (w.text == "to") & (" ".join(s_word[i - 2:i + 1]) not in dictionary["comp"]):
+                if (w.head.pos_ in ["VERB", "AUX"]) & (w.dep_ == "aux"):
                     if w.head.dep_ != "ROOT":
                         pp_word = [tok.orth_ for tok in w.head.subtree]
                         pos_list = [tok.pos_ for tok in w.head.subtree]
-
                     else:
                         dobj_elem = [ele for ele in basic_elems if (ele[1] == "dobj") & (w.head.text in ele[2])][0]
                         pp_word = dobj_elem[2].split()
                         pp_word.insert(0, w.text)
+
+                    if (check_continuity(pp_word, s_word, -1) == 0) & (len(pp_word) > len(s_word)/3 * 2) & (w.head.text in s_word[i:]):
+                        p_count = pp_word.count(w.text)
+                        j = 0
+                        p_idx = -1
+                        while j < p_count:
+                            p_idx = pp_word.index(w.text, p_idx + 1)
+                            h_idx = pp_word.index(w.head.text, p_idx + 1)
+                            if pp_word[p_idx:h_idx].count(w.text) == 1:
+                                pp_word = pp_word[p_idx:]
+                                pos_list = pos_list[p_idx:]
+                                break
+                            j += 1
+
 
                     pp_str = process_hyp_words(" ".join(pp_word), hyp_words, sent, last_s_idx)
                     if pp_str in sent:
@@ -769,6 +833,10 @@ def get_prep_list_by_dependency(sent, hyp_words, spill_words_list, abbr_words, b
                             vp_flag = False
                         if len([prep for prep in dictionary["verb"] if prep == " ".join(pp_word[:2])]) != 0:
                             vp_flag = False
+
+                    if (pp_word[0] == "to") & (s_word[i - 1] + " to" in dictionary["to"]):
+                        pp_word.insert(0, s_word[i - 1])
+                        pos_list.insert(0, all_pos_list[i - 1])
                     ## cut long prep
                     flag, key, comp_flag = exist_pp(pos_list, pp_word, dictionary, w.text, True, spill_words_list)
                     if comp_flag:
@@ -776,7 +844,10 @@ def get_prep_list_by_dependency(sent, hyp_words, spill_words_list, abbr_words, b
                         continue
                     if flag & (key > 1):
                         pp_word = pp_word[:key]
-                        pp_str = " ".join(pp_word).split(" , ")[0]
+                        if w.text in " ".join(pp_word).split(" , ")[0].split():
+                            pp_str = " ".join(pp_word).split(" , ")[0]
+                        else:
+                            pp_str = " ".join(pp_word)
                     else:
                         if len(comp_f) != 0:
                             pp_str = " ".join(pp_word[:-1]) + " " + comp_f
@@ -784,6 +855,7 @@ def get_prep_list_by_dependency(sent, hyp_words, spill_words_list, abbr_words, b
                             pp_str = " ".join(pp_word[:-1]) + " " + comp_abbr
                         else:
                             pp_str = " ".join(pp_word)
+
                     pp_str = process_hyp_words(pp_str, hyp_words, sent, last_s_idx)
                     if (len(pp_str.split(" ")) == 1) | (pp_str.split(" ")[0] == "v") | (pp_str.split(" ")[-1] == "to"):
                         i += 1
@@ -813,6 +885,11 @@ def get_prep_list_by_dependency(sent, hyp_words, spill_words_list, abbr_words, b
                             else:
                                 pp_list.append(('p', pp_str, w.text))
                             pp_flag = fill_pp_flag(pp_str, s_word, pp_flag, s_idx)
+                        elif pp_flag[s_idx + 1] != 1:
+                            if pp_list[-1][1].split(" ")[-1] == pp_word[0]:
+                                new_pp_str = pp_list[-1][1] + " " + " ".join(pp_str.split(" ")[1:])
+                                pp_list[-1] = (pp_list[-1][0], new_pp_str, pp_list[-1][2])
+                                pp_flag = fill_pp_flag(" ".join(pp_str.split(" ")[1:]), s_word, pp_flag, s_idx + 1)
                 last_s_idx = s_idx
         i += 1
 
@@ -833,10 +910,6 @@ def extract_conj(text):
             j = two_conj(j, doc, ans)
             min = j + 1
             if not len(ans) == 0:
-                if "well - developed" in ans[0]:
-                ans[0] = ans[0].replace("well - developed", "well-developed")
-                # if " - " in ans[0]:
-                #     ans[0] = ans[0].replace(" - ", "-")
                 res.append(ans)
                 ans = []
             continue
