@@ -13,14 +13,44 @@ import json
 import random
 import requests
 
-nlp = spacy.load("en_core_web_sm")
+nlp = spacy.load("en_core_web_lg")
 sbar_pattern = re.compile(r't\d+')
 unmasker = transformers.pipeline('fill-mask', model='bert-base-uncased')
 BERT_SCORE = 0.1
 
-## Remove punctuation and named entities
-def filer_word(pos_list, adjunct, ner_list):
+def format_mask_adjunct(mask_adjunct, adjunct):
+    if len(mask_adjunct.split(" ")) != len(adjunct.split(" ")):
+        mask_adjunct = mask_adjunct.replace(" - ", "-").replace(" – ", "–").replace(" − ", "−").rstrip().strip()
+        if ("( " in mask_adjunct) & ("( " not in adjunct):
+            mask_adjunct = mask_adjunct.replace("( ", "(")
+        if (" )" in mask_adjunct) & (" )" not in adjunct):
+            mask_adjunct = mask_adjunct.replace(" )", ")")
+        if (" / " in mask_adjunct) & (" / " not in adjunct):
+            mask_adjunct = mask_adjunct.replace(" / ", "/")
+        if (" +" in mask_adjunct) & (" +" not in adjunct):
+            mask_adjunct = mask_adjunct.replace(" +", "+")
+        if (" m " in mask_adjunct) & (" m " not in adjunct):
+            mask_adjunct = mask_adjunct.replace(" m ", "m ")
+        if (" & " in mask_adjunct) & (" & " not in adjunct):
+            mask_adjunct = mask_adjunct.replace(" & ", "&")
+        if (" °" in mask_adjunct) & (" °" not in adjunct):
+            mask_adjunct = mask_adjunct.replace(" °", "°")
+        if ("etc ." in mask_adjunct) & ("etc ." not in adjunct):
+            mask_adjunct = mask_adjunct.replace("etc .", "etc.")
+        if ("£ " in mask_adjunct) & ("£ " not in adjunct):
+            mask_adjunct = mask_adjunct.replace("£ ", "£")
+    return mask_adjunct
+
+
+def filer_word(pos_list, adjunct, ner_list, hyp_words, for_list):
     english_punctuations = [',', '.', ':', ';', '?', '(', ')', '[', ']', '&', '!', '*', '@', '#', '$', '%']
+    split_word_list = []
+    for w in hyp_words:
+        split_word_list.extend(re.split("-|–|−", w[1]))
+    for f in for_list:
+        split_word_list.extend(f.split(" "))
+    for n in ner_list:
+        split_word_list.extend(n.split(" "))
     stops = set(stopwords.words("english"))
     #tag_list = nltk.pos_tag(adjunct_word)
     doc = nlp(adjunct)
@@ -32,43 +62,45 @@ def filer_word(pos_list, adjunct, ner_list):
         index = adjunct_word.index("-")
     for i in range(len(adjunct_word)):
         word = adjunct_word[i]
-        if "-" in adjunct_word:
-            if i not in [index - 1, index, index + 1]:
-                for ner in ner_list:
-                    if word in ner:
-                        continue
-                if (word not in stops) & (word not in english_punctuations) & (word_pos[i] in pos_list):
-                    masked_word.append(word)
-                    temp_phrase = list(adjunct_word)
-                    temp_phrase[i] = "[MASK]"
-                    masked_adjunct.append(" ".join(temp_phrase).replace(" - ", "-"))
-        else:
-            for ner in ner_list:
-                if word in ner:
-                    continue
-            if (word not in stops) & (word not in english_punctuations) & (word_pos[i] in pos_list):
-                masked_word.append(word)
-                temp_phrase = list(adjunct_word)
-                temp_phrase[i] = "[MASK]"
-                masked_adjunct.append(" ".join(temp_phrase).replace(" - ", "-"))
+        # for ner in ner_list:
+        #     if word in ner:
+        #         continue
+        if (word not in stops) & (word not in english_punctuations) & (word_pos[i] in pos_list) & (word not in split_word_list):
+            masked_word.append(word)
+            temp_phrase = list(adjunct_word)
+            temp_phrase[i] = "[MASK]"
+            mask_phrase = format_mask_adjunct(" ".join(temp_phrase), adjunct)
+            masked_adjunct.append(mask_phrase)
+        # else:
+        #     for ner in ner_list:
+        #         if word in ner:
+        #             continue
+        #     if (word not in stops) & (word not in english_punctuations) & (word_pos[i] in pos_list):
+        #         masked_word.append(word)
+        #         temp_phrase = list(adjunct_word)
+        #         temp_phrase[i] = "[MASK]"
+        #         masked_adjunct.append(" ".join(temp_phrase).replace(" - ", "-"))
 
     if len(masked_adjunct) == 0:
-        masked_adjunct.append(" ".join(adjunct_word).replace(" - ", "-"))
+        #masked_adjunct.append(" ".join(adjunct_word).replace(" - ", "-"))
+        masked_adjunct.append(adjunct)
         masked_word.append("X")
 
     return masked_word, masked_adjunct
 
 
-def gen_mask_phrase(adjunct_list, pos_list, all_ner):
+def gen_mask_phrase(adjunct_list, pos_list, all_ner, all_for, all_hyp_words):
     all_masked_adjunct = []
     all_masked_word = []
     for i in range(len(adjunct_list)):
         adjuncts = adjunct_list[i]
         ner_list = all_ner[i]
+        for_list = all_for[i]
+        hyp_words_list = all_hyp_words[i]
         masked_adjunct_list = []
         masked_word_list = []
         for adjunct in adjuncts:
-            masked_word, masked_adjunct = filer_word(pos_list, adjunct, ner_list)
+            masked_word, masked_adjunct = filer_word(pos_list, adjunct, ner_list, hyp_words_list, for_list)
             masked_word_list.append(masked_word)
             masked_adjunct_list.append(masked_adjunct)
         all_masked_adjunct.append(masked_adjunct_list)
@@ -79,9 +111,20 @@ def gen_mask_phrase(adjunct_list, pos_list, all_ner):
 def gen_masked_sent(j, temp, masked_adjuncts):
     pred_list = []
     new_temp = []
-    slot = ["t" + str(j)] * temp.count("t" + str(j))
+    temp_item = "t" + str(j)
+    temp_index_list = temp.split(" ")
+    left_index = temp_index_list.index(temp_item)
+    right_index = len(temp_index_list) - 1 - temp_index_list[::-1].index(temp_item)
+    if left_index == -1:
+        # 占位符
+        slot = "###"
+    else:
+        slot = " ".join(temp_index_list[left_index:right_index+1])
     for i in range(len(masked_adjuncts)):
-        new_sent = temp.replace(" ".join(slot), masked_adjuncts[i])
+        new_sent = temp
+        if not slot == "###":
+            if len(slot.split(" ")) == len(masked_adjuncts[i].split(" ")):
+                new_sent = temp.replace(slot, masked_adjuncts[i])
         result = set(sbar_pattern.findall(new_sent))
         sent_word = new_sent.split(" ")
         if len(result) != 0:
@@ -311,7 +354,10 @@ def gen_sent_by_bert(file_path, comp_list, temp_list, all_masked_word, all_maske
         w.write("FIN\n")
         w.write("\n")
         all_tests.append(tests_list)
+        if len(sent_result) == 0:
+            sent_result.append(comp)
         final_result.append(sent_result)
+        sent_result = []
     w.close()
     # print("总计生成"+str(avg_index)+"个有效句子,总分为"+str(sum_bert))
     # print("平均分为"+str(sum_bert/avg_index))
@@ -369,7 +415,7 @@ def load_unchange_sent():
 
 def read_context_first():
     file_name = "context1.txt"
-    path = "./Squad2/"+file_name
+    path = "./new_version/"+file_name
     orig_sents = open(path, mode="r", encoding='utf-8')
     sent = orig_sents.readline()
     result = []
@@ -386,7 +432,7 @@ def create_id():
     return m.hexdigest()
 
 def get_sentence_len(file_name):
-    path = "./Squad2/" + file_name + ".txt"
+    path = "./new_version/" + file_name + ".txt"
     orig_sents = open(path, mode="r", encoding='utf-8')
     sent = orig_sents.readline()
     result = []
@@ -422,7 +468,7 @@ def mapping_context_sentence(list, result):
 
 def read_question_index():
     file_name = "ans_context.txt"
-    path = "./Squad2/" + file_name
+    path = "./new_version/" + file_name
     orig_sents = open(path, mode="r", encoding='utf-8')
     sent = orig_sents.readline()
     result = []
@@ -578,10 +624,10 @@ def save_new_context(file_path, new_context_list):
 
 if __name__ == '__main__':
     # 获取所有句子的<=beam_size个变体
-    file_name = "context"
-    temp_list, adjunct_list, comp_list, ner_list = gen_sent_temp_main(file_name)
+    file_name = "context1"
+    temp_list, adjunct_list, ner_list, for_list, hyp_words_list, comp_list = gen_sent_temp_main(file_name, 0, 875)
     pos_list = ['NOUN', 'VERB', 'ADJ', 'ADV']
-    all_masked_word, all_masked_adjunct = gen_mask_phrase(adjunct_list, pos_list, ner_list)
+    all_masked_word, all_masked_adjunct = gen_mask_phrase(adjunct_list, pos_list, ner_list, for_list, hyp_words_list)
     file_path = "./" + file_name + "_bert_test.txt"
     all_tests, final_result = gen_sent_by_bert(file_path, comp_list, temp_list, all_masked_word, all_masked_adjunct)
     print(final_result)
@@ -597,15 +643,15 @@ if __name__ == '__main__':
     question_sent_li_all = read_question_index()
 
     # 读处理后的源文件
-    file_name = "dev_start.json"
-    path = "./Squad2/" + file_name
+    file_name = "dev_start_modify.json"
+    path = "./solution/" + file_name
     predict_file = open(path, mode="r", encoding='utf-8')
     prediction_json = json.load(predict_file)
     prediction_data = prediction_json["data"]
     item_list = []
 
     # 循环处理context
-    for i in range(len(context_sentence_len_list[0:50])):
+    for i in range(0, len(context_sentence_len_list)):
         # w.write("context_id = " + str(i) + "\n")
         context_input = final_result_dic["context"+str(i)]
         if context_sentence_len_list[i] == 1:
@@ -640,11 +686,13 @@ if __name__ == '__main__':
         index = 0
         question_sent_li = question_sent_li_all[i]
 
-        for pro_context_index in range(len(final_context_list)):
+        for pro_context_index in range(0, len(final_context_list)):
 
             context_for_input_li = final_context_list[pro_context_index]
             for question_sent_index in range(len(question_sent_li)):
                 index_i = int(question_sent_li[question_sent_index])
+                if i == 43:
+                    print(1)
                 if index_i != -1:
                     context_for_input_li[index_i] = origin_sent_list[i][index_i]
                 question_temp = item_temp["qas"][question_sent_index]
@@ -665,7 +713,7 @@ if __name__ == '__main__':
             print(index)
     # exit(0)
     prediction_data[0]["paragraphs"] = item_list
-    file_name = "dev_modify.json"
+    file_name = "dev_modify_200.json"
     path = "./" + file_name
     with open(path, 'w', encoding='utf-8') as f1:
         f1.write(json.dumps(prediction_json, indent=4, ensure_ascii=False))
