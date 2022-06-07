@@ -1,0 +1,550 @@
+key = of
+a work of
+a hundred of
+a thousand of
+a million of
+a billion of
+a couple of
+a part of
+a shot of
+a bed of
+a year of
+a rule of
+a series of
+a portion of
+a trio of
+a kind of
+a branch of
+a type of
+a sort of
+a piece of
+a cup of
+a glass of
+a bottle of
+a pair of
+a box of
+a few of
+a little of
+a lack of
+a lot of
+a pile of
+a copy of
+a bowl of
+a basket of
+a plate of
+a bottle of
+a basin of
+a usage of
+a set of
+a great deal of
+a number of
+a group of
+a sub-group of
+a couple of
+a cupful of
+a portion of
+a majority of
+an atom of
+a spell of
+a flood of
+a kind of
+a heap of
+a mountain of
+a drop of
+a particle of
+a shadow of
+a bit of
+a shred of
+a sheet of
+a cluster of
+a string of
+a stream of
+a scram of
+a body of
+a block of
+a chain of
+a barrel of
+a basket of
+a line of
+a round of
+a bar of
+an item of
+an instance of
+a bunch of
+a cake of
+a comb of
+a drop of
+an ear of
+a flight of
+a flock of
+a head of
+a lump of
+a spiral of
+a slice of
+a swarm of
+a bevy of
+a gathering of
+a clump of
+a pack of
+a handful of
+a spoonful of
+a mouthful of
+a truckload of
+a packet of
+a fit of
+a peal of
+a flash of
+a display of
+a amount of
+a lot of
+a troop of
+a quantity of
+in front of
+in the middle of
+instead of
+in the case of
+in cases of
+in the cost of
+as a result of
+in the term of
+in terms of
+in spite of
+in advance of
+on account of
+with the exception of
+in support of
+in favor of
+in view of
+in the light of
+in aid of
+in behalf of
+in celebration of
+in charge of
+in commemoration of
+in defence of
+in explanation of
+in face of
+in honor of
+in memory of
+in need of
+in place of
+in possession of
+in praise of
+in respect of
+in search of
+in sight of
+the end of
+in one of
+important of
+percent of
+out of
+ahead of
+half of
+form of
+multiple of
+much of
+result of
+popularity of
+way of
+lack of
+short of
+tired of
+age of
+shape of
+size of
+colour of
+height of
+catch of
+take of
+get hold of
+consist of
+die of
+hear of
+knock out of
+scores of
+dozens of
+many of
+all of
+most of
+each of
+none of
+both of
+neither of
+out of
+think of
+dream of
+talk of
+hear of
+sure of
+certain of
+careful of
+because of
+take care of
+afraid of
+fond of
+full of
+made of
+proud of
+kind of
+lots of
+plenty of
+some of
+
+key = that
+accept that
+accepts that
+accepted that
+accepting that
+admit that
+admits that
+admitting that
+admitted that
+agree that
+agrees that
+agreeing that
+agreed that
+assume that
+assumed that
+assumes that
+assuming that
+believe that
+believes that
+believed that
+believing that
+check that
+checked that
+checks that
+checking that
+claim that
+claims that
+claiming that
+claimed that
+comment that
+comments that
+commented that
+commenting that
+complain that
+complains that
+complaining that
+complained that
+confirm that
+confirmed that
+confirms that
+confirming that
+consider that
+considers that
+considering that
+considered that
+conclude that
+concluded that
+concludes that
+concluding that
+decide that
+decides that
+decided that
+deciding that
+discover that
+discovers that
+discovered that
+discovering that
+doubt that
+doubts that
+doubted that
+doubting that
+expect that
+expects that
+expected that
+expecting that
+explain that
+explains that
+explained that
+explaining that
+feel that
+feels that
+feeling that
+felt that
+forget that
+forgets that
+forgot that
+forgotten that
+find that
+finds that
+found that
+finding that
+hear that
+heard that
+hears that
+hearing that
+hope that
+hopes that
+hoping that
+hoped that
+imagine that
+imagines that
+imagining that
+imagined that
+insist that
+insists that
+insisted that
+insisting that
+know that
+knows that
+knowing that
+knew that
+known that
+mean that
+means that
+meaning that
+meant that
+mention that
+mentions that
+mentioned that
+mentioning that
+maintain that
+maintains that
+maintained that
+maintaining that
+notice that
+noticed that
+noticing that
+notices that
+pretend that
+pretends that
+pretended that
+pretending that
+promise that
+promises that
+promised that
+promising that
+prove that
+proves that
+proved that
+proven that
+proving that
+reckon that
+reckons that
+reckoning that
+reckoned that
+remark that
+remarks that
+remarking that
+remarked that
+remember that
+remembers that
+remembered that
+remembering that
+hope that
+hopes that
+hoped that
+hoping that
+think that
+thinks that
+thought that
+thinking that
+say that
+says that
+said that
+saying that
+clear that
+clears that
+cleared that
+advice that
+advices that
+announcement that
+announcements that
+argument that
+arguments that
+belief that
+beliefs that
+claim that
+claims that
+conclusion that
+conclusions that
+decision that
+decisions that
+evidence that
+evidences that
+explanation that
+explanations that
+fact that
+facts that
+feeling that
+feelings that
+hope that
+hopes that
+idea that
+ideas that
+impression that
+impressions that
+information that
+informations that
+knowledge that
+knowledges that
+message that
+messages that
+news that
+opinion that
+opinions that
+order that
+orders that
+promise that
+promises that
+proposal that
+proposals that
+remark that
+remarks that
+reply that
+replies that
+report that
+reports that
+reporting that
+reported that
+reason that
+reasons that
+saying that
+sayings that
+statement that
+statements that
+suggestion that
+suggestions that
+thought that
+thoughts that
+treat that
+treats that
+warnings that
+warning that
+wish that
+wishes that
+word that
+words that
+concern that
+concerns that
+predicts that
+predict that
+predicted that
+find out that
+found out that
+show that
+showed that
+showing that
+certain that
+held that
+acknowledged that
+acknowledge that
+acknowledges that
+in the sense that
+pointed out that
+
+key = on
+on Monday
+on Mon
+on Tuesday
+on Tue
+on Wednesday
+on Wed
+on Thursday
+on Thu
+on Friday
+on Fri
+on Saturday
+on Sat
+on Sunday
+on Sun
+
+key = in
+in January
+in Jan
+in March
+in Mar
+in April
+in Apr
+in May
+in June
+in Jun
+in July
+in Jul
+in August
+in Aug
+in September
+in Sept
+in October
+in Oct
+in November
+in Nov
+in December
+in Dec
+
+key = to
+so as to
+down to
+grant to
+granted to
+want to
+wants to
+wanted to
+closest to
+discharge to
+
+key = as
+so as
+
+key = from
+apart from
+
+key = comp
+in order to
+so as to
+as well as
+in addition to
+in order for
+in exchange for
+in contrast to
+as to
+as from
+
+key = verb
+according to
+owing to
+thanks to
+
+key = end
+be
+is
+are
+am
+a
+an
+was
+were
+the
+have
+has
+had
+some
+any
+and
+'s
+can
+
+key = start
+'ll
+is
+are
+was
+were
+to
+have
+has
+been
+be
+include
+included
+can
+could
+get
+gets
+got
+'s
+
+key = integrated
+to name but a few
