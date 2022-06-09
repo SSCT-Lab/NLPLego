@@ -757,31 +757,33 @@ def write_list_in_txt(orig_sents, comp_list, orig_comp, file_path):
 
 def extra_sub_sents(rep_cut_sent, rep_cut_words, pos_list):
     sym_list = []
+    if rep_cut_sent.split(" ")[-1] in [".", "!", "?", "..."]:
+        split_sent = " ".join(rep_cut_sent.split(" ")[:-1])
+    else:
+        split_sent = rep_cut_sent
     if ";" in rep_cut_sent:
-        sym_list = re.split(' ; ', rep_cut_sent[:-2])
+        sym_list = re.split(' ; ', split_sent)
     elif " – " in rep_cut_sent:
         idx = rep_cut_words.index("–")
         if not rep_cut_words[idx + 1].isdigit():
-            sym_list = re.split(' – ', rep_cut_sent[:-2])
+            sym_list = re.split(' – ', split_sent)
     elif " — " in rep_cut_sent:
         idx = rep_cut_words.index("—")
         if not rep_cut_words[idx + 1].isdigit():
-            sym_list = re.split(' — ', rep_cut_sent[:-2])
+            sym_list = re.split(' — ', split_sent)
     elif " -- " in rep_cut_sent:
-        idx = rep_cut_words.index("--")
-        if not rep_cut_words[idx + 1].isdigit():
-            sym_list = re.split(' -- ', rep_cut_sent[:-2])
+        sym_list = re.split(' -- ', split_sent)
     elif " - " in rep_cut_sent:
         idx = rep_cut_words.index("-")
         if not rep_cut_words[idx + 1].isdigit():
-            sym_list = re.split(' - ', rep_cut_sent[:-2])
+            sym_list = re.split(' - ', split_sent)
     elif ":" in rep_cut_sent:
         if (':', 'SYM') in pos_list:
             idx = pos_list.index((':', 'SYM'))
         else:
             idx = pos_list.index((':', ':'))
         if ("NN" in pos_list[idx - 1][1]) | ("VBG" in pos_list[idx - 1][1]) | (("JJ" in pos_list[idx - 1][1])):
-            sym_list = re.split(' : ', rep_cut_sent[:-2])
+            sym_list = re.split(' : ', split_sent)
 
     return sym_list
 
@@ -858,7 +860,10 @@ def create_seed_sent(comp_label, res_label, cut_words, sbar_list, np_sbar_list, 
     return res_label
 
 def del_adv_adj(adj_adv_list, res_pp, vp_list, rep_cut_words, res_label, comp_label):
+    new_res_label = list(res_label)
     for j in range(len(adj_adv_list)):
+        if (adj_adv_list[j][2] in ["as"]) | (adj_adv_list[j][3] in ["ADP"]):
+            continue
         exist_flag = False
         for pp in res_pp:
             if adj_adv_list[j][1] in pp[1]:
@@ -875,13 +880,18 @@ def del_adv_adj(adj_adv_list, res_pp, vp_list, rep_cut_words, res_label, comp_la
             if (adj_adv_list[j][0] == 'ADJ') | (
                     (adj_adv_list[j][0] == 'ADV') & ((adj_adv_list[j][3] == 'ADJ') | (comp_label[s_idx] == 0))):
                 e_idx = s_idx + len(adj_adv_list[j][1].split(" "))
-                if rep_cut_words[e_idx] in ["and", "or"]:
-                    e_idx += 1
-                if (rep_cut_words[e_idx] == "than")|(adj_adv_list[j][2] in ["as"])|(adj_adv_list[j][3] in ["ADP"]):
-                    continue
+                if e_idx < len(rep_cut_words):
+                    if rep_cut_words[e_idx] in ["and", "or"]:
+                        e_idx += 1
+                    if rep_cut_words[e_idx] == "than":
+                        continue
                 for a in range(s_idx, e_idx):
-                    res_label[a] = 0
-    return res_label
+                    new_res_label[a] = 0
+
+    if new_res_label.count(1) < 2:
+       return res_label
+
+    return new_res_label
 
 def check_obj(sym_list, sym_idx, basic_elements, comp_res, rep_cut_words, cut_words, res_pp, sbar_list, root_verb, res_label):
     if sym_idx == -1:
@@ -920,8 +930,7 @@ def process_final_result(comp_label, res_label, cut_words, rep_cut_words, sbar_l
                          cc_sent_list, temp_res_label, pp_flag, dictionary, dataset):
     create_flag = False
     comp_res = get_res_by_label(cut_words[:-1], res_label[:-1])
-    symbols = rep_cut_words.count("\"") + rep_cut_words.count(",") + rep_cut_words.count("\'") + rep_cut_words.count(
-        ".")
+    symbols = rep_cut_words.count("\"") + rep_cut_words.count(",") + rep_cut_words.count("\'") + rep_cut_words.count(".")
 
     if (res_label.count(1) < 4) | (res_label.count(1) >= len(res_label) - symbols) | (len([sbar for sbar in sbar_list if (comp_res in sbar[1]) & (sbar[0] == "s")]) != 0):
         if dataset == "squad":
@@ -929,6 +938,12 @@ def process_final_result(comp_label, res_label, cut_words, rep_cut_words, sbar_l
             res_label = del_adv_adj(adj_adv_list, res_pp, vp_list, rep_cut_words, res_label, comp_label)
             res_label = check_conj_intergrity(conj_res, temp_res_label, res_label, rep_cut_words, pp_flag)
             create_flag = True
+
+    if (res_label.count(1) < 2) & (dataset == "sst"):
+        res_label = create_seed_sent(comp_label, res_label, cut_words, sbar_list, np_sbar_list, rep_cut_words, res_pp, vp_list)
+        res_label = del_adv_adj(adj_adv_list, res_pp, vp_list, rep_cut_words, res_label, comp_label)
+        res_label = check_conj_intergrity(conj_res, temp_res_label, res_label, rep_cut_words, pp_flag)
+        create_flag = True
 
     first_idx = res_label.index(1)
     if res_label.count(1) > 2:
@@ -969,7 +984,7 @@ def process_final_result(comp_label, res_label, cut_words, rep_cut_words, sbar_l
         res_label = check_cc_sent_intergrity(res_label, cc_sent_list, rep_cut_words, sbar_list, np_sbar_list, res_pp,
                                              vp_list, sym_list)
 
-    if dataset == "sst":
+    if (dataset == "sst") & (not create_flag):
         if len(adj_adv_list) > 0:
             res_label = del_adv_adj(adj_adv_list, res_pp, vp_list, rep_cut_words, res_label, comp_label)
         res_label = del_sbar_pp_vp(res_label, sbar_list, np_sbar_list, rep_cut_words, res_pp, vp_list)
@@ -1087,6 +1102,12 @@ def process_final_result(comp_label, res_label, cut_words, rep_cut_words, sbar_l
     res_label = format_res_label(res_label, cut_words)
     if ((res_label.count(1) < 4) | (res_label.count(1) >= len(res_label) - symbols) |
         (len([sbar for sbar in sbar_list if (comp_res in sbar[1]) & (sbar[0] == "s")]) != 0)) & (not create_flag) & (dataset == "squad"):
+        res_label = create_seed_sent(comp_label, res_label, cut_words, sbar_list, np_sbar_list, rep_cut_words, res_pp, vp_list)
+        res_label = del_adv_adj(adj_adv_list, res_pp, vp_list, rep_cut_words, res_label, comp_label)
+        res_label = check_conj_intergrity(conj_res, temp_res_label, res_label, rep_cut_words, pp_flag)
+        res_label = format_res_label(res_label, cut_words)
+
+    if (res_label.count(1) < 2) & (dataset == "sst") & (not create_flag):
         res_label = create_seed_sent(comp_label, res_label, cut_words, sbar_list, np_sbar_list, rep_cut_words, res_pp, vp_list)
         res_label = del_adv_adj(adj_adv_list, res_pp, vp_list, rep_cut_words, res_label, comp_label)
         res_label = check_conj_intergrity(conj_res, temp_res_label, res_label, rep_cut_words, pp_flag)
