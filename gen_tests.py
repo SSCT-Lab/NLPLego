@@ -124,7 +124,14 @@ def gen_masked_sent(j, temp, masked_adjuncts):
         new_sent = temp
         if not slot == "###":
             if len(slot.split(" ")) == len(masked_adjuncts[i].split(" ")):
-                new_sent = temp.replace(slot, masked_adjuncts[i])
+                if len(slot.split(" ")) == 1:
+                    masked_adjuncts_temp = temp.split(" ")
+                    for temp_masked_index in range(len(masked_adjuncts_temp)):
+                        if masked_adjuncts_temp[temp_masked_index] == temp_item:
+                            masked_adjuncts_temp[temp_masked_index] = masked_adjuncts[i]
+                    new_sent = " ".join(masked_adjuncts_temp)
+                else:
+                    new_sent = temp.replace(slot, masked_adjuncts[i])
         result = set(sbar_pattern.findall(new_sent))
         sent_word = new_sent.split(" ")
         if len(result) != 0:
@@ -168,7 +175,7 @@ def pred_sent_by_bert(step_list, masked_temp, words, round, pre_score):
                     new_sent = mask_sent.replace("[MASK]", token_str)
                     new_temp = masked_temp[i].replace("[MASK]", token_str)
                     new_sent = format_abbr(new_sent)
-                    new_temp = format_abbr(new_temp)
+#                     new_temp = format_abbr(new_temp)
                     if new_sent not in tests_set:
                         score_list.append(r['score']*pre_score)
                     tests_set.add(new_sent)
@@ -176,7 +183,7 @@ def pred_sent_by_bert(step_list, masked_temp, words, round, pre_score):
             new_sent = mask_sent.replace("[MASK]", word)
             new_temp = masked_temp[i].replace("[MASK]", word)
             new_sent = format_abbr(new_sent)
-            new_temp = format_abbr(new_temp)
+#             new_temp = format_abbr(new_temp)
             if new_sent not in tests_set:
                 score_list.append(0.5*pre_score)
             new_temps.add(new_temp)
@@ -184,7 +191,8 @@ def pred_sent_by_bert(step_list, masked_temp, words, round, pre_score):
         else:
             new_sent = format_abbr(mask_sent)
             tests_set.add(new_sent)
-            new_temps.add(format_abbr(masked_temp[i]))
+#             new_temps.add(format_abbr(masked_temp[i]))
+            new_temps.add(masked_temp[i])
             score_list.append(0.5*pre_score)
     print("处理后分数： ",score_list)
     return tests_set, new_temps, score_list
@@ -197,79 +205,6 @@ def search_syn(word):
             synonyms.append(lm.name())
     return set(synonyms)
 
-
-# def pred_sent_by_syn(pred_list, masked_temp, words):
-#     tests_set = set()
-#     new_temps = set()
-#     for i in range(len(pred_list)):
-#         mask_sent = pred_list[i]
-#         word = words[i]
-#         if "[MASK]" in mask_sent:
-#             print(mask_sent)
-#             syns = search_syn(word)
-#             for s in syns:
-#                 new_sent = mask_sent.replace("[MASK]", s)
-#                 new_temp = masked_temp[i].replace("[MASK]", s)
-#                 new_sent = format_abbr(new_sent)
-#                 new_temp = format_abbr(new_temp)
-#                 tests_set.add(new_sent)
-#                 new_temps.add(new_temp)
-#             new_sent = mask_sent.replace("[MASK]", word)
-#             new_temp = masked_temp[i].replace("[MASK]", word)
-#             new_sent = format_abbr(new_sent)
-#             new_temp = format_abbr(new_temp)
-#             new_temps.add(new_temp)
-#             tests_set.add(new_sent)
-#         else:
-#             new_sent = format_abbr(mask_sent)
-#             tests_set.add(new_sent)
-#             new_temps.add(format_abbr(masked_temp[i]))
-#     return tests_set, new_temps
-
-
-# def gen_sent_by_syn(file_path, comp_list, temp_list, all_masked_word, all_masked_adjunct):
-#     w = open(file_path, mode="a")
-#     all_tests = []
-#     for i in range(0, 10):
-#         w.write("sent_id = " + str(i) + "\n")
-#         comp = comp_list[i]
-#         w.write(format_abbr(comp) + "\n")
-#         temp = temp_list[i]
-#         tests_list = []
-#         tests_list.append([format_abbr(comp)])
-#         masked_adjunct_list = all_masked_adjunct[i]
-#         masked_word_list = all_masked_word[i]
-#         next_temp_list = []
-#         for j in range(len(masked_adjunct_list)):
-#             w.write("insert t" + str(j) + "\n")
-#             if j == 0:
-#                 pred_list, masked_temp = gen_masked_sent(j, temp, masked_adjunct_list[j])
-#                 words = masked_word_list[j]
-#                 new_tests, new_temps = pred_sent_by_syn(pred_list, masked_temp, words)
-#                 # new_tests, new_temps = pred_sent_by_bert(pred_list, masked_temp, words)
-#                 next_temp_list.extend(new_temps)
-#                 for test in new_tests:
-#                     w.write(test + "\n")
-#                 w.write("\n")
-#                 tests_list.append(new_tests)
-#             else:
-#                 new_temp_list = []
-#                 tests_list.append([])
-#                 for t in range(len(next_temp_list)):
-#                     pred_list, masked_temp = gen_masked_sent(j, next_temp_list[t], masked_adjunct_list[j])
-#                     words = masked_word_list[j]
-#                     new_tests, new_temps = pred_sent_by_syn(pred_list, masked_temp, words)
-#                     # new_tests, new_temps = pred_sent_by_bert(pred_list, masked_temp, words)
-#                     new_temp_list.extend(new_temps)
-#                     tests_list[-1].extend(new_tests)
-#                     for test in new_tests:
-#                         w.write(test + "\n")
-#                     w.write("\n")
-#                 next_temp_list = new_temp_list
-#         w.write("FIN\n")
-#         all_tests.append(tests_list)
-#     w.close()
-#     return all_tests
 
 
 def gen_sent_by_bert(file_path, comp_list, temp_list, all_masked_word, all_masked_adjunct):
@@ -414,7 +349,7 @@ def load_unchange_sent():
     return result
 
 def read_context_first():
-    file_name = "context1.txt"
+    file_name = "context.txt"
     path = "./new_version/"+file_name
     orig_sents = open(path, mode="r", encoding='utf-8')
     sent = orig_sents.readline()
@@ -624,8 +559,8 @@ def save_new_context(file_path, new_context_list):
 
 if __name__ == '__main__':
     # 获取所有句子的<=beam_size个变体
-    file_name = "context1"
-    temp_list, adjunct_list, ner_list, for_list, hyp_words_list, comp_list = gen_sent_temp_main(file_name, 0, 875)
+    file_name = "context"
+    temp_list, adjunct_list, ner_list, for_list, hyp_words_list, comp_list = gen_sent_temp_main(file_name, 0, 6212)
     pos_list = ['NOUN', 'VERB', 'ADJ', 'ADV']
     all_masked_word, all_masked_adjunct = gen_mask_phrase(adjunct_list, pos_list, ner_list, for_list, hyp_words_list)
     file_path = "./" + file_name + "_bert_test.txt"
