@@ -12,7 +12,7 @@ brackets_pattern = re.compile(r'b\d+')
 ns_pattern = re.compile(r'ns\d+')
 np_pattern = re.compile(r'np\d+')
 all_pattern = re.compile(r'y\d+|c\d+|s\d+|p\d+|v\d+|b\d+|z\d+|np\d+|ns\d+')
-eng_punctuation = ["–", "—", ";", ",", ".", ":"]
+eng_punctuation = ["–", "—", ";", ",", ".", ":", "--", "--", "-"]
 
 def convert_label(s_words, comp_label):
     temp_words = []
@@ -49,6 +49,11 @@ def get_correct_sidx(orig_words, key_words, last_s_idx, cut_idx_list):
     if orig_s_idx != -1:
         return orig_s_idx, orig_s_idx + len(key_words) - 1
     else:
+        lower_key_words = list(key_words)
+        lower_key_words[0] = lower_key_words[0].lower()
+        orig_s_idx = check_continuity(lower_key_words, orig_words, last_s_idx)
+        if orig_s_idx != -1:
+            return orig_s_idx, orig_s_idx + len(key_words) - 1
         start_indexs = list(filter(lambda x: orig_words[x] == key_words[0], list(range(len(orig_words)))))
         for idx in start_indexs:
             search_idx = 1
@@ -86,7 +91,7 @@ def get_temp_adjunct(temp_words, rep_words, dictionary):
                 if (temp_words[j] != last_flag) & (len(adjunct) != 0):
                     tag = nltk.pos_tag(rep_words[j - 1].split())
                     if (tag[0][1] not in ["IN", "TO", "DT"]) & (rep_words[j - 1] not in dictionary["end"]):
-                        if adjunct[-1] in [",", ".", "?"]:
+                        if adjunct[-1] in eng_punctuation:
                             adjunct = adjunct[:-1]
                         adjuncts.append(" ".join(adjunct).replace("\u200b", ""))
                         slot = slot + 1
@@ -96,20 +101,20 @@ def get_temp_adjunct(temp_words, rep_words, dictionary):
                 adjunct.append(rep_words[j])
             else:
                 if len(adjunct) != 0:
-                    if adjunct[-1] in [",", ".", "?"]:
+                    if adjunct[-1] in eng_punctuation:
                         adjunct = adjunct[:-1]
                     adjuncts.append(" ".join(adjunct).replace("\u200b", ""))
                     slot = slot + 1
                     adjunct = []
         else:
-            if rep_words[j] in [";", "–", "—"]:
+            if rep_words[j] in [";", "–", "—", "--"]:
                 temp_words[j] = rep_words[j]
                 continue
             if len(adjunct) != 0:
                 adjunct.append(rep_words[j])
 
     if len(adjunct) > 0:
-        if adjunct[-1] in [",", ".", "?"]:
+        if adjunct[-1] in eng_punctuation:
             adjunct = adjunct[:-1]
         adjuncts.append(" ".join(adjunct).replace("\u200b", ""))
 
@@ -350,21 +355,24 @@ def gen_temp_free_order(orig_sents, cut_sents, comp_labels, start_idx, end_idx):
     # return temp_list, adjunct_list, all_ner, comp_list
 
 
-def gen_temp_in_order(orig_sents, cut_sents, comp_labels, start_idx, end_idx):
+def gen_temp_in_order(orig_sents, cut_sents, comp_labels, start_idx, end_idx, dataset):
     temp_list = []
     adjunct_list = []
     all_ner = []
+    all_for = []
+    all_hyp_words = []
     comp_list = []
-    dictionary = load_dictionary('./Dictionary.txt')
+    dictionary = load_dictionary('./tools/Dictionary.txt')
     for i in range(start_idx, end_idx):
         print("i = ", i)
         orig_sent = orig_sents[i]
         cut_sent = cut_sents[i]
         rep_words = orig_sent.replace("``", "\"").replace("''", "\"").split(" ")
         #print("original sentences: ", orig_sent)
-        res_label, sbar_list, pp_list, conj_res, for_list, ner_list, vp_list, sym_list, cc_sent_list, np_sbar_list, np_pp_list, child_tree_dict = grammar_check_one_sent(orig_sent, cut_sent, comp_labels[i], dictionary)
+        res_label, sbar_list, pp_list, conj_res, for_list, ner_list, vp_list, sym_list, cc_sent_list, np_sbar_list, np_pp_list, child_tree_dict = grammar_check_one_sent(orig_sent, cut_sent, comp_labels[i], dictionary, dataset)
         #print("original result:", get_res_by_label(rep_words, comp_labels[i]))
         print("modify result:", get_res_by_label(rep_words, res_label))
+        hyp_words, spill_words_list = get_hyphen_word(orig_sent.replace("``", "\"").replace("''", "\""))
         comp_res = get_res_by_label(rep_words, res_label)
         temp_words, temp_adjuncts = convert_label(rep_words, res_label)
         cut_idx_list = search_cut_content(rep_words)
@@ -432,7 +440,8 @@ def gen_temp_in_order(orig_sents, cut_sents, comp_labels, start_idx, end_idx):
                 last_s_idx = s_idx + 1
                 exist_flag = True
                 for c in range(s_idx, e_idx + 1):
-                    if (temp_words[c] != "0") & (temp_words[c] not in eng_punctuation):
+                    result = sub_pattern.findall(temp_words[c])
+                    if (temp_words[c] != "0") & (temp_words[c] not in eng_punctuation) & (len(result) == 0):
                         exist_flag = False
                         break
 
@@ -446,7 +455,7 @@ def gen_temp_in_order(orig_sents, cut_sents, comp_labels, start_idx, end_idx):
         if len(sbar_list) > 0:
             last_s_idx = -1
             for j in range(len(sbar_list)):
-                if len(sbar_list[j][1].split(" ")) > 2:
+                if (len(sbar_list[j][1].split(" ")) > 2) & (sbar_list[j][0] == "s"):
                     if len(cut_idx_list) != 0:
                         s_idx, e_idx = get_correct_sidx(rep_words, sbar_list[j][1].split(" "), last_s_idx, cut_idx_list)
                     else:
@@ -455,11 +464,17 @@ def gen_temp_in_order(orig_sents, cut_sents, comp_labels, start_idx, end_idx):
                     last_s_idx = s_idx + 1
                     exist_flag = True
                     for s in range(s_idx, e_idx + 1):
-                        result = all_pattern.findall(temp_words[s])
+                        result = cc_pattern.findall(temp_words[s]) + sub_pattern.findall(temp_words[s])
                         if (temp_words[s] not in eng_punctuation) & (len(result) == 0) & (temp_words[s] != "0"):
                             exist_flag = False
                             break
                     if exist_flag:
+                        last_word = s_idx - 1
+                        while rep_words[last_word] == ",":
+                            last_word -= 1
+                        tag = nltk.pos_tag(rep_words[last_word].split(" "))
+                        if tag[0][1] in ["IN", "TO"]:
+                            continue
                         if rep_words[s_idx - 1] in ["and", "or", "but", "—", ":", "the", "a", "an"]:
                             s_idx = s_idx - 1
                         for s in range(s_idx, e_idx + 1):
@@ -514,7 +529,7 @@ def gen_temp_in_order(orig_sents, cut_sents, comp_labels, start_idx, end_idx):
                 if exist_flag:
                     if rep_words[s_idx - 1] in ["and", "or", "but", "—", ":", "the", "a", "an"]:
                         s_idx = s_idx - 1
-                    if pp_list[j][0] == "p":
+                    if (pp_list[j][0] == "p") & (not ((pp_list[j][1].split(" ")[0] != "of") & (pp_list[j][2] == "of"))):
                         for p in range(s_idx, e_idx + 1):
                             if rep_words[p] in eng_punctuation:
                                 temp_words[p] = rep_words[p]
@@ -527,7 +542,7 @@ def gen_temp_in_order(orig_sents, cut_sents, comp_labels, start_idx, end_idx):
                             else:
                                 temp_words[p] = "p" + str(j)
                     else:
-                        if temp_words[s_idx] != temp_words[e_idx]:
+                        if (temp_words[s_idx] != temp_words[e_idx]) & (temp_words[s_idx] not in eng_punctuation):
                             for p in range(s_idx, e_idx + 1):
                                 if rep_words[p] in eng_punctuation:
                                     temp_words[p] = rep_words[p]
@@ -574,6 +589,13 @@ def gen_temp_in_order(orig_sents, cut_sents, comp_labels, start_idx, end_idx):
                             temp_words[f] = f_label
             print("for:", temp_words)
 
+        if len(cut_idx_list) > 0:
+            for j in range(len(cut_idx_list)):
+                if temp_words[cut_idx_list[j][1]] != temp_words[cut_idx_list[j][1] + 1]:
+                    for b in range(cut_idx_list[j][0], cut_idx_list[j][1] + 1):
+                        temp_words[b] = "b" + str(j)
+            print("brackets:", temp_words)
+
         inpp_list = [w for w in dictionary["integrated"] if w in orig_sent]
         if len(inpp_list) != 0:
             for in_pp in inpp_list:
@@ -592,9 +614,20 @@ def gen_temp_in_order(orig_sents, cut_sents, comp_labels, start_idx, end_idx):
         for tup in zero_idx:
             s_idx = tup[0]
             result = pp_pattern.findall(temp_words[s_idx]) + vp_pattern.findall(temp_words[s_idx]) + sbar_pattern.findall(temp_words[s_idx])
+            sbar_last_flag = ''
+            pp_last_flag = ''
             while (len(result) == 0) & (s_idx < tup[1]):
                 s_idx += 1
                 result = pp_pattern.findall(temp_words[s_idx]) + vp_pattern.findall(temp_words[s_idx]) + sbar_pattern.findall(temp_words[s_idx])
+                cc_sub_res = sub_pattern.findall(temp_words[s_idx]) + cc_pattern.findall(temp_words[s_idx])
+                cc_sbar_sub_res = cc_sub_res + sbar_pattern.findall(temp_words[s_idx])
+                if len(cc_sub_res) != 0:
+                    sbar_last_flag = cc_sub_res[0]
+                if len(cc_sbar_sub_res) != 0:
+                    pp_last_flag = cc_sbar_sub_res[0]
+                if temp_words[s_idx] == '0':
+                    sbar_last_flag = '0'
+                    pp_last_flag = '0'
             last_flag = temp_words[s_idx]
             last_s_idx = s_idx
             for j in range(s_idx + 1, tup[1] + 1):
@@ -602,8 +635,16 @@ def gen_temp_in_order(orig_sents, cut_sents, comp_labels, start_idx, end_idx):
                     last_result = pp_pattern.findall(last_flag) + vp_pattern.findall(last_flag) + sbar_pattern.findall(last_flag)
                     if (temp_words[j] != last_flag) & (temp_words[j] not in eng_punctuation) & (len(last_result) != 0):
                         temp_str = " ".join(temp_words[j:tup[1] + 1])
-                        print("result: ", result)
-                        if (last_s_idx == tup[0]) & (temp_words[last_s_idx - 1] not in [";", "–", "—"]):
+                        if ((last_s_idx == tup[0]) & (temp_words[last_s_idx - 1] not in [";", "–", "—"])):
+                            cc_sub_res = sub_pattern.findall(last_flag) + cc_pattern.findall(last_flag)
+                            cc_sbar_sub_res = cc_sub_res + sbar_pattern.findall(last_flag)
+                            if len(cc_sub_res) != 0:
+                                sbar_last_flag = cc_sub_res[0]
+                            if len(cc_sbar_sub_res) != 0:
+                                pp_last_flag = cc_sbar_sub_res[0]
+                            if last_flag == '0':
+                                sbar_last_flag = '0'
+                                pp_last_flag = '0'
                             last_s_idx = j
                             last_flag = temp_words[j]
                             continue
@@ -611,28 +652,50 @@ def gen_temp_in_order(orig_sents, cut_sents, comp_labels, start_idx, end_idx):
                             temp_str)
                         if (" 0" in " ".join(temp_words[j:tup[1] + 1])) | (len(result) != 0):
                             if len(result) != 0:
-                                if temp_words[last_s_idx - 1] == result[0]:
-                                    flag = result[0]
+                                if last_result[0][0] == "s":
+                                    if sbar_last_flag != '':
+                                        if sbar_last_flag in result:
+                                            flag = sbar_last_flag
+                                        else:
+                                            last_s_idx = j
+                                            last_flag = temp_words[j]
+                                            continue
+                                    else:
+                                        last_s_idx = j
+                                        last_flag = temp_words[j]
+                                        continue
                                 else:
-                                    last_s_idx = j
-                                    last_flag = temp_words[j]
-                                    continue
+                                    if pp_last_flag != '':
+                                        if pp_last_flag in result:
+                                            flag = pp_last_flag
+                                        else:
+                                            last_s_idx = j
+                                            last_flag = temp_words[j]
+                                            continue
+                                    else:
+                                        last_s_idx = j
+                                        last_flag = temp_words[j]
+                                        continue
                             else:
                                 flag = "0"
+                            last_s_idx = temp_words.index(last_flag)
                             for z in range(last_s_idx, j):
                                 if temp_words[z] not in eng_punctuation:
                                     temp_words[z] = flag
 
                             last_s_idx = j
+                    else:
+                        cc_sub_res = sub_pattern.findall(temp_words[j]) + cc_pattern.findall(temp_words[j])
+                        cc_sbar_sub_res = cc_sub_res + sbar_pattern.findall(temp_words[j])
+                        if len(cc_sub_res) != 0:
+                            sbar_last_flag = cc_sub_res[0]
+                        if len(cc_sbar_sub_res) != 0:
+                            pp_last_flag = cc_sbar_sub_res[0]
+                        if temp_words[s_idx] == '0':
+                            sbar_last_flag = '0'
+                            pp_last_flag = '0'
                     last_flag = temp_words[j]
         print("update: ", temp_words)
-
-        if len(cut_idx_list) > 0:
-            for j in range(len(cut_idx_list)):
-                if temp_words[cut_idx_list[j][1]] != temp_words[cut_idx_list[j][1] + 1]:
-                    for b in range(cut_idx_list[j][0], cut_idx_list[j][1] + 1):
-                        temp_words[b] = "b" + str(j)
-            print("brackets:", temp_words)
 
         ### check 0
         update_zero_idx = []
@@ -661,9 +724,9 @@ def gen_temp_in_order(orig_sents, cut_sents, comp_labels, start_idx, end_idx):
 
         for tup in update_zero_idx:
             result = all_pattern.findall(temp_words[tup[1] + 1])
-            if (tup[1] - tup[0] < 3) & (len(result) != 0):
+            if (tup[1] - tup[0] < 2) & (len(result) != 0):
                 for z in range(tup[0], tup[1] + 1):
-                        temp_words[z] = result[0]
+                    temp_words[z] = result[0]
 
         cc_indexs = list(filter(lambda x: rep_words[x] in ["and", "but", "or"], list(range(len(rep_words)))))
         for idx in cc_indexs:
@@ -679,8 +742,10 @@ def gen_temp_in_order(orig_sents, cut_sents, comp_labels, start_idx, end_idx):
         temp_list.append(" ".join(temp_words))
         adjunct_list.append(adjuncts)
         all_ner.append(ner_list)
+        all_for.append(for_list)
+        all_hyp_words.append(hyp_words)
         comp_list.append(comp_res)
-    return temp_list, adjunct_list, all_ner, comp_list
+    return temp_list, adjunct_list, all_ner, all_for, all_hyp_words, comp_list
 
 
 def save_temp_adjuncts(temp_list, adjunct_list, file_name):
@@ -734,22 +799,25 @@ def gen_step_sentence(temp_list, adjunct_list, comp_list, file_name):
     return all_sents
 
 
-def gen_sent_temp_main(file_name, start_idx, end_idx):
+def gen_sent_temp_main(file_name, label_path, start_idx, end_idx, dataset):
     orig_sent_path = "./comp_input/" + file_name + ".cln.sent"
     orig_sents = load_orig_sent(orig_sent_path)
     cut_sent_path = "./comp_input/n" + file_name + ".cln.sent"
     cut_sents = load_orig_sent(cut_sent_path)
-    comp_labels = load_label("./ncontext_result_greedy.sents")
-    #gen_temp(orig_sents, cut_sents, comp_labels, start_idx, end_idx)
-    temp_list, adjunct_list, ner_list, comp_list = gen_temp_in_order(orig_sents, cut_sents, comp_labels, start_idx, end_idx)
-    return temp_list, adjunct_list, comp_list, ner_list
+    comp_labels = load_label(label_path)
+    temp_list, adjunct_list, ner_list, for_list, hyp_words_list, comp_list = gen_temp_in_order(orig_sents, cut_sents, comp_labels, start_idx, end_idx, dataset)
+    return temp_list, adjunct_list, ner_list, for_list, hyp_words_list, comp_list
 
 
 if __name__ == '__main__':
+    #file_name = "sst"
     file_name = "context"
-    start_idx = 0
-    end_idx = 50
-    gen_sent_temp_main(file_name, start_idx, end_idx)
+    dataset = "squad"
+    #label_path = "./w_nsst_result_greedy.sents"
+    label_path = "./comp_res/ncontext_result_greedy.sents"
+    start_idx = 6212
+    end_idx = 6213
+    gen_sent_temp_main(file_name, label_path, start_idx, end_idx, dataset)
     # temp_list, adjunct_list, comp_list, ner_list = gen_sent_temp_main(file_name, start_idx, end_idx)
     # sent_path = "./comp_input/" + file_name + ".cln.sent"
     # comp_label = load_label("./comp_label/slahan_w_syn/2_" + file_name + "_result_greedy.sents")
