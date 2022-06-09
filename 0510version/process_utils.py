@@ -4,7 +4,7 @@ import nltk
 
 from preprocess import load_formulation, format_formulation
 
-formulations = load_formulation('./formulation.txt')
+formulations = load_formulation('./tools/formulation.txt')
 key_formulations = []
 for f in formulations:
     key_formulations.append(format_formulation(f))
@@ -146,6 +146,10 @@ def get_the_complete_phrase(p_word, h_word, s_word, pp, pos_list, all_pos_list, 
                     new_pp = pp
                     new_pos_list = pos_list
 
+    if h_idx != -1:
+        pp_str = process_hyp_words(" ".join(new_pp), hyp_words, orig_sent, last_s_idx)
+        h_idx = check_continuity(pp_str.split(" "), orig_sent.split(" "), -1)
+
     return new_pp, new_pos_list, h_idx
 
 
@@ -155,7 +159,11 @@ def get_hyphen_word(sent):
     for i in range(len(s_word)):
         w = s_word[i]
         if (("-" in w) | ("–" in w) | ("−" in w)) & (len(w) != 1):
-            hyphen_words.append((i, w))
+            if "/" in w:
+                hyphen_words.append((i, w.split("/")[0]))
+                hyphen_words.append((i, w.split("/")[1]))
+            else:
+                hyphen_words.append((i, w))
 
     word_list = []
     for w in hyphen_words:
@@ -202,7 +210,7 @@ def fill_pp_flag(pp_str, s_word, pp_flag, s_idx):
 def del_sbar_in_phrase(words, hyp_words, sent):
     orig_str = process_hyp_words(" ".join(words), hyp_words, sent, -1).replace(
         "et al .", "et al.")
-    str = re.split(' ; | – | — | , | who | which | that | where | when | why | during | while | since ', orig_str)[0]
+    str = re.split(' ; | – | — | , | who | which | that | where | when | why | during | while | since | -- ', orig_str)[0]
     tag = nltk.pos_tag([str.split(" ")[-1]])
     if tag[0][1] in ["IN", "TO"]:
         str = orig_str
@@ -230,7 +238,9 @@ def process_wrong_formulation(sbar):
     sbar = sbar.replace("7n2 15n 40", "7n2 + 15n + 40")
     sbar = sbar.replace("( n + 1 ) 2", "(n + 1)2")
     sbar = sbar.replace("( p − 1 ) ! 1", "(p − 1)! + 1")
+    sbar = sbar.replace("1 / (1 - p) n", "1/(1-p)n")
     sbar = sbar.replace("1 m · s − 2", "1 m·s−2")
+    sbar = sbar.replace("| − | p", "|−|p")
     sbar = sbar.replace("np ≡ n", "np≡n")
     sbar = sbar.replace("[ 256kn 1, 256 k ( n + 1) − 1 ]", "[256kn + 1, 256k(n + 1) − 1]")
     sbar = sbar.replace("Sky + HD", "Sky+HD")
@@ -250,7 +260,7 @@ def process_wrong_formulation(sbar):
     sbar = sbar.replace("€ ", "€")
     sbar = sbar.replace("§ ", "§")
     sbar = sbar.replace("X. 25", "X.25")
-    sbar = sbar.replace(" )", ")")
+    #sbar = sbar.replace(" )", ")")
     if sbar[-3:] == "° E":
         sbar = sbar[:-3] + "°E"
     return sbar
@@ -259,6 +269,12 @@ def process_wrong_formulation(sbar):
 def process_hyp_words(sent, hyp_words, orig_sent, search_s_idx):
     if (" £ " in sent) & (" £ " not in orig_sent):
         sent = sent.replace(" £ ", " £")
+    if (" · " in sent) & (" · " not in orig_sent):
+        sent = sent.replace(" · ", "·")
+    # if (" / " in sent) & (" / " not in orig_sent):
+    #     sent = sent.replace(" / ", "/")
+    # if (") " in sent) & (") " not in orig_sent):
+    #     sent = sent.replace(") ", ")")
     wrong_hyp_words = []
     word_list = []
     sent_words = sent.split(" ")
@@ -291,7 +307,7 @@ def process_hyp_words(sent, hyp_words, orig_sent, search_s_idx):
         wrong_hyp_words.append(w)
 
     for i in range(len(hyp_words)):
-        sent = sent.replace(wrong_hyp_words[i], hyp_words[i][1])
+        sent = sent.replace(wrong_hyp_words[i], hyp_words[i][1], 1)
         idx = hyp_words[i][0]
         if (len(sent.split(" ")) >= 2) & (idx > search_s_idx):
             if (sent.split(" ")[-1] in ["-", "–"]) & (sent.split(" ")[-2] in word_list[i]):
@@ -299,16 +315,21 @@ def process_hyp_words(sent, hyp_words, orig_sent, search_s_idx):
             elif (sent.split(" ")[-1] in word_list[i]) & (sent.split(" ")[-2] == orig_sent.split(" ")[idx - 1]):
                 if sent.split(" ")[-1] == word_list[i][0]:
                     sent = " ".join(sent.split(" ")[:-1]) + " " + hyp_words[i][1]
+            elif (sent.split(" ")[0] in word_list[i]) & (idx + 1 < len(orig_sent.split(" "))):
+                if sent.split(" ")[1] == orig_sent.split(" ")[idx + 1]:
+                    sent = hyp_words[i][1] + " " + " ".join(sent.split(" ")[1:])
 
     sent = process_wrong_formulation(sent)
     if (" / " in sent) & (" / " not in orig_sent):
         sent = sent.replace(" / ", "/")
-
     if (" +" in sent) & (" +" not in orig_sent):
         sent = sent.replace(" +", "+")
 
     if (" m " in sent) & (" m " not in orig_sent):
         sent = sent.replace(" m ", "m ")
+
+    if (" & " in sent) & (" & " not in orig_sent):
+        sent = sent.replace(" & ", "&")
 
     if (" °" in sent) & (" °" not in orig_sent):
         sent = sent.replace(" °", "°")
@@ -316,11 +337,42 @@ def process_hyp_words(sent, hyp_words, orig_sent, search_s_idx):
     if (" etc ." in sent) & (" etc ." not in orig_sent):
         sent = sent.replace(" etc .", " etc.")
 
+    if (". " in sent) & (". " not in orig_sent):
+        sent = sent.replace(". ", ".")
+
+    if "u.s." in orig_sent:
+        sent = sent.replace(" u.s .", " u.s.")
+
+    if "j.k." in orig_sent:
+        sent = sent.replace(" j.k .", " j.k.")
+
+    if ("pm" in sent.split(" ")) & ("pm" not in orig_sent.split(" ")):
+        sent = sent.replace(" pm ", "pm ")
+        sent = sent.replace(" am ", "am ")
+
+    if (" pm " in sent) & (" pm " not in orig_sent):
+        sent = sent.replace(" pm ", "pm ")
+
     if ("-i-is" in sent) & ("-i-is" in orig_sent):
         sent = sent.replace("-i-is", "-i- is")
 
     if (sent[-2:] == " m") & (" m " not in orig_sent):
         sent = sent[:-2] + "m"
+
+    if check_continuity(sent.split(" "), orig_sent.split(" "), -1) == -1:
+        if (sent.split(" ")[0] == "m") | (sent[:4] == "' m "):
+            m_idx = sent.split(" ").index("m")
+            sent = "'m" + " " + " ".join(sent.split(" ")[m_idx + 1:])
+        if (sent.split(" ")[0] == "re") | (sent[:5] == "' re "):
+            re_idx = sent.split(" ").index("re")
+            sent = "'re" + " " + " ".join(sent.split(" ")[re_idx + 1:])
+        if (sent.split(" ")[0] == "s") | (sent[:4] == "' s "):
+            s_idx = sent.split(" ").index("s")
+            sent = "'s" + " " + " ".join(sent.split(" ")[s_idx + 1:])
+        if (sent.split(" ")[0] == "ve") | (sent[:5] == "' ve "):
+            ve_idx = sent.split(" ").index("ve")
+            sent = "'ve" + " " + " ".join(sent.split(" ")[ve_idx + 1:])
+
     return sent.strip().rstrip()
 
 def merge_cc_res(cc_res, corenlp_cc_list, orig_sent, hyp_words):
@@ -377,7 +429,8 @@ def format_tree_sent(key_words, hyp_words, orig_sent, sent_words, last_s_idx):
                 key_sent = key_sent.replace(key_formulations[i], " " + formulations[i])
             else:
                 key_sent = key_sent.replace(key_formulations[i], formulations[i])
-    key_sent = key_sent.replace("( ", "(").replace(" )", ")")
+    if " ( " not in orig_sent:
+        key_sent = key_sent.replace("( ", "(").replace(" )", ")")
     key_sent = process_hyp_words(key_sent, hyp_words, orig_sent, last_s_idx)
     key_sent = get_complete_last_word(key_sent.split(" "), orig_sent.split(" "))
     key_words = key_sent.split(" ")
@@ -652,6 +705,9 @@ def del_sbar_pp_vp(res_label, sbar_list, np_sbar_list, rep_cut_words, res_pp, vp
                 else:
                     s_idx = check_continuity(sbar_words, rep_cut_words, last_s_idx)
                     e_idx = s_idx + len(sbar_words)
+                if s_idx > 0:
+                    if rep_cut_words[s_idx - 1].lower() in ["and", "or", "but", "then"]:
+                        del_res_label[s_idx - 1] = 0
                 for j in range(s_idx, e_idx):
                     del_res_label[j] = 0
                 last_s_idx = s_idx
@@ -676,6 +732,9 @@ def del_sbar_pp_vp(res_label, sbar_list, np_sbar_list, rep_cut_words, res_pp, vp
                     del_res_label[j] = 0
                 last_s_idx = s_idx
 
+    if del_res_label.count(1) < 2:
+        del_res_label = res_label
+
     return del_res_label
 
 
@@ -699,13 +758,25 @@ def format_res_label(res_label, cut_words):
                 res_label[n_idx] = 1
 
     if "\'" in cut_words:
-        quot_index = list(filter(lambda x: cut_words[x] == "\'", list(range(len(cut_words)))))
-        for j in range(len(quot_index)):
-            if res_label[quot_index[j]] == 0:
-                if (res_label[quot_index[j] - 1] == 1) & (res_label[quot_index[j] + 1] == 1):
-                    res_label[quot_index[j]] = 1
-            if (res_label[quot_index[j]] == 1) & (j + 1 < len(quot_index)):
-                res_label[quot_index[j + 1]] = 1
+        if "`" in cut_words:
+            quot_index = list(filter(lambda x: cut_words[x] == "`", list(range(len(cut_words)))))
+            for idx in quot_index:
+                if res_label[idx] == 0:
+                    if (res_label[idx - 1] == 1) & (res_label[idx + 1] == 1):
+                        res_label[idx] = 1
+                if res_label[idx] == 1:
+                    n_idx = idx + 1
+                    while (cut_words[n_idx] != "'") & (n_idx < len(cut_words)):
+                        n_idx += 1
+                    res_label[n_idx] = 1
+        else:
+            quot_index = list(filter(lambda x: cut_words[x] == "\'", list(range(len(cut_words)))))
+            for j in range(len(quot_index)):
+                if (res_label[quot_index[j]] == 0) & (quot_index[j] + 1 < len(res_label)) & (quot_index[j] - 1 >= 0):
+                    if (res_label[quot_index[j] - 1] == 1) & (res_label[quot_index[j] + 1] == 1):
+                        res_label[quot_index[j]] = 1
+                if (res_label[quot_index[j]] == 1) & (j + 1 < len(quot_index)):
+                    res_label[quot_index[j + 1]] = 1
 
     if "%" in cut_words:
         per_index = list(filter(lambda x: cut_words[x] == "%", list(range(len(cut_words)))))
@@ -713,11 +784,14 @@ def format_res_label(res_label, cut_words):
             if res_label[idx] == 1:
                 res_label[idx - 1] = 1
 
-    if "'s" in cut_words:
-        per_index = list(filter(lambda x: cut_words[x] == "'s", list(range(len(cut_words)))))
+    if ("'s" in cut_words) | ("n't" in cut_words):
+        per_index = list(filter(lambda x: cut_words[x] in ["'s", "n't"], list(range(len(cut_words)))))
         for idx in per_index:
-            if res_label[idx - 1] == 1:
-                res_label[idx] = 1
+            if res_label[idx] == 0:
+                if res_label[idx - 1] == 1:
+                    res_label[idx] = 1
+            else:
+                res_label[idx - 1] = 1
 
     if "how much" in " ".join(cut_words):
         s_idx = check_continuity(["how", "much"], cut_words, -1)
@@ -725,11 +799,23 @@ def format_res_label(res_label, cut_words):
             res_label[s_idx] = 1
             res_label[s_idx + 1] = 1
 
-    check_indexs = list(filter(lambda x: cut_words[x] in ["and", "but", "or", "the", "is", "are", "was", "were"], list(range(len(cut_words)))))
-    for idx in check_indexs:
-        if idx + 1 < len(cut_words):
-            if (res_label[idx + 1] == 1) & (idx != res_label.index(1) - 1) & (idx != len(cut_words) - 2) & (res_label[idx - 1] == 1):
-                res_label[idx] = 1
+    if "as well as" in " ".join(cut_words):
+        s_idx = check_continuity(["as", "well", "as"], cut_words, -1)
+        if (res_label[s_idx - 1] == 1) & (res_label[s_idx + 3] == 1):
+            res_label[s_idx] = 1
+            res_label[s_idx + 1] = 1
+            res_label[s_idx + 2] = 1
+
+
+    if 1 in res_label:
+        check_indexs = list(filter(lambda x: cut_words[x] in ["and", "but", "or", "the", "is", "are", "was", "were", "then"],
+                                   list(range(len(cut_words)))))
+        for idx in check_indexs:
+            if (idx + 1 < len(cut_words)) & (idx != res_label.index(1) - 1) & (idx != len(cut_words) - 2):
+                if (res_label[idx + 1] == 1) & (res_label[idx - 1] == 1):
+                    res_label[idx] = 1
+        if cut_words[res_label.index(1)] == ",":
+            res_label[res_label.index(1)] = 0
 
     if "&" in cut_words:
         indexs = list(filter(lambda x: cut_words[x] == "&", list(range(len(cut_words)))))
@@ -739,8 +825,6 @@ def format_res_label(res_label, cut_words):
             else:
                 res_label[idx] = 1
 
-    if cut_words[res_label.index(1)] == ",":
-        res_label[res_label.index(1)] = 0
     comma_indexs = list(filter(lambda x: cut_words[x] in [","], list(range(len(cut_words)))))
     for j in range(len(comma_indexs)):
         idx = comma_indexs[j]
@@ -756,12 +840,15 @@ def format_res_label(res_label, cut_words):
             res_label[one_indexs[j]] = 0
 
     one_indexs = list(filter(lambda x: res_label[x] == 1, list(range(len(res_label)))))
-    if len(one_indexs) > 2:
-        if cut_words[one_indexs[-2]] in ["that", "about", ":", ";", ",", "``", "but", "–", "—", "and"]:
+    if (len(one_indexs) > 2) & (one_indexs[-1] == len(res_label) - 1):
+        if cut_words[one_indexs[-2]] in ["that", "about", ":", ";", ",", "``", "but", "–", "—", "and", "as"]:
             res_label[one_indexs[-2]] = 0
-        if len(one_indexs) > 3:
+        if len(one_indexs) > 4:
             if cut_words[one_indexs[-3]] in [":", ";", ",", "``"]:
-                if (cut_words[one_indexs[-3]] != ":") | (cut_words[one_indexs[-4]] not in ["include", "included", "are", "have", "has"]):
+                if (cut_words[one_indexs[-3]] in[",", ":"]) & (cut_words[one_indexs[-4]].lower() not in ["include", "included", "are", "have", "has", "a", "an"]):
+                    res_label[one_indexs[-2]] = 0
+                    res_label[one_indexs[-3]] = 0
+                elif cut_words[one_indexs[-3]] in [";", "``"]:
                     res_label[one_indexs[-2]] = 0
                     res_label[one_indexs[-3]] = 0
 
@@ -818,15 +905,16 @@ def get_subj_by_noun(root_idx, pos_list, sbar_list, doc, hyp_words, sent):
     count = 0
     while not flag:
         noun_idx = get_noun_idx(start_idx, pos_list, last_noun_idx)
-        if (noun_idx >= 0) & (noun_idx <= len(pos_list) - 2) & (pos_list[noun_idx] in ["NOUN", "PROPN", "PRON", "NUM"]):
-            noun_words = [tok.orth_ for tok in doc[noun_idx].subtree]
-            subj_str = del_sbar_in_phrase(noun_words, hyp_words, sent)
-            if len([s for s in sbar_list if " " + subj_str + " " in s]) == 0:
-                subj_elem = (noun_idx, "nsubj", doc[noun_idx].text, subj_str)
-                flag = True
-            else:
-                start_idx = noun_idx - 1
-                last_noun_idx = noun_idx
+        if (noun_idx >= 0) & (noun_idx < len(pos_list) - 1):
+            if pos_list[noun_idx] in ["NOUN", "PROPN", "PRON", "NUM"]:
+                noun_words = [tok.orth_ for tok in doc[noun_idx].subtree]
+                subj_str = del_sbar_in_phrase(noun_words, hyp_words, sent)
+                if len([s for s in sbar_list if " " + subj_str + " " in s]) == 0:
+                    subj_elem = (noun_idx, "nsubj", doc[noun_idx].text, subj_str)
+                    flag = True
+                else:
+                    start_idx = noun_idx - 1
+                    last_noun_idx = noun_idx
         count += 1
         if count > 8:
             break
@@ -865,3 +953,78 @@ def check_clause_type(s_words, sbar_words, pos_list, dictionary, hyp_words):
         return True
     else:
         return False
+
+
+def find_all_index(list, obj):
+    obj_count = list.count(obj)
+    idx_list = []
+    count = 0
+    idx = -1
+    while count < obj_count:
+        idx = list.index(obj, idx + 1)
+        idx_list.append(idx)
+        count += 1
+
+    return idx_list
+
+def match_conj_index(search_words, source_words, temp_res_label):
+    conj_word_index = -1
+    conj_is_exist = 1
+    conj_mapping_cut = []
+    all_index_list = []
+    for w in search_words:
+        idx_list = find_all_index(source_words, w)
+        idx_list = [idx for idx in idx_list if temp_res_label[idx] == 1]
+        all_index_list.append(idx_list)
+
+    i = 0
+    last_idx = -1
+    while i < len(search_words):
+        if search_words[i] == 'and' or search_words[i] == 'or':
+            conj_word_index = i
+        idx_list = [idx for idx in all_index_list[i] if idx > last_idx]
+        all_index_list[i] = idx_list
+        if len(idx_list) == 1:
+            conj_mapping_cut.append((i, all_index_list[i][0]))
+            last_idx = idx_list[0]
+        else:
+            conj_mapping_cut.append((i, -1))
+        i += 1
+
+    i = 0
+    while i < len(search_words):
+        if conj_mapping_cut[i][1] == -1:
+            if i + 1 < len(search_words) - 1:
+                if conj_mapping_cut[i + 1][1] != -1:
+                    idx_list = [idx for idx in all_index_list[i] if idx < conj_mapping_cut[i + 1][1]]
+                    conj_mapping_cut[i] = (i, max(idx_list))
+                elif i > 0:
+                    if conj_mapping_cut[i - 1][1] != -1:
+                        idx_list = [idx for idx in all_index_list[i] if idx > conj_mapping_cut[i - 1][1]]
+                        conj_mapping_cut[i] = (i, min(idx_list))
+            elif i > 0:
+                if conj_mapping_cut[i - 1][1] != -1:
+                    idx_list = [idx for idx in all_index_list[i] if idx > conj_mapping_cut[i - 1][1]]
+                    conj_mapping_cut[i] = (i, min(idx_list))
+
+        if conj_mapping_cut[i][1] == -1:
+            conj_is_exist = 0
+        i += 1
+
+    if conj_is_exist == 0:
+        index_conj = 0
+        conj_is_exist = 0
+        conj_mapping_cut = []
+        for temp in range(len(source_words)):
+            if temp_res_label[temp] == 1:
+                if source_words[temp] == search_words[index_conj]:
+                    conj_mapping_cut.append([index_conj, temp])
+                    if search_words[index_conj] == 'and' or search_words[index_conj] == 'or':
+                        conj_word_index = len(conj_mapping_cut) - 1
+                    index_conj += 1
+                    if index_conj == len(search_words):
+                        conj_is_exist = 1
+                        break
+
+    return conj_mapping_cut, conj_word_index, conj_is_exist
+
