@@ -91,7 +91,7 @@ def extra_sbar(sent, nlp_tree, hyp_words, dictionary):
                         pos_list = all_pos_list[tree_s_idx - 2:tree_s_idx] + pos_list
             ## judge sbar
             sbar_flag = False
-            if pos_list[0][1] in ["IN", "WDT", "WP", "WP$", "WRB", 'JJ', "PRP", "TO"]:
+            if pos_list[0][1] in ["IN", "WDT", "WP", "WP$", "WRB", 'JJ', "PRP", "TO", "RB"]:
                 sbar_flag = True
             elif (pos_list[0][0] == "as") & (pos_list[0][1] == "RB"):
                 sbar_flag = True
@@ -116,11 +116,14 @@ def extra_sbar(sent, nlp_tree, hyp_words, dictionary):
                             break
                     sbar = process_hyp_words(" ".join(key_words), hyp_words, sent, orig_s_idx)
                     sbar = process_wrong_formulation(sbar)
+                    if (key_words[0].lower() == "although") & (" , " in sbar):
+                        sbar = sbar.split(" , ")[0]
                     if len(sbar_list) > 0:
-                        if sbar not in sbar_list[-1]:
+                        if (sbar not in sbar_list[-1]) & (len(sbar.split(" ")) > 1):
                             sbar_list.append(sbar)
                     else:
-                        sbar_list.append(sbar)
+                        if len(sbar.split(" ")) > 1:
+                            sbar_list.append(sbar)
             else:
                 if sbar_flag:
                     long_sbar = process_hyp_words(" ".join(key_words), hyp_words, sent, orig_s_idx)
@@ -133,12 +136,14 @@ def extra_sbar(sent, nlp_tree, hyp_words, dictionary):
                                 pos_list[0][0] == "what"):
                             sbar = all_pos_list[tree_s_idx - 1][0] + " " + sbar
                         sbar = process_wrong_formulation(sbar)
-
+                        if (key_words[0].lower() == "although") & (" , " in sbar):
+                            sbar = sbar.split(" , ")[0]
                         if len(sbar_list) > 0:
-                            if sbar not in sbar_list[-1]:
+                            if (sbar not in sbar_list[-1]) & (len(sbar.split(" ")) > 1):
                                 sbar_list.append(sbar)
                         else:
-                            sbar_list.append(sbar)
+                            if len(sbar.split(" ")) > 1:
+                                sbar_list.append(sbar)
 
     return sbar_list, all_pos_list
 
@@ -264,12 +269,13 @@ def extract_sent_np(tree, sent, hyp_words):
                     if len(s_words) < 2:
                         continue
                     key_sent, key_words, orig_s_idx = format_tree_sent(s_words, hyp_words, sent, sent_words, -1)
-                    if len(sent_list) > 0:
-                        if " ".join(key_words) in sent_list[-1]:
-                            continue
                     if len(key_words) < 2:
                         continue
-                    key_sent = " ".join(key_words)
+                    if len(sent_list) > 0:
+                        if key_sent in sent_list[-1]:
+                            sent_list.pop()
+                            # continue
+                    # key_sent = " ".join(key_words)
                     sent_list.append(key_sent)
         if ("NP SBAR" in " ".join(item[1])) | (("NP , SBAR" in " ".join(item[1]))):
             tree_list = tree_positions[key - 1]
@@ -328,4 +334,18 @@ def extract_sent_np(tree, sent, hyp_words):
                         print("Not match condition")
     return sent_list, np_sbar_list, np_pp_list
 
+
+def get_child_tree(tree, sent, hyp_words):
+    sent_words = sent.split(" ")
+    tree_positions, position_labels = group_by_level(tree)
+    child_tree_dict = []
+    for key in tree_positions.keys():
+        tree_list = tree_positions[key]
+        for i in range(len(tree_list)):
+            if not isinstance(tree[tree_list[i]], str):
+                key_words = tree[tree_list[i]].leaves()
+                key_sent, key_words, orig_s_idx = format_tree_sent(key_words, hyp_words, sent, sent_words, -1)
+                child_tree_dict.append((str(key) + " " + str(i) + " " + position_labels[key][i], key_sent))
+
+    return child_tree_dict
 
