@@ -55,6 +55,14 @@ def get_verb_phrases(sent, hyp_words, spill_words_list, sbar_list):
             obj_str = del_sbar_in_phrase(obj_words, hyp_words, sent)
             basic_elements.append((i, token.dep_, obj_str, token.pos_, token.head.text))
 
+        if ("dative" in token.dep_) & (token.head.pos_ in ["VERB", "AUX"]) & (token.head.dep_ == "ROOT"):
+            if root_idx < i:
+                dat_words = s_word[root_idx:i + 1]
+            else:
+                dat_words = s_word[i: root_idx + 1]
+            dat_str = del_sbar_in_phrase(dat_words, hyp_words, sent)
+            basic_elements.append((i, token.dep_, dat_str, token.pos_, token.head.text))
+
         if ("comp" in token.dep_) & (token.head.pos_ in ["VERB", "AUX"]) & (token.head.dep_ == "ROOT"):
             if root_idx < i:
                 vp_words = s_word[root_idx:i + 1]
@@ -76,6 +84,16 @@ def get_verb_phrases(sent, hyp_words, spill_words_list, sbar_list):
             dep_map[key] = []
         dep_map[key].append((token.head.text, token.head.pos_, token.dep_, token.text))
         i += 1
+
+    subj_list = [elem for elem in basic_elements if ((("subj" in elem[1]) | ("expl" in elem[1])) & (elem[0] < root_idx))]
+
+    if len(subj_list) == 2:
+        new_subj = subj_list[0][3] + " " + subj_list[1][3]
+        if check_continuity(new_subj.split(), sent.split(), -1) != -1:
+            basic_elements.remove(subj_list[0])
+            basic_elements.remove(subj_list[1])
+            basic_elements.append((subj_list[0][0], subj_list[0][1], subj_list[0][2], new_subj, subj_list[0][4]))
+
 
     noun_subj_elem = get_subj_by_noun(root_idx, pos_list, sbar_list, doc, hyp_words, sent)
 
@@ -250,6 +268,12 @@ def exist_pp(pos_list, pp_word, dictionary, key_pp, to_flag, spill_words_list):
     doc = spacy_nlp(sent)
     i = 0
     p_idx = pp_word.index(key_pp)
+    if p_idx + 1 < len(pp_word):
+        if pp_word[p_idx + 1] in ["-", "–"]:
+            p_idx = pp_word.index(key_pp, p_idx + 1)
+    if p_idx - 1 >= 0:
+        if pp_word[p_idx - 1] in ["-", "–"]:
+            p_idx = pp_word.index(key_pp, p_idx + 1)
     comp_flag = False
     for pp in dictionary["comp"]:
         if pp in " ".join(pp_word).lower():
@@ -522,11 +546,11 @@ def get_prep_list_by_dependency(sent, hyp_words, spill_words_list, abbr_words, b
     pp_list = []
     spacy_nlp.disable_pipe("merge_entities")
     doc = spacy_nlp(sent)
-    dictionary = load_dictionary("./Dictionary.txt")
+    dictionary = load_dictionary("./tools/Dictionary.txt")
     # noun_chunks = []
     all_pos_list = [tok.pos_ for tok in doc]
     s_word = [tok.text for tok in doc]
-    pp_flag = [0] * len(all_pos_list)
+    pp_flag = [0] * len(sent.split(" "))
     ## save the word before "of"
     prep_of = get_prep_of(doc, dictionary, all_pos_list, s_word, spill_words_list)
     i = 0
@@ -547,7 +571,7 @@ def get_prep_list_by_dependency(sent, hyp_words, spill_words_list, abbr_words, b
             if len(network) != 0:
                 pp_word = [tok.orth_ for tok in w.subtree]
                 pos_list = [tok.pos_ for tok in w.subtree]
-                if pp_word[-1] == "and":
+                if pp_word[-1] in ["and", "or"]:
                     pp_word.pop(len(pp_word) - 1)
                     pos_list.pop(len(pos_list) - 1)
 
@@ -585,7 +609,8 @@ def get_prep_list_by_dependency(sent, hyp_words, spill_words_list, abbr_words, b
                                 pp_word.insert(0, prefix[j])
                                 pos_list.insert(0, all_pos_list[i - j])
                             if prefix[-1] == last_pp_word[-1]:
-                                s_idx = check_continuity(last_pp_word, s_word, last_s_idx)
+                                #s_idx = check_continuity(last_pp_word, s_word, last_s_idx - 1)
+                                s_idx = check_continuity(last_pp_word, sent.split(" "), last_s_idx - 1)
                                 if s_word[s_idx + len(last_pp_word)] == "of":
                                     for i in range(len(last_pp_word)):
                                         pp_flag[s_idx + i] = 0
@@ -625,7 +650,7 @@ def get_prep_list_by_dependency(sent, hyp_words, spill_words_list, abbr_words, b
                 else:
                     ## save verb phrase
                     if (w.head.pos_ in ["VERB", "AUX"]) & (w.dep_ in ["prep", "agent"]):
-                        if (pp_word[0] not in ["during", "after", "before", "via", "due"]) & (
+                        if (pp_word[0] not in ["during", "after", "before", "via", "due", "among"]) & (
                                 "in order " not in " ".join(pp_word)):
                             pp_word, pos_list, h_idx = get_the_complete_phrase(w.text, w.head.text, s_word, pp_word,
                                                                                pos_list, all_pos_list, pp_list,
@@ -648,7 +673,7 @@ def get_prep_list_by_dependency(sent, hyp_words, spill_words_list, abbr_words, b
                                     pos_list.insert(0, all_pos_list[v_idx])
                                     pp_flag[v_idx] = 0
                                     vp_flag = False
-                    elif (w.head.pos_ in ["ADV", "ADJ", "NOUN"]) & (w.head.dep_ in ["advmod", "attr", "acomp", "conj"]) \
+                    elif (w.head.pos_ in ["ADV", "ADJ", "NOUN"]) & (w.head.dep_ in ["advmod", "attr", "acomp", "conj", "npadvmod"]) \
                             & (w.head.head.pos_ in ["VERB", "AUX"]) & (" ".join(pp_word) != "as well as"):
                         pp_word, pos_list, h_idx = get_the_complete_phrase(w.head.text, w.head.head.text, s_word,
                                                                            pp_word,
@@ -677,8 +702,10 @@ def get_prep_list_by_dependency(sent, hyp_words, spill_words_list, abbr_words, b
                         if (alternative[1] in dictionary["on"].keys()) | (alternative[1] in dictionary["in"].keys()):
                             pp_str = " ".join(alternative)
                             pp_list.append(('p', pp_str, w.text))
-                            s_idx = check_continuity(alternative, s_word, last_s_idx)
-                            pp_flag = fill_pp_flag(pp_str, s_word, pp_flag, s_idx)
+                            #s_idx = check_continuity(alternative, s_word, last_s_idx)
+                            s_idx = check_continuity(alternative, sent.split(" "), last_s_idx)
+                            #pp_flag = fill_pp_flag(pp_str, s_word, pp_flag, s_idx)
+                            pp_flag = fill_pp_flag(pp_str, sent.split(" "), pp_flag, s_idx)
                             i += 1
                             continue
                     if (w.text == "as") & (alternative[0] in dictionary["as"].keys()):
@@ -718,7 +745,6 @@ def get_prep_list_by_dependency(sent, hyp_words, spill_words_list, abbr_words, b
                     i += 1
                     continue
 
-
                 ## del ","
                 if pp_word[-1] in [",", "."]:
                     pp_word.pop(len(pp_word) - 1)
@@ -736,6 +762,7 @@ def get_prep_list_by_dependency(sent, hyp_words, spill_words_list, abbr_words, b
                 if (pp_word[-1] in ["which", "what", "that"]) | (pp_word[0] == "v") | ((pp_word[-2] == w.text) & (pp_word[-1] in punctions)):
                     i += 1
                     continue
+
 
                 if len(comp_f) != 0:
                     pp_str = " ".join(pp_word[:-1]) + " " + comp_f
@@ -762,7 +789,8 @@ def get_prep_list_by_dependency(sent, hyp_words, spill_words_list, abbr_words, b
                         last_s_idx = -1
 
                 if pp_str in sent:
-                    s_idx = check_continuity(pp_word, s_word, last_s_idx)
+                    #s_idx = check_continuity(pp_word, s_word, last_s_idx)
+                    s_idx = check_continuity(pp_str.split(" "), sent.split(" "), last_s_idx)
                     if pp_flag[s_idx] != 1:
                         if len(pp_list) > 0:
                             if pp_list[-1][1] in pp_str:
@@ -771,12 +799,13 @@ def get_prep_list_by_dependency(sent, hyp_words, spill_words_list, abbr_words, b
                             pp_list.append(('v', pp_str, w.text))
                         else:
                             pp_list.append(('p', pp_str, w.text))
-                        pp_flag = fill_pp_flag(pp_str, s_word, pp_flag, s_idx)
+                        #pp_flag = fill_pp_flag(pp_str, s_word, pp_flag, s_idx)
+                        pp_flag = fill_pp_flag(pp_str, sent.split(" "), pp_flag, s_idx)
                     elif pp_flag[s_idx + 1] != 1:
                         if pp_list[-1][1].split(" ")[-1] == pp_word[0]:
                             new_pp_str = pp_list[-1][1] + " " + " ".join(pp_str.split(" ")[1:])
                             pp_list[-1] = (pp_list[-1][0], new_pp_str, pp_list[-1][2])
-                            pp_flag = fill_pp_flag(" ".join(pp_str.split(" ")[1:]), s_word, pp_flag, s_idx + 1)
+                            pp_flag = fill_pp_flag(" ".join(pp_str.split(" ")[1:]), sent.split(" "), pp_flag, s_idx + 1)
                 last_s_idx = s_idx
 
             elif (w.text == "to") & (" ".join(s_word[i - 2:i + 1]) not in dictionary["comp"]):
@@ -801,7 +830,6 @@ def get_prep_list_by_dependency(sent, hyp_words, spill_words_list, abbr_words, b
                                 pos_list = pos_list[p_idx:]
                                 break
                             j += 1
-
 
                     pp_str = process_hyp_words(" ".join(pp_word), hyp_words, sent, last_s_idx)
                     if pp_str in sent:
@@ -872,9 +900,10 @@ def get_prep_list_by_dependency(sent, hyp_words, spill_words_list, abbr_words, b
                             last_s_idx = -1
 
                     if pp_str in sent:
-                        s_idx = check_continuity(pp_word, s_word, last_s_idx)
-                        if s_word[s_idx - 1] in dictionary["to"].keys():
-                            pp_str = " ".join(s_word[s_idx - 2:s_idx]) + " " + pp_str
+                        #s_idx = check_continuity(pp_word, s_word, last_s_idx)
+                        s_idx = check_continuity(pp_str.split(" "), sent.split(" "), last_s_idx)
+                        if sent.split(" ")[s_idx - 1] in dictionary["to"].keys():
+                            pp_str = " ".join(sent.split(" ")[s_idx - 2:s_idx]) + " " + pp_str
                             for j in range(s_idx - 2, s_idx):
                                 pp_flag[j] = 0
                             s_idx = s_idx - 2
@@ -884,12 +913,12 @@ def get_prep_list_by_dependency(sent, hyp_words, spill_words_list, abbr_words, b
                                 pp_list.append(('v', pp_str, w.text))
                             else:
                                 pp_list.append(('p', pp_str, w.text))
-                            pp_flag = fill_pp_flag(pp_str, s_word, pp_flag, s_idx)
+                            pp_flag = fill_pp_flag(pp_str, sent.split(" "), pp_flag, s_idx)
                         elif pp_flag[s_idx + 1] != 1:
                             if pp_list[-1][1].split(" ")[-1] == pp_word[0]:
                                 new_pp_str = pp_list[-1][1] + " " + " ".join(pp_str.split(" ")[1:])
                                 pp_list[-1] = (pp_list[-1][0], new_pp_str, pp_list[-1][2])
-                                pp_flag = fill_pp_flag(" ".join(pp_str.split(" ")[1:]), s_word, pp_flag, s_idx + 1)
+                                pp_flag = fill_pp_flag(" ".join(pp_str.split(" ")[1:]), sent.split(" "), pp_flag, s_idx + 1)
                 last_s_idx = s_idx
         i += 1
 
@@ -1027,3 +1056,42 @@ def extract_ner(sent):
     else:
         return [], []
 
+
+def extra_adj_adv(sent, hyp_words):
+    spacy_nlp.disable_pipe("merge_entities")
+    doc = spacy_nlp(sent)
+    source_words = [tok.text for tok in doc]
+    hyp_words_list = [hw[1] for hw in hyp_words]
+    adj_adv_list = []
+    i = 0
+    for token in doc:
+        if (("".join(source_words[i:i + 3]) in hyp_words_list)|("".join(source_words[i - 2:i + 1]) in hyp_words_list)):
+            mod_str = ""
+            if "".join(source_words[i:i + 3]) in hyp_words_list:
+                mod_str = process_hyp_words("".join(source_words[i:i + 3]), hyp_words, sent, -1)
+            if "".join(source_words[i - 2:i + 1]) in hyp_words_list:
+                mod_str = process_hyp_words("".join(source_words[i - 2:i + 1]), hyp_words, sent, -1)
+            if (mod_str == "") | len(list(set(["of", "too", "as"])&set(mod_str.lower().split(" ")))) != 0:
+                continue
+            if token.head.text not in mod_str:
+                if token.head.pos == "ADJ":
+                    adj_adv_list.append(("ADV", adv_str, token.head.text, "ADJ"))
+                elif token.head.pos == "NOUN":
+                    adj_adv_list.append(("ADJ", adv_str, token.head.text, "NOUN"))
+                elif token.head.head.pos == "NOUN":
+                    adj_adv_list.append(("ADJ", adv_str, token.head.head.text, "NOUN"))
+        else:
+            if (token.dep_ == "amod") & (token.pos_ == "ADJ") & (token.head.pos_ not in ["ADP"]):
+                words = [tok.orth_ for tok in token.subtree]
+                adj_str = process_hyp_words(" ".join(words), hyp_words, sent, -1)
+                if len(list(set(["of", "too", "as"])&set(adj_str.lower().split(" ")))) == 0:
+                    adj_adv_list.append(("ADJ", adj_str, token.head.text, token.head.pos_))
+            if (token.dep_ == "advmod") & (token.pos_ == "ADV"):
+                words = [tok.orth_ for tok in token.subtree]
+                adv_str = process_hyp_words(" ".join(words), hyp_words, sent, -1)
+                if len(list(set(["of", "too", "as"])&set(adv_str.lower().split(" ")))) == 0:
+                    adj_adv_list.append(("ADV", adv_str, token.head.text, token.head.pos_))
+                #print("ADV ", adv_str, " ", token.head.text, token.head.pos_)
+        i += 1
+
+    return adj_adv_list
