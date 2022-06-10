@@ -761,29 +761,32 @@ def extra_sub_sents(rep_cut_sent, rep_cut_words, pos_list):
         split_sent = " ".join(rep_cut_sent.split(" ")[:-1])
     else:
         split_sent = rep_cut_sent
-    if ";" in rep_cut_sent:
-        sym_list = re.split(' ; ', split_sent)
-    elif " – " in rep_cut_sent:
+    # if ";" in rep_cut_sent:
+    #     sym_list = re.split(' ; ', split_sent)
+    #     dash_sent = extra_sub_sents_by_dash(sym_list, rep_cut_words, split_sent)
+    if " – " in rep_cut_sent:
         idx = rep_cut_words.index("–")
         if not rep_cut_words[idx + 1].isdigit():
-            sym_list = re.split(' – ', split_sent)
+            sym_list = re.split(' – | ; ', split_sent)
     elif " — " in rep_cut_sent:
         idx = rep_cut_words.index("—")
         if not rep_cut_words[idx + 1].isdigit():
             sym_list = re.split(' — ', split_sent)
     elif " -- " in rep_cut_sent:
-        sym_list = re.split(' -- ', split_sent)
+        sym_list = re.split(' -- | ; ', split_sent)
     elif " - " in rep_cut_sent:
         idx = rep_cut_words.index("-")
         if not rep_cut_words[idx + 1].isdigit():
-            sym_list = re.split(' - ', split_sent)
+            sym_list = re.split(' - | ; ', split_sent)
     elif ":" in rep_cut_sent:
         if (':', 'SYM') in pos_list:
             idx = pos_list.index((':', 'SYM'))
         else:
             idx = pos_list.index((':', ':'))
         if ("NN" in pos_list[idx - 1][1]) | ("VBG" in pos_list[idx - 1][1]) | (("JJ" in pos_list[idx - 1][1])):
-            sym_list = re.split(' : ', split_sent)
+            sym_list = re.split(' : | ; ', split_sent)
+    elif ";" in rep_cut_sent:
+        sym_list = re.split(' ; ', split_sent)
 
     return sym_list
 
