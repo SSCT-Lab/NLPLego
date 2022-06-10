@@ -497,6 +497,7 @@ def get_prep_of(doc, dictionary, all_pos_list, s_word, spill_words_list):
         i += 1
     return prep_of
 
+
 def complement_pp_word(pp_word, s_word, pos_list, all_pos_list, abbr_words, spill_words_list):
     comp_f = ""
     comp_abbr = ""
@@ -763,7 +764,6 @@ def get_prep_list_by_dependency(sent, hyp_words, spill_words_list, abbr_words, b
                     i += 1
                     continue
 
-
                 if len(comp_f) != 0:
                     pp_str = " ".join(pp_word[:-1]) + " " + comp_f
                 elif len(comp_abbr) != 0:
@@ -777,6 +777,7 @@ def get_prep_list_by_dependency(sent, hyp_words, spill_words_list, abbr_words, b
 
                 pp_str = process_hyp_words(pp_str, hyp_words, sent, last_s_idx)
                 pp_str = get_complete_last_word(pp_str.split(" "), sent.split(" "))
+                pp_str = cut_sub_sent_in_pp_sbar(pp_str, pp_str.split(" "), w.text)
 
                 if len(pp_list) > 0:
                     if pp_str in pp_list[-1][1]:
@@ -889,6 +890,7 @@ def get_prep_list_by_dependency(sent, hyp_words, spill_words_list, abbr_words, b
                         i += 1
                         continue
                     pp_str = get_complete_last_word(pp_str.split(" "), sent.split(" "))
+                    pp_str = cut_sub_sent_in_pp_sbar(pp_str, pp_str.split(" "), w.text)
                     if len(pp_list) > 0:
                         if pp_str in pp_list[-1][1]:
                             i += 1
@@ -1095,3 +1097,4 @@ def extra_adj_adv(sent, hyp_words):
         i += 1
 
     return adj_adv_list
+
