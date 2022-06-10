@@ -118,6 +118,7 @@ def extra_sbar(sent, nlp_tree, hyp_words, dictionary):
                     sbar = process_wrong_formulation(sbar)
                     if (key_words[0].lower() == "although") & (" , " in sbar):
                         sbar = sbar.split(" , ")[0]
+                    sbar = cut_sub_sent_in_pp_sbar(sbar, sbar.split(" "), sbar.split(" ")[0])
                     if len(sbar_list) > 0:
                         if (sbar not in sbar_list[-1]) & (len(sbar.split(" ")) > 1):
                             sbar_list.append(sbar)
@@ -138,6 +139,7 @@ def extra_sbar(sent, nlp_tree, hyp_words, dictionary):
                         sbar = process_wrong_formulation(sbar)
                         if (key_words[0].lower() == "although") & (" , " in sbar):
                             sbar = sbar.split(" , ")[0]
+                        sbar = cut_sub_sent_in_pp_sbar(sbar, sbar.split(" "), sbar.split(" ")[0])
                         if len(sbar_list) > 0:
                             if (sbar not in sbar_list[-1]) & (len(sbar.split(" ")) > 1):
                                 sbar_list.append(sbar)
@@ -187,7 +189,6 @@ def extract_cc_by_constituent(tree, sent, orig_sent, hyp_words):
                         if "CC" in cc_position_labels[1]:
                             key_sent, key_words, orig_s_idx = format_tree_sent(cc_tree.leaves(), hyp_words, orig_sent,
                                                                                    sent_words, -1)
-
                             #print("CC: ", key_sent)
                             if key_sent != sent:
                                 if " , " in key_sent:
@@ -222,7 +223,6 @@ def del_adjuncts_in_cc(cc_list, sbar_list, res_pp, vp_list):
                     key_sent = key_sent.replace(vp[1], "").strip().rstrip()
         cc_list[i] = key_sent
     return cc_list
-
 
 def extract_pp_by_constituent(tree, sent, hyp_words):
     print("sent:", sent)
@@ -348,4 +348,3 @@ def get_child_tree(tree, sent, hyp_words):
                 child_tree_dict.append((str(key) + " " + str(i) + " " + position_labels[key][i], key_sent))
 
     return child_tree_dict
-
