@@ -1,20 +1,15 @@
-import nltk
 from nltk.corpus import wordnet
 from gen_temp import *
 import re
-import copy
 import time,hashlib
-import itertools
-from nltk import CoreNLPParser
 from nltk.corpus import stopwords
 import spacy
 import transformers
-import json
-import random
 import requests
 
 nlp = spacy.load("en_core_web_lg")
 sbar_pattern = re.compile(r't\d+')
+stops = set(stopwords.words("english"))
 unmasker = transformers.pipeline('fill-mask', model='bert-base-uncased')
 BERT_SCORE = 0.1
 
@@ -41,48 +36,35 @@ def format_mask_adjunct(mask_adjunct, adjunct):
             mask_adjunct = mask_adjunct.replace("£ ", "£")
     return mask_adjunct
 
-
-def filer_word(pos_list, adjunct, ner_list, hyp_words, for_list):
-    english_punctuations = [',', '.', ':', ';', '?', '(', ')', '[', ']', '&', '!', '*', '@', '#', '$', '%']
-    split_word_list = []
+def get_cannot_rep_words(ner_list, hyp_words, for_list):
+    unrep_words = []
     for w in hyp_words:
-        split_word_list.extend(re.split("-|–|−", w[1]))
+        unrep_words.extend(re.split("-|–|−", w[1]))
     for f in for_list:
-        split_word_list.extend(f.split(" "))
+        unrep_words.extend(f.split(" "))
     for n in ner_list:
-        split_word_list.extend(n.split(" "))
-    stops = set(stopwords.words("english"))
-    #tag_list = nltk.pos_tag(adjunct_word)
+        unrep_words.extend(n.split(" "))
+
+    return unrep_words
+
+
+def filer_word(pos_list, adjunct, unrep_words):
+    english_punctuations = [',', '.', ':', ';', '?', '(', ')', '[', ']', '&', '!', '*', '@', '#', '$', '%', '–', '—', '--', '--', '-']
     doc = nlp(adjunct)
     word_pos = [tok.pos_ for tok in doc]
     masked_word = []
     masked_adjunct = []
     adjunct_word = [tok.text for tok in doc]
-    if "-" in adjunct_word:
-        index = adjunct_word.index("-")
     for i in range(len(adjunct_word)):
         word = adjunct_word[i]
-        # for ner in ner_list:
-        #     if word in ner:
-        #         continue
-        if (word not in stops) & (word not in english_punctuations) & (word_pos[i] in pos_list) & (word not in split_word_list):
+        if (word not in stops) & (word not in english_punctuations) & (word_pos[i] in pos_list) & (word not in unrep_words):
             masked_word.append(word)
             temp_phrase = list(adjunct_word)
             temp_phrase[i] = "[MASK]"
             mask_phrase = format_mask_adjunct(" ".join(temp_phrase), adjunct)
             masked_adjunct.append(mask_phrase)
-        # else:
-        #     for ner in ner_list:
-        #         if word in ner:
-        #             continue
-        #     if (word not in stops) & (word not in english_punctuations) & (word_pos[i] in pos_list):
-        #         masked_word.append(word)
-        #         temp_phrase = list(adjunct_word)
-        #         temp_phrase[i] = "[MASK]"
-        #         masked_adjunct.append(" ".join(temp_phrase).replace(" - ", "-"))
 
     if len(masked_adjunct) == 0:
-        #masked_adjunct.append(" ".join(adjunct_word).replace(" - ", "-"))
         masked_adjunct.append(adjunct)
         masked_word.append("X")
 
@@ -97,10 +79,12 @@ def gen_mask_phrase(adjunct_list, pos_list, all_ner, all_for, all_hyp_words):
         ner_list = all_ner[i]
         for_list = all_for[i]
         hyp_words_list = all_hyp_words[i]
+        unrep_words = get_cannot_rep_words(ner_list, hyp_words_list, for_list)
         masked_adjunct_list = []
         masked_word_list = []
         for adjunct in adjuncts:
-            masked_word, masked_adjunct = filer_word(pos_list, adjunct, ner_list, hyp_words_list, for_list)
+            masked_word, masked_adjunct = filer_word(pos_list, adjunct, unrep_words)
+            print("masked adjunct: ", masked_adjunct)
             masked_word_list.append(masked_word)
             masked_adjunct_list.append(masked_adjunct)
         all_masked_adjunct.append(masked_adjunct_list)
@@ -543,6 +527,7 @@ def load_context_ans(file_path):
         line = f.readline()
 
     return ans_context
+
 
 # 保存新context
 def save_new_context(file_path, new_context_list):
