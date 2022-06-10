@@ -309,7 +309,8 @@ def process_hyp_words(sent, hyp_words, orig_sent, search_s_idx):
     for i in range(len(hyp_words)):
         sent = sent.replace(wrong_hyp_words[i], hyp_words[i][1], 1)
         idx = hyp_words[i][0]
-        if (len(sent.split(" ")) >= 2) & (idx > search_s_idx):
+        temp_s_idx = check_continuity(sent.split(" "), orig_sent.split(" "), -1)
+        if (len(sent.split(" ")) >= 2) & (idx > search_s_idx) & (temp_s_idx == -1):
             if (sent.split(" ")[-1] in ["-", "–"]) & (sent.split(" ")[-2] in word_list[i]):
                 sent = " ".join(sent.split(" ")[:-2]) + " " + hyp_words[i][1]
             elif (sent.split(" ")[-1] in word_list[i]) & (sent.split(" ")[-2] == orig_sent.split(" ")[idx - 1]):
@@ -353,8 +354,11 @@ def process_hyp_words(sent, hyp_words, orig_sent, search_s_idx):
     if (" pm " in sent) & (" pm " not in orig_sent):
         sent = sent.replace(" pm ", "pm ")
 
-    if ("-i-is" in sent) & ("-i-is" in orig_sent):
+    if ("-i-is" in sent) & ("-i-is" not in orig_sent):
         sent = sent.replace("-i-is", "-i- is")
+
+    if ("post - al-Nimeiry" in sent) & ("post - al-Nimeiry" not in orig_sent):
+        sent = sent.replace("post - al-Nimeiry", "post-al-Nimeiry")
 
     if (sent[-2:] == " m") & (" m " not in orig_sent):
         sent = sent[:-2] + "m"
@@ -1027,4 +1031,23 @@ def match_conj_index(search_words, source_words, temp_res_label):
                         break
 
     return conj_mapping_cut, conj_word_index, conj_is_exist
+
+
+def cut_sub_sent_in_pp_sbar(pp_str, pp_words, key_pp):
+    if " – " in pp_str:
+        idx = pp_words.index("–")
+        if not pp_words[idx + 1].isdigit():
+            pp_str = [sent for sent in re.split(' – ', pp_str) if key_pp in sent.split(" ")][0]
+    elif " — " in pp_str:
+        idx = pp_words.index("—")
+        if not pp_words[idx + 1].isdigit():
+            pp_str = [sent for sent in re.split(' — ', pp_str) if key_pp in sent.split(" ")][0]
+    elif " -- " in pp_str:
+        pp_str = [sent for sent in re.split(' -- ', pp_str) if key_pp in sent.split(" ")][0]
+    elif " - " in pp_str:
+        idx = pp_words.index("-")
+        if not pp_words[idx + 1].isdigit():
+            pp_str = [sent for sent in re.split(' - ', pp_str) if key_pp in sent.split(" ")][0]
+
+    return pp_str
 
