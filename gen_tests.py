@@ -1,10 +1,16 @@
+import nltk
 from nltk.corpus import wordnet
 from gen_temp import *
 import re
+import copy
 import time,hashlib
+import itertools
+from nltk import CoreNLPParser
 from nltk.corpus import stopwords
 import spacy
 import transformers
+import json
+import random
 import requests
 
 nlp = spacy.load("en_core_web_lg")
@@ -30,10 +36,16 @@ def format_mask_adjunct(mask_adjunct, adjunct):
             mask_adjunct = mask_adjunct.replace(" & ", "&")
         if (" °" in mask_adjunct) & (" °" not in adjunct):
             mask_adjunct = mask_adjunct.replace(" °", "°")
+        if ("° C" in mask_adjunct) & ("° C" not in adjunct):
+            mask_adjunct = mask_adjunct.replace("° C", "°C")
         if ("etc ." in mask_adjunct) & ("etc ." not in adjunct):
             mask_adjunct = mask_adjunct.replace("etc .", "etc.")
         if ("£ " in mask_adjunct) & ("£ " not in adjunct):
             mask_adjunct = mask_adjunct.replace("£ ", "£")
+        if (" al . " in mask_adjunct) & (" al . " not in adjunct):
+            mask_adjunct = mask_adjunct.replace(" al . ", " al. ")
+        if ("ca . " in mask_adjunct) & ("ca . " not in adjunct):
+            mask_adjunct = mask_adjunct.replace("ca . ", "ca. ")
     return mask_adjunct
 
 def get_cannot_rep_words(ner_list, hyp_words, for_list):
@@ -46,7 +58,6 @@ def get_cannot_rep_words(ner_list, hyp_words, for_list):
         unrep_words.extend(n.split(" "))
 
     return unrep_words
-
 
 def filer_word(pos_list, adjunct, unrep_words):
     english_punctuations = [',', '.', ':', ';', '?', '(', ')', '[', ']', '&', '!', '*', '@', '#', '$', '%', '–', '—', '--', '--', '-']
@@ -119,10 +130,13 @@ def gen_masked_sent(j, temp, masked_adjuncts):
         result = set(sbar_pattern.findall(new_sent))
         sent_word = new_sent.split(" ")
         if len(result) != 0:
+            result = sorted(list(result), reverse=True)
             new_temp.append(new_sent)
             for r in result:
-                rep_slot = [r] * sent_word.count(r)
-                new_sent = new_sent.replace(" ".join(rep_slot), "")
+                left_index_r = sent_word.index(r)
+                right_index_r = len(sent_word) - 1 - sent_word[::-1].index(r)
+                rep_slot = " ".join(sent_word[left_index_r:right_index_r + 1])
+                new_sent = new_sent.replace(rep_slot, "")
                 new_sent = format_sent(new_sent)
             pred_list.append(new_sent)
         else:
@@ -159,7 +173,7 @@ def pred_sent_by_bert(step_list, masked_temp, words, round, pre_score):
                     new_sent = mask_sent.replace("[MASK]", token_str)
                     new_temp = masked_temp[i].replace("[MASK]", token_str)
                     new_sent = format_abbr(new_sent)
-#                     new_temp = format_abbr(new_temp)
+                    new_temp = format_abbr(new_temp)
                     if new_sent not in tests_set:
                         score_list.append(r['score']*pre_score)
                     tests_set.add(new_sent)
@@ -167,7 +181,7 @@ def pred_sent_by_bert(step_list, masked_temp, words, round, pre_score):
             new_sent = mask_sent.replace("[MASK]", word)
             new_temp = masked_temp[i].replace("[MASK]", word)
             new_sent = format_abbr(new_sent)
-#             new_temp = format_abbr(new_temp)
+            new_temp = format_abbr(new_temp)
             if new_sent not in tests_set:
                 score_list.append(0.5*pre_score)
             new_temps.add(new_temp)
@@ -175,8 +189,7 @@ def pred_sent_by_bert(step_list, masked_temp, words, round, pre_score):
         else:
             new_sent = format_abbr(mask_sent)
             tests_set.add(new_sent)
-#             new_temps.add(format_abbr(masked_temp[i]))
-            new_temps.add(masked_temp[i])
+            new_temps.add(format_abbr(masked_temp[i]))
             score_list.append(0.5*pre_score)
     print("处理后分数： ",score_list)
     return tests_set, new_temps, score_list
@@ -189,6 +202,79 @@ def search_syn(word):
             synonyms.append(lm.name())
     return set(synonyms)
 
+
+# def pred_sent_by_syn(pred_list, masked_temp, words):
+#     tests_set = set()
+#     new_temps = set()
+#     for i in range(len(pred_list)):
+#         mask_sent = pred_list[i]
+#         word = words[i]
+#         if "[MASK]" in mask_sent:
+#             print(mask_sent)
+#             syns = search_syn(word)
+#             for s in syns:
+#                 new_sent = mask_sent.replace("[MASK]", s)
+#                 new_temp = masked_temp[i].replace("[MASK]", s)
+#                 new_sent = format_abbr(new_sent)
+#                 new_temp = format_abbr(new_temp)
+#                 tests_set.add(new_sent)
+#                 new_temps.add(new_temp)
+#             new_sent = mask_sent.replace("[MASK]", word)
+#             new_temp = masked_temp[i].replace("[MASK]", word)
+#             new_sent = format_abbr(new_sent)
+#             new_temp = format_abbr(new_temp)
+#             new_temps.add(new_temp)
+#             tests_set.add(new_sent)
+#         else:
+#             new_sent = format_abbr(mask_sent)
+#             tests_set.add(new_sent)
+#             new_temps.add(format_abbr(masked_temp[i]))
+#     return tests_set, new_temps
+
+
+# def gen_sent_by_syn(file_path, comp_list, temp_list, all_masked_word, all_masked_adjunct):
+#     w = open(file_path, mode="a")
+#     all_tests = []
+#     for i in range(0, 10):
+#         w.write("sent_id = " + str(i) + "\n")
+#         comp = comp_list[i]
+#         w.write(format_abbr(comp) + "\n")
+#         temp = temp_list[i]
+#         tests_list = []
+#         tests_list.append([format_abbr(comp)])
+#         masked_adjunct_list = all_masked_adjunct[i]
+#         masked_word_list = all_masked_word[i]
+#         next_temp_list = []
+#         for j in range(len(masked_adjunct_list)):
+#             w.write("insert t" + str(j) + "\n")
+#             if j == 0:
+#                 pred_list, masked_temp = gen_masked_sent(j, temp, masked_adjunct_list[j])
+#                 words = masked_word_list[j]
+#                 new_tests, new_temps = pred_sent_by_syn(pred_list, masked_temp, words)
+#                 # new_tests, new_temps = pred_sent_by_bert(pred_list, masked_temp, words)
+#                 next_temp_list.extend(new_temps)
+#                 for test in new_tests:
+#                     w.write(test + "\n")
+#                 w.write("\n")
+#                 tests_list.append(new_tests)
+#             else:
+#                 new_temp_list = []
+#                 tests_list.append([])
+#                 for t in range(len(next_temp_list)):
+#                     pred_list, masked_temp = gen_masked_sent(j, next_temp_list[t], masked_adjunct_list[j])
+#                     words = masked_word_list[j]
+#                     new_tests, new_temps = pred_sent_by_syn(pred_list, masked_temp, words)
+#                     # new_tests, new_temps = pred_sent_by_bert(pred_list, masked_temp, words)
+#                     new_temp_list.extend(new_temps)
+#                     tests_list[-1].extend(new_tests)
+#                     for test in new_tests:
+#                         w.write(test + "\n")
+#                     w.write("\n")
+#                 next_temp_list = new_temp_list
+#         w.write("FIN\n")
+#         all_tests.append(tests_list)
+#     w.close()
+#     return all_tests
 
 
 def gen_sent_by_bert(file_path, comp_list, temp_list, all_masked_word, all_masked_adjunct):
@@ -528,7 +614,6 @@ def load_context_ans(file_path):
 
     return ans_context
 
-
 # 保存新context
 def save_new_context(file_path, new_context_list):
     f = open(file_path, 'a')
@@ -542,23 +627,7 @@ def save_new_context(file_path, new_context_list):
         f.write("\n")
     f.close()
 
-if __name__ == '__main__':
-    # 获取所有句子的<=beam_size个变体
-    file_name = "context"
-    temp_list, adjunct_list, ner_list, for_list, hyp_words_list, comp_list = gen_sent_temp_main(file_name, 0, 6212)
-    pos_list = ['NOUN', 'VERB', 'ADJ', 'ADV']
-    all_masked_word, all_masked_adjunct = gen_mask_phrase(adjunct_list, pos_list, ner_list, for_list, hyp_words_list)
-    file_path = "./" + file_name + "_bert_test.txt"
-    all_tests, final_result = gen_sent_by_bert(file_path, comp_list, temp_list, all_masked_word, all_masked_adjunct)
-    print(final_result)
-
-    # 获取context里句子个数的列表
-    context_sentence_len_list, origin_sent_list = get_sentence_len(file_name)
-    final_result_dic = mapping_context_sentence(context_sentence_len_list, final_result)
-    print(final_result_dic)
-
-    index = 0
-
+def generate_final_json(context_sentence_len_list, origin_sent_list, final_result_dic):
     # 获取每个context对应的问题
     question_sent_li_all = read_question_index()
 
@@ -575,33 +644,32 @@ if __name__ == '__main__':
         # w.write("context_id = " + str(i) + "\n")
         context_input = final_result_dic["context"+str(i)]
         if context_sentence_len_list[i] == 1:
-            pro_context_list = origin_sent_list[i]
+            pro_context_list = [origin_sent_list[i]]
         else:
             if context_sentence_len_list[i] > 4:
                 ll_len = context_sentence_len_list[i]
-                ll_temp_list = [x for x in range(0, ll_len)]
-                random.shuffle(ll_temp_list)
-                for s in ll_temp_list[4:ll_len]:
-                    context_input[s] = [origin_sent_list[i][s]]
+                ll_temp_list = [x for x in range(0, ll_len) if len(context_input[x]) > 1]
+                if len(ll_temp_list) > 4:
+                    # 不大于4，则全部改变，不用再赋值为原句
+                    random.shuffle(ll_temp_list)
+                    for s in ll_temp_list[4:ll_len]:
+                        # 只需要改变ll_temp_list中没被选中的，因为不在ll_temp_list则长度为1，等价于原句
+                        context_input[s] = [origin_sent_list[i][s]]
+
             # 对context_input中，最多4个句子改变，其他len-4个不变，随机取
             pro_context_list = itertools.product(*context_input)
-        # print(i, context_input)
-        # continue
         print("========")
         final_context_list = []
         for pro_context in pro_context_list:
             final_context_list.append(list(pro_context))
-            # pro_context_item = "".join(pro_context)
-            # test_set.add(pro_context_item)
 
-        # if i == 0:
         # 读对应的那一条context的问题
         item_temp = copy.deepcopy(prediction_data[0]["paragraphs"][i])
         question_list = []
         for jj in item_temp["qas"]:
             question_list.append(jj["question"])
         print(question_list)
-        # exit(0)
+
         test_set = []
         index = 0
         question_sent_li = question_sent_li_all[i]
@@ -611,8 +679,6 @@ if __name__ == '__main__':
             context_for_input_li = final_context_list[pro_context_index]
             for question_sent_index in range(len(question_sent_li)):
                 index_i = int(question_sent_li[question_sent_index])
-                if i == 43:
-                    print(1)
                 if index_i != -1:
                     context_for_input_li[index_i] = origin_sent_list[i][index_i]
                 question_temp = item_temp["qas"][question_sent_index]
@@ -630,14 +696,118 @@ if __name__ == '__main__':
                     test_set.append(valid_temp)
                     item_list.append(copy.deepcopy(item_temp_modify))
                     index += 1
-            print(index)
-    # exit(0)
+            # print(index)
+
     prediction_data[0]["paragraphs"] = item_list
     file_name = "dev_modify_200.json"
     path = "./" + file_name
     with open(path, 'w', encoding='utf-8') as f1:
         f1.write(json.dumps(prediction_json, indent=4, ensure_ascii=False))
-    # print(len(test_set))
-    print(index)
-    # w.close()
+
+if __name__ == '__main__':
+    # 获取所有句子的<=beam_size个变体
+    file_name = "context"
+    temp_list, adjunct_list, ner_list, for_list, hyp_words_list, comp_list = gen_sent_temp_main(file_name, 0, 12)
+
+    pos_list = ['NOUN', 'VERB', 'ADJ', 'ADV']
+    all_masked_word, all_masked_adjunct = gen_mask_phrase(adjunct_list, pos_list, ner_list, for_list, hyp_words_list)
+
+    file_path = "./" + file_name + "_bert_test.txt"
+    all_tests, final_result = gen_sent_by_bert(file_path, comp_list, temp_list, all_masked_word, all_masked_adjunct)
+    print(final_result)
+
+    # 获取context里句子个数的列表
+    context_sentence_len_list, origin_sent_list = get_sentence_len(file_name)
+    final_result_dic = mapping_context_sentence(context_sentence_len_list, final_result)
+    print(final_result_dic)
+
+    generate_final_json(context_sentence_len_list, origin_sent_list, final_result_dic)
+
+    # index = 0
+    #
+    # # 获取每个context对应的问题
+    # question_sent_li_all = read_question_index()
+    #
+    # # 读处理后的源文件
+    # file_name = "dev_start_modify.json"
+    # path = "./solution/" + file_name
+    # predict_file = open(path, mode="r", encoding='utf-8')
+    # prediction_json = json.load(predict_file)
+    # prediction_data = prediction_json["data"]
+    # item_list = []
+    #
+    # # 循环处理context
+    # for i in range(0, len(context_sentence_len_list)):
+    #     # w.write("context_id = " + str(i) + "\n")
+    #     context_input = final_result_dic["context"+str(i)]
+    #     if context_sentence_len_list[i] == 1:
+    #         pro_context_list = origin_sent_list[i]
+    #     else:
+    #         if context_sentence_len_list[i] > 4:
+    #             ll_len = context_sentence_len_list[i]
+    #             ll_temp_list = [x for x in range(0, ll_len) if len(context_input[x]) > 1]
+    #             if len(ll_temp_list) > 4:
+    #                 # 不大于4，则全部改变，不用再赋值为原句
+    #                 random.shuffle(ll_temp_list)
+    #                 for s in ll_temp_list[4:ll_len]:
+    #                     # 只需要改变ll_temp_list中没被选中的，因为不在ll_temp_list则长度为1，等价于原句
+    #                     context_input[s] = [origin_sent_list[i][s]]
+    #
+    #         # 对context_input中，最多4个句子改变，其他len-4个不变，随机取
+    #         pro_context_list = itertools.product(*context_input)
+    #     # print(i, context_input)
+    #     # continue
+    #     print("========")
+    #     final_context_list = []
+    #     for pro_context in pro_context_list:
+    #         final_context_list.append(list(pro_context))
+    #         # pro_context_item = "".join(pro_context)
+    #         # test_set.add(pro_context_item)
+    #
+    #     # if i == 0:
+    #     # 读对应的那一条context的问题
+    #     item_temp = copy.deepcopy(prediction_data[0]["paragraphs"][i])
+    #     question_list = []
+    #     for jj in item_temp["qas"]:
+    #         question_list.append(jj["question"])
+    #     print(question_list)
+    #     # exit(0)
+    #     test_set = []
+    #     index = 0
+    #     question_sent_li = question_sent_li_all[i]
+    #
+    #     for pro_context_index in range(0, len(final_context_list)):
+    #
+    #         context_for_input_li = final_context_list[pro_context_index]
+    #         for question_sent_index in range(len(question_sent_li)):
+    #             index_i = int(question_sent_li[question_sent_index])
+    #             if i == 43:
+    #                 print(1)
+    #             if index_i != -1:
+    #                 context_for_input_li[index_i] = origin_sent_list[i][index_i]
+    #             question_temp = item_temp["qas"][question_sent_index]
+    #             question_temp["id"] = create_id()
+    #             item_to_add = []
+    #             item_to_add.append(question_temp)
+    #             item_temp_modify = copy.deepcopy(item_temp)
+    #             item_temp_modify["qas"] = item_to_add
+    #             context_all_line = "".join(context_for_input_li)
+    #             item_temp_modify["context"] = context_all_line
+    #             valid_temp = context_all_line+str(question_list[question_sent_index])
+    #             if valid_temp in test_set:
+    #                 continue
+    #             else:
+    #                 test_set.append(valid_temp)
+    #                 item_list.append(copy.deepcopy(item_temp_modify))
+    #                 index += 1
+    #         print(index)
+    # # exit(0)
+    # prediction_data[0]["paragraphs"] = item_list
+    # file_name = "dev_modify_200.json"
+    # path = "./" + file_name
+    # with open(path, 'w', encoding='utf-8') as f1:
+    #     f1.write(json.dumps(prediction_json, indent=4, ensure_ascii=False))
+    # # print(len(test_set))
+    # print(index)
+    # # w.close()
 
