@@ -125,3 +125,27 @@ dmypy.json
 # Pyre type checker
 .pyre/
 
+#extension
+server_test/
+solution/
+.gitignore
+.idea/.gitignore
+.idea/NLPChecker.iml
+.idea/deployment.xml
+.idea/inspectionProfiles/
+.idea/misc.xml
+.idea/modules.xml
+.idea/vcs.xml
+Squad2/dev-v2.0.json
+Squad2/dev_xx.json
+comp_input/context1.cln.sent
+comp_input/context2.cln.sent
+comp_input/ncontext1.cln.sent
+comp_input/ncontext2.cln.sent
+context_bert_test.txt
+dev_modify_200.json
+dev_modify_all.json
+modify_res.txt
+te.py
+tools.zip
+txt_files.zip

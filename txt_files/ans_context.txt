@@ -33575,12 +33575,12 @@ context: None
 ==========FIN==========
 
 context_id = 632
-question: When was the divestment from South Africa movement? 
+question: When was the divestment from South Africa movement?
 answer: late 1980s|1980s
 context_idx: 0
 context: During the divestment from South Africa movement in the late 1980s, student activists erected a symbolic "shantytown" on Harvard Yard and blockaded a speech given by South African Vice Consul Duke Kent-Brown.
 
-question: What South African Vice Consul did Harvard students blockade the speech of? 
+question: What South African Vice Consul did Harvard students blockade the speech of?
 answer: Duke Kent-Brown|South African Vice Consul Duke Kent-Brown.
 context_idx: 0
 context: During the divestment from South Africa movement in the late 1980s, student activists erected a symbolic "shantytown" on Harvard Yard and blockaded a speech given by South African Vice Consul Duke Kent-Brown.
@@ -33757,7 +33757,7 @@ context: None
 ==========FIN==========
 
 context_id = 636
-question: What is tuition for 2012 - 13 year at Harvard? 
+question: What is tuition for 2012 - 13 year at Harvard?
 answer: $38,000
 context_idx: 0
 context: For the 2012–13 school year annual tuition was $38,000, with a total cost of attendance of $57,000.
@@ -34300,7 +34300,7 @@ answer: Ossachite
 context_idx: 4
 context: One early map shows a village called Ossachite at the site of what is now downtown Jacksonville; this may be the earliest recorded name for that area.
 
-question: What area remained uninhabited for thousands of years? 
+question: What area remained uninhabited for thousands of years?
 answer: None
 context_idx: -1
 context: None
@@ -35516,7 +35516,7 @@ answer: necessity|necessity rather than opportunity
 context_idx: 1
 context: However, most of it is often based on necessity rather than opportunity.
 
-question: Survival needs such as income for food and shelter motivates what type of entrepreneurship? 
+question: Survival needs such as income for food and shelter motivates what type of entrepreneurship?
 answer: Necessity-based entrepreneurship|Necessity-based
 context_idx: 2
 context: Necessity-based entrepreneurship is motivated by survival needs such as income for food and shelter ("push" motivations), whereas opportunity-based entrepreneurship is driven by achievement-oriented motivations ("pull") such as vocation and more likely to involve the pursue of new products, services, or underserved market needs.
@@ -36304,7 +36304,7 @@ answer: larger fortunes|wealth|wealth condensation
 context_idx: 1
 context: According to this theory, those who already hold wealth have the means to invest in new sources of creating wealth or to otherwise leverage the accumulation of wealth, thus are the beneficiaries of the new wealth.
 
-question: Where does newly created wealth concentrate? 
+question: Where does newly created wealth concentrate?
 answer: in the possession of already-wealthy individuals or entities|the possession of already-wealthy individuals|already-wealthy individuals
 context_idx: 0
 context: Wealth concentration is a theoretical[according to whom?] process by which, under certain conditions, newly created wealth concentrates in the possession of already-wealthy individuals or entities.
@@ -36349,7 +36349,7 @@ answer: None
 context_idx: -1
 context: None
 
-question: Where does oldly created wealth concentrate? 
+question: Where does oldly created wealth concentrate?
 answer: None
 context_idx: -1
 context: None
@@ -36844,7 +36844,7 @@ answer: systematic economic inequalities
 context_idx: 0
 context: Central Banking economist Raghuram Rajan argues that "systematic economic inequalities, within the United States and around the world, have created deep financial 'fault lines' that have made [financial] crises more likely to happen than in the past" – the Financial crisis of 2007–08 being the most recent example.
 
-question: What is the most recent example of financial fault lines? 
+question: What is the most recent example of financial fault lines?
 answer: the Financial crisis of 2007–08|Financial crisis of 2007–08
 context_idx: 0
 context: Central Banking economist Raghuram Rajan argues that "systematic economic inequalities, within the United States and around the world, have created deep financial 'fault lines' that have made [financial] crises more likely to happen than in the past" – the Financial crisis of 2007–08 being the most recent example.
@@ -36869,7 +36869,7 @@ answer: None
 context_idx: -1
 context: None
 
-question: What is the oldest example of financial fault lines? 
+question: What is the oldest example of financial fault lines?
 answer: None
 context_idx: -1
 context: None
@@ -36897,7 +36897,7 @@ answer: quality of a country's institutions|quality of a country's institutions 
 context_idx: 1
 context: High levels of inequality prevent not just economic prosperity, but also the quality of a country's institutions and high levels of education.
 
-question: What happens to the GDP growth of a country if the income share of the top 20 percent increases, according to IMF staff economists? 
+question: What happens to the GDP growth of a country if the income share of the top 20 percent increases, according to IMF staff economists?
 answer: declines
 context_idx: 2
 context: According to IMF staff economists, if the income share of the top 20 percent (the rich) increases, then GDP growth actually declines over the medium term, suggesting that the benefits do not trickle down.
@@ -36922,7 +36922,7 @@ answer: None
 context_idx: -1
 context: None
 
-question: What happens to the GDP growth of a country if the income share of the top 20 percent decreases, according to IMF staff economists? 
+question: What happens to the GDP growth of a country if the income share of the top 20 percent decreases, according to IMF staff economists?
 answer: None
 context_idx: -1
 context: None
@@ -37571,7 +37571,7 @@ answer: Robert Nozick
 context_idx: 0
 context: Robert Nozick argued that government redistributes wealth by force (usually in the form of taxation), and that the ideal moral society would be one where all individuals are free from force.
 
-question: What is the usual form of the government's wealth redistribution? 
+question: What is the usual form of the government's wealth redistribution?
 answer: taxation
 context_idx: 0
 context: Robert Nozick argued that government redistributes wealth by force (usually in the form of taxation), and that the ideal moral society would be one where all individuals are free from force.
@@ -37596,7 +37596,7 @@ answer: None
 context_idx: -1
 context: None
 
-question: What is the unusual form of the government's wealth redistribution? 
+question: What is the unusual form of the government's wealth redistribution?
 answer: None
 context_idx: -1
 context: None
@@ -37639,7 +37639,7 @@ answer: increasing functionings (the things a person values doing), capabilities
 context_idx: 2
 context: Its goal is to "wid[en] people's choices and the level of their achieved well-being" through increasing functionings (the things a person values doing), capabilities (the freedom to enjoy functionings) and agency (the ability to pursue valued goals).
 
-question: What is the definition of agency as it relates to capabilities? 
+question: What is the definition of agency as it relates to capabilities?
 answer: the ability to pursue valued goals
 context_idx: 2
 context: Its goal is to "wid[en] people's choices and the level of their achieved well-being" through increasing functionings (the things a person values doing), capabilities (the freedom to enjoy functionings) and agency (the ability to pursue valued goals).
@@ -37664,7 +37664,7 @@ answer: None
 context_idx: -1
 context: None
 
-question: What is the definition of agency as it unrelates to incapabilities? 
+question: What is the definition of agency as it unrelates to incapabilities?
 answer: None
 context_idx: -1
 context: None
@@ -37846,7 +37846,7 @@ answer: William Rainey Harper
 context_idx: 0
 context: Founded by the American Baptist Education Society with a donation from oil magnate and wealthiest man in history John D. Rockefeller, the University of Chicago was incorporated in 1890; William Rainey Harper became the university's first president in 1891, and the first classes were held in 1892.
 
-question: What year was the university's first president given his position? 
+question: What year was the university's first president given his position?
 answer: 1891
 context_idx: 0
 context: Founded by the American Baptist Education Society with a donation from oil magnate and wealthiest man in history John D. Rockefeller, the University of Chicago was incorporated in 1890; William Rainey Harper became the university's first president in 1891, and the first classes were held in 1892.
@@ -37889,7 +37889,7 @@ answer: Marshall Field
 context_idx: 1
 context: Rockefeller on land donated by Marshall Field.
 
-question: Who helped pay for the university's first building structure? 
+question: Who helped pay for the university's first building structure?
 answer: Silas B. Cobb
 context_idx: 3
 context: The original physical campus was financed by donations from wealthy Chicagoans like Silas B. Cobb who provided the funds for the campus' first building, Cobb Lecture Hall, and matched Marshall Field's pledge of $100,000.
@@ -38043,7 +38043,7 @@ answer: early 1950s|the early 1950s|1950s
 context_idx: 0
 context: In the early 1950s, student applications declined as a result of increasing crime and poverty in the Hyde Park neighborhood.
 
-question: Why did the university see a drop in applicants? 
+question: Why did the university see a drop in applicants?
 answer: increasing crime and poverty in the Hyde Park neighborhood|a result of increasing crime and poverty
 context_idx: 0
 context: In the early 1950s, student applications declined as a result of increasing crime and poverty in the Hyde Park neighborhood.
@@ -38505,7 +38505,7 @@ answer: 17
 context_idx: 1
 context: In 2012-2013, the Core classes at Chicago were limited to 17 students, and are generally led by a full-time professor (as opposed to a teaching assistant).
 
-question: UChicago claims to have what kind of learning experience compared to other universities? 
+question: UChicago claims to have what kind of learning experience compared to other universities?
 answer: the most rigorous, intense
 context_idx: 3
 context: Undergraduate courses at the University of Chicago are known for their demanding standards, heavy workload and academic difficulty; according to Uni in the USA, "Among the academic cream of American universities – Harvard, Yale, Princeton, MIT, and the University of Chicago – it is UChicago that can most convincingly claim to provide the most rigorous, intense learning experience."
@@ -38659,7 +38659,7 @@ answer: Oriental Institute|the Oriental Institute
 context_idx: 1
 context: Among these are the Oriental Institute—a museum and research center for Near Eastern studies owned and operated by the university—and a number of National Resource Centers, including the Center for Middle Eastern Studies.
 
-question: What lab does the university have a joint stake in? 
+question: What lab does the university have a joint stake in?
 answer: Fermilab
 context_idx: 3
 context: The university partially manages Argonne National Laboratory, part of the United States Department of Energy's national laboratory system, and has a joint stake in Fermilab, a nearby particle physics laboratory, as well as a stake in the Apache Point Observatory in Sunspot, New Mexico.
@@ -38818,7 +38818,7 @@ answer: 15,244
 context_idx: 0
 context: In the fall quarter of 2014, the University of Chicago enrolled 5,792 students in the College, 3,468 students in its four graduate divisions, 5,984 students in its professional schools, and 15,244 students overall.
 
-question: Who made up 19% of the student body in the 2012 Spring Quarter? 
+question: Who made up 19% of the student body in the 2012 Spring Quarter?
 answer: international students
 context_idx: 1
 context: In the 2012 Spring Quarter, international students comprised almost 19% of the overall study body, over 26% of students were domestic ethnic minorities, and about 44% of enrolled students were female.
@@ -39073,7 +39073,7 @@ answer: Festival of the Arts
 context_idx: 1
 context: Since 1963, the Festival of the Arts (FOTA) takes over campus for 7–10 days of exhibitions and interactive artistic endeavors.
 
-question: What is the name of the winter festival held in January that is based on fitness? 
+question: What is the name of the winter festival held in January that is based on fitness?
 answer: Kuviasungnerk/Kangeiko
 context_idx: 2
 context: Every January, the university holds a week-long winter festival, Kuviasungnerk/Kangeiko, which include early morning exercise routines and fitness workshops.
@@ -39222,7 +39222,7 @@ answer: Lauren Oliver
 context_idx: 0
 context: In literature, author of the New York Times bestseller Before I Fall Lauren Oliver, Pulitzer Prize winning novelist Philip Roth, Canadian-born Pulitzer Prize and Nobel Prize for Literature winning writer Saul Bellow, political philosopher, literary critic and author of the New York Times bestseller "The Closing of the American Mind" Allan Bloom, ''The Good War" author Studs Terkel, American writer, essayist, filmmaker, teacher, and political activist Susan Sontag, analytic philosopher and Stanford University Professor of Comparative Literature Richard Rorty, and American writer and satirist Kurt Vonnegut are notable alumni.
 
-question: What is the name of the Pulitzer Prize novelist who was also a university alumni? 
+question: What is the name of the Pulitzer Prize novelist who was also a university alumni?
 answer: Philip Roth
 context_idx: 0
 context: In literature, author of the New York Times bestseller Before I Fall Lauren Oliver, Pulitzer Prize winning novelist Philip Roth, Canadian-born Pulitzer Prize and Nobel Prize for Literature winning writer Saul Bellow, political philosopher, literary critic and author of the New York Times bestseller "The Closing of the American Mind" Allan Bloom, ''The Good War" author Studs Terkel, American writer, essayist, filmmaker, teacher, and political activist Susan Sontag, analytic philosopher and Stanford University Professor of Comparative Literature Richard Rorty, and American writer and satirist Kurt Vonnegut are notable alumni.
@@ -39290,7 +39290,7 @@ answer: Ed Asner
 context_idx: 0
 context: In the arts and entertainment, minimalist composer Philip Glass, dancer, choreographer and leader in the field of dance anthropology Katherine Dunham, Bungie founder and developer of the Halo video game series Alex Seropian, Serial host Sarah Koenig, actor Ed Asner, Pulitzer Prize for Criticism winning film critic and the subject of the 2014 documentary film Life Itself Roger Ebert, director, writer, and comedian Mike Nichols, film director and screenwriter Philip Kaufman, and Carl Van Vechten, photographer and writer, are graduates.
 
-question: What comedian is also a university graduate? 
+question: What comedian is also a university graduate?
 answer: Mike Nichols
 context_idx: 0
 context: In the arts and entertainment, minimalist composer Philip Glass, dancer, choreographer and leader in the field of dance anthropology Katherine Dunham, Bungie founder and developer of the Halo video game series Alex Seropian, Serial host Sarah Koenig, actor Ed Asner, Pulitzer Prize for Criticism winning film critic and the subject of the 2014 documentary film Life Itself Roger Ebert, director, writer, and comedian Mike Nichols, film director and screenwriter Philip Kaufman, and Carl Van Vechten, photographer and writer, are graduates.
@@ -43108,7 +43108,7 @@ answer: immunosuppressive
 context_idx: 3
 context: By contrast, male sex hormones such as testosterone seem to be immunosuppressive.
 
-question: What keeps the sensitivity of the immune system at the same levels? 
+question: What keeps the sensitivity of the immune system at the same levels?
 answer: None
 context_idx: -1
 context: None
@@ -43156,12 +43156,12 @@ answer: None
 context_idx: -1
 context: None
 
-question: When is antibody production higher than normal? 
+question: When is antibody production higher than normal?
 answer: None
 context_idx: -1
 context: None
 
-question: What protein does not effect T-cell differentiation? 
+question: What protein does not effect T-cell differentiation?
 answer: None
 context_idx: -1
 context: None
@@ -43459,7 +43459,7 @@ answer: None
 context_idx: -1
 context: None
 
-question: What artificial method of spreading immunity causes disease? 
+question: What artificial method of spreading immunity causes disease?
 answer: None
 context_idx: -1
 context: None
@@ -43651,7 +43651,7 @@ answer: None
 context_idx: -1
 context: None
 
-question: What molecules that promote inflammation peak during waking hours? 
+question: What molecules that promote inflammation peak during waking hours?
 answer: None
 context_idx: -1
 context: None
@@ -44045,7 +44045,7 @@ answer: None
 context_idx: -1
 context: None
 
-question: What is it called when a pathogen spends most of its lifecycle outside of host cells? 
+question: What is it called when a pathogen spends most of its lifecycle outside of host cells?
 answer: None
 context_idx: -1
 context: None
@@ -45252,7 +45252,7 @@ answer: actual sea level rise was above the top of the range|the actual sea leve
 context_idx: 2
 context: Over the six years studied, the actual temperature rise was near the top end of the range given by IPCC's 2001 projection, and the actual sea level rise was above the top of the range of the IPCC projection.
 
-question: What did the 2007 IPCC report suggest had been decreasing? 
+question: What did the 2007 IPCC report suggest had been decreasing?
 answer: None
 context_idx: -1
 context: None
@@ -45353,7 +45353,7 @@ answer: None
 context_idx: -1
 context: None
 
-question: What reports did Michael Oppenheimer suggest needed to contain a broad exploration of certainties? 
+question: What reports did Michael Oppenheimer suggest needed to contain a broad exploration of certainties?
 answer: None
 context_idx: -1
 context: None
@@ -45439,7 +45439,7 @@ answer: None
 context_idx: -1
 context: None
 
-question: What metaphors explained global warming? 
+question: What metaphors explained global warming?
 answer: None
 context_idx: -1
 context: None
@@ -45611,12 +45611,12 @@ answer: trial division
 context_idx: 1
 context: A simple but slow method of verifying the primality of a given number n is known as trial division.
 
-question: What is the name of one algorithm useful for conveniently testing the primality of large numbers? 
+question: What is the name of one algorithm useful for conveniently testing the primality of large numbers?
 answer: the Miller–Rabin primality test|Miller–Rabin primality test
 context_idx: 4
 context: These include the Miller–Rabin primality test, which is fast but has a small probability of error, and the AKS primality test, which always produces the correct answer in polynomial time but is too slow to be practical.
 
-question: What is the name of another algorithm useful for conveniently testing the primality of large numbers? 
+question: What is the name of another algorithm useful for conveniently testing the primality of large numbers?
 answer: AKS primality test|the AKS primality test
 context_idx: 4
 context: These include the Miller–Rabin primality test, which is fast but has a small probability of error, and the AKS primality test, which always produces the correct answer in polynomial time but is too slow to be practical.
@@ -46078,7 +46078,7 @@ context: None
 ==========FIN==========
 
 context_id = 873
-question: How many modern types of primality tests for general numbers n are there? 
+question: How many modern types of primality tests for general numbers n are there?
 answer: two main classes|two
 context_idx: 0
 context: Modern primality tests for general numbers n can be divided into two main classes, probabilistic (or "Monte Carlo") and deterministic algorithms.
@@ -46724,7 +46724,7 @@ answer: as grubs underground|underground
 context_idx: 1
 context: These insects spend most of their lives as grubs underground.
 
-question: Other than 7 and 13, what other year interval do cicadas pupate? 
+question: Other than 7 and 13, what other year interval do cicadas pupate?
 answer: 17 years|17
 context_idx: 2
 context: They only pupate and then emerge from their burrows after 7, 13 or 17 years, at which point they fly about, breed, and then die after a few weeks at most.
@@ -46883,12 +46883,12 @@ answer: Gaussian integers|the Gaussian integers Z[i]|Gaussian integers Z[i]|Gaus
 context_idx: 1
 context: An example of such a domain is the Gaussian integers Z[i], that is, the set of complex numbers of the form a + bi where i denotes the imaginary unit and a and b are arbitrary integers.
 
-question: What form do complex Gaussian integers have? 
+question: What form do complex Gaussian integers have?
 answer: a + bi
 context_idx: 1
 context: An example of such a domain is the Gaussian integers Z[i], that is, the set of complex numbers of the form a + bi where i denotes the imaginary unit and a and b are arbitrary integers.
 
-question: What do a and b represent in a Gaussian integer expression? 
+question: What do a and b represent in a Gaussian integer expression?
 answer: arbitrary integers
 context_idx: 1
 context: An example of such a domain is the Gaussian integers Z[i], that is, the set of complex numbers of the form a + bi where i denotes the imaginary unit and a and b are arbitrary integers.
@@ -47133,7 +47133,7 @@ answer: North Sea|the North Sea in the Netherlands
 context_idx: 0
 context: The Rhine (Romansh: Rein, German: Rhein, French: le Rhin, Dutch: Rijn) is a European river that begins in the Swiss canton of Graubünden in the southeastern Swiss Alps, forms part of the Swiss-Austrian, Swiss-Liechtenstein border, Swiss-German and then the Franco-German border, then flows through the Rhineland and eventually empties into the North Sea in the Netherlands.
 
-question: What is the largest city the Rhine runs through? 
+question: What is the largest city the Rhine runs through?
 answer: Cologne|Cologne, Germany
 context_idx: 1
 context: The biggest city on the river Rhine is Cologne, Germany with a population of more than 1,050,000 people.
@@ -47148,7 +47148,7 @@ answer: 1,230 km (760 mi)|1,230 km
 context_idx: 2
 context: It is the second-longest river in Central and Western Europe (after the Danube), at about 1,230 km (760 mi),[note 2][note 1] with an average discharge of about 2,900 m3/s (100,000 cu ft/s).
 
-question: Where is the Rhine? 
+question: Where is the Rhine?
 answer: Europe|Central and Western Europe|Germany
 context_idx: 1
 context: The biggest city on the river Rhine is Cologne, Germany with a population of more than 1,050,000 people.
@@ -47158,7 +47158,7 @@ answer: Netherlands|Germany
 context_idx: 0
 context: The Rhine (Romansh: Rein, German: Rhein, French: le Rhin, Dutch: Rijn) is a European river that begins in the Swiss canton of Graubünden in the southeastern Swiss Alps, forms part of the Swiss-Austrian, Swiss-Liechtenstein border, Swiss-German and then the Franco-German border, then flows through the Rhineland and eventually empties into the North Sea in the Netherlands.
 
-question: How long is the Rhine? 
+question: How long is the Rhine?
 answer: 1,230 km (760 mi)|1,230 km
 context_idx: 2
 context: It is the second-longest river in Central and Western Europe (after the Danube), at about 1,230 km (760 mi),[note 2][note 1] with an average discharge of about 2,900 m3/s (100,000 cu ft/s).
@@ -47191,12 +47191,12 @@ context: None
 ==========FIN==========
 
 context_id = 894
-question: Where does the name Rhine derive from? 
+question: Where does the name Rhine derive from?
 answer: Rēnos|the Gaulish name Rēnos|Gaulish name Rēnos
 context_idx: 0
 context: The variant forms of the name of the Rhine in modern languages are all derived from the Gaulish name Rēnos, which was adapted in Roman-era geography (1st century BC) as Greek Ῥῆνος (Rhēnos), Latin Rhenus.
 
-question: What is the French name for the Rhine? 
+question: What is the French name for the Rhine?
 answer: Rhin
 context_idx: 1
 context: The spelling with Rh- in English Rhine as well as in German Rhein and French Rhin is due to the influence of Greek orthography, while the vocalisation -i- is due to the Proto-Germanic adoption of the Gaulish name as *Rīnaz, via Old Frankish giving Old English Rín, Old High German Rīn, Dutch Rijn (formerly also spelled Rhijn).
@@ -47211,7 +47211,7 @@ answer: Roman-era|1st|1st century BC
 context_idx: 0
 context: The variant forms of the name of the Rhine in modern languages are all derived from the Gaulish name Rēnos, which was adapted in Roman-era geography (1st century BC) as Greek Ῥῆνος (Rhēnos), Latin Rhenus.
 
-question: What does the name The Rhine come from? 
+question: What does the name The Rhine come from?
 answer: Rhenus|1st century BC|the Gaulish name Rēnos|Rēnos|Gaulish name Rēnos
 context_idx: 0
 context: The variant forms of the name of the Rhine in modern languages are all derived from the Gaulish name Rēnos, which was adapted in Roman-era geography (1st century BC) as Greek Ῥῆνος (Rhēnos), Latin Rhenus.
@@ -47231,7 +47231,7 @@ answer: Rijn
 context_idx: 1
 context: The spelling with Rh- in English Rhine as well as in German Rhein and French Rhin is due to the influence of Greek orthography, while the vocalisation -i- is due to the Proto-Germanic adoption of the Gaulish name as *Rīnaz, via Old Frankish giving Old English Rín, Old High German Rīn, Dutch Rijn (formerly also spelled Rhijn).
 
-question: How was the Dutch name for the Rhine originally spelled? 
+question: How was the Dutch name for the Rhine originally spelled?
 answer: Rhijn
 context_idx: 2
 context: The spelling with Rh- in English Rhine as well as in German Rhein and French Rhin is due to the influence of Greek orthography, while the vocalisation -i- is due to the Proto-Germanic adoption of the Gaulish name as *Rīnaz, via Old Frankish giving Old English Rín, Old High German Rīn, Dutch Rijn (formerly also spelled Rhijn).
@@ -47259,12 +47259,12 @@ context: None
 ==========FIN==========
 
 context_id = 895
-question: What is the conventional method to measure the Rhine? 
+question: What is the conventional method to measure the Rhine?
 answer: Rhine-kilometers|"Rhine-kilometers"
 context_idx: 0
 context: The length of the Rhine is conventionally measured in "Rhine-kilometers" (Rheinkilometer), a scale introduced in 1939 which runs from the Old Rhine Bridge at Constance (0 km) to Hoek van Holland (1036.20 km).
 
-question: When was the scale to measure the Rhine introduced? 
+question: When was the scale to measure the Rhine introduced?
 answer: 1939
 context_idx: 0
 context: The length of the Rhine is conventionally measured in "Rhine-kilometers" (Rheinkilometer), a scale introduced in 1939 which runs from the Old Rhine Bridge at Constance (0 km) to Hoek van Holland (1036.20 km).
@@ -47279,22 +47279,22 @@ answer: (1036.20 km)|Hoek van Holland
 context_idx: 0
 context: The length of the Rhine is conventionally measured in "Rhine-kilometers" (Rheinkilometer), a scale introduced in 1939 which runs from the Old Rhine Bridge at Constance (0 km) to Hoek van Holland (1036.20 km).
 
-question: What has shortened the Rhine river? 
+question: What has shortened the Rhine river?
 answer: canalisation projects|the river's natural course due to number of canalisation projects completed in the 19th and 20th century
 context_idx: 1
 context: The river length is significantly shortened from the river's natural course due to number of canalisation projects completed in the 19th and 20th century.
 
-question: What is the conventional measurement of the Rhine? 
+question: What is the conventional measurement of the Rhine?
 answer: Rhine-kilometers|Rhine-kilometers"|kilometres
 context_idx: 0
 context: The length of the Rhine is conventionally measured in "Rhine-kilometers" (Rheinkilometer), a scale introduced in 1939 which runs from the Old Rhine Bridge at Constance (0 km) to Hoek van Holland (1036.20 km).
 
-question: When was the measurement of the Rhine introduced? 
+question: When was the measurement of the Rhine introduced?
 answer: 1939
 context_idx: 0
 context: The length of the Rhine is conventionally measured in "Rhine-kilometers" (Rheinkilometer), a scale introduced in 1939 which runs from the Old Rhine Bridge at Constance (0 km) to Hoek van Holland (1036.20 km).
 
-question: Where does the Rhine begin? 
+question: Where does the Rhine begin?
 answer: the Old Rhine Bridge at Constance|Old Rhine Bridge at Constance|Old Rhine Bridge
 context_idx: 0
 context: The length of the Rhine is conventionally measured in "Rhine-kilometers" (Rheinkilometer), a scale introduced in 1939 which runs from the Old Rhine Bridge at Constance (0 km) to Hoek van Holland (1036.20 km).
@@ -47337,7 +47337,7 @@ context: None
 ==========FIN==========
 
 context_id = 896
-question: Near Chur, which direction does the Rhine turn? 
+question: Near Chur, which direction does the Rhine turn?
 answer: north
 context_idx: 1
 context: The river makes a distinctive turn to the north near Chur.
@@ -47357,22 +47357,22 @@ answer: Sargans|Near Sargans
 context_idx: 4
 context: Near Sargans a natural dam, only a few metres high, prevents it from flowing into the open Seeztal valley and then through Lake Walen and Lake Zurich into the river Aare.
 
-question: What is the other country the Rhine separates Switzerland to? 
+question: What is the other country the Rhine separates Switzerland to?
 answer: Liechtenstein|Austria|Austria to the East.
 context_idx: 5
 context: The Alpine Rhine begins in the most western part of the Swiss canton of Graubünden, and later forms the border between Switzerland to the West and Liechtenstein and later Austria to the East.
 
-question: Where does the Rhine make a distinctive turn to the north? 
+question: Where does the Rhine make a distinctive turn to the north?
 answer: Chur
 context_idx: 1
 context: The river makes a distinctive turn to the north near Chur.
 
-question: How long is the section that turns north? 
+question: How long is the section that turns north?
 answer: 86 km|86 km long
 context_idx: 2
 context: This section is nearly 86 km long, and descends from a height of 599 m to 396 m.
 
-question: What is the height of the section that turns north? 
+question: What is the height of the section that turns north?
 answer: 599 m to 396 m|599 m
 context_idx: 2
 context: This section is nearly 86 km long, and descends from a height of 599 m to 396 m.
@@ -47382,7 +47382,7 @@ answer: Rhine Valley
 context_idx: 3
 context: It flows through a wide glacial alpine valley known as the Rhine Valley (German: Rheintal).
 
-question: The Rhine forms the border between Austria and what other country? 
+question: The Rhine forms the border between Austria and what other country?
 answer: Liechtenstein|Switzerland
 context_idx: 5
 context: The Alpine Rhine begins in the most western part of the Swiss canton of Graubünden, and later forms the border between Switzerland to the West and Liechtenstein and later Austria to the East.
@@ -47528,7 +47528,7 @@ answer: Diepoldsau|near Diepoldsau
 context_idx: 0
 context: A regulation of the Rhine was called for, with an upper canal near Diepoldsau and a lower canal at Fußach, in order to counteract the constant flooding and strong sedimentation in the western Rhine Delta.
 
-question: Why was the Rhine regulated? 
+question: Why was the Rhine regulated?
 answer: to counteract the constant flooding and strong sedimentation in the western Rhine Delta|constant flooding|constant flooding and strong sedimentation|to counteract the constant flooding and strong sedimentation
 context_idx: 0
 context: A regulation of the Rhine was called for, with an upper canal near Diepoldsau and a lower canal at Fußach, in order to counteract the constant flooding and strong sedimentation in the western Rhine Delta.
@@ -47571,12 +47571,12 @@ context: None
 ==========FIN==========
 
 context_id = 899
-question: How many bodies of water makes up Lake Constance? 
+question: How many bodies of water makes up Lake Constance?
 answer: three bodies of water:|three
 context_idx: 0
 context: Lake Constance consists of three bodies of water: the Obersee ("upper lake"), the Untersee ("lower lake"), and a connecting stretch of the Rhine, called the Seerhein ("Lake Rhine").
 
-question: What lake connects the Rhine to Lake Constance? 
+question: What lake connects the Rhine to Lake Constance?
 answer: Seerhein|Lake Rhine|Untersee
 context_idx: 0
 context: Lake Constance consists of three bodies of water: the Obersee ("upper lake"), the Untersee ("lower lake"), and a connecting stretch of the Rhine, called the Seerhein ("Lake Rhine").
@@ -47757,7 +47757,7 @@ answer: westward
 context_idx: 0
 context: The Rhine emerges from Lake Constance, flows generally westward, as the Hochrhein, passes the Rhine Falls, and is joined by its major tributary, the river Aare.
 
-question: What is the major tributary for the Rhine? 
+question: What is the major tributary for the Rhine?
 answer: river Aare|Aare
 context_idx: 0
 context: The Rhine emerges from Lake Constance, flows generally westward, as the Hochrhein, passes the Rhine Falls, and is joined by its major tributary, the river Aare.
@@ -47810,12 +47810,12 @@ answer: Basel,|Basel
 context_idx: 0
 context: In the centre of Basel, the first major city in the course of the stream, is located the "Rhine knee"; this is a major bend, where the overall direction of the Rhine changes from West to North.
 
-question: What is the bend of Rhine in Basel called? 
+question: What is the bend of Rhine in Basel called?
 answer: Rhine knee
 context_idx: 0
 context: In the centre of Basel, the first major city in the course of the stream, is located the "Rhine knee"; this is a major bend, where the overall direction of the Rhine changes from West to North.
 
-question: What is the boundary between the High and Upper Rhine? 
+question: What is the boundary between the High and Upper Rhine?
 answer: Central Bridge
 context_idx: 2
 context: Legally, the Central Bridge is the boundary between High and Upper Rhine.
@@ -47825,7 +47825,7 @@ answer: 300 km long
 context_idx: 3
 context: The river now flows North as Upper Rhine through the Upper Rhine Plain, which is about 300 km long and up to 40 km wide.
 
-question: How wide is the Upper Rhine Plain? 
+question: How wide is the Upper Rhine Plain?
 answer: 40 km|40 km wide
 context_idx: 3
 context: The river now flows North as Upper Rhine through the Upper Rhine Plain, which is about 300 km long and up to 40 km wide.
@@ -47883,7 +47883,7 @@ context: None
 ==========FIN==========
 
 context_id = 903
-question: Which century was there a program to straighten the Rhine? 
+question: Which century was there a program to straighten the Rhine?
 answer: 19th Century|19th
 context_idx: 0
 context: The Upper Rhine region was changed significantly by a Rhine straightening program in the 19th Century.
@@ -47903,7 +47903,7 @@ answer: Grand Canal d'Alsace
 context_idx: 3
 context: On the French side, the Grand Canal d'Alsace was dug, which carries a significant part of the river water, and all of the traffic.
 
-question: What is the Bassin de compensation de Plobsheim in Alsace? 
+question: What is the Bassin de compensation de Plobsheim in Alsace?
 answer: large compensation pools|compensation pools
 context_idx: 4
 context: In some places, there are large compensation pools, for example the huge Bassin de compensation de Plobsheim in Alsace.
@@ -47966,7 +47966,7 @@ answer: Rhine|The Rhine
 context_idx: 0
 context: The Rhine is the longest river in Germany.
 
-question: Where does the Rhine encounter it's tributary the Neckar? 
+question: Where does the Rhine encounter it's tributary the Neckar?
 answer: Germany
 context_idx: 0
 context: The Rhine is the longest river in Germany.
@@ -47996,7 +47996,7 @@ answer: Germany
 context_idx: 0
 context: The Rhine is the longest river in Germany.
 
-question: Which of the tributaries in Germany contributes most? 
+question: Which of the tributaries in Germany contributes most?
 answer: Moselle|Neckar
 context_idx: 1
 context: It is here that the Rhine encounters some more of its main tributaries, such as the Neckar, the Main and, later, the Moselle, which contributes an average discharge of more than 300 m3/s (11,000 cu ft/s).
@@ -48107,7 +48107,7 @@ context: None
 ==========FIN==========
 
 context_id = 906
-question: What contributed to water pollution in the Rhine? 
+question: What contributed to water pollution in the Rhine?
 answer: plants and factories|industry
 context_idx: 0
 context: Until the early 1980s, industry was a major source of water pollution.
@@ -48122,7 +48122,7 @@ answer: Duisburg
 context_idx: 2
 context: Duisburg is the home of Europe's largest inland port and functions as a hub to the sea ports of Rotterdam, Antwerp and Amsterdam.
 
-question: What rive joins the Rhine in Duisburg? 
+question: What rive joins the Rhine in Duisburg?
 answer: Ruhr|The Ruhr
 context_idx: 3
 context: The Ruhr, which joins the Rhine in Duisburg, is nowadays a clean river, thanks to a combination of stricter environmental controls, a transition from heavy industry to light industry and cleanup measures, such as the reforestation of Slag and brownfields.
@@ -48200,7 +48200,7 @@ answer: Lorelei
 context_idx: 2
 context: Near Sankt Goarshausen, the Rhine flows around the famous rock Lorelei.
 
-question: What is considered the epitome of the Rhine romanticism? 
+question: What is considered the epitome of the Rhine romanticism?
 answer: Middle Rhine Valley
 context_idx: 3
 context: With its outstanding architectural monuments, the slopes full of vines, settlements crowded on the narrow river banks and scores of castles lined up along the top of the steep slopes, the Middle Rhine Valley can be considered the epitome of the Rhine romanticism.
@@ -48263,7 +48263,7 @@ answer: Duisburg
 context_idx: 3
 context: One of the most important cities in this region is Duisburg with the largest river port in Europe (Duisport).
 
-question: What is the Canal in Wesel? 
+question: What is the Canal in Wesel?
 answer: Wesel-Datteln Canal
 context_idx: 5
 context: In Wesel, 30 km downstream of Duisburg, is located the western end of the second east-west shipping route, the Wesel-Datteln Canal, which runs parallel to the Lippe.
@@ -48409,7 +48409,7 @@ answer: Lek|the Lek
 context_idx: 2
 context: However, at Wijk bij Duurstede, the Nederrijn changes its name and becomes the Lek.
 
-question: Where does the Lek join? 
+question: Where does the Lek join?
 answer: Noord River|Nieuwe Maas
 context_idx: 3
 context: It flows farther west, to rejoin the Noord River into the Nieuwe Maas and to the North Sea.
@@ -48520,7 +48520,7 @@ context: None
 ==========FIN==========
 
 context_id = 912
-question: What is the name of the Delta in the Netherlands? 
+question: What is the name of the Delta in the Netherlands?
 answer: Rhine-Meuse|Rhine-Meuse Delta
 context_idx: 0
 context: The Rhine-Meuse Delta, the most important natural region of the Netherlands begins near Millingen aan de Rijn, close to the Dutch-German border with the division of the Rhine into Waal and Nederrijn.
@@ -48621,7 +48621,7 @@ answer: 1421
 context_idx: 0
 context: Before the St. Elizabeth's flood (1421), the Meuse flowed just south of today's line Merwede-Oude Maas to the North Sea and formed an archipelago-like estuary with Waal and Lek.
 
-question: Where did the Meuse flow before the flood? 
+question: Where did the Meuse flow before the flood?
 answer: North Sea|Merwede-Oude Maas
 context_idx: 0
 context: Before the St. Elizabeth's flood (1421), the Meuse flowed just south of today's line Merwede-Oude Maas to the North Sea and formed an archipelago-like estuary with Waal and Lek.
@@ -48717,7 +48717,7 @@ answer: tidal currents
 context_idx: 0
 context: The Rhine-Meuse Delta is a tidal delta, shaped not only by the sedimentation of the rivers, but also by tidal currents.
 
-question: What does a high tide risk near lands? 
+question: What does a high tide risk near lands?
 answer: tear huge areas of land into the sea|tidal currents|tear huge areas of land into the sea.
 context_idx: 1
 context: This meant that high tide formed a serious risk because strong tidal currents could tear huge areas of land into the sea.
@@ -48846,7 +48846,7 @@ context: None
 ==========FIN==========
 
 context_id = 919
-question: How did the Rhine extend watershed southward? 
+question: How did the Rhine extend watershed southward?
 answer: stream capture
 context_idx: 0
 context: Through stream capture, the Rhine extended its watershed southward.
@@ -48894,7 +48894,7 @@ answer: geological period of the Ice Ages|geological period|Ice Ages
 context_idx: 0
 context: Around 2.5 million years ago (ending 11,600 years ago) was the geological period of the Ice Ages.
 
-question: How many major ice ages have occurred? 
+question: How many major ice ages have occurred?
 answer: six
 context_idx: 1
 context: Since approximately 600,000 years ago, six major Ice Ages have occurred, in which sea level dropped 120 m (390 ft) and much of the continental margins became exposed.
@@ -49712,7 +49712,7 @@ answer: 1,320 kilometres|1,320 kilometres (820 miles)
 context_idx: 1
 context: In 1932 the German encyclopedia Knaurs Lexikon stated the length as 1,320 kilometres (820 miles), presumably a typographical error.
 
-question: Why was the Rhine measurement changed? 
+question: Why was the Rhine measurement changed?
 answer: a typographical error|typographical error
 context_idx: 1
 context: In 1932 the German encyclopedia Knaurs Lexikon stated the length as 1,320 kilometres (820 miles), presumably a typographical error.
@@ -51364,7 +51364,7 @@ answer: 73
 context_idx: 0
 context: Of the 129 MSPs, 73 are elected to represent first past the post constituencies and are known as "Constituency MSPs".
 
-question: How many members can voters choose to represent the constituency? 
+question: How many members can voters choose to represent the constituency?
 answer: one
 context_idx: 1
 context: Voters choose one member to represent the constituency, and the member with most votes is returned as a constituency MSP.
@@ -51374,7 +51374,7 @@ answer: 2005
 context_idx: 2
 context: The 73 Scottish Parliament constituencies shared the same boundaries as the UK Parliament constituencies in Scotland, prior to the 2005 reduction in the number of Scottish MPs, with the exception of Orkney and Shetland which each return their own constituency MSP.
 
-question: What is the current number of electors currently in a Scottish Parliament constituency? 
+question: What is the current number of electors currently in a Scottish Parliament constituency?
 answer: 55,000
 context_idx: 3
 context: Currently, the average Scottish Parliament constituency comprises 55,000 electors.
@@ -51566,7 +51566,7 @@ answer: five seats
 context_idx: 1
 context: McLetchie was elected on the Lothian regional list and the Conservatives suffered a net loss of five seats, with leader Annabel Goldie claiming that their support had held firm.
 
-question: Who announced she would step down as leader of the Conservatives? 
+question: Who announced she would step down as leader of the Conservatives?
 answer: Annabel Goldie
 context_idx: 1
 context: McLetchie was elected on the Lothian regional list and the Conservatives suffered a net loss of five seats, with leader Annabel Goldie claiming that their support had held firm.
@@ -51624,7 +51624,7 @@ answer: Conservative|the Conservative
 context_idx: 2
 context: Following the Conservative victory in the 2015 UK election, standing orders of the House of Commons were changed to give MPs representing English constituencies a new "veto" over laws only affecting England.
 
-question: MPs representing English constituencies can only veto laws affecting which country? 
+question: MPs representing English constituencies can only veto laws affecting which country?
 answer: England
 context_idx: 2
 context: Following the Conservative victory in the 2015 UK election, standing orders of the House of Commons were changed to give MPs representing English constituencies a new "veto" over laws only affecting England.
@@ -52760,7 +52760,7 @@ answer: in the kingdom|the kingdom
 context_idx: 0
 context: These attacks resonated with conservative Muslims and the problem did not go away with Saddam's defeat either, since American troops remained stationed in the kingdom, and a de facto cooperation with the Palestinian-Israeli peace process developed.
 
-question: What did Saudi Arabia try to repress to compensate for its loss of stature? 
+question: What did Saudi Arabia try to repress to compensate for its loss of stature?
 answer: domestic Islamists
 context_idx: 1
 context: Saudi Arabia attempted to compensate for its loss of prestige among these groups by repressing those domestic Islamists who attacked it (bin Laden being a prime example), and increasing aid to Islamic groups (Islamist madrassas around the world and even aiding some violent Islamist groups) that did not, but its pre-war influence on behalf of moderation was greatly reduced.
@@ -52803,7 +52803,7 @@ context: None
 ==========FIN==========
 
 context_id = 998
-question: Whose ideas became increasingly radical during his imprisonment? 
+question: Whose ideas became increasingly radical during his imprisonment?
 answer: Qutb|Qutb's
 context_idx: 0
 context: While Qutb's ideas became increasingly radical during his imprisonment prior to his execution in 1966, the leadership of the Brotherhood, led by Hasan al-Hudaybi, remained moderate and interested in political negotiation and activism.
@@ -52929,7 +52929,7 @@ answer: 2003|in 2003
 context_idx: 2
 context: Ultimately the campaign to overthrow the government was unsuccessful, and the major jihadi group, Jamaa Islamiya (or al-Gama'a al-Islamiyya), renounced violence in 2003.
 
-question: Who has the Islamic Liberation Party attempted to assassinate? 
+question: Who has the Islamic Liberation Party attempted to assassinate?
 answer: political figures
 context_idx: 3
 context: Other lesser known groups include the Islamic Liberation Party, Salvation from Hell and Takfir wal-Hijra, and these groups have variously been involved in activities such as attempted assassinations of political figures, arson of video shops and attempted takeovers of government buildings.
@@ -53338,7 +53338,7 @@ answer: Islamism
 context_idx: 2
 context: Zia-ul-Haq was much more committed to Islamism, and "Islamization" or implementation of Islamic law, became a cornerstone of his eleven-year military dictatorship and Islamism became his "official state ideology".
 
-question: What was Zia-ul-Haq accused of using Islamization to legitimize? 
+question: What was Zia-ul-Haq accused of using Islamization to legitimize?
 answer: his means of seizing power|his means of seizing|seizing power
 context_idx: 4
 context: In Pakistan this Islamization from above was "probably" more complete "than under any other regime except those in Iran and Sudan," but Zia-ul-Haq was also criticized by many Islamists for imposing "symbols" rather than substance, and using Islamization to legitimize his means of seizing power.
@@ -53641,7 +53641,7 @@ answer: 2001|since 2001
 context_idx: 0
 context: The U.S. government has engaged in efforts to counter Islamism, or violent Islamism, since 2001.
 
-question: What department in the U.S. spearheaded the efforts against Islamism? 
+question: What department in the U.S. spearheaded the efforts against Islamism?
 answer: State Department|State
 context_idx: 1
 context: These efforts were centred in the U.S. around public diplomacy programmes conducted by the State Department.
@@ -53689,7 +53689,7 @@ context: None
 ==========FIN==========
 
 context_id = 1015
-question: The word imperialism has it's origins in which ancient language? 
+question: The word imperialism has it's origins in which ancient language?
 answer: Latin
 context_idx: 1
 context: Its name originated from the Latin word "imperium", which means to rule over large territories.
@@ -54436,7 +54436,7 @@ answer: many imperial powers|imperial powers
 context_idx: 5
 context: Because of the resources made available by imperialism, the world's economy grew significantly and became much more interconnected in the decades before World War I, making the many imperial powers rich and prosperous.
 
-question: Which historian was popular in the 21st century? 
+question: Which historian was popular in the 21st century?
 answer: None
 context_idx: -1
 context: None
@@ -54681,7 +54681,7 @@ answer: orientalism
 context_idx: 4
 context: Similarly, orientalism is a view of a people based on their geographical location
 
-question: Who did the geographic scholars work for? 
+question: Who did the geographic scholars work for?
 answer: colonizing empires
 context_idx: 0
 context: According to geographic scholars under colonizing empires, the world could be split into climatic zones.
@@ -54787,7 +54787,7 @@ answer: Germany started to build her own colonial empire|when Germany started to
 context_idx: 1
 context: Republicans, at first hostile to empire, only became supportive when Germany started to build her own colonial empire.
 
-question: What religion did the French spread along with their imperialism? 
+question: What religion did the French spread along with their imperialism?
 answer: Catholicism
 context_idx: 2
 context: As it developed, the new empire took on roles of trade with France, supplying raw materials and purchasing manufactured items, as well as lending prestige to the motherland and spreading French civilization and language as well as Catholicism.
@@ -55275,7 +55275,7 @@ context: None
 ==========FIN==========
 
 context_id = 1047
-question: How did the United States plan to subdue imperialistic tendencies? 
+question: How did the United States plan to subdue imperialistic tendencies?
 answer: through policies|the Monroe Doctrine|Monroe Doctrine|policies such as the Monroe Doctrine
 context_idx: 0
 context: The early United States expressed its opposition to Imperialism, at least in a form distinct from its own Manifest Destiny, through policies such as the Monroe Doctrine.
@@ -56050,7 +56050,7 @@ answer: 63 days|63
 context_idx: 3
 context: The armed struggle, planned to last 48 hours, was partially successful, however it went on for 63 days.
 
-question: What is the estimated death toll for Polish civilians? 
+question: What is the estimated death toll for Polish civilians?
 answer: between 150,000 and 200,000
 context_idx: 6
 context: Polish civilian deaths are estimated at between 150,000 and 200,000.
@@ -56113,7 +56113,7 @@ answer: None
 context_idx: -1
 context: None
 
-question: what type of housing was erected in the Soviet Union as part of the Bricks for Warsaw process? 
+question: what type of housing was erected in the Soviet Union as part of the Bricks for Warsaw process?
 answer: None
 context_idx: -1
 context: None
@@ -56777,7 +56777,7 @@ answer: 13
 context_idx: 0
 context: There are 13 natural reserves in Warsaw – among others, Bielany Forest, Kabaty Woods, Czerniaków Lake.
 
-question: How far from Warsaw does the Vistula river's environment change noticeably? 
+question: How far from Warsaw does the Vistula river's environment change noticeably?
 answer: About 15 kilometres|15 kilometres
 context_idx: 1
 context: About 15 kilometres (9 miles) from Warsaw, the Vistula river's environment changes strikingly and features a perfectly preserved ecosystem, with a habitat of animals that includes the otter, beaver and hundreds of bird species.
@@ -60313,7 +60313,7 @@ answer: None
 context_idx: -1
 context: None
 
-question: Particle physics has created a Unique Model to describe what? 
+question: Particle physics has created a Unique Model to describe what?
 answer: None
 context_idx: -1
 context: None
@@ -60480,7 +60480,7 @@ answer: laws of physics|the laws of physics
 context_idx: 0
 context: For instance, while traveling in a moving vehicle at a constant velocity, the laws of physics do not change from being at rest.
 
-question: What path does a ball thrown up and down in a moving vehicle take when seen by an outside observer? 
+question: What path does a ball thrown up and down in a moving vehicle take when seen by an outside observer?
 answer: curving parabolic path|parabolic|parabolic path|a curving parabolic path
 context_idx: 2
 context: This is true even though another person who is observing the moving vehicle pass by also observes the ball follow a curving parabolic path in the same direction as the motion of the vehicle.
@@ -60930,7 +60930,7 @@ answer: spring reaction|the force of gravity|spring reaction force
 context_idx: 1
 context: For example, an object suspended on a vertical spring scale experiences the force of gravity acting on the object balanced by a force applied by the "spring reaction force", which equals the object's weight.
 
-question: What equals the spring reaction force on an object suspended on a spring reaction scale? 
+question: What equals the spring reaction force on an object suspended on a spring reaction scale?
 answer: gravity|the object's weight|spring reaction force|object's weight
 context_idx: 1
 context: For example, an object suspended on a vertical spring scale experiences the force of gravity acting on the object balanced by a force applied by the "spring reaction force", which equals the object's weight.
@@ -60960,7 +60960,7 @@ answer: None
 context_idx: -1
 context: None
 
-question: All quantitative force laws were discovered using what? 
+question: All quantitative force laws were discovered using what?
 answer: None
 context_idx: -1
 context: None
@@ -61256,7 +61256,7 @@ answer: Isaac Newton
 context_idx: 1
 context: For example, Isaac Newton unified the force responsible for objects falling at the surface of the Earth with the force responsible for the orbits of celestial mechanics in his universal theory of gravitation.
 
-question: In what century was quantum mechanics made? 
+question: In what century was quantum mechanics made?
 answer: the 20th century|20th
 context_idx: 3
 context: In the 20th century, the development of quantum mechanics led to a modern understanding that the first three fundamental forces (all except gravity) are manifestations of matter (fermions) interacting by exchanging virtual particles called gauge bosons.
