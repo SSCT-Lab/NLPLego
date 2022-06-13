@@ -395,32 +395,9 @@ def calculate_context_num(file_path):
         sent_list.append(index)
     return sent_list
 
-def load_unchange_sent():
-    file_name = "ans_context_simple.txt"
-    path = "./Squad2/"+file_name
-    orig_sents = open(path, mode="r", encoding='utf-8')
-    sent = orig_sents.readline()
-    result = []
-    sent_list = []
-    index = 0
-    while sent:
-        sent = sent[:-1]
-        if "context_id =" in sent:
-            sent_list.append(sent.split(" ")[-1])
-            sent = orig_sents.readline()
-            sent = orig_sents.readline()
-            sent = orig_sents.readline()
-            sent_list.append(sent.split(" ")[-1].strip('\n').strip())
-            sent = orig_sents.readline()
-            sent_list.append(sent[9:-1].strip("\n"))
-            result.append(sent_list)
-            sent_list = []
-        sent = orig_sents.readline()
-    return result
-
 def read_context_first():
     file_name = "context.txt"
-    path = "./new_version/"+file_name
+    path = "./txt_files/"+file_name
     orig_sents = open(path, mode="r", encoding='utf-8')
     sent = orig_sents.readline()
     result = []
@@ -437,7 +414,7 @@ def create_id():
     return m.hexdigest()
 
 def get_sentence_len(file_name):
-    path = "./new_version/" + file_name + ".txt"
+    path = "./txt_files/" + file_name + ".txt"
     orig_sents = open(path, mode="r", encoding='utf-8')
     sent = orig_sents.readline()
     result = []
@@ -473,7 +450,7 @@ def mapping_context_sentence(list, result):
 
 def read_question_index():
     file_name = "ans_context.txt"
-    path = "./new_version/" + file_name
+    path = "./txt_files/" + file_name
     orig_sents = open(path, mode="r", encoding='utf-8')
     sent = orig_sents.readline()
     result = []
@@ -630,7 +607,6 @@ def save_new_context(file_path, new_context_list):
 def generate_final_json(context_sentence_len_list, origin_sent_list, final_result_dic):
     # 获取每个context对应的问题
     question_sent_li_all = read_question_index()
-
     # 读处理后的源文件
     file_name = "dev_start_modify.json"
     path = "./solution/" + file_name
@@ -638,9 +614,9 @@ def generate_final_json(context_sentence_len_list, origin_sent_list, final_resul
     prediction_json = json.load(predict_file)
     prediction_data = prediction_json["data"]
     item_list = []
-
     # 循环处理context
-    for i in range(0, len(context_sentence_len_list)):
+    # for i in range(0, len(context_sentence_len_list)):
+    for i in range(0, 3):
         # w.write("context_id = " + str(i) + "\n")
         context_input = final_result_dic["context"+str(i)]
         if context_sentence_len_list[i] == 1:
@@ -655,6 +631,8 @@ def generate_final_json(context_sentence_len_list, origin_sent_list, final_resul
                     for s in ll_temp_list[4:ll_len]:
                         # 只需要改变ll_temp_list中没被选中的，因为不在ll_temp_list则长度为1，等价于原句
                         context_input[s] = [origin_sent_list[i][s]]
+                    for s in ll_temp_list[0:4]:
+                        context_input[s] = list(context_input[s])[0:4]
 
             # 对context_input中，最多4个句子改变，其他len-4个不变，随机取
             pro_context_list = itertools.product(*context_input)
@@ -697,7 +675,7 @@ def generate_final_json(context_sentence_len_list, origin_sent_list, final_resul
                     item_list.append(copy.deepcopy(item_temp_modify))
                     index += 1
             # print(index)
-
+    print("success")
     prediction_data[0]["paragraphs"] = item_list
     file_name = "dev_modify_200.json"
     path = "./" + file_name
@@ -707,7 +685,8 @@ def generate_final_json(context_sentence_len_list, origin_sent_list, final_resul
 if __name__ == '__main__':
     # 获取所有句子的<=beam_size个变体
     file_name = "context"
-    temp_list, adjunct_list, ner_list, for_list, hyp_words_list, comp_list = gen_sent_temp_main(file_name, 0, 12)
+    label_path = "./comp_res/ncontext_result_greedy.sents"
+    temp_list, adjunct_list, ner_list, for_list, hyp_words_list, comp_list = gen_sent_temp_main(file_name, label_path, 0, 12, "squad")
 
     pos_list = ['NOUN', 'VERB', 'ADJ', 'ADV']
     all_masked_word, all_masked_adjunct = gen_mask_phrase(adjunct_list, pos_list, ner_list, for_list, hyp_words_list)
