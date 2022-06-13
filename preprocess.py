@@ -266,7 +266,7 @@ def del_brackets(sent):
 
 
 def load_formulation(file_path):
-    f = open(file_path, 'r')
+    f = open(file_path, 'r', encoding="utf-8")
     formulations = []
     line = f.readline()
     while line:
