@@ -14,7 +14,7 @@ import random
 import requests
 
 # nlp = spacy.load("en_core_web_sm")
-nlp = spacy.load("en_core_web_sm")
+nlp = spacy.load("en_core_web_lg")
 sbar_pattern = re.compile(r't\d+')
 unmasker = transformers.pipeline('fill-mask', model='bert-base-uncased')
 BERT_SCORE = 0.1
@@ -280,32 +280,9 @@ def calculate_context_num(file_path):
         sent_list.append(index)
     return sent_list
 
-def load_unchange_sent():
-    file_name = "ans_context_simple.txt"
-    path = "./Squad2/"+file_name
-    orig_sents = open(path, mode="r", encoding='utf-8')
-    sent = orig_sents.readline()
-    result = []
-    sent_list = []
-    index = 0
-    while sent:
-        sent = sent[:-1]
-        if "context_id =" in sent:
-            sent_list.append(sent.split(" ")[-1])
-            sent = orig_sents.readline()
-            sent = orig_sents.readline()
-            sent = orig_sents.readline()
-            sent_list.append(sent.split(" ")[-1].strip('\n').strip())
-            sent = orig_sents.readline()
-            sent_list.append(sent[9:-1].strip("\n"))
-            result.append(sent_list)
-            sent_list = []
-        sent = orig_sents.readline()
-    return result
-
 def read_context_first():
     file_name = "context1.txt"
-    path = "./Squad2/"+file_name
+    path = "./txt_files/"+file_name
     orig_sents = open(path, mode="r", encoding='utf-8')
     sent = orig_sents.readline()
     result = []
@@ -322,7 +299,7 @@ def create_id():
     return m.hexdigest()
 
 def get_sentence_len(file_name):
-    path = "./Squad2/" + file_name + ".txt"
+    path = "./txt_files/" + file_name + ".txt"
     orig_sents = open(path, mode="r", encoding='utf-8')
     sent = orig_sents.readline()
     result = []
@@ -358,7 +335,7 @@ def mapping_context_sentence(list, result):
 
 def read_question_index():
     file_name = "ans_context.txt"
-    path = "./Squad2/" + file_name
+    path = "./txt_files/" + file_name
     orig_sents = open(path, mode="r", encoding='utf-8')
     sent = orig_sents.readline()
     result = []
@@ -514,7 +491,7 @@ def save_new_context(file_path, new_context_list):
 if __name__ == '__main__':
     # 获取所有句子的<=beam_size个变体
     file_name = "context1"
-    temp_list, adjunct_list, comp_list, ner_list = gen_sent_temp_main(file_name, 0, 95)
+    temp_list, adjunct_list, comp_list, ner_list = gen_sent_temp_main(file_name, 0, 875)
     pos_list = ['NOUN', 'VERB', 'ADJ', 'ADV']
     all_masked_word, all_masked_adjunct = gen_mask_phrase(adjunct_list, pos_list, ner_list)
     file_path = "./" + file_name + "_bert_test.txt"
@@ -532,8 +509,8 @@ if __name__ == '__main__':
     question_sent_li_all = read_question_index()
 
     # 读处理后的源文件
-    file_name = "dev_start.json"
-    path = "./Squad2/" + file_name
+    file_name = "dev_start_modify.json"
+    path = "./solution/" + file_name
     predict_file = open(path, mode="r", encoding='utf-8')
     prediction_json = json.load(predict_file)
     prediction_data = prediction_json["data"]
@@ -543,7 +520,7 @@ if __name__ == '__main__':
     # for i in range(len(context_sentence_len_list[0:50])):
     for i in range(len(origin_sent_list)):
         print(origin_sent_list[i])
-    for i in range(19):
+    for i in range(0, len(context_sentence_len_list)):
         # w.write("context_id = " + str(i) + "\n")
         context_input = final_result_dic["context"+str(i)]
         if context_sentence_len_list[i] == 1:
@@ -602,7 +579,7 @@ if __name__ == '__main__':
                     index += 1
     # exit(0)
     prediction_data[0]["paragraphs"] = item_list
-    file_name = "dev_modify_syn.json"
+    file_name = "dev_modify_syn_200.json"
     path = "./" + file_name
     with open(path, 'w', encoding='utf-8') as f1:
         f1.write(json.dumps(prediction_json, indent=4, ensure_ascii=False))
