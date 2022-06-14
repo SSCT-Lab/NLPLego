@@ -813,10 +813,10 @@ if __name__ == '__main__':
     #file_name = "sst"
     file_name = "context"
     dataset = "squad"
-    #label_path = "./w_nsst_result_greedy.sents"
+    #label_path = "./comp_res/w_nsst_result_greedy.sents"
     label_path = "./comp_res/ncontext_result_greedy.sents"
-    start_idx = 6212
-    end_idx = 6213
+    start_idx = 5182
+    end_idx = 6318
     gen_sent_temp_main(file_name, label_path, start_idx, end_idx, dataset)
     # temp_list, adjunct_list, comp_list, ner_list = gen_sent_temp_main(file_name, start_idx, end_idx)
     # sent_path = "./comp_input/" + file_name + ".cln.sent"
