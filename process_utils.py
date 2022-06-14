@@ -46,6 +46,8 @@ def check_continuity(key_words, words, search_start):
             s_idx = words.index(key_words[0], s_idx + 1)
         else:
             return -1
+        if s_idx + len(key_words) > len(words):
+            return -1
         for i in range(s_idx, s_idx + len(key_words)):
             if words[i] == key_words[i - s_idx]:
                 flag = True
