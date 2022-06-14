@@ -345,6 +345,8 @@ def get_child_tree(tree, sent, hyp_words):
             if not isinstance(tree[tree_list[i]], str):
                 key_words = tree[tree_list[i]].leaves()
                 key_sent, key_words, orig_s_idx = format_tree_sent(key_words, hyp_words, sent, sent_words, -1)
-                child_tree_dict.append((str(key) + " " + str(i) + " " + position_labels[key][i], key_sent))
+                if orig_s_idx != -1:
+                    child_tree_dict.append((str(key) + " " + str(i) + " " + position_labels[key][i], key_sent))
 
     return child_tree_dict
+
