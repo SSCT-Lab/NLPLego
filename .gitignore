@@ -126,7 +126,6 @@ dmypy.json
 .pyre/
 
 #extension
-server_test/
 solution/
 .gitignore
 .idea/.gitignore
