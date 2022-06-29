@@ -942,7 +942,7 @@ def process_final_result(comp_label, res_label, cut_words, rep_cut_words, sbar_l
             res_label = check_conj_intergrity(conj_res, temp_res_label, res_label, rep_cut_words, pp_flag)
             create_flag = True
 
-    if (res_label.count(1) < 2) & (dataset == "sst"):
+    if (res_label.count(1) < 2) & (dataset in ["sst", "qqp"]):
         res_label = create_seed_sent(comp_label, res_label, cut_words, sbar_list, np_sbar_list, rep_cut_words, res_pp, vp_list)
         res_label = del_adv_adj(adj_adv_list, res_pp, vp_list, rep_cut_words, res_label, comp_label)
         res_label = check_conj_intergrity(conj_res, temp_res_label, res_label, rep_cut_words, pp_flag)
@@ -987,7 +987,7 @@ def process_final_result(comp_label, res_label, cut_words, rep_cut_words, sbar_l
         res_label = check_cc_sent_intergrity(res_label, cc_sent_list, rep_cut_words, sbar_list, np_sbar_list, res_pp,
                                              vp_list, sym_list)
 
-    if (dataset == "sst") & (not create_flag):
+    if (dataset in ["sst", "qqp"]) & (not create_flag):
         if len(adj_adv_list) > 0:
             res_label = del_adv_adj(adj_adv_list, res_pp, vp_list, rep_cut_words, res_label, comp_label)
         res_label = del_sbar_pp_vp(res_label, sbar_list, np_sbar_list, rep_cut_words, res_pp, vp_list)
@@ -1022,7 +1022,7 @@ def process_final_result(comp_label, res_label, cut_words, rep_cut_words, sbar_l
                                 for j in range(s_idx, s_idx + len(pp_words)):
                                     res_label[j] = 0
 
-                if (len(adj_adv_list) > 0) & (dataset == "sst"):
+                if (len(adj_adv_list) > 0) & (dataset in ["sst", "qqp"]):
                     last_s_idx = -1
                     for j in range(len(adj_adv_list)):
                         if (adj_adv_list[j][0] == 'ADJ') | (
@@ -1081,25 +1081,26 @@ def process_final_result(comp_label, res_label, cut_words, rep_cut_words, sbar_l
                 for i in range(s_idx, e_idx):
                     res_label[i] = 0
 
-    first_idx = res_label.index(1)
-
-    if (cut_words[first_idx] in ["that", ",", ":", ";", "–", "—", "and"]) & (cut_words[first_idx + 1] != "is"):
-        res_label[first_idx] = 0
+    if 1 in res_label:
         first_idx = res_label.index(1)
 
-    last_idx = first_idx
-    for j in range(first_idx + 1, len(res_label) - 1):
-        if (rep_cut_words[j] in [":", ";", ","]) & (res_label[j] == 0):
-            next_idx = j + 1
-            while rep_cut_words[next_idx] not in [":", ";", ","]:
-                next_idx += 1
-                if next_idx > len(res_label) - 2:
-                    next_idx -= 1
-                    break
-            if (res_label[j + 1:next_idx].count(1) != 0) & (rep_cut_words[last_idx] not in [":", ";", ","]):
-                res_label[j] = 1
-        if res_label[j] == 1:
-            last_idx = j
+        if (cut_words[first_idx] in ["that", ",", ":", ";", "–", "—", "and"]) & (cut_words[first_idx + 1] != "is"):
+            res_label[first_idx] = 0
+            first_idx = res_label.index(1)
+
+        last_idx = first_idx
+        for j in range(first_idx + 1, len(res_label) - 1):
+            if (rep_cut_words[j] in [":", ";", ","]) & (res_label[j] == 0):
+                next_idx = j + 1
+                while rep_cut_words[next_idx] not in [":", ";", ","]:
+                    next_idx += 1
+                    if next_idx > len(res_label) - 2:
+                        next_idx -= 1
+                        break
+                if (res_label[j + 1:next_idx].count(1) != 0) & (rep_cut_words[last_idx] not in [":", ";", ","]):
+                    res_label[j] = 1
+            if res_label[j] == 1:
+                last_idx = j
 
     comp_res = get_res_by_label(cut_words, res_label)
     res_label = format_res_label(res_label, cut_words)
@@ -1110,7 +1111,7 @@ def process_final_result(comp_label, res_label, cut_words, rep_cut_words, sbar_l
         res_label = check_conj_intergrity(conj_res, temp_res_label, res_label, rep_cut_words, pp_flag)
         res_label = format_res_label(res_label, cut_words)
 
-    if (res_label.count(1) < 2) & (dataset == "sst") & (not create_flag):
+    if (res_label.count(1) < 2) & (dataset in ["sst", "qqp"]) & (not create_flag):
         res_label = create_seed_sent(comp_label, res_label, cut_words, sbar_list, np_sbar_list, rep_cut_words, res_pp, vp_list)
         res_label = del_adv_adj(adj_adv_list, res_pp, vp_list, rep_cut_words, res_label, comp_label)
         res_label = check_conj_intergrity(conj_res, temp_res_label, res_label, rep_cut_words, pp_flag)
