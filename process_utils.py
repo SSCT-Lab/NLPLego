@@ -63,11 +63,14 @@ def load_label(label_path):
     labels = open(label_path, mode="r")
     label = labels.readline()
     label_list = []
+    i = 1
     while label:
+        print(i)
         label = label.split(" ")[1:-1]
         label = [int(x) for x in label]
         label_list.append(label)
         label = labels.readline()
+        i += 1
     return label_list
 
 
@@ -331,6 +334,12 @@ def process_hyp_words(sent, hyp_words, orig_sent, search_s_idx):
     if (" m " in sent) & (" m " not in orig_sent):
         sent = sent.replace(" m ", "m ")
 
+    if (" M " in sent) & (" M " not in orig_sent):
+        sent = sent.replace(" M ", "M ")
+
+    if (" G " in sent) & (" G " not in orig_sent):
+        sent = sent.replace(" G ", "G ")
+
     if (" & " in sent) & (" & " not in orig_sent):
         sent = sent.replace(" & ", "&")
 
@@ -351,10 +360,24 @@ def process_hyp_words(sent, hyp_words, orig_sent, search_s_idx):
 
     if ("pm" in sent.split(" ")) & ("pm" not in orig_sent.split(" ")):
         sent = sent.replace(" pm ", "pm ")
+
+    if ("am" in sent.split(" ")) & ("am" not in orig_sent.split(" ")):
         sent = sent.replace(" am ", "am ")
 
     if (" pm " in sent) & (" pm " not in orig_sent):
         sent = sent.replace(" pm ", "pm ")
+
+    if ("What s " in sent) & ("What s " not in orig_sent):
+        sent = sent.replace("What s ", "Whats ")
+
+    if (" mph" in sent) & (" mph" not in orig_sent):
+        sent = sent.replace(" mph", "mph")
+
+    if (" mg" in sent) & (" mg" not in orig_sent):
+        sent = sent.replace(" mg", "mg")
+
+    if (" i d " in sent) & (" i d " not in orig_sent):
+        sent = sent.replace(" i d ", " id ")
 
     if ("-i-is" in sent) & ("-i-is" not in orig_sent):
         sent = sent.replace("-i-is", "-i- is")
@@ -438,9 +461,13 @@ def format_tree_sent(key_words, hyp_words, orig_sent, sent_words, last_s_idx):
     if " ( " not in orig_sent:
         key_sent = key_sent.replace("( ", "(").replace(" )", ")")
     key_sent = process_hyp_words(key_sent, hyp_words, orig_sent, last_s_idx)
-    key_sent = get_complete_last_word(key_sent.split(" "), orig_sent.split(" "))
     key_words = key_sent.split(" ")
+    for j in range(1, len(key_words)):
+        if (key_words[j] in ["G", "GB", "K", "MB", "U"]) & (key_words[j - 1].isdigit()) & (key_words[j] not in orig_sent.split()):
+            key_sent = key_sent.replace(key_words[j - 1] + " " + key_words[j], key_words[j - 1] + key_words[j])
+    key_sent = get_complete_last_word(key_sent.split(" "), orig_sent.split(" "))
     orig_s_idx = -1
+    key_words = key_sent.split(" ")
     if len(key_words) > 1:
         orig_s_idx = check_continuity(key_words[:-1], sent_words, -1)
         for f in formulations:
@@ -655,6 +682,24 @@ def format_ner(ner, sent):
         if (" " + p + " " not in sent) & (p in ner) & (p in sent):
             ner = ner.replace(" " + p + " ", p)
     ner = ner.replace("St .", "St.")
+
+    if ("What s" in ner) & ("What s" not in sent):
+        ner = "Whats"
+
+    n_w = ner.split()
+    for j in range(1, len(n_w)):
+        if (n_w[j] in ["G", "GB", "K", "MB", "T", "U"]) & (n_w[j - 1].isdigit()):
+            ner = ner.replace(n_w[j - 1] + " " + n_w[j], n_w[j - 1] + n_w[j])
+
+
+    if check_continuity(ner.split(), sent.split(), -1) == -1:
+        ner_words = ner.split()[1:]
+        s_idx = check_continuity(ner_words, sent.split(), -1)
+        if s_idx != -1:
+            ner_words.insert(0, sent.split()[s_idx - 1])
+            ner = " ".join(ner_words)
+
+
     return ner
 
 
