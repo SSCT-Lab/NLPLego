@@ -129,12 +129,16 @@ def get_verb_phrases(sent, hyp_words, spill_words_list, sbar_list):
                         if vp[1] in acl_str:
                             save_flag = False
                             break
+
                         elif acl_str in vp[1]:
                             new_acl = vp[1].split(acl_str)[0].strip()
-                            vp_list[j] = (vp[0], new_acl)
+                            if new_acl != '':
+                                vp_list[j] = (vp[0], new_acl)
+                            else:
+                                save_flag = False
                             break
 
-                    if save_flag:
+                    if save_flag & (acl_str != ''):
                         vp_list.append(("acl", acl_str))
 
         if (w.dep_ == "xcomp") & (w.pos_ == "VERB"):
@@ -159,7 +163,7 @@ def get_verb_phrases(sent, hyp_words, spill_words_list, sbar_list):
                         if vp[1] in xcomp_str:
                             save_flag = False
                             break
-                    if save_flag:
+                    if save_flag & (xcomp_str != ''):
                         vp_list.append(("xcomp", xcomp_str))
 
         key = w.text + "-" + str(i)
@@ -194,7 +198,7 @@ def get_verb_phrases(sent, hyp_words, spill_words_list, sbar_list):
                                 if vp[1] in aco_str:
                                     save_flag = False
                                     break
-                            if save_flag:
+                            if save_flag & (aco_str != ''):
                                 vp_list.append(("acomp", aco_str))
 
                         if (dep_re[2] in ["auxpass", "aux"]) & (dep_re[0] in s_word[i:]):
@@ -218,7 +222,7 @@ def get_verb_phrases(sent, hyp_words, spill_words_list, sbar_list):
                                 if pass_str in vp[1]:
                                     save_flag = False
                                     break
-                            if save_flag:
+                            if save_flag & (pass_str != ''):
                                 vp_list.append(("aux", pass_str))
 
                         if (dep_re[2] == "oprd") & (dep_re[0] in s_word[:i]):
@@ -253,7 +257,7 @@ def get_verb_phrases(sent, hyp_words, spill_words_list, sbar_list):
                                 if vp[1] in oprd_str:
                                     save_flag = False
                                     break
-                            if save_flag:
+                            if save_flag & (oprd_str != ''):
                                 vp_list.append(("oprd", oprd_str))
         i += 1
 
@@ -455,9 +459,14 @@ def get_prep_of(doc, dictionary, all_pos_list, s_word, spill_words_list):
                     else:
                         if s_word[i - 1] in ["percent", "%"]:
                             search_idx = i - 2
-                            while all_pos_list[search_idx:i].count("NUM") == 0:
+                            while (all_pos_list[search_idx:i].count("NUM") == 0) & (search_idx > 0):
                                 search_idx = search_idx - 1
-                            prep_of.append(" ".join(s_word[search_idx:i]))
+                            if all_pos_list[search_idx:i].count("NUM") != 0:
+                                prep_of.append(" ".join(s_word[search_idx:i]))
+                            else:
+                                while (all_pos_list[search_idx:i].count("DET") == 0) & (search_idx > 0):
+                                    search_idx = search_idx - 1
+                                prep_of.append(" ".join(s_word[search_idx:i]))
                         elif (all_pos_list[i - 1] == "NOUN") & (i - 2 > 0):
                             search_idx = i - 2
                             noun_count = 0
@@ -814,10 +823,14 @@ def get_prep_list_by_dependency(sent, hyp_words, spill_words_list, abbr_words, b
                     if w.head.dep_ != "ROOT":
                         pp_word = [tok.orth_ for tok in w.head.subtree]
                         pos_list = [tok.pos_ for tok in w.head.subtree]
-                    else:
+                    elif len([ele for ele in basic_elems if (ele[1] == "dobj") & (w.head.text in ele[2])]) != 0:
                         dobj_elem = [ele for ele in basic_elems if (ele[1] == "dobj") & (w.head.text in ele[2])][0]
-                        pp_word = dobj_elem[2].split()
-                        pp_word.insert(0, w.text)
+                        temp_tree = spacy_nlp(w.text + " " + dobj_elem[2])
+                        pp_word = [tok.orth_ for tok in temp_tree]
+                        pos_list = [tok.pos_ for tok in temp_tree]
+                    else:
+                        i += 1
+                        continue
 
                     if (check_continuity(pp_word, s_word, -1) == 0) & (len(pp_word) > len(s_word)/3 * 2) & (w.head.text in s_word[i:]):
                         p_count = pp_word.count(w.text)
@@ -1006,6 +1019,9 @@ def extract_ner(sent):
             ner = ner_list[i].replace(" § ", " §")
             ner = format_ner(ner, sent)
             n_w = ner.split()
+            # if ("G" in n_w) | ("K" in n_w):
+            #     i += 1
+            #     continue
             s_idx = check_continuity(n_w, sent_words, last_s_idx)
             if s_idx == -1:
                 new_ner, s_idx = correct_hyp_word_in_ner(hyp_words, n_w, sent_words, last_s_idx)
@@ -1073,7 +1089,7 @@ def extra_adj_adv(sent, hyp_words):
                 mod_str = process_hyp_words("".join(source_words[i:i + 3]), hyp_words, sent, -1)
             if "".join(source_words[i - 2:i + 1]) in hyp_words_list:
                 mod_str = process_hyp_words("".join(source_words[i - 2:i + 1]), hyp_words, sent, -1)
-            if (mod_str == "") | len(list(set(["of", "too", "as"])&set(mod_str.lower().split(" ")))) != 0:
+            if (mod_str == "") | len(list(set(["of", "too", "as", "how"]) & set(mod_str.lower().split(" ")))) != 0:
                 continue
             if token.head.text not in mod_str:
                 if token.head.pos == "ADJ":
@@ -1086,16 +1102,17 @@ def extra_adj_adv(sent, hyp_words):
             if (token.dep_ == "amod") & (token.pos_ == "ADJ") & (token.head.pos_ not in ["ADP"]):
                 words = [tok.orth_ for tok in token.subtree]
                 adj_str = process_hyp_words(" ".join(words), hyp_words, sent, -1)
-                if len(list(set(["of", "too", "as"])&set(adj_str.lower().split(" ")))) == 0:
+                if len(list(set(["of", "too", "as", "how"])&set(adj_str.lower().split(" ")))) == 0:
                     adj_adv_list.append(("ADJ", adj_str, token.head.text, token.head.pos_))
             if (token.dep_ == "advmod") & (token.pos_ == "ADV"):
                 words = [tok.orth_ for tok in token.subtree]
                 adv_str = process_hyp_words(" ".join(words), hyp_words, sent, -1)
-                if len(list(set(["of", "too", "as"])&set(adv_str.lower().split(" ")))) == 0:
+                if len(list(set(["of", "too", "as", "how"])&set(adv_str.lower().split(" ")))) == 0:
                     adj_adv_list.append(("ADV", adv_str, token.head.text, token.head.pos_))
                 #print("ADV ", adv_str, " ", token.head.text, token.head.pos_)
         i += 1
 
     return adj_adv_list
+
 
 
