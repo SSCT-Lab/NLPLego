@@ -7,7 +7,7 @@ import numpy as np
 from nltk.corpus import stopwords
 
 from preprocess import read_txt
-from process_utils import load_orig_sent, get_sentence_len, format_question
+from process_utils import load_orig_sent
 
 test_str = ["thank you we got on a different flight to Chicago",
             "I am from China",
@@ -102,7 +102,7 @@ def add_negation(data: list):
     except StopIteration:
         print("exception")
     ret = Perturb.perturb(data, Perturb.add_negation)
-    return [ret.data[0][1]]
+    return [] if len(ret.data) == 0 else [ret.data[0][1]]
 
 
 def add_typos(data: list, n):
@@ -143,7 +143,7 @@ def aug_squad(orig_sent_list, sent_context_map, ques_list):
 def aug_sst(sst_sents):
     print(sst_sents)
     for sent in sst_sents:
-        doc = nlp(sent)
+        doc = [nlp(sent)]
         samples = []
         samples.extend(replace_location(doc, 2))
         samples.extend(replace_name(doc, 2))
