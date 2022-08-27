@@ -1,1 +1,1 @@
-## NLPLego: Lego-style test generation for NLP applications
+## NLPLego: Assembling Test Generation for Natural Language Processing applications
