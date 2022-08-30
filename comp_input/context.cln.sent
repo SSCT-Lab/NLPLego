@@ -1463,6 +1463,7 @@
 <s> The American Automobile Association reported that in the last week of February 1974 , 20 % of American gasoline stations had no fuel . <\s>
 <s> To help reduce consumption , in 1974 a national maximum speed limit of 55 mph ( about 88 km/h ) was imposed through the Emergency Highway Energy Conservation Act . <\s>
 <s> Development of the Strategic Petroleum Reserve began in 1975 , and in 1977 the cabinet-level Department of Energy was created , followed by the National Energy Act of 1978 . <\s>
+<s> On November 28 , 1995 , Bill Clinton signed the National Highway Designation Act , ending the federal 55 mph ( 89 km/h ) speed limit , allowing states to restore their prior maximum speed limit . <\s>
 <s> The energy crisis led to greater interest in renewable energy , nuclear power and domestic fossil fuels . <\s>
 <s> There is criticism that American energy policies since the crisis have been dominated by crisis-mentality thinking , promoting expensive quick fixes and single-shot solutions that ignore market and technology realities . <\s>
 <s> Instead of providing stable rules that support basic research while leaving plenty of scope for entrepreneurship and innovation , congresses and presidents have repeatedly backed policies which promise solutions that are politically expedient , but whose prospects are doubtful . <\s>
@@ -2217,8 +2218,7 @@
 <s> The isolated subdivision was for years known as the `` Dogg Pound '' in reference to a local gang , and as of late 2008 was still known for high levels of violent crime . <\s>
 <s> While many homes in the neighborhood date back to the 1930s or before , the neighborhood is also home to several public housing developments built between the 1960s and 1990s by the Fresno Housing Authority . <\s>
 <s> The US Department of Housing and Urban Development has also built small subdivisions of single-family homes in the area for purchase by low-income working families . <\s>
-<s> There have been numerous attempts to revitalize the neighborhood , including the construction of a modern shopping center on the corner of Fresno and B streets , an aborted attempt to build luxury homes and a golf course on the western edge of the neighborhood , and some new section 8 apartments have been built along Church Ave west of Elm St . <\s>
-<s> Cargill Meat Solutions and Foster Farms both have large processing facilities in the neighborhood , and the stench from these ( and other small industrial facilities ) has long plagued area residents . <\s>
+<s> There have been numerous attempts to revitalize the neighborhood , including the construction of a modern shopping center on the corner of Fresno and B streets , an aborted attempt to build luxury homes and a golf course on the western edge of the neighborhood , and some new section 8 apartments have been built along Church Ave west of Elm St. Cargill Meat Solutions and Foster Farms both have large processing facilities in the neighborhood , and the stench from these ( and other small industrial facilities ) has long plagued area residents . <\s>
 <s> The Fresno Chandler Executive Airport is also on the West Side . <\s>
 <s> Due to its position on the edge of the city and years of neglect by developers , is not a true `` inner-city '' neighborhood , and there are many vacant lots , strawberry fields and vineyards throughout the neighborhood . <\s>
 <s> The neighborhood has very little retail activity , aside from the area near Fresno Street and State Route 99 Freeway ( Kearney Palm Shopping Center , built in the late 1990s ) and small corner markets scattered throughout . <\s>
@@ -3643,8 +3643,7 @@
 <s> Founded by the American Baptist Education Society with a donation from oil magnate and wealthiest man in history John D. Rockefeller , the University of Chicago was incorporated in 1890 ; William Rainey Harper became the university 's first president in 1891 , and the first classes were held in 1892 . <\s>
 <s> Both Harper and future president Robert Maynard Hutchins advocated for Chicago 's curriculum to be based upon theoretical and perennial issues rather than on applied sciences and commercial utility . <\s>
 <s> With Harper 's vision in mind , the University of Chicago also became one of the 14 founding members of the Association of American Universities , an international organization of leading research universities , in 1900 . <\s>
-<s> The University of Chicago was created and incorporated as a coeducational , secular institution in 1890 by the American Baptist Education Society and a donation from oil magnate and philanthropist John D . <\s>
-<s> Rockefeller on land donated by Marshall Field . <\s>
+<s> The University of Chicago was created and incorporated as a coeducational , secular institution in 1890 by the American Baptist Education Society and a donation from oil magnate and philanthropist John D. Rockefeller on land donated by Marshall Field . <\s>
 <s> While the Rockefeller donation provided money for academic operations and long-term endowment , it was stipulated that such money could not be used for buildings . <\s>
 <s> The original physical campus was financed by donations from wealthy Chicagoans like Silas B. Cobb who provided the funds for the campus ' first building , Cobb Lecture Hall , and matched Marshall Field 's pledge of $ 100,000 . <\s>
 <s> Other early benefactors included businessmen Charles L. Hutchinson ( trustee , treasurer and donor of Hutchinson Commons ) , Martin A. Ryerson ( president of the board of trustees and donor of the Ryerson Physical Laboratory ) Adolphus Clay Bartlett and Leon Mandel , who funded the construction of the gymnasium and assembly hall , and George C. Walker of the Walker Museum , a relative of Cobb who encouraged his inaugural donation for facilities . <\s>
@@ -4651,7 +4650,7 @@
 <s> Rational primes ( i.e. prime elements in Z ) of the form 4k + 3 are Gaussian primes , whereas rational primes of the form 4k + 1 are not . <\s>
 <s> In ring theory , the notion of number is generally replaced with that of ideal . <\s>
 <s> Prime ideals , which generalize prime elements in the sense that the principal ideal generated by a prime element is a prime ideal , are an important tool and object of study in commutative algebra , algebraic number theory and algebraic geometry . <\s>
-<s> The prime ideals of the ring of integers are the ideals ( 0 ) , ( 2 ) , ( 3 ) , ( 5 ) , ( 7 ) , ( 11 ) , … <\s>
+<s> The prime ideals of the ring of integers are the ideals ( 0 ) , ( 2 ) , ( 3 ) , ( 5 ) , ( 7 ) , ( 11 ) , ... <\s>
 <s> The fundamental theorem of arithmetic generalizes to the Lasker–Noether theorem , which expresses every ideal in a Noetherian commutative ring as an intersection of primary ideals , which are the appropriate generalizations of prime powers . <\s>
 <s> Prime ideals are the points of algebro-geometric objects , via the notion of the spectrum of a ring . <\s>
 <s> Arithmetic geometry also benefits from this notion , and many concepts exist in both geometry and number theory . <\s>
