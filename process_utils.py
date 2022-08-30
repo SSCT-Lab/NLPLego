@@ -376,6 +376,18 @@ def process_hyp_words(sent, hyp_words, orig_sent, search_s_idx):
     if (" mg" in sent) & (" mg" not in orig_sent):
         sent = sent.replace(" mg", "mg")
 
+    if (" mm" in sent) & (" mm" not in orig_sent):
+        sent = sent.replace(" mm", "mm")
+
+    if (" cm" in sent) & (" cm" not in orig_sent):
+        sent = sent.replace(" cm", "cm")
+
+    if (" kg" in sent) & (" kg" not in orig_sent):
+        sent = sent.replace(" kg", "kg")
+
+    if (" km" in sent) & (" km" not in orig_sent):
+        sent = sent.replace(" km", "km")
+
     if (" i d " in sent) & (" i d " not in orig_sent):
         sent = sent.replace(" i d ", " id ")
 
@@ -463,7 +475,7 @@ def format_tree_sent(key_words, hyp_words, orig_sent, sent_words, last_s_idx):
     key_sent = process_hyp_words(key_sent, hyp_words, orig_sent, last_s_idx)
     key_words = key_sent.split(" ")
     for j in range(1, len(key_words)):
-        if (key_words[j] in ["G", "GB", "K", "MB", "U"]) & (key_words[j - 1].isdigit()) & (key_words[j] not in orig_sent.split()):
+        if (key_words[j] in ["G", "GB", "K", "MB", "U", "kg", "km"]) & (key_words[j - 1].isdigit()) & (key_words[j] not in orig_sent.split()):
             key_sent = key_sent.replace(key_words[j - 1] + " " + key_words[j], key_words[j - 1] + key_words[j])
     key_sent = get_complete_last_word(key_sent.split(" "), orig_sent.split(" "))
     orig_s_idx = -1
@@ -688,9 +700,8 @@ def format_ner(ner, sent):
 
     n_w = ner.split()
     for j in range(1, len(n_w)):
-        if (n_w[j] in ["G", "GB", "K", "MB", "T", "U"]) & (n_w[j - 1].isdigit()):
+        if (n_w[j] in ["G", "GB", "K", "MB", "T", "U", "kg", "km"]) & (n_w[j - 1].isdigit()):
             ner = ner.replace(n_w[j - 1] + " " + n_w[j], n_w[j - 1] + n_w[j])
-
 
     if check_continuity(ner.split(), sent.split(), -1) == -1:
         ner_words = ner.split()[1:]
@@ -1098,3 +1109,115 @@ def cut_sub_sent_in_pp_sbar(pp_str, pp_words, key_pp):
 
     return pp_str
 
+def get_sentence_len(file_name):
+    path = "./txt_files/" + file_name + ".txt"
+    orig_sents = open(path, mode="r", encoding='utf-8')
+    sent = orig_sents.readline()
+    result = []
+    sent_result_all = []
+    sent_context_map = {}
+    while sent:
+        sent = sent[:-1]
+        if "context_id=" in sent:
+            num = 0
+            sent = orig_sents.readline()
+            sent = sent[:-1]
+            sent_result = []
+            while sent != "":
+                num += 1
+                sent_result.append(sent)
+                sent = orig_sents.readline()
+                sent = sent[:-1]
+            result.append(num)
+            sent_result_all.append(sent_result)
+            num = 0
+        sent = orig_sents.readline()
+
+    sent_idx = 0
+    for i in range(len(sent_result_all)):
+        for j in range(len(sent_result_all[i])):
+            sent_context_map[sent_idx] = i
+            sent_idx += 1
+
+    return result, sent_result_all, sent_context_map
+
+
+def read_question_index():
+    file_name = "ans_context.txt"
+    path = "./txt_files/" + file_name
+    orig_sents = open(path, mode="r", encoding='utf-8')
+    sent = orig_sents.readline()
+    result = []
+    temp = []
+    while sent:
+        sent = sent[:-1]
+        if "context_id = " in sent:
+            index = sent.split("context_id = ")[1]
+            sent = orig_sents.readline()[:-1]
+            while sent != "==========FIN==========":
+                if "context_idx: " in sent:
+                    temp.append(sent.split("context_idx: ")[1])
+                sent = orig_sents.readline()[:-1]
+            result.append(temp)
+            temp = []
+        sent = orig_sents.readline()
+    return result
+
+
+def format_question(ques):
+    abbr = ["n't", "'s", "'re", "'ll", "'m", "'ve"]
+    for a in abbr:
+        if a in ques:
+            idx = ques.find(a)
+            if ques[idx - 1] != " ":
+                ques = ques[0:idx] + " " + ques[idx:]
+    ques = ques.replace(", ", " , ")
+    ques = ques.replace("?", " ?")
+    ques = ques.replace("\"", " \" ")
+    ques = " ".join(ques.split())
+    return ques
+
+def get_ans_list():
+    file_name = "ans_context.txt"
+    path = "./txt_files/" + file_name
+    ans_context = open(path, mode="r", encoding='utf-8')
+    line = ans_context.readline()
+    all_ans_list = []
+    ans = []
+    while line:
+        line = line[:-1]
+        if "context_id = " in line:
+            if len(ans) != 0:
+                all_ans_list.append(ans)
+                ans = []
+        if "answer:" in line:
+            ans.append(line.split("answer: ")[-1])
+
+        line = ans_context.readline()
+    all_ans_list.append(ans)
+    return all_ans_list
+
+def get_ques_ans_list():
+    file_name = "ans_context.txt"
+    path = "./txt_files/" + file_name
+    ans_context = open(path, mode="r", encoding='utf-8')
+    line = ans_context.readline()
+    all_ans_list = []
+    ques_ans = {}
+    while line:
+        line = line[:-1]
+        if "question: " in line:
+            ques = line.replace("question: ", "")
+            ques_ans[ques] = ""
+        if "answer: " in line:
+            ans = line.replace("answer: ", "")
+            ques_ans[ques] = ans
+        #     if len(ans) != 0:
+        #         all_ans_list.append(ans)
+        #         ans = []
+        # if "answer:" in line:
+        #     ans.append(line.split("answer: ")[-1])
+
+        line = ans_context.readline()
+    #all_ans_list.append(ans)
+    return ques_ans
