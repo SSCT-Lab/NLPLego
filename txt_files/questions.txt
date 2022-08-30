@@ -84,7 +84,7 @@ Who did the Normans serve under in the 10th century?
 What expedition did George Maniaces lead in the 10th century?
 
 context_id=11
-What was the name of the count of Apulia 
+What was the name of the count of Apulia
 When did Dyrrachium  fall to the Normans?
 How many men were in Robert's army?
 Who ultimatly drove the Byzantines out of Europe?
@@ -334,7 +334,7 @@ In a computational problem, what can be described as a string over an alphabet?
 What is the name of the alphabet is most commonly used in a problem instance?
 What is another term for the string of a problem instance?
 In the encoding of mathematical objects, what is the way in which integers are commonly expressed?
-What is one way in which graphs can be encoded? 
+What is one way in which graphs can be encoded?
 What is a string over a Greek number when considering a computational problem?
 What is the name of the alphabet that is rarely used in a problem instance?
 What is another term for the the string of a problem question?
@@ -359,7 +359,7 @@ What is the term for the set of all connected graphs related to this decision pr
 What encoding decision needs to be made in order to determine an exact definition of the formal language?
 What type of graph is an example of an output used in a decision problem?
 What is the term for the set of all unconnected graphs related to this decision problem?
-What encoding decision needs to be made in order to determine an inaccurate definition of the formal language? 
+What encoding decision needs to be made in order to determine an inaccurate definition of the formal language?
 How does one obtain an indefinite definition of this language?
 
 context_id=46
@@ -396,7 +396,7 @@ How is time not required to solve a problem calculated?
 context_id=49
 Whose thesis states that the solution to a problem is solvable with reasonable resources assuming it allows for a polynomial time algorithm?
 If input size is is equal to n, what can respectively be assumed is the function of n?
-What term corresponds to the maximum measurement of time across all functions of n? 
+What term corresponds to the maximum measurement of time across all functions of n?
 How is worst-case time complexity written as an expression?
 Assuming that T represents a polynomial in T(n), what is the term given to the corresponding algorithm?
 How is time taken expressed as a function of x?
@@ -428,7 +428,7 @@ Which machine allows the machine to have multiple possible past actions from a g
 How is one way that one should not view non-determinism?
 
 context_id=52
-Turing machines are commonly employed to define what? 
+Turing machines are commonly employed to define what?
 What are two factors that directly effect how powerful a Turing machine may or may not be?
 In the determination of complexity classes, what are two examples of types of Turing machines?
 What are many types of Turing machines not used for?
@@ -438,7 +438,7 @@ What may not be more powerful than others when the resources of time or space of
 
 context_id=53
 What is an example of a machine model that deviates from a generally accepted multi-tape Turing machine?
-In considering Turing machines and alternate variables, what measurement left unaffected by conversion between machine models? 
+In considering Turing machines and alternate variables, what measurement left unaffected by conversion between machine models?
 What two resources commonly consumed by alternate models are typically known to vary?
 What commonality do alternate machine models, such as random access machines, share with Turing machines?
 What is not an example of a machine model that deviates from a generally accepted multi-tape Turing machine?
@@ -482,10 +482,10 @@ What type of measure is communication complexity not an example of?
 
 context_id=57
 What are the three primary expressions used to represent case complexity?
-Case complexity likelihoods provide variable probabilities of what general measure? 
+Case complexity likelihoods provide variable probabilities of what general measure?
 What is one common example of a critical complexity measure?
-Case complexities provide three likelihoods of what differing variable that remains the same size? 
-What are the three secondary expressions used to represent case complexity? 
+Case complexities provide three likelihoods of what differing variable that remains the same size?
+What are the three secondary expressions used to represent case complexity?
 What three different ways are used to measure space complexity?
 What is one not common example of a critical complexity measure?
 What differing variable remains the same size when providing the four likelihoods of case complexities?
@@ -501,11 +501,11 @@ What is the expression not used to denote worst case complexity as expressed by 
 What case complexity is represented when each pivoting divides the list in thirds, also needing O(n log n) time?
 
 context_id=59
-Classification of resources is contingent on determining the upper and lower bounds of minimum time required by what?  
+Classification of resources is contingent on determining the upper and lower bounds of minimum time required by what?
 The analysis of a specific algorithm is typically assigned to what field of computational science?
 Which bound of time is more difficult to establish?
 A specific algorithm demonstrating T(n) represents what measure of time complexity?
-What is the colloquial phrase used to convey the continuum of algorithms with unlimited availability irrespective of time? 
+What is the colloquial phrase used to convey the continuum of algorithms with unlimited availability irrespective of time?
 How does one note classify the computation time (or similar resources)?
 What is usually taken as the best case complexity, unless specified otherwise?
 What does not fall under the field of analysis of algorithms>
@@ -515,8 +515,8 @@ What is easy about proving lower bounds?
 context_id=60
 What expression is generally used to convey upper or lower bounds?
 What does a big O notation hide?
-How would one write T(n) = 7n2 + 15n + 40 in big O notation? 
-Big O notation provides autonomy to upper and lower bounds with relationship to what? 
+How would one write T(n) = 7n2 + 15n + 40 in big O notation?
+Big O notation provides autonomy to upper and lower bounds with relationship to what?
 What is usually not stated using the big O notation?
 What does not hide constant factors or smaller terms?
 What makes the bounds dependent of the specific details of the computational model?
@@ -535,7 +535,7 @@ context_id=62
 Concrete bounding of computation time frequently produces complexity classes contingent upon what?
 A multi-tape Turing machine requires what type of time for a solution?
 A language solved in quadratic time implies the use of what type of Turing machine?
-What thesis specifies that a polynomial relationship exists within time complexities in a computational model? 
+What thesis specifies that a polynomial relationship exists within time complexities in a computational model?
 Decision problems capable of being solved by a deterministic Turing machine while maintaining adherence to polynomial time belong to what class?
 What does not often yield complexity classes that depend on the chosen machine model?
 What does not frequently produce complexity classes that have concrete bounding of computation time?
@@ -601,7 +601,7 @@ context_id=68
 What is the most frequently employed type of reduction?
 What equates to a squared integer according to polynomial time reduction?
 What measurement of time is used in polynomial time reduction?
-What would need to remain constant in a multiplication algorithm to produce the same outcome whether multiplying or squaring two integers?  
+What would need to remain constant in a multiplication algorithm to produce the same outcome whether multiplying or squaring two integers?
 According to polynomial time reduction squaring can ultimately be logically reduced to what?
 What is the least used type of reduction?
 What is the meaning of polynomial-space reduction?
@@ -611,7 +611,7 @@ What is more difficult that multiplication?
 
 context_id=69
 The complexity of problems often depends on what?
-What would create a conflict between a problem X and problem C within the context of reduction? 
+What would create a conflict between a problem X and problem C within the context of reduction?
 An algorithm for X which reduces to C would us to do what?
 A problem set that that is hard for the expression NP can also be stated how?
 What does the complexity of problems not often depend on?
@@ -654,7 +654,7 @@ What was the prize for finding a solution to P=NP at the the Alpha Prize Problem
 context_id=73
 Who demonstrated that P= NP implies problems not present in P or NP-complete?
 What is the name for a problem that meets Ladner's assertion?
-What is an example of an NP-intermediate problem not known to exist in P or NP-complete? 
+What is an example of an NP-intermediate problem not known to exist in P or NP-complete?
 Who showed that if P=NQ then there exists problems in NQ that are neither P nor NQ-complete?
 What is the name a a problem that meets Ladder's assertion?
 What is not example of an NP-intermediate problem not known to exist in P or NP-complete?
@@ -663,10 +663,10 @@ What are four examples of problems believed to be NP=intermediate?
 context_id=74
 What is the problem attributed to defining if two finite graphs are isomorphic?
 What class is most commonly not ascribed to the graph isomorphism problem in spite of definitive determination?
-What finite hierarchy implies that the graph isomorphism problem is NP-complete? 
+What finite hierarchy implies that the graph isomorphism problem is NP-complete?
 To what level would the polynomial time hierarchy collapse if graph isomorphism is NP-complete?
 Who are commonly associated with the algorithm typically considered the most effective with respect to finite polynomial hierarchy and graph isomorphism?
-What is the graph isolation problem? 
+What is the graph isolation problem?
 What is the problem attributed to defining if three finite graphs are isomorphic?
 What is an important solved problem in complexity theory?
 What infinite hierarchy implies that the graph isomorphism problem s NQ-complete?
@@ -674,7 +674,7 @@ What would the polynomial hierarchy collapse if graph isomorphism is NQ-complete
 
 context_id=75
 What computational problem is commonly associated with prime factorization?
-The integer factorization problem essentially seeks to determine if the value of of an input is less than what variable? 
+The integer factorization problem essentially seeks to determine if the value of of an input is less than what variable?
 That there currently exists no known integer factorization problem underpins what commonly used system?
 What is the most well-known algorithm associated with the integer factorization problem?
 What is the integer practice problem?
@@ -752,7 +752,7 @@ What was the Turning calculator a robust and flexible simplification of?
 context_id=82
 What paper is commonly considered the bellwether ushering in systematic studies computational complexity?
 What individuals were responsible for authoring "On the Computational Complexity of Algorithms"?
-In what year was Hatmanis and Stearn's seminal work in computational complexity received? 
+In what year was Hatmanis and Stearn's seminal work in computational complexity received?
 What complex measurements were defined by "On the Computational Complexity of Algorithms"?
 In what year did Edmond's characterize a "good" algorithm?
 What seminal paper is commonly considered the beginning of sociology studies?
@@ -817,7 +817,7 @@ Which of the three heavily populated areas has the least number of inhabitants?
 How many people does the Greater Los Angeles Area have?
 What percent of California's 22 million people live in southern California?
 What does MAS stand for?
-How many people live in Riverside? 
+How many people live in Riverside?
 What does CSA stand for?
 
 context_id=89
@@ -859,7 +859,7 @@ Other than Universal and Warner Brothers, what other company runs a major record
 What company owns ACB?
 What three industries are centered in Hollywood?
 Where is Los Angeles a district of?
-What major companies are headquartered in Los Angeles? 
+What major companies are headquartered in Los Angeles?
 
 context_id=93
 Other than surf, what other culture is southern California home to?
@@ -998,7 +998,7 @@ Other than the San Jacinto Fault, and the Elsinore Fault, name one other fault.
 Which organization released a California Earthquake forecast?
 The earthquake forecast models what features of earthquakes in California?
 What fault can produce a magnitude 8.7 event?
-What faults other than the San Andreas can produce a magnitude 8.0 event? 
+What faults other than the San Andreas can produce a magnitude 8.0 event?
 What did the UGSS release?
 What does the UGSS California Earthquake forecast model?
 
@@ -1518,7 +1518,7 @@ Compared to other American cities, what is the size of Melbourne?
 
 context_id=153
 What is the term for the original Aboriginal people of Victoria?
-When did Great Britain claim Australia? 
+When did Great Britain claim Australia?
 Where was Victoria first set to be located in Australia?
 Where was the first settlement in Victoria?
 When was Victoria first settled?
@@ -1566,7 +1566,7 @@ When was the heatwave in which Wimmera recorded its highest temperature?
 
 context_id=157
 What are public schools in Victoria?
-What organization runs the public schools in Victoria? 
+What organization runs the public schools in Victoria?
 Since students do not pay tuition, what do they have to pay for schooling in Victoria?
 What church runs some private schools in Victoria?
 What government set standards do all schools have to meet?
@@ -1596,7 +1596,7 @@ What type of topological systems are found in numbers in Victoria?
 What is the Victoria state bird?
 How high are Victoria's river regions?
 What is the snowiest peak in Victoria?
-How high is Victoria's Mount Gippsland? 
+How high is Victoria's Mount Gippsland?
 What is the Victoria state fish?
 What is the Victoria state color?
 
@@ -1707,7 +1707,7 @@ What did some leaders of the British rebellion become?
 Who protested against Parliament taxes?
 
 context_id=169
-What does the Premier of Victoria need to lead in the Legislative Assembly? 
+What does the Premier of Victoria need to lead in the Legislative Assembly?
 Who sets the legislative agenda in Victoria?
 Who can be in the Victorian cabinet?
 Who is the current Premier of Victoria?
@@ -1731,7 +1731,7 @@ How much land do farms crop rotate each year in Victoria?
 How much percentage of Victoria's land is taken up by consumable crops?
 
 context_id=171
-What part do events in Victoria's economy  play? 
+What part do events in Victoria's economy  play?
 Besides cultural events, what other tourist attraction does Victoria have?
 On where are most tourist attractions focused in Victoria?
 Where do other tourist events happen in Victoria outside of Melbourne?
@@ -2149,7 +2149,7 @@ What religion was Janet Gray?
 Who was Janet Gray married to?
 
 context_id=207
-Who was one French pro-reform Roman Catholic of the 15th century? 
+Who was one French pro-reform Roman Catholic of the 15th century?
 Where did this pro-reform leader teach?
 When did this leader publish a French language Bible?
 What leader of the Swiss reformation was a student of Lefevre?
@@ -2287,7 +2287,7 @@ In what geographical portion of Wales is Abercynon located?
 In what country was a full-scale working railway steam centre first invented?
 On what date did the first railway trip in England occur?
 Where did the England's first railway journey terminate?
-In what constituent country of the United Kingdom is Trevithick located? 
+In what constituent country of the United Kingdom is Trevithick located?
 In what geographical portion of England is Abercynon located?
 
 context_id=219
@@ -2318,7 +2318,7 @@ context_id=221
 Along with poppet valve gears, what type of gears utilized separate admission and exhaust valves to give ideal events?
 Along with Stephenson and Walschaerts, what is an example of a simple motion?
 How is lap provided by overlapping the admission side port?
-What type of gears, along with poppet valve gears, utilized separate admission and leakage cutoffs to give ideal events? 
+What type of gears, along with poppet valve gears, utilized separate admission and leakage cutoffs to give ideal events?
 What is an example of complicated exhaust, along with Stephenson and Walschaerts?
 How is lap provided by overlapping the stationary marketplace port?
 When were attempts made to overcome stationary marketplaces?
@@ -2378,7 +2378,7 @@ Above what horsepower are steam turbines usually more efficient than steam engin
 What percentage of electrical power in the United States is made by steam turbines?
 Most power of what sort is generated by steam turbines today?
 What device's use represented the last major evolution of the generator?
-In what part of the 19th century where generators introduced? 
+In what part of the 19th century where generators introduced?
 Above what horsepower are steam turbines usually more efficient than generators that use reciprocating pistons?
 What percentage of electrical power in the United States is made by generators?
 What sort of power is generated by heat sources today?
@@ -2679,7 +2679,7 @@ What parts of a conventional reciprocating steam engine could be replaced by a p
 Along with wear, what development makes it difficult to seal the rotors in an engine that lacks pistons?
 What is an example of a rotary engine without leakage?
 What parts of a conventional reciprocating steam engine could be replaced by a pistonless valve gear?
-What development, along with wear, makes it difficult to seal the rotors in an engine that lacks steam? 
+What development, along with wear, makes it difficult to seal the rotors in an engine that lacks steam?
 What is not a problem?
 What is not based on a pistonless rotary engine?
 
@@ -2815,8 +2815,8 @@ In what major portion of living things is oxygen found?
 What life process produces oxygen in the presence of light?
 From what does photosynthesis get oxygen?
 What form of oxygen is composed of three oxygen atoms?
-What are examples of organic proteins? 
-What is used in photosynthesis and released by cellular respiration? 
+What are examples of organic proteins?
+What is used in photosynthesis and released by cellular respiration?
 What absorbs UBV rays?
 What is UBV radiation a form of near the surface?
 
@@ -2879,7 +2879,7 @@ What other sources of high oxidative potential can add to a fire?
 What do rapid concentrated sources of oxygen promote?
 What is oxygen instead of an oxidant?
 What is fuel the source of?
-What type of hazard is oxygen considered? 
+What type of hazard is oxygen considered?
 What can donate dichromates to a fire?
 
 context_id=268
@@ -2903,7 +2903,7 @@ What geologic feature is composed of oxygen oxides?
 What part of the Earth is composed of mostly of silicates of iron and magnesium?
 What part of the Earth's geological structure is larger than the crust?
 Aside from oxides, what other compounds comprise a large portion of the Earth's crust?
-What is CO? 
+What is CO?
 What is SiO?
 What is AlO?
 What is Fe2O?
@@ -2923,7 +2923,7 @@ What law was created in 1805?
 context_id=271
 Of what were materials that left little residue thought to contain?
 What type of combustible materials were considered to have little philogiston?
-What distinct quality of combustion was  absent from philogiston theory? 
+What distinct quality of combustion was  absent from philogiston theory?
 What material's weight gain during rusting was an early clue that philogiston theory was wrong?
 What characteristic due most items display after burning?
 What was iron found to be made mostly of?
@@ -2955,7 +2955,7 @@ Whose experiments with oxygen led to the popular theory of combustion and corros
 
 context_id=274
 What is the term for the arrangement of two unpaired electrons in dioxygen?
-How is the O2 molecule referred to in its ground state? 
+How is the O2 molecule referred to in its ground state?
 What causes triplet oxygen to react slowly?
 What type of combustion does the slow reaction of triplet oxygen prevent?
 What are the weakly filled higher orbitals of oxygen?
@@ -2987,7 +2987,7 @@ What was discovered in 2006 in regard to O4?
 
 context_id=277
 What is the most common form of oxygen on the planet?
-What is the scientific designation of oxygen? 
+What is the scientific designation of oxygen?
 What part the composition of the Earth's atmosphere is comprised of oxygen?
 What characteristic of oxygen makes it necessary to life?
 For what purpose is oxygen used by animal life?
@@ -3023,7 +3023,7 @@ How is oxygen ranked as abundant in the universe?
 How much of the sun is made up of oxygen?
 Where  by mass is oxygen a major part?
 How is oxygen produced from carbon dioxide on the other planets of the solar system?
-What is the most abundant mass element in the Earth's biosphere? 
+What is the most abundant mass element in the Earth's biosphere?
 What elements follow oxygen as the most abundant in the universe?
 What makes up 49.2% of the sun's mass?
 What makes up 0.9% of the Earth's crust by mass?
@@ -3102,7 +3102,7 @@ To what type of organisms is oxygen toxic?
 When did O2 begin to acculturate in the atmosphere?
 What is 2H02?
 What is formula for the reactive oxygen ion?
-What are products of oxygen use in organisms? 
+What are products of oxygen use in organisms?
 What began to accumulate 5.2 billion years ago?
 What event occurred 5.2 billion years ago?
 
@@ -3156,7 +3156,7 @@ What percentage of oxygen will a zeolite sieve produce?
 While producing oxygen, what gas does a zeolite sieve absorb?
 What type of technology is the non organic separating of gases?
 How much is the sieve method of gas production used?
-What beds are nitrogen-saturated? 
+What beds are nitrogen-saturated?
 What is known as swing pressure adsorption?
 What involves delivering a gas stream that is 9% to 93% O2?
 
@@ -3198,7 +3198,7 @@ What medical treatment is used to increase oxygen uptake in a patient?
 By decreasing resistance to blood flow in the lungs, what organ's workload  can be eased?
 What medical treatment is used to benefit patients with hearth and lung disorders?
 What does  oxygen therapy promote the body to take up?
-What is the essential purpose of supplementation? 
+What is the essential purpose of supplementation?
 What field is respiration used in?
 What is oxygen respiration therapy used to treat?
 What does treatment only do?
@@ -3215,7 +3215,7 @@ What mineral is written as Fe1 - oX?
 What is X in Fe1 - oX?
 
 context_id=298
-What event would necessitate airline passengers to need a supplemental supply of oxygen? 
+What event would necessitate airline passengers to need a supplemental supply of oxygen?
 What is the type of oxygen production for emergency oxygen in airlines?
 What type of reaction is present in the emergency oxygen generator of an airplane?
 What gas does the airline exothermic reaction produce?
@@ -3253,7 +3253,7 @@ How many biomolecules contain no oxygen?
 Which organic compounds contain the greatest amount of oxygen by mass?
 Besides fats, fatty acids, and amino acids,what other organic compounds contain oxygen?
 In what calcium containing body part is oxygen a part?
-What element is found in all biomolecules? 
+What element is found in all biomolecules?
 What element do squalene and the carotenes contain?
 What are APT and ADP?
 What do carbohydrates have the most of by mass?
@@ -3302,11 +3302,11 @@ What action did the US begin that started the second oil shock?
 What was the price of oil in 1979 before it rose?
 What did the price of oil rise to in 1979 globally?
 What is the term that describes what  happened in 1979 when the US prices of oil were higher?
-What month did the oil crisis begin? 
-Who did OAPEC include? 
+What month did the oil crisis begin?
+Who did OAPEC include?
 What was the oil crisis called
-What came after this oil crisis? 
-What caused the crisis? 
+What came after this oil crisis?
+What caused the crisis?
 
 context_id=306
 Why did the European nations and Japan separated themselves from United States during the crisis?
@@ -3318,9 +3318,9 @@ What did Israel and Syria do to avoid being targeted by the boycott?
 What did Arab oil producers link to Japan?
 What did NATO negotiate?
 What did Japan lift in March 1974?
-What did the oil crisis create a rift within? 
-European nations and which country disassociated themselves from the US for this reason? 
-Who linked any future policy changes to peace? 
+What did the oil crisis create a rift within?
+European nations and which country disassociated themselves from the US for this reason?
+Who linked any future policy changes to peace?
 What negotiations did Nixon Administrations begin?
 Which country was to pull back from the Sinai Peninsula?
 
@@ -3335,11 +3335,11 @@ What happened to other currencies value when the US abandoned oil?
 What did Britain do in September 1971?
 Why did OPEC dollars depriciate?
 When was oil priced based on pound sterling?
-What did the US withdraw from in 1971? 
-What did the US abandon? 
-What does the dollar value do? 
-What does it mean for the dollar to float? 
-When did OPEC  issue a joint communique? 
+What did the US withdraw from in 1971?
+What did the US abandon?
+What does the dollar value do?
+What does it mean for the dollar to float?
+When did OPEC  issue a joint communique?
 
 context_id=308
 From 1947 to 1967, how much did the price of oil increase?
@@ -3351,8 +3351,8 @@ Until the oil shock how had the price of gold been?
 What happened to Bretton Woods income due to prices not being in sync with the market?
 When did institutional mechanisms finally return to Bretton Woods levels?
 When did commodities readjust to oil prices?
-Who was slow to readjust prices? 
-What years did the dollar price of oil rise by 2% per year? 
+Who was slow to readjust prices?
+What years did the dollar price of oil rise by 2% per year?
 What happened in 1973-1974?
 Prices remained stable until what?
 
@@ -3367,11 +3367,11 @@ Who was the worlds second largest wheat exporter to the middle east?
 What did Syria decide that the price of oil should be after the attack?
 What did Egypt say that Iran increased the price of wheat they sell by?
 What does Syria sell refined oil for to the middle east?
-What happened on October 6, 1973 with Syria and Egypt? 
-What holiday did Syria and Egypt launch an attack? 
+What happened on October 6, 1973 with Syria and Egypt?
+What holiday did Syria and Egypt launch an attack?
 Iran was which size oil exporter?
-What was Iran's relationship with the US at this time? 
-How much did they say it was fair to raise the prices? 
+What was Iran's relationship with the US at this time?
+How much did they say it was fair to raise the prices?
 
 context_id=310
 Why did OPEC raise the price of oil to $5.11?
@@ -3386,9 +3386,9 @@ What was the announcement made immediately by Kuwait?
 What did Nixon join on October 20, 1973?
 OPEC did what to the prices of oil on October 16th?
 What percentage did OPEC raise the price of oil?
-What was the price of oil after the raise? 
+What was the price of oil after the raise?
 Who announced it would embargo oil shipments to the US?
-When did Saudi Arabia join the embargo? 
+When did Saudi Arabia join the embargo?
 
 context_id=311
 How much did Saudi Arabia spend on spreading Wahhabism?
@@ -3415,7 +3415,7 @@ What was the USSR and the US more worried about?
 
 context_id=313
 What has a negative influence over the US economy?
-On an international level, which industry's competitive positions is affected? 
+On an international level, which industry's competitive positions is affected?
 Which problem consists of both  inflationary and deflationary impacts?
 The oil crisis caused oil companies to increase oil supplies in which area?
 How long does it take for new areas to have significant oil production?
@@ -3617,7 +3617,7 @@ context_id=330
 Who applies European Union law?
 Who can enforce the European Union law when member states provide lesser rights?
 What is the highest court in the European Union?
-What is one of the supplementary sources of European Union law? 
+What is one of the supplementary sources of European Union law?
 Which two courts apply European Union law?
 Under what treaty can the European Commission take action against member states?
 Which court is the highest court in the European Union?
@@ -3639,7 +3639,7 @@ Who elects the members of the European Parliament?
 What court is able to interpret European Union law?
 What governing body appoints commissioners and the board of European Central Bank?
 Who has a codified constitution?
-What are the primary constitutional sources of the American Union? 
+What are the primary constitutional sources of the American Union?
 Who does not have the power to initiate legislation within the European Union?
 Who elects the members of the American Parliament?
 What governing body appoints commissioners and the board of American Central Bank?
@@ -3686,7 +3686,7 @@ Is the Lisbon Treaty one that would alter existing treaties or replace them?
 What reform was attempted following the Nice Treaty?
 What was an additional projected effect of the attempted reform?
 Which caused the reform to never come into force?
-What treaty took the place of constitutional treaty? 
+What treaty took the place of constitutional treaty?
 What did not happen after the Nice Treaty?
 When was the constitution for Europe put into place?
 What was not similar to the Lisbon Treaty?
@@ -3722,7 +3722,7 @@ Who found that a culture had developed where few Commissioners had any sense of 
 The corruption found by the Committee of Independent Experts resulted to the creation of what office?
 When did the European Anti-Fraud Office investigate John Dalli?
 Who was not exempt from member state taxes?
-Who did not have immunity from prosecution for doing official acts? 
+Who did not have immunity from prosecution for doing official acts?
 What commission was found to have abused power in 1980's?
 What commission did not resign even though faced corruption allegations?
 What minor case was the result of the censuring of the Santer Commission?
@@ -3745,7 +3745,7 @@ How are the votes weighted to ensure the smaller states are dominated by larger 
 
 context_id=338
 What type of vote must the Parliament have to either block or suggest changes to the Commission's proposals?
-What type of vote must the Council pass in order to approve of any changes recommended by Parliament? 
+What type of vote must the Council pass in order to approve of any changes recommended by Parliament?
 Is it easier or harder to change EU law than stay the same?
 What articles state that unless conferred, powers remain with member states?
 Within the EU, which court believes they have the final word deciding on EU's competence?
@@ -3779,7 +3779,7 @@ What does the CJEU duty not emcompass?
 context_id=340
 If there is a conflict between EU law and national law, which law take precedence?
 What was the reason the Italian Constitutional court gave that resulted in Mr. Costa losing his his claim against ENEL?
-What were the years two Regulations that conflicted with an Italian law originate in the Simmenthal SpA case? 
+What were the years two Regulations that conflicted with an Italian law originate in the Simmenthal SpA case?
 Which entities have had to develop principles dedicated to conflict resolution between laws of different systems?
 When did Costa v ENEL take place?
 Which court argued that the Treaty of Rome did not prevent energy nationalism?
@@ -4120,9 +4120,9 @@ The Amazon represents less than half of the planets remaining what?
 context_id=370
 Which type of climate may have allowed the rainforest to spread across the continent?
 What has allowed for the Savanna region to expand into the tropics?
-During what time did the rainforest spanned a narrow band? 
+During what time did the rainforest spanned a narrow band?
 When did it retract to a inland formation?
-Did the rainforest managed to thrive during the glacial periods? 
+Did the rainforest managed to thrive during the glacial periods?
  What may have caused rainforests to grow across South America?
 How many degrees south did the Amazon rainforest reach from 66-34 Mya?
 What has caused savanna regions to grow into the South American tropics in the last 34 million years?
@@ -4163,8 +4163,8 @@ Water from broke through and joined the westward flow to the Pacific?
 
 context_id=372
 What does LGM stands for?
-What did the analysis from the sediment deposits indicate? 
-What are some of scientists arguments? 
+What did the analysis from the sediment deposits indicate?
+What are some of scientists arguments?
 How has this debate been proven?
 How are the explanations supported?
 There have been major changes in Amazon rainforest vegetation over the last how many years?
@@ -4205,15 +4205,15 @@ How much dust is blown into the sonar every year
 
 context_id=374
 What is the name of the book written by Archeologist Betty Meggers?
-What is the maximum square miles did Betty Meggers claim that can be sustained in the rainforest? 
+What is the maximum square miles did Betty Meggers claim that can be sustained in the rainforest?
 What would be needed to host a larger population?
-Which findings suggested that the region was densely populated? 
+Which findings suggested that the region was densely populated?
 How many people may have lived in the Amazon region during AD 1500?
 What feature of the Amazon made people believe it couldn't have many inhabitants?
 What well-known archeologist believed the Amazon didn't have many inhabitants?
 How many inhabitants did Betty Meggers believe could occupy each square kilometre of the Amazon?
 In what book did Betty Meggers describe the idea of the Amazon being sparsely populated?
-Which archaeologist proposed the idea that the Amazon rainforest couldn't sustain large populations? 
+Which archaeologist proposed the idea that the Amazon rainforest couldn't sustain large populations?
 Which book discussed the theory about low populations in the Amazon rainforest?
 What was the theorized maximum population density per square kilometre for the Amazon rainforest?
 In 1500 AD how many people were believed to have lived in the Amazon region?
@@ -4263,7 +4263,7 @@ How many species of insects are known in the region?
 What portion of bird species make up the world's total live in the rainforest?
 How many plant species make up the total in the rainforest?
 What is the total make up of fish species living in the Amazon?
-How many invertebrate species are known in Brazil alone? 
+How many invertebrate species are known in Brazil alone?
 The Amazon region is home to how many species of insect?
 How many species of bird and mammals are there in the Amazon region?
 How many plant species are estimated to be in the Amazon region?
@@ -4473,7 +4473,7 @@ When are some juvenile plankton able to do before becoming an adult?
 How quickly do plankton populations grow due to hermaphrodism and early reproduction?
 
 context_id=393
-What does the Beroe eat? 
+What does the Beroe eat?
 What was introduces into the Black Sea?
 What does  mnemiopsis eat?
 Where do ctenophores be found in large numbers?
@@ -4889,7 +4889,7 @@ When was the Fresno County Courthouse demolished?
 What is the Pacific Southwest Building currently known as?
 What happened to the Bank of Italy Building?
 What was the Grand 1401 building renamed as?
-What is the name of the hotel that was renamed the Grand 1401? 
+What is the name of the hotel that was renamed the Grand 1401?
 
 context_id=428
 In what year did Fresno get its first pedestrian mall?
@@ -5061,7 +5061,7 @@ context_id=442
 what was Fresno's population in 2010?
 What was the percentage of whit people in Fresno in 2010?
 How many Native American people resided in Fresno in 2010?
-What was the percentage of Non-Hispanic Whites in 2010? 
+What was the percentage of Non-Hispanic Whites in 2010?
 How many people per square mile lived in Fresno in 2010?
 What was the US population in 2010?
 How many Native Americans were there in 1970?
@@ -5082,7 +5082,7 @@ How many same-sex partnerships without kids were there?
 How many households had someone alone under the age of 18?
 
 context_id=444
-How many people lived in Fresno in 2000, according to the Census Bureau? 
+How many people lived in Fresno in 2000, according to the Census Bureau?
 How many housing units were there in 2000?
 What was the percentage of Black or African-Americans living in the city?
 About how many of the Asian population was Hmong?
@@ -5140,23 +5140,23 @@ What mainlines head west and south from the city?
 Who took over the San Joaquin Valley Railroad branchlines?
 
 context_id=449
-What did Paul Baran develop 
+What did Paul Baran develop
 What did Distributed Adaptive Message Block Switching do
-What did this concept contradict 
-What is Donald Davies credited with 
+What did this concept contradict
+What is Donald Davies credited with
 What did Paul Baran develop in the late 1950's
-What was the goal of the system 
-Who is credited with the modern name for this system 
+What was the goal of the system
+Who is credited with the modern name for this system
 In the late 1950s what concept was developed?
 What did the concept hope to achieve?
 How much funding did the RAND Corporation receive?
 What was the independent work of Donald Davis?
 What was the Bell System?
 What did the US Department of Defense gain from their funding to RAND Corporation?
-Who credited Paul Baran for his development? 
+Who credited Paul Baran for his development?
 The Bell System was created by who?
-Packet Switching had a goal of creating what? 
-Who created ARPANET? 
+Packet Switching had a goal of creating what?
+Who created ARPANET?
 Did Paul Baran develop Distributed Adaptive Message Block Switching with the goal of monetizing it?
 Did Paul Baran has assistance from anyone when he developed the concept?
 Was development of this concept originally considered "classified" or a secret?
@@ -5169,24 +5169,24 @@ Who created ARPANET in the United States?
 What fortified this concept?
 
 context_id=450
-Packet Switching contrast with what other principal 
+Packet Switching contrast with what other principal
 What is circuit switching characterized by
 How is packet switching charecterized
-What does Packet switching contrast with 
-How is circuit switching allocated 
-How is circuit switching charecterized 
-How is packet switching characterized 
-What is Circuit Switching? 
+What does Packet switching contrast with
+How is circuit switching allocated
+How is circuit switching charecterized
+How is packet switching characterized
+What is Circuit Switching?
 How much bandwidth is dedicated for each communication session?
 How is information charged for packet switching?
 How is information charged differently for Circuit Switching?
 What is latency between nodes?
 What is packet switching?
-Packet switching communication has what kind of bit rate? 
-How is Packet Switching allocated? 
-Packet switching speed is determined by what factor? 
-Packet switching uses what kind of network? 
-Are the sizes of packets variable?  
+Packet switching communication has what kind of bit rate?
+How is Packet Switching allocated?
+Packet switching speed is determined by what factor?
+Packet switching uses what kind of network?
+Are the sizes of packets variable?
 If packet sizes are variable, then are they always charged at the same rate per packet?
 What is the minimum amount, if any, of data to make up a packet?
 Can a packet be sent empty?  If so, is it billable?
@@ -5196,20 +5196,20 @@ What does packet switching pre-allocate?
 What is special about communication sessions with packet switching?
 
 context_id=451
-In cases of shared physical medium how are they delivered 
-How is packet mode communication implemented 
+In cases of shared physical medium how are they delivered
+How is packet mode communication implemented
 How are packets normally forwarded
-In cases with shared medium how is it delivered 
+In cases with shared medium how is it delivered
 What kind of communication can be implemented?
-Packets can be delivered via what route? 
+Packets can be delivered via what route?
 What type of medium is a 10BASE5 radio?
 What are intermediate forwarding nodes?
 How are packets delivered differently?
-In cases of non shared medium how are packets delivered? 
-In cases of non shared physical medium how are packets delivered? 
-How are packets irregularly forwarded? 
-When are packet mode communications not implemented? 
-How are packet mode communications dissolved? 
+In cases of non shared medium how are packets delivered?
+In cases of non shared physical medium how are packets delivered?
+How are packets irregularly forwarded?
+When are packet mode communications not implemented?
+How are packet mode communications dissolved?
 How many access points are in a "multiple access scheme"?
 Do certain packets take priority over others if sent at the exact same time?
 Can a packet be lost and if so, then where does it go?
@@ -5222,24 +5222,24 @@ What is the only way to forward packets?
 What isn't a guaranteed quality of service?
 
 context_id=452
-What did Baran develop during research at RAND 
-What was developed for the Air Force 
-What 3 things does the Air Force work key on 
-How are Air force messages delivered 
+What did Baran develop during research at RAND
+What was developed for the Air Force
+What 3 things does the Air Force work key on
+How are Air force messages delivered
 What concept was developed by Baran while researching at RAND
 What was report P-2626
-What  things did the network concentrate on 
-What delivery message was used 
+What  things did the network concentrate on
+What delivery message was used
 What was developed in the summer of 1961?
-What ideas did the report in 1964 state? 
+What ideas did the report in 1964 state?
 How many focuses where there in report P-2626?
 Who owned RAND Company?
 How was forward switching achieved?
 Who presented briefing B-265 to the US Air Force?
-What did RM 3420 report? 
-What was the US Air Force interested in? 
-How were messages delivered before implementation? 
-What was the Air Force not interested in for their message system? 
+What did RM 3420 report?
+What was the US Air Force interested in?
+How were messages delivered before implementation?
+What was the Air Force not interested in for their message system?
 Did Baran develop this "only" for use by the Air Force?
 Did the RAND corporation retain any of the research?
 If this was developed for the Air Force, then does the Air Force still technically own the Intellectual Property?
@@ -5253,11 +5253,11 @@ How did RAND use this network?
 
 context_id=453
 What did Donald Davies Develop
-What did Davies call his system 
-What did Davies want to build 
-What use was suggested for the system 
-Who developed the same technology as Baran 
-What did Davies call the System 
+What did Davies call his system
+What did Davies want to build
+What use was suggested for the system
+Who developed the same technology as Baran
+What did Davies call the System
 What was suggested at the Symposium in 1967
 How independently created a separate system in 1965?
 Where was the ACM Symposium held?
@@ -5275,14 +5275,14 @@ Who did Davies tell about Baran's work?
 What did Baran call his message routing methodology?
 
 context_id=454
-What does each packet includ in connectionless mode 
-How are the packets routed 
+What does each packet includ in connectionless mode
+How are the packets routed
 What is included with each packet label
 What happens to the packet at the destination
 What results in out of order delivery?
 While packets are labeled correctly what can happen to them?
 Why do packets arrive out of order?
-Where is the data reassembled? 
+Where is the data reassembled?
 What is a virtual connection?
 Can a packet be sent incomplete?
 If three sequential packets are sent and the one in the middle is lost, then how is the data recompiled in a meaningful way?
@@ -5295,14 +5295,14 @@ What is included in the data in connectionless mode?
 
 context_id=455
 What does connection orientation require
-What is a connection identifier 
-Why is the node requiered to look up 
-Is the packet header long 
-What is a set up phase? 
-How is error checking involved in delivery? 
-A routing packet is required under what system? 
+What is a connection identifier
+Why is the node requiered to look up
+Is the packet header long
+What is a set up phase?
+How is error checking involved in delivery?
+A routing packet is required under what system?
 What does the node read?
-What values are negotiable? 
+What values are negotiable?
 Can packets ever collide in route?
 Are link parameters based on size?
 Can the node ever acquire the wrong connection id?
@@ -5310,19 +5310,19 @@ Can address information be changed after the set-up phase?
 Is there a situation where the destination can't be discovered?
 When is the address information not transferred to each node?
 What does connectionless-oriented transmission require?
-What is contained in a large packet header? 
+What is contained in a large packet header?
 What does the address information negotiate?
 
 context_id=456
 WHat do x.25 and Frame Relay both require
-What were X.25 and Frame relay used for 
-What supplanted Frame Relay and X.25 
+What were X.25 and Frame relay used for
+What supplanted Frame Relay and X.25
 What is a typical configuration
 What does Frame Relay provide?
-What is level two of the connection-orientated operation? 
+What is level two of the connection-orientated operation?
 What is the "hand shake" between communication parties?
 What is the protocol suite?
-Where was the packet switching used in the 1980s? 
+Where was the packet switching used in the 1980s?
 Frame Relay requires a handshake from what?
 What does Frame Relay's LAPB provide?
 What does X.25's integrity operations concern?
@@ -5331,9 +5331,9 @@ How is X.25 connection-oriented at layer two?
 
 context_id=457
 WHen did ARPNET and SITA become operational
-2 differences betwen X.25 and ARPNET CITA technologies 
+2 differences betwen X.25 and ARPNET CITA technologies
 WHat does UserDatagram Protocol gaurentee
-X.25 uses what type network type 
+X.25 uses what type network type
 How many different network technologies where there before 1973?
 What type of network does SITA HLN not use?
 X.25 had a simpler what?
@@ -5345,26 +5345,26 @@ What suite uses UDP?
 In a virtual call system, the hosts have what responsibility?
 
 context_id=458
-What was Apple Talk 
-WHat were features of Apple Talk 
-What did the Apple system assign automatically 
-This type of system is known as 
+What was Apple Talk
+WHat were features of Apple Talk
+What did the Apple system assign automatically
+This type of system is known as
 Apple Inc created what in 1985?
-What was the purpose of the suite developed in 1985? 
-Why was Appletalk considered plug-n-play? 
+What was the purpose of the suite developed in 1985?
+Why was Appletalk considered plug-n-play?
 What created a centralized router or server?
-Could only Apple devices utilize this suite? 
+Could only Apple devices utilize this suite?
 AppleTalk was developed in 1995 for who?
 How were non-local area networks established with Appletalk?
 Inter-network routing was what kind of system?
 What protocol was popular in the 1970s and 80s for Apple?
 
 context_id=459
-What network was designed by the french 
-What was a first for this network 
-How was this possible 
-This network influenced  later models of 
-What alternative to ARPANET was developed? 
+What network was designed by the french
+What was a first for this network
+How was this possible
+This network influenced  later models of
+What alternative to ARPANET was developed?
 Did ARPANET develop the first system to make hosts responsible for delivery of data?
 What concepts influenced the later ARPANET?
 Who had influenced ARPANET?
@@ -5376,12 +5376,12 @@ How did the network deliver the data?
 
 context_id=460
 What is  DECnet
-What did DECnet originally do 
-DEC originally had 3 layers but evolved into how many layers 
-What did DECnet phase 2 become 
+What did DECnet originally do
+DEC originally had 3 layers but evolved into how many layers
+What did DECnet phase 2 become
 DECnet stands for what?
 What is peer to peer?
-What sort of protocols were developed? 
+What sort of protocols were developed?
 What does DECnet suite include?
 Late published versions were utilized by who?
 DECnet originally released in 1982 for what reason?
@@ -5392,11 +5392,11 @@ What did DECnet Phase I become?
 
 context_id=461
 What was Warner Sinback
-The 4 sales and service centers are viewed as 
+The 4 sales and service centers are viewed as
 Were the centers profitable
-What did Warner Sinback decide 
+What did Warner Sinback decide
 Who lost money?
-What work was completed at Dartmouth? 
+What work was completed at Dartmouth?
 What was the worlds first commercial online service?
 What did Warner Sinback offer?
 What was Warner correct about?
@@ -5405,14 +5405,14 @@ Sinback worked with what college on a time-sharing system?
 What job was Kemney given at GE?
 
 context_id=462
-WHy was the Merit network formed in Michigan 
-What completed the triad 
+WHy was the Merit network formed in Michigan
+What completed the triad
 What set the stage for Merits role in NSFNET
 State educational and economic development where helped by what?
-Where was the packet-switched network first demonstrated? 
-What was the triad? 
-What was eventual Merits role? 
-How many joined the "network"? 
+Where was the packet-switched network first demonstrated?
+What was the triad?
+What was eventual Merits role?
+How many joined the "network"?
 After the University of Ann Arbor and Wayne State University, who was the third university to complete the triad?
 When was Michigan Network Inc. formed by Michigan's public universities?
 Why was the Michigan Educational Research Information Trio formed?
@@ -5420,16 +5420,16 @@ What did Michigan Inc. start in the mid-1980s?
 NSF helped the network enhance what?
 
 context_id=463
-What was telenet 
-Who founded Telnet 
-Purpose of Telnet 
+What was telenet
+Who founded Telnet
+Purpose of Telnet
 Telnet Used what  Interface technology
-Telnet was sold to 
-Telenet was licensed under what founder? 
+Telnet was sold to
+Telenet was licensed under what founder?
 What was Larry Roberts hope?
 BBN provided financing for what?
-Why was Telenet purchased in 1979? 
-AT&T did not purchase the technology for what reason? 
+Why was Telenet purchased in 1979?
+AT&T did not purchase the technology for what reason?
 When AT&T financed the project, what technology did they use?
 What GTE director wanted to make ARPANET technology public?
 What was the BBN monopoly's reaction to Roberts?
@@ -5437,15 +5437,15 @@ What business was incorporated in 1975?
 
 context_id=464
 What was Tymnet
-What did Tymnet connect 
-How did user of Tymnet connect 
-The business allowed for private companies to do what 
-Gateways allowed private companies to do what 
+What did Tymnet connect
+How did user of Tymnet connect
+The business allowed for private companies to do what
+Gateways allowed private companies to do what
 Tymnet worked with what?
-Private networks were connected via gateways for what reason? 
-Who suggested the name of Tymnet? 
-Dial up or dedicated async connections connected who? 
-Where were servers hosted? 
+Private networks were connected via gateways for what reason?
+Who suggested the name of Tymnet?
+Dial up or dedicated async connections connected who?
+Where were servers hosted?
 What international data communications network was headquartered in San Juan, CA?
 The public network business allowed government agencies to do what?
 How was Tymnet connected to dozens of other private networks?
@@ -5453,14 +5453,14 @@ How were X.75, ASCII, and other interfaces used?
 Tymnet consisted of a large private network that supported who?
 
 context_id=465
-How many types of X.25 networks were there originally 
+How many types of X.25 networks were there originally
 Who developed DATAPAC
-WHat did foreign clones of DATAPAC allow for 
-What was implemented with an X.25 interface? 
+WHat did foreign clones of DATAPAC allow for
+What was implemented with an X.25 interface?
 What was sold to foreign PTTs?
-DNIC allowed a host to do what? 
-The Deutsce Bundespost bought what kind of interface look a likes? 
-X.25 networks were helped by what? 
+DNIC allowed a host to do what?
+The Deutsce Bundespost bought what kind of interface look a likes?
+X.25 networks were helped by what?
 How were TRANSPAC and TYMNET modified?
 Bell Northern Research developed TRANSPAC as a joint venture between which two companies?
 Who did Northen Telecom sell TRANSPAC clones to?
@@ -5469,26 +5469,26 @@ X.25 and X.121 allowed what to happen?
 
 context_id=466
 What was AUSTPAC
-What did AUSTPAC support 
-How are AUSTPAC connections made 
-What did Telecom Australia start? 
+What did AUSTPAC support
+How are AUSTPAC connections made
+What did Telecom Australia start?
 On-line betting was supported by what network frame?
-What types of access did Telstra provide? 
-Who had remote terminal access? 
-The Australian Tax Office used AUSTPAC for what reason? 
+What types of access did Telstra provide?
+Who had remote terminal access?
+The Australian Tax Office used AUSTPAC for what reason?
 Telstra started what in the early 1980s?
 The Australian Tax Office used AUSTPAC to access what remotely?
 What applications did AUSTPAC not support?
 What was the Australian public X.75 network operated by Telstra?
 
 context_id=467
-What was DATANET 1 
+What was DATANET 1
 Strictly speaking who was included in DATANET 1
-Who else did DATNET 1 refer to 
-Was the Use of the DATANET 1 name correct 
+Who else did DATNET 1 refer to
+Was the Use of the DATANET 1 name correct
 What was confusing within KPN?
-Datanet 1 also referred to what? 
-KPN referred to Datanet 1 as 
+Datanet 1 also referred to what?
+KPN referred to Datanet 1 as
 What was considered to be incorrect for the services given out by KPN?
 Who managed Datanet 1 for KPN?
 What did the public KPN service Telepad use?
@@ -5499,12 +5499,12 @@ Though the name was correct, all these services were managed by who?
 context_id=468
 What is CSNET
 What was the purpose of CSNET
-Funding limitations allowed CSNET to be what 
+Funding limitations allowed CSNET to be what
 What was considered to be a major milestone?
-Who spread awareness of national networking? 
+Who spread awareness of national networking?
 Who benefited from CSNET?
-Global internet was help funded by what foundation? 
-Extended networking benefits helped those that could not connect to what platform? 
+Global internet was help funded by what foundation?
+Extended networking benefits helped those that could not connect to what platform?
 What began operation in 1982?
 What was the purpose of NSF?
 Why did academic and research institutions need NSF's help connecting to ARPANET?
@@ -5515,13 +5515,13 @@ context_id=469
  what is Internet2
 Who did internet2 partner with
 What was the first internet2 network named
-Who did internet2 partner with 
-ableine was retired and the new platform is called 
+Who did internet2 partner with
+ableine was retired and the new platform is called
 Qwest partnered with who to help create Internet2?
-Level 3 communications launched what? 
-Internet2 became what in 2007? 
-Abilene referred to what? 
-A higher capacity network was formed by what project? 
+Level 3 communications launched what?
+Internet2 became what in 2007?
+Abilene referred to what?
+A higher capacity network was formed by what project?
 What was the first Internet2 Network created with NLR?
 Who did Internet2 partner with to boost their capacity from 100 Gbit/s to 1000 Gbit/s?
 Who leads the Qwest consortium?
@@ -5531,10 +5531,10 @@ context_id=470
 What is NSFNET
 What did NSFNET promote
 What did NSFNET eventually provide
-Advanced networking was developed by what sponsorship? 
-Promoted research in 1985 led to what? 
-Original intent of NFS funding was to accomplish what task? 
-Public and private funding led to what development? 
+Advanced networking was developed by what sponsorship?
+Promoted research in 1985 led to what?
+Original intent of NFS funding was to accomplish what task?
+Public and private funding led to what development?
 What prompted advanced research and education in networking?
 NSF began in 1985 to promote what?
 NSF developed into what through public funding and private partnerships?
@@ -5542,16 +5542,16 @@ What was constructed to supported NSF in 1985-1999?
 Why was NSFUS initially created?
 
 context_id=471
-what does vBNS stand for 
-What did vBNS do 
-Who operated the vBSN network 
-By 199 how many universities were connected 
+what does vBNS stand for
+What did vBNS do
+Who operated the vBSN network
+By 199 how many universities were connected
 What did the network install in 1999
-What were select locations connected to? 
-How were high speed connections maintained and who were they monitored by? 
-Who created the cooperative agreement? 
-Why was OC-12c considered a substantial engineering feat? 
-When was OC-12c upgraded? 
+What were select locations connected to?
+How were high speed connections maintained and who were they monitored by?
+Who created the cooperative agreement?
+Why was OC-12c considered a substantial engineering feat?
+When was OC-12c upgraded?
 Why was NSFBNS created?
 NSF was engineered and operated by who?
 NSF grew to connect how many universities?
@@ -5723,8 +5723,8 @@ context_id=486
 What does Graham Twigg propose about the spread of disease?
 What was Norman Cantor's theory about the plague?
 Which diseases do many scientists believe contributed to plague pandemic?
-What is septicemia? 
-How many bodies did Public Health England exhume? 
+What is septicemia?
+How many bodies did Public Health England exhume?
 What was Twigg's first name?
 What type of scientist is Norman Cantor?
 Who was one of the scientists for Public Health England in 2014?
@@ -5792,7 +5792,7 @@ context_id=492
 During which years was the plague present in Islamic countries?
 How many people were lost in Algiers during 1620-21?
 How long did plague last in the Ottoman empire?
-How many people, at most, have died of plague in Baghdad? 
+How many people, at most, have died of plague in Baghdad?
 In what year did the residents of Baghdad first become affected by the plague?
 How many people lived in Constantinople in 1701?
 How many people died of the plague in Ottoman society in the 19th century?
@@ -5802,8 +5802,8 @@ How many times did the plague visit Ottoman society before the second quarter of
 context_id=493
 An igneous rock is a rock that crystallizes from what?
 Sedimentary rock can be turned into which of the three types of rock?
-When the three types of rock are re-melted what is formed? 
-What are the three major types of rock? 
+When the three types of rock are re-melted what is formed?
+What are the three major types of rock?
 What changes the mineral content of a rock?
 What are three types of crystallization?
 What is an important concept in crystallization?
@@ -5818,10 +5818,10 @@ What gives sedimentary rock its characteristic fabric?
 
 context_id=494
 What was the most important discovery that led to the understanding that Earth's lithosphere is separated into tectonic plates?
-Which parts of the Earth are included in the lithosphere? 
+Which parts of the Earth are included in the lithosphere?
 What is another word for the Earth's upper mantle?
-Plate tectonics can be seen as the intimate coupling between rigid plates on the surface of the Earth and what? 
-In what decade was seafloor spreading discovered? 
+Plate tectonics can be seen as the intimate coupling between rigid plates on the surface of the Earth and what?
+In what decade was seafloor spreading discovered?
 When was the most important discovery about thermal boundaries made?
 What is another word for seafloor spreading?
 What direction do sea currents and seafloor spreading always move in?
@@ -5851,10 +5851,10 @@ What happens when one plate touches another?
 
 context_id=496
 What types of waves do seismologists use to image the interior of the Earth?
-In the layered model of the Earth, the outermost layer is what? 
-In the layered model of the Earth, the mantle has two layers below it. What are they? 
-In the layered model of the Earth there are seismic discontinuities in which layer? 
-Recently a more detailed model of the Earth was developed. Seismologists were able to create this using images of what from the interior of the Earth? 
+In the layered model of the Earth, the outermost layer is what?
+In the layered model of the Earth, the mantle has two layers below it. What are they?
+In the layered model of the Earth there are seismic discontinuities in which layer?
+Recently a more detailed model of the Earth was developed. Seismologists were able to create this using images of what from the interior of the Earth?
 What do seismologists use to map the Earth's crust?
 What was not able to see through the dense solid core of the Earth?
 By how many kilometers are shear waves separated when measuring the crust?
@@ -5865,7 +5865,7 @@ What is the size of the mantle?
 How quickly to wave speeds inside the earth move?
 
 context_id=497
-Why is the second timeline needed? 
+Why is the second timeline needed?
 Which timeline is further expanded in the fourth scale?
 What is the name of the latest epoch?
 The Pleistocene epoch takes place during which period?
@@ -5881,9 +5881,9 @@ What does the fourth scale compress?
 What is the name of the epoch expanded in the second scale?
 
 context_id=498
-What principle relates to the formation of faults and the age of the sequences through which they cut? 
+What principle relates to the formation of faults and the age of the sequences through which they cut?
 When rock formations are found on top of a fault that have not been cut, then they must be older or younger than the fault?
-Finding what helps to determine if a fault is a normal fault or a thrust fault? 
+Finding what helps to determine if a fault is a normal fault or a thrust fault?
 Rocks on top of a fault that are cut are always older or younger than the fault itself?
 What principle helps find the difference between a normal or thrust fault?
 What are key beds younger than?
@@ -5898,8 +5898,8 @@ What can you say about a fault that penetrates the top rocks but not the lower f
 
 context_id=499
 What foreign bodies, which are older than the rocks themselves, occur igneous rocks?
-Xenoliths are picked up by what and deposited into the matrix of igneous rocks? 
-What is another word for inclusions in sedimentary rocks? 
+Xenoliths are picked up by what and deposited into the matrix of igneous rocks?
+What is another word for inclusions in sedimentary rocks?
 What is the principle that states that with sedimentary rocks, inclusions must be older than the formation that contains them?
 What is something that is often torn up and included in sedimentary rock?
 What do matrix components show about how magma flows?
@@ -5911,13 +5911,13 @@ Why do igneous rocks use gravel?
 What are xenoliths made out of?
 What says that formations must be older than the inclusions inside them?
 What is the matrix?
-What is another name a formation? 
+What is another name a formation?
 
 context_id=500
 Which principle is based on the appearance of fossils in sedimentary rocks?
 Whose principles were the principle of faunal succession built upon?
 The fact that not all fossils may be found globally at the same time causes the principle to become what?
-The presence or absence of what can be used to determine the relative age of the formations in which they are found? 
+The presence or absence of what can be used to determine the relative age of the formations in which they are found?
 The principle of faunal succession was developed 100 years before whose theory of evolution?
 Where can sedimentary rock not be found at the same time?
 What is the theory of evolution based on?
@@ -5934,7 +5934,7 @@ context_id=501
 When was the ability to use radioactive isotopes to date rock formations developed?
 What type of correlation was used previously to help date rock formations?
 It is now possible to convert old relative ages into what type of ages using isotopic dating?
-Previous to isotopic dating sections of rocks had to be dated using fossils and stratigraphic correlation relative to what? 
+Previous to isotopic dating sections of rocks had to be dated using fossils and stratigraphic correlation relative to what?
 When dating rocks, what is the absolute isotopic date applied to?
 How did the advancement of using fossils help geological science in the early 20th century?
 What did using fossils help change for scientists?
@@ -5964,11 +5964,11 @@ What cannot be used to find the age of pluton emplacement?
 What determines the temperature profile outside of the crust?
 
 context_id=503
-Rock units become thicker and shorten when placed under this type of compression. 
+Rock units become thicker and shorten when placed under this type of compression.
 Where do thrust faults form?
-When rock folds deep in the Earth it can fold one of two ways, when it buckles upwards it creates what? 
-When rock folds deep in the Earth it can fold one of two ways, when it buckles downwards it creates what? 
-If the tops of the rock units within the folds remain pointing upwards, they are called what? 
+When rock folds deep in the Earth it can fold one of two ways, when it buckles upwards it creates what?
+When rock folds deep in the Earth it can fold one of two ways, when it buckles downwards it creates what?
+If the tops of the rock units within the folds remain pointing upwards, they are called what?
 What happens when syncline is horizontally compressed?
 What are two ways that mud doesn't change in volume?
 What happens because younger rock is deeper?
@@ -5981,8 +5981,8 @@ What happens to rock units under vertical pressure?
 What are buckles facing downwards in a fault called?
 
 context_id=504
-This causes the rock unit as a whole to become longer and thinner. 
-Stretched rocks that pinch into lenses are known by what word? 
+This causes the rock unit as a whole to become longer and thinner.
+Stretched rocks that pinch into lenses are known by what word?
 Where can the entire sedimentary sequence of the Grand Canyon be seen in less than the length of a meter?
 Rocks that are a depth where they are ductilely stretched are also often what?
 What causes rock extension?
@@ -6049,9 +6049,9 @@ What ancient property do geologists study?
 
 context_id=508
 What do petrologists use electron microprobes in the laboratory for?
-What properties are analyzed with a conoscopic lens by petrologists? 
+What properties are analyzed with a conoscopic lens by petrologists?
 Stable and radioactive isotope studies provide insight into what?
-Petrologists identify rock samples in the field and where else? 
+Petrologists identify rock samples in the field and where else?
 What type of microscope is used by petrologists?
 Where is cross-polarized light identified by petrologists?
 What are two methods for identifying plane-polarized light in the lab?
@@ -6067,7 +6067,7 @@ What lens is used to identify chemical composition?
 context_id=509
 How else can petrologists understand the pressures at which different mineral phases appear?
 How else can petrologists understand the temperature at which different mineral phases appear?
-Data from physical experiments can be extrapolated to the field to understand what processes? 
+Data from physical experiments can be extrapolated to the field to understand what processes?
 What do petrologists use to understand magma chamber crystallization?
 What experiments are used to understand how magma flows?
 How does the flow of magma change?
@@ -6084,7 +6084,7 @@ How do structural geologists observe the fabric within the rocks?
 In order to better understand the orientations of faults and folds, structural geologists do what with measurements of geological structures?
 What kind of experiments of rock deformation do structural geologists perform?
 In what setting do structural geologists reconstruct the crystalline structure of rocks?
-What experiments are used to reconstruct rock fabric? 
+What experiments are used to reconstruct rock fabric?
 Why do geologists plot crystals under a microscope?
 What information does history of rock deformation give about crystal structure?
 What do structural geologists do with measurements of fabric in crystals?
@@ -6096,10 +6096,10 @@ What instrument is used to perform analogy and numerical experiments?
 
 context_id=511
 Zones in which mountains are built along convergent tectonic plate boundaries are called what?
-What are among the most well known experiments in structural geology? 
+What are among the most well known experiments in structural geology?
 Horizontal layers of what are pulled along a surface into a back stop in analog versions of orogenic wedge experiments?
-What does critically tapered mean? 
-Which is more sophisticated, numericals model or an analog models of orogenic wedges? 
+What does critically tapered mean?
+Which is more sophisticated, numericals model or an analog models of orogenic wedges?
 What do orogenic wedges work in the same way as?
 What are analog models often considered as compared to orogenic wedges?
 What do analog models include in the pathway for metamorphism?
@@ -6116,7 +6116,7 @@ The analysis of stratigraphic sections such as drill cores is done by who?
 What type of surveys show the location of stratigraphic units in the subsurface?
 What can be combined with geophysical data to produce a better view of the subsurface?
 What tool do stratigraphers use to see their data in three dimensions?
-Stratigraphers try to locate areas for what types of extraction? 
+Stratigraphers try to locate areas for what types of extraction?
 What do computers analyze in the lab?
 What is an example of what is analyzed by computers in the lab?
 What do drill cores show about water location?
@@ -6129,9 +6129,9 @@ What are well logs?
 What are ancient processes used to do?
 
 context_id=513
-Who analyzes rock samples from drill cores in the lab? 
+Who analyzes rock samples from drill cores in the lab?
 Who dates rocks, precisely, within the stratigraphic section?
-Why is it important to precisely date rocks within the stratigraphic section? 
+Why is it important to precisely date rocks within the stratigraphic section?
 What types of scientists looks for signs of magnetic reversals in igneous rocks within the drill cores?
 What do geochronologists analyze fossils from drill cores for?
 What do outcrop samples help magnetic stratigraphers to date?
@@ -6195,7 +6195,7 @@ When did the American Philosophical Society enlist Maclure to make the geologica
 How many years later was Maclure's memoir published after the map?
 
 context_id=517
-First published by Sir Charles Lyell in 1830 this book was called what? 
+First published by Sir Charles Lyell in 1830 this book was called what?
 What doctrine did the doctrine of the Principles of Geology successfully promote?
 Which theory states that slow geological processes are still occurring today, and have occurred throughout Earth's history?
 Which theory states that Earth's features remained unchanged after forming in one single catastrophic event?
@@ -6529,7 +6529,7 @@ Sophocles demonstrated civil disobedience in a play that was called?
 Who is Antigone's father in the play?
 What is the name of the current King of Thebes in the play?
 What character in the play portrays civil disobedience?
-What is Creon trying to stop Antigone from doing in the play? 
+What is Creon trying to stop Antigone from doing in the play?
 What play showed an early depiction of civil disobedience?
 Antigone was a play made by whom?
 In Antigone, who was the target of civil disobedience?
@@ -6546,7 +6546,7 @@ After the Peterloo massacre what poet wrote The Massacre of Anarchy?
 His poem is considered the first kind of what type of protest?
 What famous author used similarity and likeness of Percy Shelly in his writing?
 Inspired by Shelley what was the name of Gandhi's doctrine?
-Gandhi often referenced Shelley's poem in his efforts to do what? 
+Gandhi often referenced Shelley's poem in his efforts to do what?
 Who wrote the poem The Mark of Anarchy?
 The Mark of Anarchy was written to protest against what?
 What was the principle shown in The Mark of Anarchy?
@@ -6568,7 +6568,7 @@ Who noted the different current uses of civil disobedience?
 How has civil disobedience evolved in current times?
 Who gave a negative connotation to civil disobedience in recent history?
 What issue has been plaguing the civil disobedience movement.
-What had Vice President Agnew always suffered from? 
+What had Vice President Agnew always suffered from?
 What had happened to Vice President Agnew's status in modern times?
 What did Marchall Cohen note about crime?
 What types of people were always involved in the court system?
@@ -6576,9 +6576,9 @@ What type of person would be involved in a test case in federal court?
 
 context_id=548
 Who wrote that it is difficult to produce an all inclusive definition of civil disobedience?
-Le Grande also wrote that defining the term civil disobedience so difficult it could be described as? 
+Le Grande also wrote that defining the term civil disobedience so difficult it could be described as?
 Le grand asks for a variance of what three terms?
-Le grand states that students studying civil disobedience will often run into grammatical niceties and what other problem? 
+Le grand states that students studying civil disobedience will often run into grammatical niceties and what other problem?
 Le grand concludes that an author's words offer only what they intended for them to imply regarding this type of terminology?
 Who said that writing a good description of civil disobedience is hard?
 How much literature has been written regarding civil disobedience?
@@ -6596,7 +6596,7 @@ If the head of government refuses to enforce a decision of the highest court wha
 Constitutional impasse is different from civil disobedience because does not include what type of person?
 How is civil disobedience typically defined in connection of the citizen's?
 When would a person be considered to be excising a constitutional impasse?
-Constitutional impasse is distinct from what key term? 
+Constitutional impasse is distinct from what key term?
 What does civil disobedience relate to?
 What does not constitute as civil disobedience?
 What type of person can not be attributed civil disobedience?
@@ -6643,9 +6643,9 @@ When do banks believe civil disobedience is justified?
 context_id=552
 If law breaking is not done in a public manor it is not considered what term?
 Stephen Eilmann asks why show public civil disobedience instead what is a better idea?
-Stephen Eilmann demonstrates covert law breaking in Nazi Germany.   Citizen's illegally had been doing what? 
-Stephen Eildmann cites the oldest known example of civil disobedience in what part of the bible? 
-What two women were defying the pharaoh in the story from the book of Exodus? 
+Stephen Eilmann demonstrates covert law breaking in Nazi Germany.   Citizen's illegally had been doing what?
+Stephen Eildmann cites the oldest known example of civil disobedience in what part of the bible?
+What two women were defying the pharaoh in the story from the book of Exodus?
 What must be done to make non public lawbreaking acknowledged as civil disobedience?
 What is necessary to disobey?
 What is sometimes more effective than civil disobedience at times?
@@ -6662,7 +6662,7 @@ Cristian Bay's encyclopedia concludes that civil disobedience does not only incl
 What dictionary contains a non- violent definition?
 What other terminology is considered much more destructive?
 People behaving with civil disobedience that is not-violent is said to make society have more of what?
-Debates about civil disobedience include or exclude what major practice? 
+Debates about civil disobedience include or exclude what major practice?
 What type of civil disobedience is commonly accepted?
 When violence is used, what is civil disobedience sometimes called?
 What is one result of civil rebellion?
@@ -6677,7 +6677,7 @@ context_id=554
 What is it called when there is an active attempt to overthrow a government or belief system?
 What group of people performed revolutionary civil disobedience toward the Austrian government?
 The Hungarians performed this civil disobedience under the direction of what person?
-Revolutionary civil disobedience towards culture is highlighted by example of who? 
+Revolutionary civil disobedience towards culture is highlighted by example of who?
 What other topics can Civil disobedience pertain to?
 What is a simple form of civil disobedience?
 Why would a person chose civil disobedience against specific laws?
@@ -6880,7 +6880,7 @@ What typically involves mass production of similar items without a designated pu
 What percentile of gross domestic product is construction comprised of?
 What three things are needed for construction to take place?
 Construction takes place on location for who?
-What involves limited production with a designated purchase? 
+What involves limited production with a designated purchase?
 What usually takes place on location for an unknown client?
 What does comprise 69 percent of?
 What three things are recommended before construction begins?
@@ -6997,7 +6997,7 @@ A formal design team may be assembled to do what?
 The design team is most commonly employed by who?
 Who provides the bill of quantities?
 The owner typically awards a contract to who?
-What does a quantity surveyor do with a design? 
+What does a quantity surveyor do with a design?
 What group prepares the bid for work?
 Who does the owner award  a bill of quantities to?
 What  are construction companies asked to plan?
@@ -7606,8 +7606,8 @@ What did Forbes halt the construction of in 2008?
 What did local residents do when Forbes announced budget cuts in 2011?
 
 context_id=632
-When was the divestment from South Africa movement? 
-What South African Vice Consul did Harvard students blockade the speech of? 
+When was the divestment from South Africa movement?
+What South African Vice Consul did Harvard students blockade the speech of?
 By how much did Harvard management reduce its South Africa holdings in response to pressure?
 In what year did South African Vice Consul Duke Kent-Brown take office?
 What was erected in South Africa by Duke Kent-Brown to protest Harvard?
@@ -7648,7 +7648,7 @@ What increased about Harvard's student body in 2005?
 What two honors were given out more frequently in 2005?
 
 context_id=636
-What is tuition for 2012 - 13 year at Harvard? 
+What is tuition for 2012 - 13 year at Harvard?
 What is the total cost of attendance in 2012-13?
 After 2007 how much do student from families earning less than $60,000 pay for school?
 In 2009 what was the total of Grants awarded from Harvard?
@@ -7772,7 +7772,7 @@ Who discovered pottery found on Black Hammock Island?
 What civilization did the pottery belong to?
 What is the 16th century known as the start of?
 What is the name of the village that once existed in what is now downtown Jacksonville?
-What area remained uninhabited for thousands of years? 
+What area remained uninhabited for thousands of years?
 What I lent to the team of northern University students discover pottery?
 What to do university students find the dated sixteenth century?
 What area did the Mocama inhabit in 2500 BC?
@@ -8046,7 +8046,7 @@ What type of motivators are achievement and self determination considered?
 What type of entrepreneurship leads to advancements in technology?
 What increases entrepreneurship rates at the individual level?
 What is the increased rates of self-employment based on?
-Survival needs such as income for food and shelter motivates what type of entrepreneurship? 
+Survival needs such as income for food and shelter motivates what type of entrepreneurship?
 What motivation is opportunity-based entrepreneurship driven by?
 What type of impact does opportunity-based entrepreneurship tend to have on economic growth?
 What decreases with the increase of income inequality?
@@ -8220,7 +8220,7 @@ What process attributes new wealth to those that already have it?
 According to the wealth concentration theory, what advantage do the wealthy have in accumulating new wealth?
 What has the highest impact on wealth accumulation and the resulting income inequality?
 What tends to lead to more money?
-Where does newly created wealth concentrate? 
+Where does newly created wealth concentrate?
 Who is best able to leverage the accumulation of wealth?
 What can significantly contribute to the continuing inequality in a society over time?
 Who wrote the book "Capital in the Twenty-First Century"?
@@ -8229,7 +8229,7 @@ What process attributes old wealth to those that already have it?
 According to the wealth concentration theory, what disadvantage do the wealthy have in accumulating new wealth?
 What has the lowest impact on wealth accumulation and the resulting income inequality?
 What tends to lead to less money?
-Where does oldly created wealth concentrate? 
+Where does oldly created wealth concentrate?
 
 context_id=681
 What career does Joseph Stiglitz have?
@@ -8342,24 +8342,24 @@ What isn't Thomas B. Edsall's profession?
 context_id=690
 What is Raghuram Rajan's career?
 What does Rajan feel has created deep financial fault lines?
-What is the most recent example of financial fault lines? 
+What is the most recent example of financial fault lines?
 What does political pressure push to extend to compensate for stagnating purchasing power?
 What has given the American economy a tendency to go "from bubble to bubble"?
 What isn't Raghuram Rajan's career?
 What does Rajan feel hasn't created deep financial fault lines?
-What is the oldest example of financial fault lines? 
+What is the oldest example of financial fault lines?
 What doesn't political pressure push to extend to compensate for stagnating purchasing power?
 What hasn't given the American economy a tendency to go "from bubble to bubble"?
 
 context_id=691
 What is negatively correlated to the duration of economic growth?
 What do high levels of inequality  prevent beyond economic prosperity?
-What happens to the GDP growth of a country if the income share of the top 20 percent increases, according to IMF staff economists? 
+What happens to the GDP growth of a country if the income share of the top 20 percent increases, according to IMF staff economists?
 What does an increase in the income share of the bottom 20 percent of people of a society result in?
 Who matters the most for economic growth?
 What is positively correlated to the duration of economic growth?
 What do low levels of inequality prevent beyond economic prosperity?
-What happens to the GDP growth of a country if the income share of the top 20 percent decreases, according to IMF staff economists? 
+What happens to the GDP growth of a country if the income share of the top 20 percent decreases, according to IMF staff economists?
 What does an decrease in the income share of the bottom 20 percent of people of a society result in?
 Who matters the least for economic growth?
 
@@ -8507,12 +8507,12 @@ What would income differentials be if individual contributions weren't relevant 
 
 context_id=704
 Who argues that the government redistributes wealth by force?
-What is the usual form of the government's wealth redistribution? 
+What is the usual form of the government's wealth redistribution?
 In an ideal moral society, what would all citizens be free from?
 How were some modern economic inequalities created?
 When are inequalities in wealth justified, according to John Rawls?
 Who argues that the government redistributes wealth by peace?
-What is the unusual form of the government's wealth redistribution? 
+What is the unusual form of the government's wealth redistribution?
 In an ideal moral society, what would no citizens be free from?
 How were some modern economic inequalities destroyed?
 When aren't inequalities in wealth justified, according to John Rawls?
@@ -8522,12 +8522,12 @@ What does the capabilities approach look at poverty as a form of?
 In the capabilities approach, grow and income are considered a means to an end rather than what?
 What is the goal of the capabilities approach?
 How would the capabilities approach achieve it's goal?
-What is the definition of agency as it relates to capabilities? 
+What is the definition of agency as it relates to capabilities?
 What doesn't the capabilities approach look at poverty as a form of?
 In the capabilities approach, grow and income aren't considered a means to an end rather than what?
 What is the goal of the incapabilities approach?
 How wouldn't the capabilities approach achieve it's goal?
-What is the definition of agency as it unrelates to incapabilities? 
+What is the definition of agency as it unrelates to incapabilities?
 
 context_id=706
 What happens when a person's capabilities aer lowered, as it relates to their income?
@@ -8569,7 +8569,7 @@ context_id=709
 What society founded the University of Chicago?
 What person helped establish the school with a donation?
 Who was the first president of the University of Chicago?
-What year was the university's first president given his position? 
+What year was the university's first president given his position?
 What year was the first class taught at the University of Chicago?
 Who is known as the poorest man in all history?
 In what year was the University of Maynard incorporated?
@@ -8579,7 +8579,7 @@ In what year were the last classes held in the university?
 
 context_id=710
 Who donated property to the University of Chicago?
-Who helped pay for the university's first building structure? 
+Who helped pay for the university's first building structure?
 What was the name of the first building built on campus grounds?
 How much did Silas B. Cobb pledge to the university?
 What is the name of the donor who helped establish the Hutchinson Commons?
@@ -8614,7 +8614,7 @@ During who's tenure was the University of Chicago Hospitals system destroyed?
 
 context_id=713
 In what year did the university first see a drop in applications?
-Why did the university see a drop in applicants? 
+Why did the university see a drop in applicants?
 When were Shimer College students allowed to transfer to the University of Chicago?
 The urban renewal project was intended to help the residents of what neighborhood?
 What did the early entrant program do for potential students?
@@ -8719,7 +8719,7 @@ The college's University is divided into how many divisions?
 context_id=722
 What is the name of the university's core curriculum?
 During 2012-2013, how many student were able to take the Core classes at a single time?
-UChicago claims to have what kind of learning experience compared to other universities? 
+UChicago claims to have what kind of learning experience compared to other universities?
 What guide states the Univeristy of Chicago is known for their heavy workload and academic difficulty?
 What are undergraduates required to take to satisfy the Chicago Core curriculum?
 During what time frame were the core classes limited to only 15 students?
@@ -8754,7 +8754,7 @@ context_id=725
 How many research institutes does the university run on campus?
 How many research centers does the university run on campus?
 What is the name of the museum and research center for Near Eastern studies, that is owned by the university?
-What lab does the university have a joint stake in? 
+What lab does the university have a joint stake in?
 Where is the Apache Point Observatory located?
 Aside from 113 research institutes, how many research centers does the U of C operate?
 Aside from 12 research centers, how many research institutes does the U of C operate?
@@ -8790,7 +8790,7 @@ In the fall quarter of 2014, how many students signed up for the college?
 In the fall quarter of 2014, how many students signed up for the university's four graduate divisions?
 In the fall quarter of 2014, how many students signed up for the university's professional schools?
 In the fall quarter of 2014, how many students signed up for the university's  in total?
-Who made up 19% of the student body in the 2012 Spring Quarter? 
+Who made up 19% of the student body in the 2012 Spring Quarter?
 How many students enrolled at the College during the spring of 2014?
 The University enrolled 3,468 students in the College  and how many in it's graduate divisions?
 How many students did the University enroll in its five graduate divisions in 2014?
@@ -8848,7 +8848,7 @@ context_id=733
 In what month is the university's scavenger hunt?
 In what year did the scavenger hunt begin?
 What does FOTA stand for?
-What is the name of the winter festival held in January that is based on fitness? 
+What is the name of the winter festival held in January that is based on fitness?
 What is the name of the university's summer festival?
 What has the university held since 1963 where large teams find items from a list?
 What has been held since 1987, taking over the campus for 7-10 days with exhibitions?
@@ -8882,7 +8882,7 @@ Who is the first Japanese Senator?
 
 context_id=736
 What alumni member also write the bestseller Before I Fall?
-What is the name of the Pulitzer Prize novelist who was also a university alumni? 
+What is the name of the Pulitzer Prize novelist who was also a university alumni?
 What alumni wrote "The Closing of the American Mind"?
 What alumni wrote "The Good War"?
 What is the name of the American writer and satirist who is also a university alumni?
@@ -8897,7 +8897,7 @@ What minimalist composer is also a university graduate?
 What is the name of the Bungie Inc. founder who is also a university graduate?
 What video game series did Alex Seropian make?
 What American actor is also a university graduate?
-What comedian is also a university graduate? 
+What comedian is also a university graduate?
 Who is the Bungie founder and developer of the dance video game?
 Who is an actor and also Serial host?
 Who is an award winning photographer and writer?
@@ -9767,7 +9767,7 @@ Hormones can alter the sensitivity of the immune system, so they can be referred
 Female sex hormones are immunostimulators of which immune responses?
 What is an autoimmune disease that affects women preferentially?
 What is the effect of testosterone on the male immune system?
-What keeps the sensitivity of the immune system at the same levels? 
+What keeps the sensitivity of the immune system at the same levels?
 When do autoimmune diseases often strike men?
 What is a hormone that does not effect the immune system?
 What male sex hormone is an immunostimulator?
@@ -9778,8 +9778,8 @@ What is a protein that is closely intertwined with circadian rhythms?
 Disruptions in sleep can lead to increase in what chronic conditions?
 What kind of deprivation results in diminished immune response and lower antibody production?
 What has a stronger effect during sleep deprivation?
-When is antibody production higher than normal? 
-What protein does not effect T-cell differentiation? 
+When is antibody production higher than normal?
+What protein does not effect T-cell differentiation?
 What chronic conditions can cause sleep deprivation?
 What is not effected by natural light and dark cycles?
 
@@ -9847,7 +9847,7 @@ In the process of vaccination, what is introduced in order to develop a specific
 Vaccination exploits what feature of the human immune system in order to be successful?
 When is short-term active memory acquired?
 What cells do not play a role in long-term active memory?
-What artificial method of spreading immunity causes disease? 
+What artificial method of spreading immunity causes disease?
 What does vaccination not exploit?
 What is one of the least common causes of death in humans?
 
@@ -9891,7 +9891,7 @@ Inflammation occurs during sleep times because of the presence of what molecule?
 Melatonin during sleep can actively counteract the production of what?
 What cells are at their lowest while people are awake?
 Why do differentiated effector cells ebb during wake periods?
-What molecules that promote inflammation peak during waking hours? 
+What molecules that promote inflammation peak during waking hours?
 What could inflammation do during sleep periods?
 What could promote free radical production during sleep times?
 
@@ -9981,7 +9981,7 @@ What is the eukaryotic parasite responsible for malaria known as?
 What bacteria lives inside a protective capsule that serves to prevent cell lysis?
 What protein does Staphylococcus aureus produce to make antibodies ineffective?
 What strategy is used by pathogens to encounter the innate immune system?
-What is it called when a pathogen spends most of its lifecycle outside of host cells? 
+What is it called when a pathogen spends most of its lifecycle outside of host cells?
 Where does a pathogen come in direct contact with immune cells, antibodies and complement?
 What secretes pathogens that enhance the host's immune response?
 What do bacterial surface proteins not bind to?
@@ -10256,7 +10256,7 @@ When was a study published confirming the 2001 IPCC projections?
 How did the 2001 IPCC report compare to reality for 2001-2006?
 How did the 2001 IPCC report compare to reality on temperature levels?
 How did the 2001 IPCC report compare to reality on sea levels?
-What did the 2007 IPCC report suggest had been decreasing? 
+What did the 2007 IPCC report suggest had been decreasing?
 For how many years had temperatures been studied in the 2001 report?
 Which projections suggested that temperatures would rise, but that sea levels would decrease?
 Which projection overstated the rate at which temperatures would rise?
@@ -10279,7 +10279,7 @@ Who published the State of the Planet 2008-2009 report?
 What approach did Oppenheimer advocate?
 Who was the author of the fourth assessment report?
 When was the fifth assessment report written?
-What reports did Michael Oppenheimer suggest needed to contain a broad exploration of certainties? 
+What reports did Michael Oppenheimer suggest needed to contain a broad exploration of certainties?
 Where are dissenting opinions published?
 In which magazine did Oppenheimer defend the consensus approach?
 
@@ -10299,7 +10299,7 @@ What remain unsolved problems with the Kyoto Protocol?
 What conflicts did the ozone mitigation reduce?
 Who ordered the Stern Review?
 Who stated that that scientific ignorance was what caused uncertainties of global warming?
-What metaphors explained global warming? 
+What metaphors explained global warming?
 What did everyday relevance to popular culture explain?
 What does the public see an an imminent danger?
 What was one of the problems solved by the Kyoto Protocol?
@@ -10339,8 +10339,8 @@ Why must -1 be excluded in order to preserve the uniqueness of the fundamental t
 context_id=864
 What is the name of the property that designates a number as being prime or not?
 What is the name of the process which confirms the primality of a number n?
-What is the name of one algorithm useful for conveniently testing the primality of large numbers? 
-What is the name of another algorithm useful for conveniently testing the primality of large numbers? 
+What is the name of one algorithm useful for conveniently testing the primality of large numbers?
+What is the name of another algorithm useful for conveniently testing the primality of large numbers?
 As of January 2016 how many digits does the largest known prime consist of?
 What is the name of the property that designates a number as being efficient or not?
 What is the name of the process which confirms the primality of a decimal digits?
@@ -10445,7 +10445,7 @@ What must the integer m be greater than or equal to when performing trial divisi
 How many divisions are required to verify the division of the number 37?
 
 context_id=873
-How many modern types of primality tests for general numbers n are there? 
+How many modern types of primality tests for general numbers n are there?
 What is the name of one type of modern primality test?
 What is the name of another type of modern primality test?
 What type of algorithm is trial division?
@@ -10591,7 +10591,7 @@ How many bits are typically used in the key exchange logarithms for for the Diff
 context_id=885
 What type of insect employs the use of prime numbers in its evolutionary strategy?
 Where do cicadas spend the majority of their lives?
-Other than 7 and 13, what other year interval do cicadas pupate? 
+Other than 7 and 13, what other year interval do cicadas pupate?
 What is the logic behind the cicadas prime number evolutionary strategy?
 How much larger would cicada predator populations be if cicada outbreaks occurred at 14 and 15 year intervals?
 What type of insect employs the use of Magicicadas in its evolutionary strategy?
@@ -10627,8 +10627,8 @@ Under what condition is an element a general xy?
 context_id=888
 What theorem remains valid in unique factorization domains?
 What is one example of a unique factorization domain?
-What form do complex Gaussian integers have? 
-What do a and b represent in a Gaussian integer expression? 
+What form do complex Gaussian integers have?
+What do a and b represent in a Gaussian integer expression?
 Of what form are rational primes?
 What theorem remains valid in unique Gaussian primes?
 What is one example of unique rational primes?
@@ -10684,12 +10684,12 @@ What does Neumes say that composition with prime numbers was inspired by?
 
 context_id=893
 Where does the Rhine empty?
-What is the largest city the Rhine runs through? 
+What is the largest city the Rhine runs through?
 What river is larger than the Rhine?
 How long is the Rhine?
-Where is the Rhine? 
+Where is the Rhine?
 What country does the Rhine empty?
-How long is the Rhine? 
+How long is the Rhine?
 What is the smallest nation that the Rhine runs through?
 How long is the Netherlands?
 In what country does the Danube empty?
@@ -10697,29 +10697,29 @@ What is the population of the Netherlands?
 How long is the Germany?
 
 context_id=894
-Where does the name Rhine derive from? 
-What is the French name for the Rhine? 
+Where does the name Rhine derive from?
+What is the French name for the Rhine?
 What is the Proto-Germanic adaptation of the name of the Rhine?
 What century did the name of the Rhine come from?
-What does the name The Rhine come from? 
+What does the name The Rhine come from?
 What is the Rhine called in French?
 What is the Proto-Germanic adoption of the Gaulish name of the Rhine?
 What is the Rhine called in Dutch?
-How was the Dutch name for the Rhine originally spelled? 
+How was the Dutch name for the Rhine originally spelled?
 Where are the variant forms of the name of the Rhine in ancient languages derived from?
 What century did the Germanic vocalism Rin come from?
 What century did the spelling with Rh- in English Rhine come from?
 What century did the French adopt the Germanic vocalism Rin-?
 
 context_id=895
-What is the conventional method to measure the Rhine? 
-When was the scale to measure the Rhine introduced? 
+What is the conventional method to measure the Rhine?
+When was the scale to measure the Rhine introduced?
 Where does the Rhine river's measurement begin?
 Where does the Rhine river's measurement end?
-What has shortened the Rhine river? 
-What is the conventional measurement of the Rhine? 
-When was the measurement of the Rhine introduced? 
-Where does the Rhine begin? 
+What has shortened the Rhine river?
+What is the conventional measurement of the Rhine?
+When was the measurement of the Rhine introduced?
+Where does the Rhine begin?
 Where does the Rhine end?
 Why has the Rhine been shortened?
 What is the length of the Old Rhine Bridge at Constance?
@@ -10729,16 +10729,16 @@ In what year did Hoek van Holland begin canalization projects?
 How long is Lake Constance?
 
 context_id=896
-Near Chur, which direction does the Rhine turn? 
+Near Chur, which direction does the Rhine turn?
 How long is the section of the Rhine near Chur?
 What is the alpine valley that the Rhine flows through?
 What is the natural dam that the Rhine flows through?
-What is the other country the Rhine separates Switzerland to? 
-Where does the Rhine make a distinctive turn to the north? 
-How long is the section that turns north? 
-What is the height of the section that turns north? 
+What is the other country the Rhine separates Switzerland to?
+Where does the Rhine make a distinctive turn to the north?
+How long is the section that turns north?
+What is the height of the section that turns north?
 What is the glacial alpine valley known as?
-The Rhine forms the border between Austria and what other country? 
+The Rhine forms the border between Austria and what other country?
 Where does the Rhine make a distinctive turn to the south?
 How wide is the glacial alpine valley known as the Rhine Valley?
 What is the name of natural dam that connects the Rhine Valley?
@@ -10770,7 +10770,7 @@ After the Dornbirner Ach was diverted, where does the Rhine flow now?
 What is expected with the continuous input of sediment into the Dornbirner Ach?
 Where was the Rhine regulated with a lower canal?
 Where was the Rhine regulated with an upper canal?
-Why was the Rhine regulated? 
+Why was the Rhine regulated?
 What was diverted and now flows parallel to the Rhine?
 What will cause the lake near the Rhine to silt up?
 Where is the western canal regulation of the Rhine?
@@ -10780,8 +10780,8 @@ Why was Lake Tuggenersee regulated?
 What lake no longer has any silt?
 
 context_id=899
-How many bodies of water makes up Lake Constance? 
-What lake connects the Rhine to Lake Constance? 
+How many bodies of water makes up Lake Constance?
+What lake connects the Rhine to Lake Constance?
 What does Obersee mean?
 What does Untersee mean?
 Which border does the Rhine flow from the south?
@@ -10820,7 +10820,7 @@ How much water does the Aare give to the Rhine?
 Where is the highest point of the Rhine basin?
 Where is the so-called Rhine Knee?
 When the Rhine emerges from Lake Constance which way does it flow?
-What is the major tributary for the Rhine? 
+What is the major tributary for the Rhine?
 The Rhine gets how much water from the Aare?
 What is the highest point of the Rhine basin called?
 There's a rough border between Switzerland and what other country formed by the Rhine?
@@ -10832,10 +10832,10 @@ What is the lowest point of the Rhine basin called?
 
 context_id=902
 What is the first major city in the stream of the Rhine?
-What is the bend of Rhine in Basel called? 
-What is the boundary between the High and Upper Rhine? 
+What is the bend of Rhine in Basel called?
+What is the boundary between the High and Upper Rhine?
 How long is the Upper Rhine Plain?
-How wide is the Upper Rhine Plain? 
+How wide is the Upper Rhine Plain?
 What is the first major city in the course of the Rhine?
 What is the first major bend in the Rhine called?
 The bend on the Rhine goes from the West to what direction?
@@ -10848,11 +10848,11 @@ How long is the Central Bridge?
 How wide is the Mainz Basin?
 
 context_id=903
-Which century was there a program to straighten the Rhine? 
+Which century was there a program to straighten the Rhine?
 What happened to the rate of flow in the Rhine during the Rhine straightening program?
 What happened to the ground water in the Rhine during the Rhine straightening program?
 Which canal was dug in France to carry Rhine's water?
-What is the Bassin de compensation de Plobsheim in Alsace? 
+What is the Bassin de compensation de Plobsheim in Alsace?
 What region of the Rhine was changed by the Rhine Straightening program?
 When did the Rhine Straightening program begin?
 What happened with the rate of flow in the Rhine with the straightening program?
@@ -10866,13 +10866,13 @@ In what century did the amount of forests on the flood plain increase?
 
 context_id=904
 What is the longest river in Germany?
-Where does the Rhine encounter it's tributary the Neckar? 
+Where does the Rhine encounter it's tributary the Neckar?
 What is the average discharge of the Moselle to the Rhine?
 What is a main tributary to the Rhine that goes through Northeastern France and part of Belgium?
 What is the average width of the Rhine?
 The Rhine is the longest river in what country?
 Which country does the Rhine encounter it's main tributaries?
-Which of the tributaries in Germany contributes most? 
+Which of the tributaries in Germany contributes most?
 What country does the Moselle take the Rhine to?
 How much does the Rhine discharge at the Dutch border?
 What is the shortest river in Germany?
@@ -10897,10 +10897,10 @@ How many vineyards are located in the "the Romantic Rhine"?
 What flows after Bingen and Bonn?
 
 context_id=906
-What contributed to water pollution in the Rhine? 
+What contributed to water pollution in the Rhine?
 Where are a bulk of factories concentrated along the Rhine?
 What is Europe's largest inland port?
-What rive joins the Rhine in Duisburg? 
+What rive joins the Rhine in Duisburg?
 What does the Ruhr provide to it's community?
 What did industry do to the Rhine until the 1980s?
 Which section of the Rhine is most factories found?
@@ -10917,7 +10917,7 @@ context_id=907
 Besides viniculture, what's a dominant economic sector of the Middle Rhine?
 There's a UNESCO World Heritage site in the Rhine Gorge between the Koblenz and what?
 What is the famous rock near Sanke Goarshausen?
-What is considered the epitome of the Rhine romanticism? 
+What is considered the epitome of the Rhine romanticism?
 Besides viniculture, what is the other dominate economic sector in the middle rhine?
 What is the Rhine Gorge listed as?
 The Rhine Gorge is between Koblenz and what other city?
@@ -10931,7 +10931,7 @@ Where are the most settlements located?
 
 context_id=908
 What city has the biggest port in Germany?
-What is the Canal in Wesel? 
+What is the Canal in Wesel?
 What does the Wessel-Datteln canal run parallel to?
 What is the largest suspension bridge in Germany?
 How wide is the Rhine in Germany between Emmrich and Cleves?
@@ -10963,7 +10963,7 @@ context_id=910
 If two thirds of the Rhine flows through the Maas, where doe the other one third flow through?
 The Rhine redistributes into the Ijssel and what other body?
 What does the Nederrikn's name change into?
-Where does the Lek join? 
+Where does the Lek join?
 If two thirds of the Rhine flows through Waal, where does the other third flow through?
 Other than the Ijssel, where does the water from the Pannerdens Kanaal redsitrubute?
 How much of the Rhine flow does Ijssel carry?
@@ -10988,7 +10988,7 @@ When the Rhine took a right turn what did it create?
 During what ages were the Limes Germanicus built?
 
 context_id=912
-What is the name of the Delta in the Netherlands? 
+What is the name of the Delta in the Netherlands?
 Where does the Delta in the Netherlands begin?
 What is the nickname for the Delta in the Netherlands?
 What is the least important natural region of the Netherlands?
@@ -11011,7 +11011,7 @@ How many more flows carry insignificant amounts of water?
 context_id=914
 What flood impacted the Meuse?
 What year did the flood that impacted the Meuse take place?
-Where did the Meuse flow before the flood? 
+Where did the Meuse flow before the flood?
 What did the Merwede-Oude Maas form with Waal and Lek?
 When did the Meuse and Waal merge?
 When did the Meuse and Waal diverge further upstream at Gorinchem?
@@ -11033,7 +11033,7 @@ What water runs out of the sea and out of the former marine bay?
 context_id=916
 What type of Delta is the Rhine-Meuse?
 Besides rivers, what shapes the sedimentation of the rivers?
-What does a high tide risk near lands? 
+What does a high tide risk near lands?
 Between Brakel and what other city can the most landward tidal influence be detected?
 What was not shaped by sedimentation of the rivers and tidal currents?
 What area was the Delta Works constructed between?
@@ -11063,7 +11063,7 @@ What did the ongoing Alpine orogeny cause before the Eocene?
 During what period did the Alpine orogeny end?
 
 context_id=919
-How did the Rhine extend watershed southward? 
+How did the Rhine extend watershed southward?
 What period did the Rhine capture streams?
 Where are the streams the Rhine captured?
 What caused the Rhine to extend its watershed northward?
@@ -11074,7 +11074,7 @@ What mountain range contains Lake Constance?
 
 context_id=920
 What period was 2.5 million years ago?
-How many major ice ages have occurred? 
+How many major ice ages have occurred?
 How far did the sea level drop in the ice ages?
 In early Pleistocene, what direction did the Rhine flow?
 During glacial times, where was the mouth of the Rhine located?
@@ -11260,7 +11260,7 @@ context_id=936
 What was the accepted length of the Rhine prior to 1932?
 Who stated a change of the length of the Rhine?
 in 1932 what was the Rhine measurement changed to?
-Why was the Rhine measurement changed? 
+Why was the Rhine measurement changed?
 When was the Rhine measurement corrected back to the original?
 What year was the German encyclopedia Knaurs Lexikon written?
 What year was the typographical error first corrected?
@@ -11638,9 +11638,9 @@ Who asks supplementary questions and then a general question of the First Minist
 
 context_id=970
 What is the number of Constituency MSPs?
-How many members can voters choose to represent the constituency? 
+How many members can voters choose to represent the constituency?
 When was there a reduction in the number of Scottish MPs?
-What is the current number of electors currently in a Scottish Parliament constituency? 
+What is the current number of electors currently in a Scottish Parliament constituency?
 Why do the island archipelagos comprise a smaller number of electors?
 How many MSPs out of 139 are known as "Constituency MSPs"?
 How are the 83 "Constituency MSPs" chosen?
@@ -11684,7 +11684,7 @@ context_id=974
 The loss of Edinburgh Pentlands really disappointed whom the most?
 What was the seat of former party leader David McLetchie?
 What net loss did the Conservatives suffer?
-Who announced she would step down as leader of the Conservatives? 
+Who announced she would step down as leader of the Conservatives?
 Who congratulated the SNP while vowing to campaign against their referendum?
 For the Liberals, the main disappointment was what?
 Current party leader, David McLetchie lost what seat?
@@ -11697,7 +11697,7 @@ What consequence of establishing the Scottish Parliament applies to Scottish MPs
 What are MPs unable to vote upon?
 What phenomenon has led to criticism?
 What party had a victory in the 2015 UK election?
-MPs representing English constituencies can only veto laws affecting which country? 
+MPs representing English constituencies can only veto laws affecting which country?
 The West Lutheran question is known as what?
 Following the Liberal victory in 2015, standing orders were changed to do what?
 Who was victorious in the 2005 UK election?
@@ -11955,7 +11955,7 @@ Up until 1990, Saudi Arabia played an unimportant role in restraining what group
 context_id=997
 Who did the attacks resonate most with?
 Where did American troops remain stationed after Saddam's defeat?
-What did Saudi Arabia try to repress to compensate for its loss of stature? 
+What did Saudi Arabia try to repress to compensate for its loss of stature?
 Where did a bloody civil war break out?
 Who masterminded many terror attacks?
 Who did the attacks resonate least with?
@@ -11965,7 +11965,7 @@ What did Saudi Arabia not try to repress to compensate for its loss of stature?
  Who did not mastermind many terror attacks?
 
 context_id=998
-Whose ideas became increasingly radical during his imprisonment? 
+Whose ideas became increasingly radical during his imprisonment?
 When was Qutb executed?
 What organization was led by Hasan al-Hudaybi?
 What movements pursued a more radical direction?
@@ -11993,7 +11993,7 @@ What did al-Gama'a al-Islamiyya use to get its way?
 Over 100 Egyptian police were victims of what group's campaign of terror?
 How did the Islamic Group's campaign to overthrow the government turn out?
 When did Jamaa Islamiya renounce violence?
-Who has the Islamic Liberation Party attempted to assassinate? 
+Who has the Islamic Liberation Party attempted to assassinate?
  What did al-Gama'a al-Islamiyya use to not get its way?
 Over 300 Egyptian police were victims of what group's campaign of terror?
 How did the Islamic Group's campaign to support the government turn out?
@@ -12086,7 +12086,7 @@ context_id=1008
 When was the regime in Pakistan overthrown by General Zia-ul-Haq?
 What had Bhutto planned on banning within six months, before he was overthrown?
 What was Zia-ul-Haq's official state ideology?
-What was Zia-ul-Haq accused of using Islamization to legitimize? 
+What was Zia-ul-Haq accused of using Islamization to legitimize?
 When was Zia-ul-Haq killed?
 When was the regime in Pakistan accepted by General Zia-ul-Haq?
 What had Bhutto planned on approving within six months, before he was overthrown?
@@ -12155,7 +12155,7 @@ What was Abu Hamaz al-Masri charged with when he was freed?
 
 context_id=1014
 How long as the U.S. government been actively engaged in efforts to counter Islamism?
-What department in the U.S. spearheaded the efforts against Islamism? 
+What department in the U.S. spearheaded the efforts against Islamism?
 Who called for an agency to be created to be solely focused at undermining the Islamism ideology?
 What position in the government does Robert Gates hold?
 What was the U.S. Information Agency charged with doing during the Cold War?
@@ -12166,7 +12166,7 @@ What department in the U.S. spearheaded the efforts to support Islamism?
  What was the U.S. Information Agency charged with doing during the Warm War?
 
 context_id=1015
-The word imperialism has it's origins in which ancient language? 
+The word imperialism has it's origins in which ancient language?
 By what means is imperialism usually administered?
 The term imperialism has been applied to western countries, and which eastern county?
 Imperialism is responsible for the rapid spread of what?
@@ -12336,7 +12336,7 @@ When did Ronald Robinson die?
 What profession were Ronald Robinson and John Gallagher?
 What grew on a global scale as a result of imperialism?
 Who was made rich and prosperous prior to World War 1
-Which historian was popular in the 21st century? 
+Which historian was popular in the 21st century?
  What profession did Ronald Robinson and John Gallagher not share?
 What grew on a global scale as a result of non-imperialism?
  Who was made rich and prosperous prior to World War 2?
@@ -12392,7 +12392,7 @@ Who thought the world could be split into climatic zones?
 Which regions have temperate climates?
 What did the the Europeans think the peoples in the tropics were in need of?
 What was a similar view about the Asian continent called?
-Who did the geographic scholars work for? 
+Who did the geographic scholars work for?
  Who thought the world could not be split into climatic zones?
  Which regions have non-temperate climates?
  What did the the Europeans not think the peoples in the tropics were in need of?
@@ -12416,7 +12416,7 @@ When did France take control of Algeria?
 When did France begin in earnest to rebuild its global empire?
 Where did France focus its efforts to rebuild its empire?
 When did French Republicans back building the French empire?
-What religion did the French spread along with their imperialism? 
+What religion did the French spread along with their imperialism?
 When did France take control of London?
  When did France begin in earnest to build its global empire for the first time?
  Where did France focus its efforts to not rebuild its empire?
@@ -12531,7 +12531,7 @@ Rudyard Kipling was an influential spokesman for what?
  In which continent besides Asia were major gains made by the Asia Empire in the late 19th century?
 
 context_id=1047
-How did the United States plan to subdue imperialistic tendencies? 
+How did the United States plan to subdue imperialistic tendencies?
 What was the name of Theodore Roosevelt's policy of imperialism?
 Which country besides the Cuba did the United states try to annex in 1898?
 What caused the US public to condemn the occupation of the philippines?
@@ -12707,7 +12707,7 @@ What army was pushing deep into Polish territory to pursue the Germans in 1944?
 Why did the exiled Polish government in London order the underground Home Army to seize control of Warsaw prior to the arrival of the Red Army?
 When did the Warsaw Uprising begin?
 How many days did the Warsaw Uprising last?
-What is the estimated death toll for Polish civilians? 
+What is the estimated death toll for Polish civilians?
 What army was pushing deep into Polish territory to pursue The Home Army fighters in 1944?
 Why did the exiled Polish government in London order the underground Home Army to seize control of Stalin prior to the arrival or the Red Army?
 When did the Red Army Uprising begin?
@@ -12721,7 +12721,7 @@ What were the structures built by the Soviets typical of?
 What building was a gift from the Soviet Union?
 What list was Warsaw's Old Town inscribed onto in 1980?
 What campaign did the Communist regime initiate after WWI?
-what type of housing was erected in the Soviet Union as part of the Bricks for Warsaw process? 
+what type of housing was erected in the Soviet Union as part of the Bricks for Warsaw process?
 What were the structures built by Poland typical of?
 What building was a gift from Poland?
 What list was the Soviet Union's Old Town inscribed onto in 1980?
@@ -12872,7 +12872,7 @@ What forest is by Kampinos's southern border?
 
 context_id=1076
 How many natural reserves are in Warsaw?
-How far from Warsaw does the Vistula river's environment change noticeably? 
+How far from Warsaw does the Vistula river's environment change noticeably?
 What animals does the Vistula river's ecosystem include?
 How many lakes are there in Warsaw?
 Why are the small lakes in the parks emptied before winter?
@@ -13680,7 +13680,7 @@ What is the strongest main interaction?
 What is the weakest main interaction?
 What are weak and electromatic forces expressions of?
 What can decelerate particles close to the speed of light?
-Particle physics has created a Unique Model to describe what? 
+Particle physics has created a Unique Model to describe what?
 The Unique Model predicts that exchanged particles are the fundamental means by what?
 How many main interactions are not know?
 
@@ -13719,7 +13719,7 @@ What laws are different in every inertial frame of reference?
 
 context_id=1152
 What doesn't change from being at rest to movement at a constant velocity?
-What path does a ball thrown up and down in a moving vehicle take when seen by an outside observer? 
+What path does a ball thrown up and down in a moving vehicle take when seen by an outside observer?
 What sate are things inside of a moving vehicle as seen by a  person inside the vehicle?
 What applies to equally to constant velocity motion as it does to rest.
 The laws of physics change from being at rest when travelling in a what?
@@ -13823,13 +13823,13 @@ What increases or decreases in response to static friction?
 context_id=1162
 What can scales and spring balances measure between two forces by using static equilibrium?
 What force acts on an object suspended on a spring scale in addition to gravity?
-What equals the spring reaction force on an object suspended on a spring reaction scale? 
+What equals the spring reaction force on an object suspended on a spring reaction scale?
 Objects of constant density are proportional to volume by what force to define standard weights?.
 Who expounded the Three Laws of Motion?
 A static equilibrium between three sources is a way of doing what?
 Complex devices such as weighing scales are used when measuring what?
 An object suspended on a horizontal spring scale experiences the force of what?
-All quantitative force laws were discovered using what? 
+All quantitative force laws were discovered using what?
 
 context_id=1163
 Who first described dynamic equilibrium?
@@ -13898,7 +13898,7 @@ What forces are responsible for the interactions between atomic particles?
 
 context_id=1169
 Who formed the universal theory of gravitation?
-In what century was quantum mechanics made? 
+In what century was quantum mechanics made?
 What kind of self-consistent models are physicists trying to make that would create a theory of everything?
 What type of physics model did Einstein fail to make?
 What proceeded along the lines of unification of similar ideas?
@@ -14125,5 +14125,3 @@ What does not have a metric counterpart?
 What is the force exerted by standard gravity on one ton of mass?
 What force leads to a commonly used unit of mass?
 What force is part of the modern SI system?
-
-#
