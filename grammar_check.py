@@ -1431,25 +1431,3 @@ def grammar_check_all_sents(cut_sents, comp_label, orig_sents, start_idx, end_id
     # write_list_in_txt(sbar_orig_sents, sbar_comp_list, sbar_orig_comp, "./conj_modify_res.txt")
     return label_list, all_sbar, all_pp, all_conj, comp_list, all_formulations, all_ners, all_vps, all_syms, all_cc_sent, all_np_sbar, all_np_pp
 
-
-if __name__ == '__main__':
-    file_name = "sst"
-    dataset = "sst"
-    cut_sent_path = "./comp_input/nsst.cln.sent"
-    orig_sent_path = "./comp_input/sst.cln.sent"
-    comp_label = load_label("./w_nsst_result_greedy.sents")
-    cut_sents = load_orig_sent(cut_sent_path)
-    orig_sents = load_orig_sent(orig_sent_path)
-    start_idx = 232
-    end_idx = 233
-    grammar_check_all_sents(cut_sents, comp_label, orig_sents, start_idx, end_idx, dataset)
-    # cut_sent_path = "./comp_input/ncontext.cln.sent"
-    # orig_sent_path = "./comp_input/context.cln.sent"
-    # comp_label = load_label("./ncontext_result_greedy.sents")
-    # cut_sents = load_orig_sent(cut_sent_path)
-    # orig_sents = load_orig_sent(orig_sent_path)
-    # start_idx = 4840
-    # # end_idx = len(cut_sents)
-    # end_idx = 4841
-    # grammar_check_all_sents(cut_sents, comp_label, orig_sents, start_idx, end_idx)
-
