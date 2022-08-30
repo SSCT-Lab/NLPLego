@@ -12,7 +12,7 @@ brackets_pattern = re.compile(r'b\d+')
 ns_pattern = re.compile(r'ns\d+')
 np_pattern = re.compile(r'np\d+')
 all_pattern = re.compile(r'y\d+|c\d+|s\d+|p\d+|v\d+|b\d+|z\d+|np\d+|ns\d+')
-eng_punctuation = ["–", "—", ";", ",", ".", ":", "--", "--", "-"]
+eng_punctuation = ["–", "—", ";", ",", ".", ":", "--", "--", "-", "?", "\""]
 
 def convert_label(s_words, comp_label):
     temp_words = []
@@ -108,8 +108,13 @@ def get_temp_adjunct(temp_words, rep_words, dictionary):
                     adjunct = []
         else:
             if rep_words[j] in [";", "–", "—", "--"]:
-                temp_words[j] = rep_words[j]
-                continue
+                if (temp_words[j - 1][0] == 't') & (temp_words[j - 1][1:].isdigit()) & (len(adjunct) != 0):
+                    adjuncts.append(" ".join(adjunct).replace("\u200b", ""))
+                    slot = slot + 1
+                    adjunct = []
+                else:
+                    temp_words[j] = rep_words[j]
+                    continue
             if len(adjunct) != 0:
                 adjunct.append(rep_words[j])
 
@@ -808,21 +813,3 @@ def gen_sent_temp_main(file_name, label_path, start_idx, end_idx, dataset):
     temp_list, adjunct_list, ner_list, for_list, hyp_words_list, comp_list = gen_temp_in_order(orig_sents, cut_sents, comp_labels, start_idx, end_idx, dataset)
     return temp_list, adjunct_list, ner_list, for_list, hyp_words_list, comp_list
 
-
-if __name__ == '__main__':
-    #file_name = "sst"
-    file_name = "context"
-    dataset = "squad"
-    #label_path = "./comp_res/w_nsst_result_greedy.sents"
-    label_path = "./comp_res/ncontext_result_greedy.sents"
-    start_idx = 5182
-    end_idx = 6318
-    gen_sent_temp_main(file_name, label_path, start_idx, end_idx, dataset)
-    # temp_list, adjunct_list, comp_list, ner_list = gen_sent_temp_main(file_name, start_idx, end_idx)
-    # sent_path = "./comp_input/" + file_name + ".cln.sent"
-    # comp_label = load_label("./comp_label/slahan_w_syn/2_" + file_name + "_result_greedy.sents")
-    # orig_sents = load_orig_sent(sent_path)
-    # label_list, all_sbar, all_pp, all_conj, comp_list = check_grammar(orig_sents, comp_label)
-    # temp_list, adjunct_list = gen_temp(orig_sents, label_list, all_sbar, all_pp)
-    # gen_step_sentence(temp_list, adjunct_list, comp_list, file_name)
-    # save_temp_adjuncts(temp_list, adjunct_list, file_name)
