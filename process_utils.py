@@ -65,7 +65,6 @@ def load_label(label_path):
     label_list = []
     i = 1
     while label:
-        print(i)
         label = label.split(" ")[1:-1]
         label = [int(x) for x in label]
         label_list.append(label)

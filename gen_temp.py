@@ -376,7 +376,7 @@ def gen_temp_in_order(orig_sents, cut_sents, comp_labels, start_idx, end_idx, da
         #print("original sentences: ", orig_sent)
         res_label, sbar_list, pp_list, conj_res, for_list, ner_list, vp_list, sym_list, cc_sent_list, np_sbar_list, np_pp_list, child_tree_dict = grammar_check_one_sent(orig_sent, cut_sent, comp_labels[i], dictionary, dataset)
         #print("original result:", get_res_by_label(rep_words, comp_labels[i]))
-        print("modify result:", get_res_by_label(rep_words, res_label))
+        # print("modify result:", get_res_by_label(rep_words, res_label))
         hyp_words, spill_words_list = get_hyphen_word(orig_sent.replace("``", "\"").replace("''", "\""))
         comp_res = get_res_by_label(rep_words, res_label)
         temp_words, temp_adjuncts = convert_label(rep_words, res_label)
@@ -384,7 +384,7 @@ def gen_temp_in_order(orig_sents, cut_sents, comp_labels, start_idx, end_idx, da
         zero_idx = []
         s_idx = -1
         temp_str = ""
-        print("orig:", temp_words)
+        # print("orig:", temp_words)
         for j in range(len(temp_words)):
             if (temp_words[j] == "0") | (temp_words[j] in [",", ".", ":", "!", "?"]):
                 temp_str += temp_words[j] + " "
@@ -404,7 +404,7 @@ def gen_temp_in_order(orig_sents, cut_sents, comp_labels, start_idx, end_idx, da
                 s_idx += 1
             zero_idx.append((s_idx, len(temp_words) - 2))
 
-        print(zero_idx)
+        # print(zero_idx)
 
         if len(sym_list) > 0:
             last_s_idx = -1
@@ -432,7 +432,7 @@ def gen_temp_in_order(orig_sents, cut_sents, comp_labels, start_idx, end_idx, da
                         else:
                             temp_words[s] = "y" + str(j)
 
-            print("sym:", temp_words)
+            # print("sym:", temp_words)
 
         if len(cc_sent_list) != 0:
             last_s_idx = -1
@@ -487,7 +487,7 @@ def gen_temp_in_order(orig_sents, cut_sents, comp_labels, start_idx, end_idx, da
                                 temp_words[s] = rep_words[s]
                             else:
                                 temp_words[s] = "s" + str(j)
-            print("sbar:", temp_words)
+            # print("sbar:", temp_words)
 
         if len(vp_list) > 0:
             last_s_idx = -1
@@ -553,7 +553,7 @@ def gen_temp_in_order(orig_sents, cut_sents, comp_labels, start_idx, end_idx, da
                                     temp_words[p] = rep_words[p]
                                 else:
                                     temp_words[p] = temp_words[s_idx]
-            print("pp:", temp_words)
+            # print("pp:", temp_words)
 
         if len(ner_list) > 0:
             for j in range(len(ner_list)):
@@ -575,7 +575,7 @@ def gen_temp_in_order(orig_sents, cut_sents, comp_labels, start_idx, end_idx, da
                     for n in range(s_idx, e_idx + 1):
                         if temp_words[n] != n_label:
                             temp_words[n] = n_label
-            print("ner:", temp_words)
+            # print("ner:", temp_words)
 
         if len(for_list) > 0:
             print("for_list:", for_list)
@@ -592,14 +592,14 @@ def gen_temp_in_order(orig_sents, cut_sents, comp_labels, start_idx, end_idx, da
                     for f in range(s_idx, e_idx + 1):
                         if temp_words[f] != f_label:
                             temp_words[f] = f_label
-            print("for:", temp_words)
+            # print("for:", temp_words)
 
         if len(cut_idx_list) > 0:
             for j in range(len(cut_idx_list)):
                 if temp_words[cut_idx_list[j][1]] != temp_words[cut_idx_list[j][1] + 1]:
                     for b in range(cut_idx_list[j][0], cut_idx_list[j][1] + 1):
                         temp_words[b] = "b" + str(j)
-            print("brackets:", temp_words)
+            # print("brackets:", temp_words)
 
         inpp_list = [w for w in dictionary["integrated"] if w in orig_sent]
         if len(inpp_list) != 0:
@@ -700,7 +700,7 @@ def gen_temp_in_order(orig_sents, cut_sents, comp_labels, start_idx, end_idx, da
                             sbar_last_flag = '0'
                             pp_last_flag = '0'
                     last_flag = temp_words[j]
-        print("update: ", temp_words)
+        # print("update: ", temp_words)
 
         ### check 0
         update_zero_idx = []
@@ -725,7 +725,7 @@ def gen_temp_in_order(orig_sents, cut_sents, comp_labels, start_idx, end_idx, da
                 s_idx += 1
             update_zero_idx.append((s_idx, len(temp_words) - 2))
 
-        print(update_zero_idx)
+        # print(update_zero_idx)
 
         for tup in update_zero_idx:
             result = all_pattern.findall(temp_words[tup[1] + 1])
@@ -739,7 +739,7 @@ def gen_temp_in_order(orig_sents, cut_sents, comp_labels, start_idx, end_idx, da
                 if len(all_pattern.findall(temp_words[idx + 1])) != 0:
                     temp_words[idx] = temp_words[idx + 1]
 
-        print(temp_words)
+        # print(temp_words)
         temp_words, adjuncts = get_temp_adjunct(temp_words, rep_words, dictionary)
         print("temp: ", " ".join(temp_words))
         print("adjuncts: ", adjuncts)

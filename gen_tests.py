@@ -964,22 +964,24 @@ def generate_final_json(context_sentence_len_list, origin_sent_list, final_resul
                 if index_i != -1:
                     ques_ans = max(ans_list[question_sent_index], key=len, default="")
                     if exist_ans(ans_list[question_sent_index], context_for_input_li[index_i]):
-                        print("1 do not need change")
+                        pass
+                        # print("1 do not need change")
                     else:
                         if exist_ans(ans_list[question_sent_index], context_for_input_li[index_i].replace(" , ", ", ").replace(" %", "%").replace("( ", "(").replace(" )", ")")):
                             context_for_input_li[index_i] = context_for_input_li[index_i].replace(" , ", ", ").replace(" %", "%").replace("( ", "(").replace(" )", ")")
-                            print("2 do not need change")
+                            # print("2 do not need change")
                         else:
                             for sent in all_new_contexts[index_i]:
                                 if exist_ans(ans_list[question_sent_index], sent):
                                     context_for_input_li[index_i] = sent
-                                    print("3 got!")
+                                    # print("3 got!")
                                     break
                                 else:
-                                    print("4", ques_ans, sent)
+                                    pass
+                                    # print("4", ques_ans, sent)
                             if not exist_ans(ans_list[question_sent_index], context_for_input_li[index_i]):
                                 context_for_input_li[index_i] = origin_sent_list[i][index_i]
-                                print("5 Change!")             
+                                # print("5 Change!")
 
                 question_temp = item_temp["qas"][question_sent_index]
                 question_temp["id"] = create_id()
@@ -998,7 +1000,7 @@ def generate_final_json(context_sentence_len_list, origin_sent_list, final_resul
                     index += 1
     print("success")
     prediction_data[0]["paragraphs"] = item_list
-    file_name = "dev_modify_test_list.json" # modify
+    file_name = "dev_mrc_lego_test.json"
     path = "./new_test/" + file_name
     with open(path, 'w', encoding='utf-8') as f1:
         f1.write(json.dumps(prediction_json, indent=4, ensure_ascii=False))
@@ -1012,19 +1014,19 @@ def gen_tests_for_mrc(start_idx, end_idx):
     context_sentence_len_list, origin_sent_list, sent_context_map = get_sentence_len(file_name)
     ## 0-867 867-2026 2026-3075 3075-4162 5164
     s_idx = 0
-    e_idx = 867
+    e_idx = 105
     temp_list, adjunct_list, ner_list, for_list, hyp_words_list, comp_list = gen_sent_temp_main(file_name, label_path,
                                                                                                 s_idx, e_idx, "squad")
     all_masked_word, all_masked_adjunct, all_masked_word_pos = gen_mask_phrase_squad(adjunct_list, pos_list, ner_list,
                                                                                for_list, hyp_words_list, ques_list, sent_context_map, s_idx)
 
-    file_path = "./new_test/mrc_lego_test.txt"#modify
+    file_path = "./new_test/mrc_lego_test.txt"
     all_tests, final_result = gen_sent_by_syn(file_path, comp_list, temp_list, all_masked_word, all_masked_adjunct,
                                               all_masked_word_pos)
     print("Sentence Derivation Finish!")
     ## context_idx
     cs_idx = 0
-    ce_idx = 200
+    ce_idx = 21
     final_result_dic = mapping_context_sentence(context_sentence_len_list, final_result, cs_idx, ce_idx)
     print("Start Generating Tests!")
     generate_final_json(context_sentence_len_list, origin_sent_list, final_result_dic, cs_idx, ce_idx)
@@ -1072,7 +1074,7 @@ def gen_tests_for_ssm(start_idx, end_idx):
 
 def get_target_task():
     try:
-        options, args = getopt.getopt(sys.argv[1:], "T:S:E:", ['task=', 'start_idx=', 'end_idx='])
+        options, args = getopt.getopt(sys.argv[1:], "-T:-S:-E:", ['task=', 'start_idx=', 'end_idx='])
     except getopt.GetoptError as err:
         print(str(err))
         sys.exit(1)
@@ -1082,10 +1084,13 @@ def get_target_task():
     valid_num = 0
     for o, a in options:
         if o in ("-T", "--task"):
+            valid_num += 1
             task_type = str(a)
         elif o in ("-S", "--start_idx"):
+            valid_num += 1
             start_idx = int(a)
         elif o in ("-E", "--end_idx"):
+            valid_num += 1
             end_idx = int(a)
         else:
             print("Using the wrong way,please view the help information.")

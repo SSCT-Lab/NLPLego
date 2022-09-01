@@ -1297,7 +1297,7 @@ def grammar_check_one_sent(orig_sent, cut_sent, comp_label, dictionary, dataset)
             s_idx = check_continuity(vp_words, rep_cut_words, s_idx)
             vp_flag = fill_sent_flag(vp_flag, s_idx, s_idx + len(vp_words))
         res_label = check_vp_integrity(res_label, rep_cut_words, vp_list, vp_flag)
-        print("vp modify:", get_res_by_label(rep_cut_words, res_label))
+        # print("vp modify:", get_res_by_label(rep_cut_words, res_label))
 
     if len(sbar_list) > 0:
         sbar_flag = [0] * len(rep_cut_words)
@@ -1310,7 +1310,7 @@ def grammar_check_one_sent(orig_sent, cut_sent, comp_label, dictionary, dataset)
                                          np_sbar_list)
         if len(vp_list) > 0:
             res_label = check_vp_integrity(res_label, rep_cut_words, vp_list, vp_flag)
-        print("sbar modify:", get_res_by_label(rep_cut_words, res_label))
+        # print("sbar modify:", get_res_by_label(rep_cut_words, res_label))
 
     res_pp = filter_pp_in_sbar(sbar_list, pp_list)
     if len(res_pp) > 0:
@@ -1321,7 +1321,7 @@ def grammar_check_one_sent(orig_sent, cut_sent, comp_label, dictionary, dataset)
             s_idx = check_continuity(pp_words, rep_cut_words, s_idx)
             pp_flag = fill_sent_flag(pp_flag, s_idx, s_idx + len(pp_words))
         res_label = check_pp_integrity(rep_cut_words, res_label, res_pp, pp_flag, ner_list, sbar_list)
-        print("pp modify:", get_res_by_label(rep_cut_words, res_label))
+        # print("pp modify:", get_res_by_label(rep_cut_words, res_label))
     else:
         pp_flag = [0] * len(rep_cut_words)
 
@@ -1340,7 +1340,7 @@ def grammar_check_one_sent(orig_sent, cut_sent, comp_label, dictionary, dataset)
         for j in range(s_idx, s_idx + len(sym_sent.strip().rstrip().split(" "))):
             temp_res_label[j] = 1
         temp_res_label[-1] = 1
-        print("sym modify:", get_res_by_label(rep_cut_words, res_label))
+        # print("sym modify:", get_res_by_label(rep_cut_words, res_label))
     else:
         temp_res_label = [1] * len(res_label)
 
@@ -1358,7 +1358,7 @@ def grammar_check_one_sent(orig_sent, cut_sent, comp_label, dictionary, dataset)
             ner_words = ner_list[j].split(" ")
             ner_flag = fill_sent_flag(ner_flag, ner_sidx_list[j], ner_sidx_list[j] + len(ner_words))
         res_label = check_ner_intergrity(res_label, ner_list, ner_flag)
-        print("ner modify:", get_res_by_label(rep_cut_words, res_label))
+        # print("ner modify:", get_res_by_label(rep_cut_words, res_label))
 
     res_label = check_obj(sym_list, sym_idx, basic_elements, get_res_by_label(rep_cut_words, res_label),
                           rep_cut_words, cut_sent.split(" "), res_pp, sbar_list, root_verb, res_label)
@@ -1367,11 +1367,11 @@ def grammar_check_one_sent(orig_sent, cut_sent, comp_label, dictionary, dataset)
         temp_res_label = [1] * len(res_label)
     temp_res_label = format_res_label(temp_res_label, cut_sent.split(" "))
     res_label, conj_res = process_conj(rep_cut_words, temp_res_label, res_label, pp_flag, hyp_words)
-    print("conj modify:", get_res_by_label(rep_cut_words, res_label))
+    # print("conj modify:", get_res_by_label(rep_cut_words, res_label))
     if len(cc_sent_list) > 0:
         res_label = check_cc_sent_intergrity(res_label, cc_sent_list, rep_cut_words, sbar_list, np_sbar_list, res_pp,
                                              vp_list, sym_list)
-        print("cc sent modify:", get_res_by_label(rep_cut_words, res_label))
+        # print("cc sent modify:", get_res_by_label(rep_cut_words, res_label))
 
     res_label = process_final_result(comp_label, res_label, cut_sent.split(" "), rep_cut_words, sbar_list, np_sbar_list,
                                      res_pp, root_verb, basic_elements,
@@ -1405,15 +1405,15 @@ def grammar_check_all_sents(cut_sents, comp_label, orig_sents, start_idx, end_id
     all_np_pp = []
     dictionary = load_dictionary('./tools/Dictionary.txt')
     for i in range(start_idx, end_idx):
-        print("i = ", i)
-        print("original sent: ", orig_sents[i])
+        # print("i = ", i)
+        # print("original sent: ", orig_sents[i])
         res_label, sbar_list, pp_list, conj_res, for_list, ner_list, vp_list, sym_list, cc_sent_list, np_sbar_list, np_pp_list, child_tree_dict = grammar_check_one_sent(
             orig_sents[i], cut_sents[i], comp_label[i], dictionary, dataset)
         orig_res = get_res_by_label(cut_sents[i].split(" "), comp_label[i])
-        print("original result: ", orig_res)
+        # print("original result: ", orig_res)
         modify_res = get_res_by_label(orig_sents[i].split(" "), res_label)
-        print("modify result: ", modify_res)
-        print(" ")
+        # print("modify result: ", modify_res)
+        # print(" ")
         orig_comp.append(orig_res)
         comp_list.append(modify_res)
         label_list.append(res_label)
