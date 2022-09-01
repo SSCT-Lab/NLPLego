@@ -1,5 +1,21 @@
 ## NLPLego: Assembling Test Generation for Natural Language Processing applications
 
+### Environment
+
+    python3.6
+
+    CUDA10.0
+
+    cuDNN7.6
+
+    nltk with the resource 'stopwords', 'wordnet', 'omw-1.4' and 'averaged_perceptron_tagger'
+
+    spacy3.2 with trained pipelines：en_core_web_lg-3.2.0
+
+    transformers
+
+    pytorch
+
 ### Step
 
     1.   Download stanfordnlp, link is https://stanfordnlp.github.io/CoreNLP
@@ -33,18 +49,3 @@ filename:
     ssm: qqp_lego_test.tsv
 ```
 
-### Environment
-
-    python3.6
-
-    CUDA10.0
-
-    cuDNN7.6
-
-    nltk with the resource 'stopwords', 'wordnet', 'omw-1.4' and 'averaged_perceptron_tagger'
-
-    spacy3.2 with trained pipelines：en_core_web_lg-3.2.0
-
-    transformers
-
-    pytorch
