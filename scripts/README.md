@@ -1,23 +1,23 @@
 # README
 
-## 文档结构
+## Documentation structure
 
-### sample文件夹
+### sample folder
 
-sample.py用于进行抽样
+sample.py is used for sampling.
 
-### utils文件夹
+### utils folder
 
-add_index.py由于为没有index的csv文件创建index列（从0开始记号）
+add_index.py due to create index column for csv files without index (notation from 0)
 
-### SA任务
+### SA tasks
 
-详见[README SA.md](./README SA.md)
+See [README SA.md](. /README SA.md)
 
-### SSM任务
+### SSM task
 
-详见[README SSM.md](./README SSM.md)
+See [README SSM.md](. /README SSM.md)
 
-### Checklist生成的数据
+### Checklist generated data
 
-详见[README Checklist.md](README Checklist.md)
+See [README Checklist.md](README Checklist.md) for details

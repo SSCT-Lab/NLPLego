@@ -1,51 +1,53 @@
 # README SSM
 
-## 需要的数据
+## Required data
 
-1. 句子1（原句）
-2. 句子2（原句插入之后的句子）
-3. 是否相同的label
+1. Sentence 1 (original sentence)
+2. Sentence 2 (the sentence after the original sentence is inserted)
+3. whether the label is the same or not
 
-> 根据模型跑出来的结果进行判断模型运行出来的结果是否正确，最后我们需要的是模型的错误数据。
+> According to the results of the model run out to determine the model run out of the results are correct, the last thing we need is the model of the error data.
 
-## 流程
+## Process
 
-### 1. 实体识别
+### 1. Entity Recognition
 
-#### 1.1. 跑模型
-
-[qqp.py](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/b09e95db-846a-49c9-a788-c7a5fad9f1b4/qqp.py)
-
-输入：测试数据
-
-输出：模型中的错误判断数据。
-
-#### 1.2. 判断命名实体的偏见
-
-[likelihood_entity.py](./entity/likelihood_entity.py)
-
-输入：1.1.部分生成的文件
-
-输出：首先使用最终结果包含所有有问题的结果，每一行包含各类命名实体的文本和数量。
-
-逻辑：首先根据原句判断插入语，再判断插入语中是否含有实体，有则保存该行数据。
-
-### 2. 词义理解
-
-#### 2.1. 跑模型
+#### 1.1. Run the model
 
 [qqp.py](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/b09e95db-846a-49c9-a788-c7a5fad9f1b4/qqp.py)
 
-输入：测试数据
+Input: test data
 
-输出：模型中的错误判断数据。
+Output: error judgment data from the model.
 
-#### 2.2. 判断词义理解是否正确
+#### 1.2. Determining bias in named entities
 
-[SSM_meaning.py](./meaning/SSM_meaning.py)
+[likelihood_entity.py](. /entity/likelihood_entity.py)
 
-输入：2.1中生成的数据
+Input: the file generated in part 1.1.
 
-输出：最终结果文件
+Output: first use the final result to contain all problematic results, each line containing the text and number of each type of named entity.
 
-逻辑：对于具有相同种子句（原句相同，插入语不同）的语句，将它们归为一组。在此基础上进行两两比较，如果模型判断两个插入语语义相同，但是2个完整的句子语义不相同，那么就判断为错误数据，进行保存。如果模型判断2个完整的句子语义相同，但是2个插入语语义不相同，那么也是错误数据进行保存。
+Logic: first judge the insertion words according to the original sentence, then judge whether the insertion words contain entities, if so, save the data of the line.
+
+### 2. Lexical understanding
+
+#### 2.1. Run the model
+
+[qqp.py](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/b09e95db-846a-49c9-a788-c7a5fad9f1b4/qqp.py)
+
+Input: test data
+
+Output: error judgment data in the model.
+
+#### 2.2. Determine if the lexical understanding is correct or not
+
+[SSM_meaning.py](. /meaning/SSM_meaning.py)
+
+Input: data generated in 2.1
+
+Output: the final result file
+
+Logic: for statements with the same seed clause (same original clause, different insertions), group them together. On this basis, two by two comparison is made, if the model judges that the two insertions are semantically the same, but the 2 complete sentences are not semantically the same, then it is judged to be the wrong data and saved. If the model judges that 2 complete sentences have the same semantics, but 2 insertions do not have the same semantics, then it is also wrong data to be saved.
+
+Translated with www.DeepL.com/Translator (free version)

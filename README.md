@@ -66,3 +66,17 @@ filename:
     ERNIE2.0：https://github.com/PaddlePaddle/ERNIE
 
     RoBERTa：https://github.com/pytorch/fairseq
+
+### result_analysis folder
+
+Holds assessment results data
+
+Included:
+
+- Entity identification (entity folder)
+  - SSM stands for the Sentence Similarity Task
+  - SA stands for the Sentiment Analysis Task
+- Semantic understanding (meaning folder)
+  - SSM stands for the Sentence Similarity Task
+  - SA stands for the Sentiment Analysis Task
+- checklist assessment data (checklist folder)
