@@ -76,7 +76,11 @@ Included:
 - Entity identification (entity folder)
   - SSM stands for the Sentence Similarity Task
   - SA stands for the Sentiment Analysis Task
+  - MRC stands for the Machine Reading Comprehension Task
 - Semantic understanding (meaning folder)
   - SSM stands for the Sentence Similarity Task
   - SA stands for the Sentiment Analysis Task
+  - MRC stands for the Machine Reading Comprehension Task
+- Logic inference (logic folder)
+  - MRC stands for the Machine Reading Comprehension Task
 - checklist assessment data (checklist folder)
