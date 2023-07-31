@@ -67,9 +67,11 @@ filename:
 
     RoBERTa：https://github.com/pytorch/fairseq
 
+    DeBERTa: https://github.com/microsoft/DeBERTa
+
 ### result_analysis folder
 
-Holds assessment results data
+Holds assessment results of DeBERTa and ChatGPT
 
 Included:
 
@@ -77,10 +79,11 @@ Included:
   - SSM stands for the Sentence Similarity Task
   - SA stands for the Sentiment Analysis Task
   - MRC stands for the Machine Reading Comprehension Task
-- Semantic understanding (meaning folder)
+- Word Meaning Comprehension (meaning folder)
   - SSM stands for the Sentence Similarity Task
   - SA stands for the Sentiment Analysis Task
   - MRC stands for the Machine Reading Comprehension Task
-- Logic inference (logic folder)
+- Logic Reasoning (logic folder)
   - MRC stands for the Machine Reading Comprehension Task
-- checklist assessment data (checklist folder)
+- Sentiment Recognition
+  - SA stands for the Sentiment Analysis Task
