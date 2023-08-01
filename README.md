@@ -51,40 +51,32 @@ filename:
 
 ### Experiment
 
-##### DataSet
-
-    SQuAD2.0：https://rajpurkar.github.io/SQuAD-explorer/
-
-    GLUE：https://gluebenchmark.com/
+##### Dataset
+- SQuAD2.0：https://rajpurkar.github.io/SQuAD-explorer/
+- GLUE：https://gluebenchmark.com/
 
 ##### Model
-
-    ALBERT：https://github.com/google-research/albert
-
-    XLNet：https://github.com/zihangdai/xlnet
-
-    ERNIE2.0：https://github.com/PaddlePaddle/ERNIE
-
-    RoBERTa：https://github.com/pytorch/fairseq
-
-    DeBERTa: https://github.com/microsoft/DeBERTa
+- ALBERT：https://github.com/google-research/albert
+- XLNet：https://github.com/zihangdai/xlnet
+- ERNIE2.0：https://github.com/PaddlePaddle/ERNIE
+- RoBERTa：https://github.com/pytorch/fairseq
+- DeBERTa: https://github.com/microsoft/DeBERTa
 
 
-### result_analysis folder
+### Multidimensional capability assessment
 
-Holds assessment results of DeBERTa and ChatGPT
-
+***result_analysis*** holds assessment results of DeBERTa and ChatGPT
 Included:
 
-- Entity identification (entity folder)
-  - SSM stands for the Sentence Similarity Task
-  - SA stands for the Sentiment Analysis Task
-  - MRC stands for the Machine Reading Comprehension Task
-- Word Meaning Comprehension (meaning folder)
-  - SSM stands for the Sentence Similarity Task
-  - SA stands for the Sentiment Analysis Task
-  - MRC stands for the Machine Reading Comprehension Task
-- Logic Reasoning (logic folder)
-  - MRC stands for the Machine Reading Comprehension Task
-- Sentiment Recognition
-  - SA stands for the Sentiment Analysis Task
+- DeBERTa_Res
+	- wmc_res (Word Meaning Comprehension)
+		- xxx(任务名称)\_wmc\_res.csv 
+	- ner_res (Named Entity Recognition)
+	- lr_res (Logical Reasioning)
+	- sr_res (Sentiment Recognitn)
+
+- ChatGPT_Res
+	- wmc_res
+	- ner_res
+	- lr_res
+	- sr_res
