@@ -48,6 +48,8 @@
 
 #### sa_wmc_res_xxx.csv
 
+##### DeBERTa
+
 - original_text
 
   original text in the dataset
@@ -103,6 +105,34 @@
 - group_no
 
   the test cases with the same group_no come from the same seed sentence
+
+##### ChatGPT
+
+> The corresponding relationship with the DeBERTa columns above
+
+- s1 : original_text
+
+- s2 : insert_text
+
+- s3 : res_text
+
+- r1 : original_sentiment
+
+- r2 : insert_sentiment
+
+- r3 : res_sentiment
+
+- v1
+
+  the possibility of sentiment of original text (negative number stands for the negative sentiment possibility)
+
+- v2
+
+  the possibility of sentiment of insert text (negative number stands for the negative sentiment possibility)
+
+- v3
+
+  the possibility of sentiment of result text (negative number stands for the negative sentiment possibility)
 
 #### ssm_wmc_res.csv
 
@@ -184,6 +214,8 @@
 
 #### sa_ner_res_xxx.csv
 
+##### DeBERTa
+
 - original_text
 
   original text in the dataset
@@ -240,7 +272,45 @@
 
   what the entity is in the sentence (blank or 'blank' stands for null)
 
+##### ChatGPT
+
+> The corresponding relationship with the DeBERTa columns above
+
+- s1 : original_text
+
+- s2 : insert_text
+
+- s3 : res_text
+
+- r1 : original_sentiment
+
+- r2 : insert_sentiment
+
+- r3 : res_sentiment
+
+- v1
+
+  the possibility of sentiment of original text (negative number stands for the negative sentiment possibility)
+
+- v2
+
+  the possibility of sentiment of insert text (negative number stands for the negative sentiment possibility)
+
+- v3
+
+  the possibility of sentiment of result text (negative number stands for the negative sentiment possibility)
+
+- XXX (e.g. CARDINAL, EVENT ...)
+
+  the number of a certain category of the entity
+
+- XXX_text (e.g. CARDINAL_text, EVENT_text ...)
+
+  what the entity is in the sentence (blank or 'blank' stands for null)
+
 #### sum_ner_res.csv
+
+##### DeBERTa
 
 - id
 
@@ -255,6 +325,28 @@
 - label
 
   1 stands for that 2 sentences are same meaning (according to the model)
+
+- XXX (e.g. CARDINAL, EVENT ...)
+
+  the number of a certain category of the entity
+
+- XXX_text (e.g. CARDINAL_text, EVENT_text ...)
+
+  what the entity is in the sentence (blank or 'blank' stands for null)
+
+##### ChatGPT
+
+- q1
+
+  One of the sentence in SSM task
+
+- q2
+
+  The other sentence in SSM task
+
+- gpt
+
+  The answer according to the ChatGPT
 
 - XXX (e.g. CARDINAL, EVENT ...)
 
@@ -311,3 +403,91 @@
 - hypothesis
 
   Whether the new question has hypothesis dependency
+
+### Files in xxx_Res/sr_res folder
+
+##### DeBERTa
+
+- original_text
+
+  original text in the dataset
+
+- original_sentiment
+
+  original sentiment (1 stands for positive, 0 stands for negative)
+
+- original_neg_score
+
+  the possibility of negative sentiment of original text
+
+- original_pos_score
+
+  the possibility of positive sentiment of original text
+
+- insert_text
+
+  the text inserted in the dataset
+
+- insert_sentiment
+
+  insert text's sentiment (1 stands for positive, 0 stands for negative)
+
+- insert_neg_score
+
+  the possibility of negative sentiment of insert text
+
+- insert_pos_score
+
+  the possibility of positive sentiment of insert text
+
+- res_text
+
+  original text combined with the insert text
+
+- res_sentiment
+
+  result sentiment (1 stands for positive, 0 stands for negative)
+
+- res_neg_score
+
+  the possibility of negative sentiment of result text
+
+- res_pos_score
+
+  the possibility of positive sentiment of result text
+
+- index
+
+  the index in the original dataset
+
+- group_no
+
+  the test cases with the same group_no come from the same seed sentence
+
+##### ChatGPT
+
+> The corresponding relationship with the DeBERTa columns above
+
+- s1 : original_text
+
+- s2 : insert_text
+
+- s3 : res_text
+
+- r1 : original_sentiment
+
+- r2 : insert_sentiment
+
+- r3 : res_sentiment
+
+- v1
+
+  the possibility of sentiment of original text (negative number stands for the negative sentiment possibility)
+
+- v2
+
+  the possibility of sentiment of insert text (negative number stands for the negative sentiment possibility)
+
+- v3
+
+  the possibility of sentiment of result text (negative number stands for the negative sentiment possibility)
