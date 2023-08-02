@@ -70,7 +70,6 @@ Included:
 
 - DeBERTa_Res
 	- wmc_res (Word Meaning Comprehension)
-		- xxx(任务名称)\_wmc\_res.csv 
 	- ner_res (Named Entity Recognition)
 	- lr_res (Logical Reasioning)
 	- sr_res (Sentiment Recognitn)
