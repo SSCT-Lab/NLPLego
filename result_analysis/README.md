@@ -491,3 +491,11 @@
 - v3
 
   the possibility of sentiment of result text (negative number stands for the negative sentiment possibility)
+
+### Files in xxx_Res/sm_res folder
+
+#### deberta_ssm_sm.csv
+
+- derivation_sentence_list
+
+  sentences from the same derivation tree which have same meanings
