@@ -5,8 +5,8 @@ eng_parser = CoreNLPParser('http://127.0.0.1:9000')
 
 ## obtain constituency parser tree
 def get_nlp_tree(sent):
-    sent = re.sub(r'%(?![0-9a-fA-F]{2})', "%25", sent)
-    sent = sent.replace("+", "%2B")
+    # sent = re.sub(r'%(?![0-9a-fA-F]{2})', "%25", sent)
+    # sent = sent.replace("+", "%2B")
     words = sent.split(" ")
     par_res = eng_parser.parse(words)
     for line in par_res:
@@ -349,6 +349,3 @@ def get_child_tree(tree, sent, hyp_words):
                     child_tree_dict.append((str(key) + " " + str(i) + " " + position_labels[key][i], key_sent))
 
     return child_tree_dict
-
-
-
