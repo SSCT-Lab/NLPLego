@@ -1,6 +1,5 @@
 import copy
 import json
-import os
 import random
 import itertools
 from eng_inflection.get_plural import *
@@ -14,13 +13,11 @@ from nltk.corpus import wordnet
 from nltk.stem import WordNetLemmatizer
 import spacy
 import transformers
-import requests
 import csv
-import process_utils
 from preprocess import read_txt
-from transformers import TrainingArguments, Trainer
 import getopt
 import sys
+import argparse
 
 nlp = spacy.load("en_core_web_lg")
 sbar_pattern = re.compile(r't\d+')
@@ -80,7 +77,7 @@ def get_cannot_rep_words(ner_list, hyp_words, for_list, questions):
     return unrep_words
 
 
-def filer_word(pos_list, adjunct, unrep_words, for_list):
+def filter_word(pos_list, adjunct, unrep_words, for_list):
     english_punctuations = [',', '.', ':', ';', '?', '(', ')', '[', ']', '&', '!', '*', '@', '#', '$', '%', '–', '—',
                             '--', '--', '-']
     doc = nlp(adjunct)
@@ -146,7 +143,7 @@ def gen_mask_phrase_squad(adjunct_list, pos_list, all_ner, all_for, all_hyp_word
         masked_word_list = []
         masked_pos_list = []
         for adjunct in adjuncts:
-            masked_word, masked_adjunct, masked_word_pos = filer_word(pos_list, adjunct, unrep_words, for_list)
+            masked_word, masked_adjunct, masked_word_pos = filter_word(pos_list, adjunct, unrep_words, for_list)
             masked_word_list.append(masked_word)
             masked_adjunct_list.append(masked_adjunct)
             masked_pos_list.append(masked_word_pos)
@@ -169,7 +166,7 @@ def gen_mask_phrase(adjunct_list, pos_list, all_ner, all_for, all_hyp_words):
         masked_word_list = []
         masked_pos_list = []
         for adjunct in adjuncts:
-            masked_word, masked_adjunct, masked_word_pos = filer_word(pos_list, adjunct, unrep_words, for_list)
+            masked_word, masked_adjunct, masked_word_pos = filter_word(pos_list, adjunct, unrep_words, for_list)
             masked_word_list.append(masked_word)
             masked_adjunct_list.append(masked_adjunct)
             masked_pos_list.append(masked_word_pos)
@@ -269,7 +266,7 @@ def pred_sent_by_bert(step_list, masked_temp, masked_adjuncts, words):
             pred_res = unmasker(mask_sent)
             for r in pred_res:
                 if (r['score'] > BERT_SCORE) & ("##" not in r['token_str']) & ("_" not in r['token_str']) & (
-                        "," not in r['token_str']) & (r['token_str'] != ""):
+                        "," not in r['token_str']) & (r['token_str'] != "") & (len(r['token_str']) > 1):
                     token_str = r['token_str']
                     new_sent = mask_sent.replace("[MASK]", token_str)
                     new_adjunct = masked_adjuncts[i].replace("[MASK]", token_str)
@@ -405,11 +402,12 @@ def extra_insert_phrases(new_sents, masked_temp, masked_adjunct):
     return inserted_adjuncts
 
 
-def gen_tests_for_sst(comp_list, temp_list, all_masked_word, all_masked_adjunct):
-    w = open("./sst_test_map.txt", "w")
+def gen_tests_for_sst(file_path, comp_list, temp_list, all_masked_word, all_masked_adjunct):
+    w = open(file_path, "w")
     sst_tests = []
     sst_adjuncts = []
     for i in range(len(comp_list)):
+        print(f"The id of the seed sentence is {i}")
         w.write("sent_id = " + str(i) + "\n")
         comp = comp_list[i]
         temp = temp_list[i]
@@ -898,16 +896,14 @@ def exist_ans(ans_list, sent):
     return exist_flag
 
 def generate_final_json(context_sentence_len_list, origin_sent_list, final_result_dic, s_idx, e_idx):
-    # 获取每个context对应的问题
     question_sent_li_all = read_question_index()
-    # 读处理后的源文件
+    # Read the processed source file
     file_name = "dev_start_modify.json"
     path = "./Squad2/" + file_name
     predict_file = open(path, mode="r", encoding='utf-8')
     prediction_json = json.load(predict_file)
     prediction_data = prediction_json["data"]
     item_list = []
-    # 循环处理context
     for i in range(s_idx, e_idx):
         all_new_contexts = final_result_dic["context" + str(i)]
         context_input = final_result_dic["context" + str(i)]
@@ -921,10 +917,9 @@ def generate_final_json(context_sentence_len_list, origin_sent_list, final_resul
                 ll_len = context_sentence_len_list[i]
                 ll_temp_list = [x for x in range(0, ll_len) if len(context_input[x]) > 1]
                 if len(ll_temp_list) > 4:
-                    # 不大于4，则全部改变，不用再赋值为原句
+                    # Not greater than 4, then all change, no need to assign the value to the original sentence again
                     random.shuffle(ll_temp_list)
                     for s in ll_temp_list[4:ll_len]:
-                        # 只需要改变ll_temp_list中没被选中的，因为不在ll_temp_list则长度为1，等价于原句
                         context_input[s] = [origin_sent_list[i][s]]
                     for s in ll_temp_list[0:4]:
                         if len(context_input[s]) > 4:
@@ -937,7 +932,6 @@ def generate_final_json(context_sentence_len_list, origin_sent_list, final_resul
                 for s in range(len(context_input)):
                     if len(context_input[s]) > 4:
                         context_input[s] = list(context_input[s])[0:4]
-            # 对context_input中，最多4个句子改变，其他len-4个不变，随机取
             pro_context_list = itertools.product(*context_input)
 
         final_context_list = []
@@ -1005,7 +999,7 @@ def generate_final_json(context_sentence_len_list, origin_sent_list, final_resul
     with open(path, 'w', encoding='utf-8') as f1:
         f1.write(json.dumps(prediction_json, indent=4, ensure_ascii=False))
 
-def gen_tests_for_mrc(start_idx, end_idx):
+def gen_tests_for_mrc(start_idx, end_idx, cs_idx, ce_idx):
     print("Start mrc task!")
     file_name = "context"
     label_path = "./comp_res/ncontext_result_greedy.sents"
@@ -1013,23 +1007,32 @@ def gen_tests_for_mrc(start_idx, end_idx):
     ques_list = read_txt("./txt_files/questions.txt", "question")
     context_sentence_len_list, origin_sent_list, sent_context_map = get_sentence_len(file_name)
     ## 0-867 867-2026 2026-3075 3075-4162 5164
-    s_idx = 0
-    e_idx = 105
+    # s_idx = 0
+    # e_idx = 105
     temp_list, adjunct_list, ner_list, for_list, hyp_words_list, comp_list = gen_sent_temp_main(file_name, label_path,
-                                                                                                s_idx, e_idx, "squad")
+                                                                                                start_idx, end_idx, "squad")
     all_masked_word, all_masked_adjunct, all_masked_word_pos = gen_mask_phrase_squad(adjunct_list, pos_list, ner_list,
-                                                                               for_list, hyp_words_list, ques_list, sent_context_map, s_idx)
+                                                                               for_list, hyp_words_list, ques_list, sent_context_map, start_idx)
+
+
 
     file_path = "./new_test/mrc_lego_test.txt"
+    folder_path = os.path.dirname(file_path)
+    if not os.path.exists(folder_path):
+        # 如果文件夹不存在，创建它
+        os.makedirs(folder_path)
+        print(f"Folder '{folder_path}' created.")
+    else:
+        print(f"Folder '{folder_path}' already exists.")
     all_tests, final_result = gen_sent_by_syn(file_path, comp_list, temp_list, all_masked_word, all_masked_adjunct,
                                               all_masked_word_pos)
     print("Sentence Derivation Finish!")
     ## context_idx
     cs_idx = 0
-    ce_idx = 21
-    final_result_dic = mapping_context_sentence(context_sentence_len_list, final_result, cs_idx, ce_idx)
+    ce_idx = 200
+    # final_result_dic = mapping_context_sentence(context_sentence_len_list, final_result, cs_idx, ce_idx)
     print("Start Generating Tests!")
-    generate_final_json(context_sentence_len_list, origin_sent_list, final_result_dic, cs_idx, ce_idx)
+    # generate_final_json(context_sentence_len_list, origin_sent_list, final_result_dic, cs_idx, ce_idx)
     print("Finish!")
 
 def gen_tests_for_sa(start_idx, end_idx):
@@ -1042,11 +1045,13 @@ def gen_tests_for_sa(start_idx, end_idx):
     temp_list, adjunct_list, ner_list, for_list, hyp_words_list, comp_list = gen_sent_temp_main(file_name, label_path, s_idx, e_idx, dataset)
     pos_list = ['NOUN', 'VERB', 'ADJ', 'ADV']
     all_masked_word, all_masked_adjunct, all_masked_word_pos = gen_mask_phrase(adjunct_list, pos_list, ner_list, for_list, hyp_words_list)
+    test_map_file = "./new_test/sa_test_map.txt"
     test_file_path = "./new_test/sa_test.txt"
     adjunct_file_path = "./new_test/sa_adjunct.txt"
     out_file = "./new_test/sa_lego_test.tsv"
-    sst_tests, sst_adjuncts = gen_tests_for_sst(comp_list, temp_list, all_masked_word, all_masked_adjunct)
-    print("Sentence Derivation Finish!")
+    print("Start Sentence Derivation!")
+    sst_tests, sst_adjuncts = gen_tests_for_sst(test_map_file, comp_list, temp_list, all_masked_word, all_masked_adjunct)
+    print("Finish Sentence Derivation!")
     save_new_tests_for_sst(test_file_path, sst_tests)
     save_new_tests_for_sst(adjunct_file_path, sst_adjuncts)
     print("Start Generating Tests!")
@@ -1065,45 +1070,51 @@ def gen_tests_for_ssm(start_idx, end_idx):
     pos_list = ['NOUN', 'VERB', 'ADJ', 'ADV']
     all_masked_word, all_masked_adjunct, all_masked_word_pos = gen_mask_phrase(adjunct_list, pos_list, ner_list,
                                                                                for_list, hyp_words_list)
-
+    print("Start Sentence Derivation!")
     qqp_tests = gen_tests_for_qqp(comp_list, temp_list, all_masked_word, all_masked_adjunct)
-    print("Sentence Derivation Finish!")
+    print("Finish Sentence Derivation!")
     print("Start Generating Tests!")
     save_qqp_tests("./new_test/qqp_lego_test.tsv", qqp_tests)
     print("Finish!")
 
-def get_target_task():
-    try:
-        options, args = getopt.getopt(sys.argv[1:], "-T:-S:-E:", ['task=', 'start_idx=', 'end_idx='])
-    except getopt.GetoptError as err:
-        print(str(err))
-        sys.exit(1)
-    task_type = ""
-    start_idx = 0
-    end_idx = 100
-    valid_num = 0
-    for o, a in options:
-        if o in ("-T", "--task"):
-            valid_num += 1
-            task_type = str(a)
-        elif o in ("-S", "--start_idx"):
-            valid_num += 1
-            start_idx = int(a)
-        elif o in ("-E", "--end_idx"):
-            valid_num += 1
-            end_idx = int(a)
+
+def main():
+    parser = argparse.ArgumentParser(description="Process command line arguments.")
+
+    parser.add_argument('-T', '--task', required=True, type=str, help="Task type, e.g., MRC")
+    parser.add_argument('-S', '--start_index', required=True, type=int, help="Start index")
+    parser.add_argument('-E', '--end_index', required=True, type=int, help="End index")
+    parser.add_argument('-CS', '--context_start', type=int, help="Context start index")
+    parser.add_argument('-CE', '--context_end', type=int, help="Context end index")
+
+    args = parser.parse_args()
+
+    # Check task type and validate context parameters
+    if args.task == 'MRC':
+        if args.context_start is None or args.context_end is None:
+            print("Error: When -T is MRC, -CS and -CE are required.")
+            sys.exit(1)
+        else:
+            print(f"Task Type: {args.task}")
+            print(f"Start Index: {args.start_index}")
+            print(f"End Index: {args.end_index}")
+            print(f"Context Start Index: {args.context_start}")
+            print(f"Context End Index: {args.context_end}")
+            gen_tests_for_mrc(args.start_index, args.end_index, args.context_start, args.context_end)
+    else:
+        print(f"Task Type: {args.task}")
+        print(f"Start Index: {args.start_index}")
+        print(f"End Index: {args.end_index}")
+        if args.task == 'SA':
+            gen_tests_for_sa(args.start_index, args.end_index)
+        elif args.task == 'SSM':
+            gen_tests_for_ssm(args.start_index, args.end_index)
         else:
             print("Using the wrong way,please view the help information.")
-    if valid_num == 3:
-        print(task_type, start_idx, end_idx)
-        if task_type == 'MRC':
-            gen_tests_for_mrc(start_idx, end_idx)
-        elif task_type == 'SA':
-            gen_tests_for_sa(start_idx, end_idx)
-        elif task_type == 'SSM':
-            gen_tests_for_ssm(start_idx, end_idx)
+
+
 
 if __name__ == '__main__':
-    get_target_task()
+    main()
 
 
