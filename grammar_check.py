@@ -408,10 +408,6 @@ def check_conj_intergrity(conj_res, temp_res_label, res_label, rep_cut_words, pp
             conj_word = conj_li[0].split(" ")
             conj_mapping_cut, conj_word_index, conj_is_exist = match_conj_index(conj_word, rep_cut_words, temp_res_label)
             if conj_is_exist:
-                # 三种情况，a and/or b
-                # a and存在，填补b
-                # b and存在，填补a
-                # a b 存在,填补连接词
                 left_check = 1
                 special_comma_list = []
                 left_check_num = 0
@@ -666,9 +662,6 @@ def using_pp_update_sbar(sent, sbar_list, all_pos_list, dictionary, pp_list, hyp
     for i in range(len(sbar_list)):
         sbar = process_hyp_words(sbar_list[i], hyp_words, sent, -1)
         sbar_words = sbar.split(" ")
-        # if set(["--", "--", "-", "–", "—"]).issubset(set(sbar_words)):
-        #     sbar = re.split(" -- | -- | - | – | — ", sbar)[0]
-        #     sbar_words = sbar.split(" ")
         if sbar_words[1] in ["what", "how"]:
             sbar_list[i] = ("t", sbar)
         elif sbar_words[0] in ["whom"]:
@@ -761,9 +754,6 @@ def extra_sub_sents(rep_cut_sent, rep_cut_words, pos_list):
         split_sent = " ".join(rep_cut_sent.split(" ")[:-1])
     else:
         split_sent = rep_cut_sent
-    # if ";" in rep_cut_sent:
-    #     sym_list = re.split(' ; ', split_sent)
-    #     dash_sent = extra_sub_sents_by_dash(sym_list, rep_cut_words, split_sent)
     if " – " in rep_cut_sent:
         idx = rep_cut_words.index("–")
         if not rep_cut_words[idx + 1].isdigit():
@@ -1297,7 +1287,7 @@ def grammar_check_one_sent(orig_sent, cut_sent, comp_label, dictionary, dataset)
             s_idx = check_continuity(vp_words, rep_cut_words, s_idx)
             vp_flag = fill_sent_flag(vp_flag, s_idx, s_idx + len(vp_words))
         res_label = check_vp_integrity(res_label, rep_cut_words, vp_list, vp_flag)
-        # print("vp modify:", get_res_by_label(rep_cut_words, res_label))
+
 
     if len(sbar_list) > 0:
         sbar_flag = [0] * len(rep_cut_words)
@@ -1340,7 +1330,6 @@ def grammar_check_one_sent(orig_sent, cut_sent, comp_label, dictionary, dataset)
         for j in range(s_idx, s_idx + len(sym_sent.strip().rstrip().split(" "))):
             temp_res_label[j] = 1
         temp_res_label[-1] = 1
-        # print("sym modify:", get_res_by_label(rep_cut_words, res_label))
     else:
         temp_res_label = [1] * len(res_label)
 
@@ -1358,7 +1347,6 @@ def grammar_check_one_sent(orig_sent, cut_sent, comp_label, dictionary, dataset)
             ner_words = ner_list[j].split(" ")
             ner_flag = fill_sent_flag(ner_flag, ner_sidx_list[j], ner_sidx_list[j] + len(ner_words))
         res_label = check_ner_intergrity(res_label, ner_list, ner_flag)
-        # print("ner modify:", get_res_by_label(rep_cut_words, res_label))
 
     res_label = check_obj(sym_list, sym_idx, basic_elements, get_res_by_label(rep_cut_words, res_label),
                           rep_cut_words, cut_sent.split(" "), res_pp, sbar_list, root_verb, res_label)
@@ -1367,11 +1355,10 @@ def grammar_check_one_sent(orig_sent, cut_sent, comp_label, dictionary, dataset)
         temp_res_label = [1] * len(res_label)
     temp_res_label = format_res_label(temp_res_label, cut_sent.split(" "))
     res_label, conj_res = process_conj(rep_cut_words, temp_res_label, res_label, pp_flag, hyp_words)
-    # print("conj modify:", get_res_by_label(rep_cut_words, res_label))
     if len(cc_sent_list) > 0:
         res_label = check_cc_sent_intergrity(res_label, cc_sent_list, rep_cut_words, sbar_list, np_sbar_list, res_pp,
                                              vp_list, sym_list)
-        # print("cc sent modify:", get_res_by_label(rep_cut_words, res_label))
+
 
     res_label = process_final_result(comp_label, res_label, cut_sent.split(" "), rep_cut_words, sbar_list, np_sbar_list,
                                      res_pp, root_verb, basic_elements,
@@ -1405,15 +1392,10 @@ def grammar_check_all_sents(cut_sents, comp_label, orig_sents, start_idx, end_id
     all_np_pp = []
     dictionary = load_dictionary('./tools/Dictionary.txt')
     for i in range(start_idx, end_idx):
-        # print("i = ", i)
-        # print("original sent: ", orig_sents[i])
         res_label, sbar_list, pp_list, conj_res, for_list, ner_list, vp_list, sym_list, cc_sent_list, np_sbar_list, np_pp_list, child_tree_dict = grammar_check_one_sent(
             orig_sents[i], cut_sents[i], comp_label[i], dictionary, dataset)
         orig_res = get_res_by_label(cut_sents[i].split(" "), comp_label[i])
-        # print("original result: ", orig_res)
         modify_res = get_res_by_label(orig_sents[i].split(" "), res_label)
-        # print("modify result: ", modify_res)
-        # print(" ")
         orig_comp.append(orig_res)
         comp_list.append(modify_res)
         label_list.append(res_label)
@@ -1427,7 +1409,6 @@ def grammar_check_all_sents(cut_sents, comp_label, orig_sents, start_idx, end_id
         all_np_sbar.append(np_sbar_list)
         all_np_pp.append(np_pp_list)
         all_syms.append(sym_list)
-    # write_list_in_txt(orig_sents_list, comp_list, orig_comp, "./modify_res.txt")
-    # write_list_in_txt(sbar_orig_sents, sbar_comp_list, sbar_orig_comp, "./conj_modify_res.txt")
+
     return label_list, all_sbar, all_pp, all_conj, comp_list, all_formulations, all_ners, all_vps, all_syms, all_cc_sent, all_np_sbar, all_np_pp
 
