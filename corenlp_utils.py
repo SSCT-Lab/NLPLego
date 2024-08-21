@@ -349,3 +349,6 @@ def get_child_tree(tree, sent, hyp_words):
                     child_tree_dict.append((str(key) + " " + str(i) + " " + position_labels[key][i], key_sent))
 
     return child_tree_dict
+
+
+
