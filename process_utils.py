@@ -345,6 +345,9 @@ def process_hyp_words(sent, hyp_words, orig_sent, search_s_idx):
     if (" °" in sent) & (" °" not in orig_sent):
         sent = sent.replace(" °", "°")
 
+    if ("[ " in sent) & ("[ " not in orig_sent):
+        sent = sent.replace("[ ", "[")
+
     if (" etc ." in sent) & (" etc ." not in orig_sent):
         sent = sent.replace(" etc .", " etc.")
 
@@ -384,14 +387,23 @@ def process_hyp_words(sent, hyp_words, orig_sent, search_s_idx):
     if (" kg" in sent) & (" kg" not in orig_sent):
         sent = sent.replace(" kg", "kg")
 
+    if (" GB" in sent) & (" GB" not in orig_sent):
+        sent = sent.replace(" GB", "GB")
+
     if (" km" in sent) & (" km" not in orig_sent):
         sent = sent.replace(" km", "km")
+
+    if (" kph" in sent) & (" kph" not in orig_sent):
+        sent = sent.replace(" kph", "kph")
 
     if (" i d " in sent) & (" i d " not in orig_sent):
         sent = sent.replace(" i d ", " id ")
 
     if ("-i-is" in sent) & ("-i-is" not in orig_sent):
         sent = sent.replace("-i-is", "-i- is")
+
+    if ("et al ." in sent) & ("et al ." not in orig_sent):
+        sent = sent.replace("et al .", "et al.")
 
     if ("post - al-Nimeiry" in sent) & ("post - al-Nimeiry" not in orig_sent):
         sent = sent.replace("post - al-Nimeiry", "post-al-Nimeiry")
@@ -400,18 +412,18 @@ def process_hyp_words(sent, hyp_words, orig_sent, search_s_idx):
         sent = sent[:-2] + "m"
 
     if check_continuity(sent.split(" "), orig_sent.split(" "), -1) == -1:
-        if (sent.split(" ")[0] == "m") | (sent[:4] == "' m "):
-            m_idx = sent.split(" ").index("m")
-            sent = "'m" + " " + " ".join(sent.split(" ")[m_idx + 1:])
-        if (sent.split(" ")[0] == "re") | (sent[:5] == "' re "):
-            re_idx = sent.split(" ").index("re")
-            sent = "'re" + " " + " ".join(sent.split(" ")[re_idx + 1:])
-        if (sent.split(" ")[0] == "s") | (sent[:4] == "' s "):
-            s_idx = sent.split(" ").index("s")
-            sent = "'s" + " " + " ".join(sent.split(" ")[s_idx + 1:])
-        if (sent.split(" ")[0] == "ve") | (sent[:5] == "' ve "):
-            ve_idx = sent.split(" ").index("ve")
-            sent = "'ve" + " " + " ".join(sent.split(" ")[ve_idx + 1:])
+        patterns = {
+            r"(?<!\S)' s\b": r"'s",
+            r"(?<!\S)' ve\b": r"'ve",
+            r"(?<!\S)' re\b": r"'re",
+            r"(?<!\S)' m\b": r"'m",
+            r"(\w+)\s' s\b": r"\1's",
+            r"(\w+)\s' ve\b": r"\1've",
+            r"(\w+)\s' re\b": r"\1're",
+            r"(\w+)\s' m\b": r"\1'm"
+        }
+        for pattern, replacement in patterns.items():
+            sent = re.sub(pattern, replacement, sent)
 
     return sent.strip().rstrip()
 
@@ -606,7 +618,6 @@ def correct_hyp_word_in_ner(hyp_words, n_w, sent_words, last_s_idx):
 
     return new_ner, s_idx
 
-
 def supplement_ner_list(ner_list, alpha_ner_list, s_word):
     new_ner_list = []
     alpha_ner_idx = 0
@@ -617,10 +628,12 @@ def supplement_ner_list(ner_list, alpha_ner_list, s_word):
             ner_words = ner_list[i].split()
             upper_words = [w for w in ner_words if w[0].isupper()]
             new_ner_words.extend(upper_words)
-            if (set(new_ner_words).issubset(set(alpha_ner_list[alpha_ner_idx].split(" ")))) \
+            if ((set(new_ner_words).issubset(set(alpha_ner_list[alpha_ner_idx].split(" ")))) \
                     & (len(new_ner_words) <= len(alpha_ner_list[alpha_ner_idx].split(" "))) \
-                    & (len(new_ner_words) != 0) & (len(upper_words) != 0):
-                new_ner = new_ner + " " + ner_list[i]
+                    & (len(new_ner_words) != 0) & (len(upper_words) != 0) \
+                    & ((i == 0) | (ner_list[i] not in ner_list[i-1]))):
+                    new_ner = new_ner + " " + ner_list[i]
+
             else:
                 if new_ner != "":
                     new_ner_list.append(new_ner.strip().rstrip())
@@ -680,7 +693,6 @@ def supplement_ner_list(ner_list, alpha_ner_list, s_word):
 
     return ner_list
 
-
 def format_ner(ner, sent):
     if (" . " not in sent) & ("." in ner) & (". " not in sent):
         ner = ner.replace(" . ", ".")
@@ -692,6 +704,10 @@ def format_ner(ner, sent):
     for p in puncts:
         if (" " + p + " " not in sent) & (p in ner) & (p in sent):
             ner = ner.replace(" " + p + " ", p)
+
+    if ner[0] in ["-", "–", "−"]:
+        ner = re.sub(r'^([-–−])\s*(?=\d|\.\d)', r'\1', ner)
+
     ner = ner.replace("St .", "St.")
 
     if ("What s" in ner) & ("What s" not in sent):
@@ -711,7 +727,6 @@ def format_ner(ner, sent):
 
 
     return ner
-
 
 def extract_ner_byAlpha(words, split_hyp_words):
     tmp_words = list(words)
@@ -815,6 +830,7 @@ def format_res_label(res_label, cut_words):
             if res_label[idx] == 1:
                 n_idx = idx + 1
                 while (cut_words[n_idx] != "''") & (n_idx < len(cut_words)):
+                # while (cut_words[n_idx] != "\"") & (n_idx < len(cut_words)):
                     n_idx += 1
                 res_label[n_idx] = 1
 
@@ -893,12 +909,13 @@ def format_res_label(res_label, cut_words):
             if (res_label[:idx].count(1) > 0) & (res_label[idx:-1].count(1) > 0):
                 res_label[idx] = 1
 
-    one_indexs = list(filter(lambda x: res_label[x] == 1, list(range(len(res_label)))))
-    for j in range(len(one_indexs) - 1):
-        if (cut_words[one_indexs[j]] == ",") & (cut_words[one_indexs[j + 1]] == ","):
-            res_label[one_indexs[j + 1]] = 0
-        if (cut_words[one_indexs[j]] == ",") & (cut_words[one_indexs[j + 1]] == "."):
-            res_label[one_indexs[j]] = 0
+    if "," in cut_words:
+        one_indexs = list(filter(lambda x: res_label[x] == 1, list(range(len(res_label)))))
+        for j in range(len(one_indexs) - 1):
+            if (cut_words[one_indexs[j]] == ",") & (cut_words[one_indexs[j + 1]] == ","):
+                res_label[one_indexs[j + 1]] = 0
+            if (cut_words[one_indexs[j]] == ",") & (cut_words[one_indexs[j + 1]] == "."):
+                res_label[one_indexs[j]] = 0
 
     one_indexs = list(filter(lambda x: res_label[x] == 1, list(range(len(res_label)))))
     if (len(one_indexs) > 2) & (one_indexs[-1] == len(res_label) - 1):
@@ -914,6 +931,7 @@ def format_res_label(res_label, cut_words):
                     res_label[one_indexs[-3]] = 0
 
     return res_label
+
 
 
 def get_modified_noun_by_sbar(sbar, np_sbar_list, pp_list):
@@ -1211,12 +1229,7 @@ def get_ques_ans_list():
         if "answer: " in line:
             ans = line.replace("answer: ", "")
             ques_ans[ques] = ans
-        #     if len(ans) != 0:
-        #         all_ans_list.append(ans)
-        #         ans = []
-        # if "answer:" in line:
-        #     ans.append(line.split("answer: ")[-1])
+
 
         line = ans_context.readline()
-    #all_ans_list.append(ans)
     return ques_ans
