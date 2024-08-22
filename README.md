@@ -2,19 +2,16 @@
 
 ### Environment
 
-    python3.6
+    python3.6 (The compression model requires python 3.6, if you change to another model, you can switch to a higher version of python.)
 
-    CUDA10.0
+    CUDA10.0 (The compression model requires this version)
 
-    cuDNN7.6
+    cuDNN7.6 (The compression model requires this version)
 
     nltk with the resource 'stopwords', 'wordnet', 'omw-1.4' and 'averaged_perceptron_tagger'
 
-    spacy3.2 with trained pipelines：en_core_web_lg-3.2.0
+    spacy3.2 with trained pipelines：en_core_web_lg-3.2.0 (You can use a higher version of SpaCy. the parsing results of different versions, may be slightly different, but it does not matter.)
 
-    transformers
-
-    pytorch
 
 ### Step
 
@@ -32,12 +29,16 @@ command: java -mx4g -cp "*" edu.stanford.nlp.pipeline.StanfordCoreNLPServer -por
     3.You can run this script as follows:
 
 ```
-python gen_tests.py --task=xx --start_idx=xx --end_idx=xx
+python gen_tests.py -T xx -S xx -E xx -CS xx (MRC required) -CE xx (MRC required)
 
-eg: python gen_tests.py --task=sa --start_idx=0 --end_idx=100
+MRC: python gen_tests.py -T MRC -S 0 -E 871 -CS 0 -CE 200 
+
+SA: python gen_tests.py -T SA --S 0 -E 100
+
+SSM: py -T SSM -S 0 -E 100
 ```
 
-        and task can be "MRC","SA","SSM"; start_idx and end_idx should be integer and be within the scope of the data source.
+     task can be "MRC","SA","SSM"; S(start_idx) and E(end_idx) should be integer and be within the scope of the data source.
 
     4.You can find the output in the specified directory
 
