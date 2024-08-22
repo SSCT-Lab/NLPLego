@@ -460,6 +460,7 @@ def gen_tests_for_qqp(comp_list, temp_list, all_masked_word, all_masked_adjunct)
     w = open("./new_test/qqp_tests.txt", "w")
     qqp_tests = []
     for i in range(len(comp_list)):
+        print(f"The id of the seed sentence is {i}")
         comp = comp_list[i]
         temp = temp_list[i]
         tests_list = []
@@ -959,23 +960,18 @@ def generate_final_json(context_sentence_len_list, origin_sent_list, final_resul
                     ques_ans = max(ans_list[question_sent_index], key=len, default="")
                     if exist_ans(ans_list[question_sent_index], context_for_input_li[index_i]):
                         pass
-                        # print("1 do not need change")
                     else:
                         if exist_ans(ans_list[question_sent_index], context_for_input_li[index_i].replace(" , ", ", ").replace(" %", "%").replace("( ", "(").replace(" )", ")")):
                             context_for_input_li[index_i] = context_for_input_li[index_i].replace(" , ", ", ").replace(" %", "%").replace("( ", "(").replace(" )", ")")
-                            # print("2 do not need change")
                         else:
                             for sent in all_new_contexts[index_i]:
                                 if exist_ans(ans_list[question_sent_index], sent):
                                     context_for_input_li[index_i] = sent
-                                    # print("3 got!")
                                     break
                                 else:
                                     pass
-                                    # print("4", ques_ans, sent)
                             if not exist_ans(ans_list[question_sent_index], context_for_input_li[index_i]):
                                 context_for_input_li[index_i] = origin_sent_list[i][index_i]
-                                # print("5 Change!")
 
                 question_temp = item_temp["qas"][question_sent_index]
                 question_temp["id"] = create_id()
@@ -1007,8 +1003,6 @@ def gen_tests_for_mrc(start_idx, end_idx, cs_idx, ce_idx):
     ques_list = read_txt("./txt_files/questions.txt", "question")
     context_sentence_len_list, origin_sent_list, sent_context_map = get_sentence_len(file_name)
     ## 0-867 867-2026 2026-3075 3075-4162 5164
-    # s_idx = 0
-    # e_idx = 105
     temp_list, adjunct_list, ner_list, for_list, hyp_words_list, comp_list = gen_sent_temp_main(file_name, label_path,
                                                                                                 start_idx, end_idx, "squad")
     all_masked_word, all_masked_adjunct, all_masked_word_pos = gen_mask_phrase_squad(adjunct_list, pos_list, ner_list,
@@ -1028,11 +1022,11 @@ def gen_tests_for_mrc(start_idx, end_idx, cs_idx, ce_idx):
                                               all_masked_word_pos)
     print("Sentence Derivation Finish!")
     ## context_idx
-    cs_idx = 0
-    ce_idx = 200
-    # final_result_dic = mapping_context_sentence(context_sentence_len_list, final_result, cs_idx, ce_idx)
+    # cs_idx = 0
+    # ce_idx = 200
+    final_result_dic = mapping_context_sentence(context_sentence_len_list, final_result, cs_idx, ce_idx)
     print("Start Generating Tests!")
-    # generate_final_json(context_sentence_len_list, origin_sent_list, final_result_dic, cs_idx, ce_idx)
+    generate_final_json(context_sentence_len_list, origin_sent_list, final_result_dic, cs_idx, ce_idx)
     print("Finish!")
 
 def gen_tests_for_sa(start_idx, end_idx):
@@ -1062,7 +1056,6 @@ def gen_tests_for_ssm(start_idx, end_idx):
     print("Start ssm task!")
     file_name = "qqp"
     label_path = "./comp_res/w_nqqp_result_greedy.sents"
-    #orig_sent_path = "./comp_input/" + file_name + ".cln.sent"
     s_idx = start_idx
     e_idx = end_idx
     temp_list, adjunct_list, ner_list, for_list, hyp_words_list, comp_list = gen_sent_temp_main(file_name, label_path,
@@ -1116,5 +1109,8 @@ def main():
 
 if __name__ == '__main__':
     main()
+
+
+
 
 
