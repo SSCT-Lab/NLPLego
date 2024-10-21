@@ -4,9 +4,9 @@
 
     python3.6 (The compression model requires python 3.6, if you change to another model, you can switch to a higher version of python.)
 
-    CUDA10.0 (The compression model requires this version)
+    CUDA10.0 (The compression model requires this version, if you change to another model, you can switch to a higher version)
 
-    cuDNN7.6 (The compression model requires this version)
+    cuDNN7.6 (The compression model requires this version, if you change to another model, you can switch to a higher version)
 
     nltk with the resource 'stopwords', 'wordnet', 'omw-1.4' and 'averaged_perceptron_tagger'
 
