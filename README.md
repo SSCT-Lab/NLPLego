@@ -35,7 +35,7 @@ MRC: python gen_tests.py -T MRC -S 0 -E 871 -CS 0 -CE 200
 
 SA: python gen_tests.py -T SA --S 0 -E 100
 
-SSM: py -T SSM -S 0 -E 100
+SSM: python gen_tests.py -T SSM -S 0 -E 100
 ```
 
      task can be "MRC","SA","SSM"; S(start_idx) and E(end_idx) should be integer and be within the scope of the data source.
