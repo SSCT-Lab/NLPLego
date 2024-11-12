@@ -1,5 +1,5 @@
 import json
-from comp_sent import *
+import re
 from nltk.corpus import stopwords
 
 pattern = re.compile(r'[A-Z]+\.\s[A-Z]\.\s+')
